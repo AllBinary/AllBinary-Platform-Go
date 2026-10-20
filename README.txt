@@ -8,7 +8,7 @@ to skip the Go code generation step.
 
 What are some examples game with this Go code?
 
-https://allbinary.itch.io (The downloads with "-ts" in the filename are Go only builds. Currently that only includes nothing. Also the Go builds are not available on Google Play or other stores.)
+https://allbinary.itch.io (The downloads with "-go" in the filename are Go only builds. Currently that only includes nothing. Also the Go builds are not available on Google Play or other stores.)
 
 What is the License?
 
