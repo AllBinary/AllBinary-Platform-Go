@@ -1,0 +1,69 @@
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2022 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ * 
+ */
+// Generated Code Do Not Modify
+
+package allbinary
+
+import (
+    "errors"
+    "fmt"
+    "math"
+    "math/rand"
+    "os"
+    "reflect"
+    "runtime"
+    "strconv"
+    "strings"
+    "time"
+    "unicode"
+)
+
+var _ = errors.New
+var _ = fmt.Sprint
+var _ = math.Abs
+var _ = rand.Float64
+var _ = os.Exit
+var _ = reflect.TypeOf
+var _ = runtime.GC
+var _ = strconv.Itoa
+var _ = strings.Contains
+var _ = time.Now
+var _ = unicode.IsDigit
+
+type AboutPaintableFactory struct {
+    PaintableArray []IPaintable
+}
+
+var AboutPaintableFactory_Instance *AboutPaintableFactory = NewAboutPaintableFactory()
+
+func (this *AboutPaintableFactory) initFields() {
+    this.PaintableArray = []IPaintable{NullPaintable_GetInstance()}
+}
+
+
+func AboutPaintableFactory_GetInstance() *AboutPaintableFactory {
+        return AboutPaintableFactory_Instance
+}
+
+
+func NewAboutPaintableFactory() *AboutPaintableFactory {
+    this := &AboutPaintableFactory{}
+    this.initFields()
+        var INFO []string = []string{"Built with the", "AllBinary Platform", StringUtil_GetInstance().EMPTY_STRING, "Comments or Questions:", "support@allbinary.com"}; _ = INFO
+        var DEVELOPERS []string = []string{"Developed By:", "Travis Berthelot"}; _ = DEVELOPERS
+        this.PaintableArray = AboutPaintable_GetInstance(INFO, DEVELOPERS).GetPaintableArrayInstance()
+    return this
+}
+

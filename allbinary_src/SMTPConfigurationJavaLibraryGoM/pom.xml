@@ -1,0 +1,412 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary.logic.communication</groupId>
+    <artifactId>SMTPConfigurationJavaLibraryGo</artifactId>
+    <packaging>jar</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>SMTPConfigurationJavaLibraryGo</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Go install directory. The Windows installer default is C:/Program Files/Go -->
+        <go.home>C:/Go</go.home>
+        <!-- Generated imports are Java package paths such as org/allbinary/string so the build uses a GOPATH source tree -->
+        <go.path>${project.build.directory}/go</go.path>
+        <!-- Go build cache in target so mvn clean clears it and the next go build -x shows every compile and link command -->
+        <go.cache>${project.build.directory}/go-cache</go.cache>
+        <!-- Hand written runtime for generated Go code such as Any -->
+        <go.runtime.source.path>G:/mnt/bc/mydev/workgo/j2me/J2SEForGoLibraryGoM/src/main/java</go.runtime.source.path>
+        <go.jsinterop.source.path>G:/mnt/bc/mydev/workinggo/replace_these_stub_projects/allbinary_src/J2MEJsInteropCompatibilityJavaLibraryGoM/src/main/java</go.jsinterop.source.path>
+    </properties>
+
+    <dependencies>
+        <!--
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        -->
+
+        <dependency>
+            <groupId>org.allbinary</groupId>
+            <artifactId>J2MEJsInteropCompatibilityJavaLibraryGo</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary</groupId>
+            <artifactId>LoggingJ2MEAllGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary</groupId>
+            <artifactId>LogJ2SEJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary.logging</groupId>
+            <artifactId>LogConfigTypeFreeblisketJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary</groupId>
+            <artifactId>InitInfoJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary</groupId>
+            <artifactId>PreLoaderJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary</groupId>
+            <artifactId>PreLoaderLicenseJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary.business.category</groupId>
+            <artifactId>CategoryBaseJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary.business.user.commerce</groupId>
+            <artifactId>UserCommerceJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary.data.tree.dom</groupId>
+            <artifactId>DocumentObjectModelJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary.logic.control.crypt</groupId>
+            <artifactId>YourCryptFileJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.allbinary</groupId>
+            <artifactId>FileJ2SEJavaLibraryGo</artifactId>
+            <!-- AllBinary Platform Version Start -->
+            <version>1.0.0-SNAPSHOT</version>
+            <!-- AllBinary Platform Version End -->
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Java packages can import each other in cycles and Go packages can not so all Go sources are flattened into the org/allbinary package.
+                 Java ag packages are the 2nd package org/allbinary/game/ag. The farthest dependency is copied first so the nearest copy of a class wins like Maven. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-go-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <macrodef name="copygo">
+                                    <attribute name="dir" />
+                                    <sequential>
+                                        <copy todir="${go.path}/src/org/allbinary" flatten="true" overwrite="true">
+                                            <fileset dir="@{dir}" includes="**/*.go" excludes="**/ag/**" erroronmissingdir="false" />
+                                        </copy>
+                                        <copy todir="${go.path}/src/org/allbinary/game/ag" flatten="true" overwrite="true">
+                                            <fileset dir="@{dir}" includes="**/ag/**/*.go" erroronmissingdir="false" />
+                                        </copy>
+                                    </sequential>
+                                </macrodef>
+                                <delete dir="${go.path}/src" quiet="true" />
+                                <copygo dir="${go.runtime.source.path}" />
+                                <copygo dir="G:/mnt/bc/mydev/AllBinary-Platform-Integrationgo/embedded/j2me/microemulator/3.0.0/TempMIDPJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/working_thirdpartygo/embedded/j2me/microemulator/2_0_4/microemu-cldc/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/AllBinary-Platform-Integrationgo/embedded/j2me/microemulator/3.0.0/microemulator/microemu-midp/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/AllBinary-Platform-Integrationgo/graphics/opengl/min3d/Min3dBaseJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/animation/image/ImageJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/ImageCacheBaseJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/GameResourceNoneJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/OpenGLJ2MENoneJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/SWTWithoutJOGLJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/sound/NotDeviceSpecificNoMediaMIDP1LibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/GroupLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/layer/AllBinaryLayerJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/FormJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/input/AllBinarySensorJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/FormValidationJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/NoSWTJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/games/GameInputPersistanceLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/NullCustomUIJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/AllBinary-Platform-Integrationgo/embedded/j2me/microemulator/3.0.0/microemulator/microemu-cldc/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/games/ScreenCaptureJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/NullCustomUIPreJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/working_thirdpartygo/embedded/j2me/microemulator/2_0_4/microemu-midp/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/hardware/AndroidSystemJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/android/VirtualKeyboardJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/AllBinary-Platform-Integrationgo/embedded/j2me/microemulator/custom/MicroEmulatorCustomJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/OpenGLESFileConfigurationJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/Min3dForNullJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/OpenGLESNullImageJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/ImageCacheJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/ImageCacheOpenGLESJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/games/GameSoundsJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/games/GameInputLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/FormBaseJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/AllBinary-Platform-Integrationgo/embedded/j2me/microemulator/3.0.0/microemulator/microemu-javase/microemu-javase-null/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/cache/BaseCacheJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/working_thirdpartygo/embedded/j2me/microemulator/allbinary_custom_android_version/microemulator/microemu-extensions/microemu-jsr-135/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/sound/BasicPlayerJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/sound/NoPlayerJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/games/GameConfigurationJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/PCResourceLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/DebugJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/hardware/NoHardwareJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/games/PreGameJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/J2MEForJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/replace_these_stub_projects/allbinary_src/NoneOnlyJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/AndroidResourceLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workgo/j2me/android/AndroidToNullLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/OpenGLNoneOtherJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/OpenGLESJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/J2MEWindowingJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/FormJMEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/working_thirdpartygo/embedded/j2me/microemulator/allbinary_custom_android_version/microemulator/microemu-cldc/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/logging/LoggingJ2MEExceptionGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/graphics/geography/map/GraphBaseJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/EventJ2MELibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/J2MEColorJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/statistics/ApplicationStatisticsJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/time/TimeJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/lib/TrigBaseLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/lib/BasicMathLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/media/sound/SoundJ2MELibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/NullJ2MELibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/OpenGLNoneJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/games/GameConfigurationJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/licensing/FileLicenseInitInfoJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/licensing/ClientInfoBaseJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/licensing/ClientInfoLicensingJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/hardware/NoSystemJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/hardware/BaseSystemJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/hardware/BaseOperatingSystemJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/hardware/BaseHardwareJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/licensing/RemoteXmlRpcJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/replace_these_stub_projects/communication/YourXmlRpcJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/replace_these_stub_projects/security/YourSecurityJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/security/SimpleCryptLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/ProgressJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/logging/BasicLogConfigTypeJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/statistics/ApplicationStatisticsJ2MELibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/graphics/opengl/OpenGLESBaseJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/ThreadLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/ThreadJ2MELibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/TempJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/working_thirdpartygo/embedded/j2me/microemulator/allbinary_custom_android_version/microemulator/microemu-midp/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/logic/BasePreloaderJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/allbinary_src_designpatterns_srcGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/lib/BaseMathLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/LogNoPlatformJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/J2MEExceptionLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/JavaUtilLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/data/BaseDataJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/data/SQLAllBinaryJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/logic/BasePreloaderFileJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/VisualTransformBaseJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/AllBinaryJ2MELibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/licensing/LicenseClientJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/logic/data/file/FileJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/security/BasicSecurityJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/TokenizerJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/logging/LogConfigTypeThickClientJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/J2SEForJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/replace_these_stub_projects/allbinary_src/J2MEOnlyJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/data/DataJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/logic/BasePreloaderJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/NullInitInfoJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/data/DataTableInterfacesGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/J2MEUtilJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/J2SEExceptionLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/CommonJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/LogGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/LogJ2MEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/TempBaseJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/logic/data/file/FileJ2SEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/replace_these_stub_projects/security/YourCryptFileJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/DocumentObjectModelJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/UserCommerceJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/CategoryBaseJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/PreLoaderLicenseJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/PreLoaderJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/InitInfoJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/logging/LogConfigTypeFreeblisketJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/allbinary_src/LogJ2SEJavaLibraryGoM/src/main/java" />
+                                <copygo dir="G:/mnt/bc/mydev/workinggo/j2me/logging/LoggingJ2MEAllGoM/src/main/java" />
+                                <copygo dir="${go.jsinterop.source.path}" />
+                                <copygo dir="${project.basedir}/src/main/java" />
+                                <!-- Shows what go build compiles -->
+                                <resourcecount property="go.file.count">
+                                    <fileset dir="${go.path}/src" includes="**/*.go" />
+                                </resourcecount>
+                                <echo level="info" message="Go files to compile: ${go.file.count} in ${go.path}/src/org/allbinary" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <!-- The Go version and environment the build uses -->
+                    <execution>
+                        <id>go-version</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${go.home}/bin/go</executable>
+                            <environmentVariables>
+                                <GOPATH>${go.path}</GOPATH>
+                                <GO111MODULE>off</GO111MODULE>
+                            </environmentVariables>
+                            <arguments>
+                                <argument>version</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>go-env</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${go.home}/bin/go</executable>
+                            <environmentVariables>
+                                <GOPATH>${go.path}</GOPATH>
+                                <GOCACHE>${go.cache}</GOCACHE>
+                                <GO111MODULE>off</GO111MODULE>
+                            </environmentVariables>
+                            <arguments>
+                                <argument>env</argument>
+                                <argument>GOROOT</argument>
+                                <argument>GOPATH</argument>
+                                <argument>GOCACHE</argument>
+                                <argument>GO111MODULE</argument>
+                                <argument>GOOS</argument>
+                                <argument>GOARCH</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>compile-go-sources</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${go.home}/bin/go</executable>
+                            <workingDirectory>${go.path}/src/org/allbinary</workingDirectory>
+                            <environmentVariables>
+                                <GOPATH>${go.path}</GOPATH>
+                                <GOCACHE>${go.cache}</GOCACHE>
+                                <GO111MODULE>off</GO111MODULE>
+                                <GOFLAGS></GOFLAGS>
+                            </environmentVariables>
+                            <arguments>
+                                <argument>build</argument>
+                                <!-- Lists each package as it is compiled - TWB seems to be useless -->
+<!--                                <argument>-v</argument>-->
+                                <!-- Prints each command go build runs such as compile and link with their arguments -->
+<!--                                <argument>-x</argument>-->
+                                <!-- Reports all the compile errors instead of stopping after 10 -->
+                                <argument>-gcflags=-e</argument>
+                                <argument>./...</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+
+</project>

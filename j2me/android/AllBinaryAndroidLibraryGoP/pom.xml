@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary</groupId>
+    <artifactId>AllBinaryAndroidLibraryPOMGo</artifactId>
+    <packaging>pom</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>AllBinaryAndroidLibraryPOMGo</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+
+
+
+    <modules>
+
+        <!--
+        <module>../../OpenGLAndroidJavaLibraryGoM</module>
+        <module>../../android/AndroidThroughAPI2JavaLibraryGoM</module>
+        -->
+        
+        <!--
+        <module>../../input/android/MotionInputAndroidResourcesJavaLibraryGoM</module>
+        -->
+
+        <!--
+        <module>../../android/VirtualKeyboardDynamicJavaLibraryGoM</module>
+        -->
+        
+        <!-- Several Move to PostPlatforms -->
+        
+        <module>../../media/sound/MusicJ2MEJavaLibraryGoM</module>
+        <module>../../media/sound/NullMusicAndroidJavaLibraryGoM</module>
+        <module>../../media/sound/MusicAndroidJavaLibraryGoM</module>
+
+        <!--
+        <module>../../media/graphics/ImageCacheAndroidJavaLibraryGoM</module>
+        -->
+                
+        <!-- ../../../../working/allbinary_src/logic/data/file/FileAndroidJavaLibraryM -->
+        <module>../../../allbinary_src/logic/data/file/FileAndroidJavaLibraryGoM</module>
+        
+        <module>../../input/platform/android/MotionInputAndroidResourcesJavaLibraryGoM</module>
+                
+    </modules>
+
+</project>
+

@@ -1,0 +1,151 @@
+/*
+ *
+ * AllBinary Open License Version 1
+ * Copyright (c) 2011 AllBinary
+ * 
+ * By agreeing to this license you and any business entity you represent are
+ * legally bound to the AllBinary Open License Version 1 legal agreement.
+ * 
+ * You may obtain the AllBinary Open License Version 1 legal agreement from
+ * AllBinary or the root directory of AllBinary's AllBinary Platform repository.
+ * 
+ * Created By: Travis Berthelot
+ *  
+ */
+// Generated Code Do Not Modify
+
+package allbinary
+
+import (
+    "errors"
+    "fmt"
+    "math"
+    "math/rand"
+    "os"
+    "reflect"
+    "runtime"
+    "strconv"
+    "strings"
+    "time"
+    "unicode"
+)
+
+var _ = errors.New
+var _ = fmt.Sprint
+var _ = math.Abs
+var _ = rand.Float64
+var _ = os.Exit
+var _ = reflect.TypeOf
+var _ = runtime.GC
+var _ = strconv.Itoa
+var _ = strings.Contains
+var _ = time.Now
+var _ = unicode.IsDigit
+
+type EmailServerConfiguration struct {
+    LogUtil *LogUtil
+    AccountName string
+    Password string
+    SmtpServer string
+}
+
+// Implements EmailServerConfigurationInterface
+
+
+func (this *EmailServerConfiguration) initFields() {
+    this.LogUtil = LogUtil_GetInstance()
+    
+    
+    
+}
+
+
+func NewEmailServerConfiguration() *EmailServerConfiguration {
+    this := &EmailServerConfiguration{}
+    this.initFields()
+        if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
+            var commonStrings *CommonStrings = CommonStrings_GetInstance(); _ = commonStrings
+            this.LogUtil.PutF(commonStrings.START, this, commonStrings.CONSTRUCTOR)
+        }
+        this.SetSmtpServer(StringUtil_GetInstance().EMPTY_STRING)
+    return this
+}
+
+
+// Java overloaded constructor: Go needs a different name
+func NewEmailServerConfiguration(hashMap *HashMap) *EmailServerConfiguration {
+    this := &EmailServerConfiguration{}
+    this.initFields()
+        if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
+            var commonStrings *CommonStrings = CommonStrings_GetInstance(); _ = commonStrings
+            this.LogUtil.PutF(commonStrings.START, this, "EmailServerConfiguration(HashMap)")
+        }
+        this.SetAccountName(any(hashMap.Get(EmailServerConfigurationData_ACCOUNT)).(string))
+        this.SetPassword(any(hashMap.Get(EmailServerConfigurationData_PASSWORD)).(string))
+        this.SetSmtpServer(any(hashMap.Get(EmailServerConfigurationData_SERVER)).(string))
+        this.Log()
+    return this
+}
+
+
+// Java overloaded constructor: Go needs a different name
+func NewEmailServerConfiguration(account string, password string, server string) *EmailServerConfiguration {
+    this := &EmailServerConfiguration{}
+    this.initFields()
+        if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
+            var commonStrings *CommonStrings = CommonStrings_GetInstance(); _ = commonStrings
+            this.LogUtil.PutF(commonStrings.START, this, "EmailServerConfiguration(HashMap)")
+        }
+        this.SetAccountName(account)
+        this.SetPassword(password)
+        this.SetSmtpServer(server)
+        this.Log()
+    return this
+}
+
+
+func (this *EmailServerConfiguration) SetSmtpServer(value string) {
+        this.SmtpServer = value
+}
+
+
+func (this *EmailServerConfiguration) GetSmtpServer() string {
+        return this.SmtpServer
+}
+
+
+func (this *EmailServerConfiguration) GetAccountName() string {
+        return this.AccountName
+}
+
+
+func (this *EmailServerConfiguration) SetAccountName(accountName string) {
+        this.AccountName = accountName
+}
+
+
+func (this *EmailServerConfiguration) GetPassword() string {
+        return this.Password
+}
+
+
+func (this *EmailServerConfiguration) SetPassword(password string) {
+        this.Password = password
+}
+
+
+func (this *EmailServerConfiguration) Log() {
+        if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
+            this.LogUtil.PutF(this.ToString(), this, "EmailServerConfiguration")
+        }
+}
+
+
+func (this *EmailServerConfiguration) ToString() string {
+        return "Email Server Configuration:\n" + "Smtp Server: \n" + fmt.Sprint(this.GetSmtpServer()) + "\nAccount Name: " + fmt.Sprint(this.GetAccountName()) + "\nPassword: " + fmt.Sprint(this.GetPassword())
+}
+
+func (this *EmailServerConfiguration) String() string {
+    return this.ToString()
+}
+

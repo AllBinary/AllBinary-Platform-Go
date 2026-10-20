@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.allbinary</groupId>
+    <artifactId>InputAutomationToolsGo</artifactId>
+    <packaging>pom</packaging>
+    <!-- AllBinary Platform Version Start -->
+    <version>1.0.0-SNAPSHOT</version>
+    <!-- AllBinary Platform Version End -->
+
+    <name>InputAutomationToolsGo</name>
+    <url>http://www.allbinary.com/</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>AllBinary Snapshots Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>AllBinary Releases Nexus</name>
+            <url>https://nexus-allbinary.rhcloud.com/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
+    
+    <properties>
+        <buildLabel>${project.version}</buildLabel>
+        <assemblyPluginVersion>2.2-beta-1</assemblyPluginVersion>
+    </properties>
+
+    <modules>
+        <!--
+        <module>../AllBinaryCoreJavaLibraryGoM</module>        
+        -->
+
+        <module>../../replace_these_stub_projects/osgi/YourOSGIComponentLibraryGoM</module>
+        <module>../../allbinary_src/AllBinaryOSGIJavaLibraryGoM</module>
+
+        <module>../../graphics/ColorJavaLibraryGoM</module>
+        <module>../../graphics/ImageJavaLibraryGoM</module>
+        <module>../../graphics/ImageComparisonJavaLibraryGoM</module>
+        <module>../../graphics/AdvancedImageJ2SEJavaLibraryGoM</module>
+        
+        <module>../InputAutomationModuleJavaLibraryGoM</module>
+        
+        <module>../InputAutomationActionScriptJavaLibraryGoM</module>
+        <module>../InputAutomationGenericModuleJavaLibraryGoM</module>
+        <module>../InputAutomationGeneric2ModuleJavaLibraryGoM</module>
+
+        <module>../../allbinary_src/HelpJavaLibraryGoM</module>
+        <module>../InputAutomationJavaLibraryGoM</module>
+
+        <module>../InputAutomationJavaApplicationGoM</module>
+        
+        <module>../../game/InputAutomationGameModulesJavaLibraryGoM</module>
+        
+        <module>../AllBinaryCoreJavaLibraryGoM</module>
+    </modules>
+
+</project>
+
