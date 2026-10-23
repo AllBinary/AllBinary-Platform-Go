@@ -97,3 +97,4 @@ func (this *LinuxOperatingSystemFactory) GetOperatingSystemInstance() IGenericOp
         }
         panic("unreachable")
 }
+

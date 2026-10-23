@@ -106,3 +106,4 @@ func (this *StringUtil) ToString(anyType any) string {
             return this.NULL_STRING
         }
 }
+

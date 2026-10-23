@@ -80,3 +80,4 @@ func (this *StdUtil) CreateVector() *ABVector[any] {
 func (this *StdUtil) CreateHashtable() *ABHashtable[any, any] {
         return NewABHashtable[any, any]()
 }
+

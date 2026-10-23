@@ -79,3 +79,4 @@ func (this *BasicColorCacheFactory) GetAndOrCreate(integer int) *BasicColor {
         }
         return basicColor
 }
+

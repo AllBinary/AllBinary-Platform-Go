@@ -86,7 +86,7 @@ func (this *AddTaxValidationView) IsValid() bool {
                 tryControl1, tryResult1 = 1, false; return
             }
             var billingAddressesEntity *ShippingAddressesEntity = NewShippingAddressesEntity(this.GetWeblisketSession().GetUserName()); _ = billingAddressesEntity
-            var streetAddressList *BasicArrayList = billingAddressesEntity.Get(); _ = streetAddressList
+            var streetAddressList IBasicArrayList = billingAddressesEntity.Get().(IBasicArrayList); _ = streetAddressList
             if streetAddressList == nil {
                 tryControl1, tryResult1 = 1, false; return
             }
@@ -130,7 +130,7 @@ func (this *AddTaxValidationView) ValidationInfo() string {
                 }
             }
             var billingAddressesEntity *ShippingAddressesEntity = NewShippingAddressesEntity(this.GetWeblisketSession().GetUserName()); _ = billingAddressesEntity
-            var streetAddressList *BasicArrayList = billingAddressesEntity.Get(); _ = streetAddressList
+            var streetAddressList IBasicArrayList = billingAddressesEntity.Get().(IBasicArrayList); _ = streetAddressList
             var size int = streetAddressList.Size(); _ = size
             for index := int(0); index < size; index++ {
                 var aStreetAddress *StreetAddress = any(streetAddressList.Get(index)).(*StreetAddress); _ = aStreetAddress

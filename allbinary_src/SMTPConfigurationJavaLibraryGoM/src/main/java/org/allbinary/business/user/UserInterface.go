@@ -61,7 +61,7 @@ type UserInterface interface {
     SetOtherContact(value string)
     SetElectronicContact(value string)
     SetFax(value string)
-    SetRole(aRole *UserRole)
+    SetRole(aRole IUserRole)
     SetEncryption(value string)
     SetSecret(value string)
     SetPassword(value string)
@@ -84,7 +84,7 @@ type UserInterface interface {
     GetOtherContact() string
     GetElectronicContact() string
     GetFax() string
-    GetRole() *UserRole
+    GetRole() IUserRole
     GetEncryption() string
     GetSecret() string
     GetPassword() string

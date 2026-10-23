@@ -53,7 +53,21 @@ func (this *TransformInfoHttpContext) initFields() {
 }
 
 
-func NewTransformInfoHttpContext(databaseHashMap *HashMap, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpContext {
+
+
+// Java overloads of new TransformInfoHttpContext
+func NewTransformInfoHttpContext(args ...any) *TransformInfoHttpContext {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) && Java_IsArg[*PageContext](args[2], pass) {
+            return NewTransformInfoHttpContext_1(Java_Arg[*HashMap](args[0]), Java_Arg[*HashMap](args[1]), Java_Arg[*PageContext](args[2]))
+        }
+        if len(args) == 2 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[*PageContext](args[1], pass) {
+            return NewTransformInfoHttpContext_2(Java_Arg[*HashMap](args[0]), Java_Arg[*PageContext](args[1]))
+        }
+    }
+    panic("No Java overload of new TransformInfoHttpContext for the arguments")
+}
+func NewTransformInfoHttpContext_1(databaseHashMap *HashMap, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpContext {
     this := &TransformInfoHttpContext{}
         this.TransformInfoHttp = *NewTransformInfoHttp(databaseHashMap, propertiesHashMap, pageContext)
         this.initFields()
@@ -70,8 +84,7 @@ func NewTransformInfoHttpContext(databaseHashMap *HashMap, propertiesHashMap *Ha
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoHttpContext(propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpContext {
+func NewTransformInfoHttpContext_2(propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpContext {
     this := &TransformInfoHttpContext{}
         this.TransformInfoHttp = *NewTransformInfoHttp(propertiesHashMap, pageContext)
         this.initFields()
@@ -96,19 +109,19 @@ func (this *TransformInfoHttpContext) GetPath() string {
 
 
 // throws Exception
-func (this *TransformInfoHttpContext) GetTemplateFilePath() *AbPath {
+func (this *TransformInfoHttpContext) GetTemplateFilePath() IAbPath {
         return NewAbPath(this.GetPath(), this.GetTemplateFile())
 }
 
 
 // throws Exception
-func (this *TransformInfoHttpContext) GetObjectConfigFilePath() *AbPath {
+func (this *TransformInfoHttpContext) GetObjectConfigFilePath() IAbPath {
         return NewAbPath(this.GetPath(), this.GetObjectConfigFile())
 }
 
 
 // throws Exception
-func (this *TransformInfoHttpContext) GetDataFilePath() *AbPath {
+func (this *TransformInfoHttpContext) GetDataFilePath() IAbPath {
         return NewAbPath(this.GetPath(), this.GetDataFile())
 }
 

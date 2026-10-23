@@ -71,3 +71,4 @@ func (this *ThreadObjectUtil) ProcessThread(runnable Runnable) {
         var thread IThread = NewThread(runnable); _ = thread
         thread.Start()
 }
+

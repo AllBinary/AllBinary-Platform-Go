@@ -56,3 +56,4 @@ func NewResizableEmptyListener() *ResizableEmptyListener {
 
 func (this *ResizableEmptyListener) OnResizable(isResizable bool) {
 }
+

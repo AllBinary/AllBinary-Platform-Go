@@ -84,13 +84,13 @@ func (this *PageValidationView) IsValid() bool {
             }
             var transformInfoEntityInterface *TransformInfoEntity = TransformInfoEntityBuilder_GetInstance(); _ = transformInfoEntityInterface
             var pageObjectConfigInterface TransformInfoObjectConfigInterface = this.GetTransformInfoInterface().GetObjectConfigInterface(); _ = pageObjectConfigInterface
-            var allViewsToBeModifiedVector *BasicArrayList = pageObjectConfigInterface.GetGroupTransforms(); _ = allViewsToBeModifiedVector
+            var allViewsToBeModifiedVector IBasicArrayList = pageObjectConfigInterface.GetGroupTransforms(); _ = allViewsToBeModifiedVector
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF("Views To Be Modified: " + fmt.Sprint(allViewsToBeModifiedVector.Size()), this, "get(transformInfoInterface)")
             }
             var size int = allViewsToBeModifiedVector.Size(); _ = size
             for index := int(0); index < size; index++ {
-                var transformInfoInterface *TransformInfo = any(allViewsToBeModifiedVector.Get(index)).(*TransformInfo); _ = transformInfoInterface
+                var transformInfoInterface ITransformInfo = any(allViewsToBeModifiedVector.Get(index)).(ITransformInfo); _ = transformInfoInterface
                 var viewNameOfViewToBeModified string = transformInfoInterface.GetName(); _ = viewNameOfViewToBeModified
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
@@ -109,7 +109,7 @@ func (this *PageValidationView) IsValid() bool {
                     this.LogUtil.PutF(fmt.Sprint(stringBuffer), this, "insert()")
                 }
                 var hashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = hashMap
-                var title string = specifiedTransformInfoInterface.GetName()[this.GetTransformInfoInterface().GetStoreName().Length():]; _ = title
+                var title string = specifiedTransformInfoInterface.GetName()[len(this.GetTransformInfoInterface().GetStoreName()):]; _ = title
                 if strings.Compare(title, "index") == 0 {
                     hashMap.Put(TitleData_GetInstance().TEXT, fmt.Sprint(this.GetTransformInfoInterface().GetStoreName()) + " - Home Page")
                 } else {
@@ -160,14 +160,14 @@ func (this *PageValidationView) ValidationInfo() string {
             var transformInfoEntityInterface *TransformInfoEntity = TransformInfoEntityBuilder_GetInstance(); _ = transformInfoEntityInterface
             var objectConfig TransformInfoObjectConfigInterface = this.GetTransformInfoInterface().GetObjectConfigInterface(); _ = objectConfig
             var httpTransformInfoInterface TransformInfoHttpInterface = any(this.GetTransformInfoInterface()).(TransformInfoHttpInterface); _ = httpTransformInfoInterface
-            var allViewsToBeModifiedVector *BasicArrayList = objectConfig.GetGroupTransforms(); _ = allViewsToBeModifiedVector
+            var allViewsToBeModifiedVector IBasicArrayList = objectConfig.GetGroupTransforms(); _ = allViewsToBeModifiedVector
             var size int = allViewsToBeModifiedVector.Size(); _ = size
             for index := int(0); index < size; index++ {
-                var transformInfoInterface *TransformInfo = any(allViewsToBeModifiedVector.Get(index)).(*TransformInfo); _ = transformInfoInterface
+                var transformInfoInterface ITransformInfo = any(allViewsToBeModifiedVector.Get(index)).(ITransformInfo); _ = transformInfoInterface
                 var viewNameOfViewToBeModified string = transformInfoInterface.GetName(); _ = viewNameOfViewToBeModified
                 var specifiedTransformInfoInterface TransformInfoInterface = transformInfoEntityInterface.Get(viewNameOfViewToBeModified, httpTransformInfoInterface.GetPropertiesHashMap(), httpTransformInfoInterface.GetPageContext()); _ = specifiedTransformInfoInterface
                 var hashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = hashMap
-                var title string = specifiedTransformInfoInterface.GetName()[this.GetTransformInfoInterface().GetStoreName().Length():]; _ = title
+                var title string = specifiedTransformInfoInterface.GetName()[len(this.GetTransformInfoInterface().GetStoreName()):]; _ = title
                 if strings.Compare(title, "index") == 0 {
                     hashMap.Put(TitleData_GetInstance().TEXT, fmt.Sprint(this.GetTransformInfoInterface().GetStoreName()) + " - Home Page")
                 } else {

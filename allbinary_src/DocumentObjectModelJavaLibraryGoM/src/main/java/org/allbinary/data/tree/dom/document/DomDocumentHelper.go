@@ -63,7 +63,7 @@ func DomDocumentHelper_Init() {
 }
 
 
-func DomDocumentHelper_Create() *Document {
+func DomDocumentHelper_Create_1() *Document {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *Document) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -83,10 +83,25 @@ func DomDocumentHelper_Create() *Document {
         panic("unreachable")
 }
 
+// Java overloads of DomDocumentHelper.create
+func DomDocumentHelper_Create(args ...any) *Document {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return DomDocumentHelper_Create_1()
+        }
+        if len(args) == 1 && Java_IsArg[IInputStream](args[0], pass) {
+            return DomDocumentHelper_Create_2(Java_Arg[IInputStream](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return DomDocumentHelper_Create_3(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of DomDocumentHelper.create for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func DomDocumentHelper_Create(inputStream *InputStream) *Document {
+func DomDocumentHelper_Create_2(inputStream IInputStream) *Document {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *Document) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -108,8 +123,7 @@ func DomDocumentHelper_Create(inputStream *InputStream) *Document {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func DomDocumentHelper_Create(xmlString string) *Document {
+func DomDocumentHelper_Create_3(xmlString string) *Document {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *Document) {
             defer func() {
                 if recovered := recover(); recovered != nil {

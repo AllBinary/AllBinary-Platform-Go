@@ -48,6 +48,16 @@ type TagHelperFactory struct {
 
 // Implements TagHelperFactoryInterface
 
+// The Java class TagHelperFactory has subclasses so its variables are this interface
+type ITagHelperFactory interface {
+    TagHelperFactory_() *TagHelperFactory
+    GetInstance(hashMap *HashMap, pageContext *PageContext) any
+}
+
+func (this *TagHelperFactory) TagHelperFactory_() *TagHelperFactory {
+    return this
+}
+
 
 func (this *TagHelperFactory) initFields() {
     this.CommonStrings = CommonStrings_GetInstance()

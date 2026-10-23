@@ -79,7 +79,24 @@ func (this *OrderHistory) initFields() {
 }
 
 
-func NewOrderHistory(basketInterface BasketInterface) *OrderHistory {
+
+
+// Java overloads of new OrderHistory
+func NewOrderHistory(args ...any) *OrderHistory {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[BasketInterface](args[0], pass) {
+            return NewOrderHistory_1(Java_Arg[BasketInterface](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[BasketInterface](args[0], pass) && Java_IsArg[*OrderHistory](args[1], pass) {
+            return NewOrderHistory_2(Java_Arg[BasketInterface](args[0]), Java_Arg[*OrderHistory](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[BasketInterface](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) {
+            return NewOrderHistory_3(Java_Arg[BasketInterface](args[0]), Java_Arg[*HashMap](args[1]))
+        }
+    }
+    panic("No Java overload of new OrderHistory for the arguments")
+}
+func NewOrderHistory_1(basketInterface BasketInterface) *OrderHistory {
     this := &OrderHistory{}
         this.Order = *NewOrder(basketInterface)
         this.initFields()
@@ -87,8 +104,7 @@ func NewOrderHistory(basketInterface BasketInterface) *OrderHistory {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewOrderHistory(basketInterface BasketInterface, orderHistory *OrderHistory) *OrderHistory {
+func NewOrderHistory_2(basketInterface BasketInterface, orderHistory *OrderHistory) *OrderHistory {
     this := &OrderHistory{}
         this.Order = *NewOrder(orderHistory.GetStoreName(), basketInterface, orderHistory.GetId(), orderHistory.GetShippingMethod(), orderHistory.GetSpecial(), orderHistory.GetPaymentMethod())
         this.initFields()
@@ -113,8 +129,7 @@ func NewOrderHistory(basketInterface BasketInterface, orderHistory *OrderHistory
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewOrderHistory(basketInterface BasketInterface, orderHistoryHashMap *HashMap) *OrderHistory {
+func NewOrderHistory_3(basketInterface BasketInterface, orderHistoryHashMap *HashMap) *OrderHistory {
     this := &OrderHistory{}
         this.Order = *NewOrder(any(orderHistoryHashMap.Get(StoreFrontData_GetInstance().NAME)).(string), basketInterface, any(orderHistoryHashMap.Get(OrderData_ID)).(string), any(orderHistoryHashMap.Get(ShippingMethodData_NAME)).(string), any(orderHistoryHashMap.Get(EntryData_GetInstance().SPECIAL)).(string), any(orderHistoryHashMap.Get(PaymentData_METHOD)).(string))
         this.initFields()

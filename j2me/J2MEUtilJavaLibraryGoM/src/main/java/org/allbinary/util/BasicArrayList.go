@@ -340,3 +340,4 @@ func (this *BasicArrayList) ToString() string {
 func (this *BasicArrayList) String() string {
     return this.ToString()
 }
+

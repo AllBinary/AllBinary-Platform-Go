@@ -49,15 +49,28 @@ type StaticPagesDbInitInfo struct {
 var StaticPagesDbInitInfo_INITFILE string = "staticpagesbinitdata.dat"
 
 
-func NewStaticPagesDbInitInfo() *StaticPagesDbInitInfo {
+
+
+// Java overloads of new StaticPagesDbInitInfo
+func NewStaticPagesDbInitInfo(args ...any) *StaticPagesDbInitInfo {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewStaticPagesDbInitInfo_1()
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return NewStaticPagesDbInitInfo_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of new StaticPagesDbInitInfo for the arguments")
+}
+func NewStaticPagesDbInitInfo_1() *StaticPagesDbInitInfo {
     this := &StaticPagesDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(StaticPagesDbInitInfo_INITFILE, true)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewStaticPagesDbInitInfo(read bool) *StaticPagesDbInitInfo {
+func NewStaticPagesDbInitInfo_2(read bool) *StaticPagesDbInitInfo {
     this := &StaticPagesDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(StaticPagesDbInitInfo_INITFILE, read)
     return this

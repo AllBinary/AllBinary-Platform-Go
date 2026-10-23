@@ -135,3 +135,4 @@ func (this *IndexedBasicArrayListCache) AddArray(cacheableInterfaces []Cacheable
 func (this *IndexedBasicArrayListCache) Clear() {
         this.Index = 0
 }
+

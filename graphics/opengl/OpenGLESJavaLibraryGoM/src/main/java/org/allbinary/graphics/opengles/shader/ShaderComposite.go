@@ -88,7 +88,7 @@ func (this *ShaderComposite) initFields() {
     
     
     
-    this.UseProgramShaderOpenGLProcessor = nil
+    this.UseProgramShaderOpenGLProcessor = NullOpenGLProcessorFactory_GetInstance()
     this.ShaderMatrixOpenGLProcessor = NullOpenGLProcessorFactory_GetInstance()
     this.ColorEnableVertexAttribArrayOpenGLProcessor = NullOpenGLProcessorFactory_GetInstance()
     this.NormalEnableVertexAttribArrayOpenGLProcessor = NullOpenGLProcessorFactory_GetInstance()

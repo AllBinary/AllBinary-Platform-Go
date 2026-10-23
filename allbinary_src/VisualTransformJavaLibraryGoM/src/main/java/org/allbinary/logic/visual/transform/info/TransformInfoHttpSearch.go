@@ -74,19 +74,19 @@ func (this *TransformInfoHttpSearch) GetPath() string {
 
 
 // throws Exception
-func (this *TransformInfoHttpSearch) GetTemplateFilePath() *AbPath {
+func (this *TransformInfoHttpSearch) GetTemplateFilePath() IAbPath {
         return NewAbPath(this.GetPath(), this.GetTemplateFile())
 }
 
 
 // throws Exception
-func (this *TransformInfoHttpSearch) GetObjectConfigFilePath() *AbPath {
+func (this *TransformInfoHttpSearch) GetObjectConfigFilePath() IAbPath {
         return NewAbPath(this.GetPath(), this.GetObjectConfigFile())
 }
 
 
 // throws Exception
-func (this *TransformInfoHttpSearch) GetDataFilePath() *AbPath {
+func (this *TransformInfoHttpSearch) GetDataFilePath() IAbPath {
         return NewAbPath(this.GetPath(), this.GetDataFile())
 }
 

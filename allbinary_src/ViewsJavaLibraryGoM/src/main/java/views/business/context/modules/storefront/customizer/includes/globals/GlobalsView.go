@@ -50,6 +50,19 @@ type GlobalsView struct {
 
 // Implements DomNodeInterface
 
+// The Java class GlobalsView has subclasses so its variables are this interface
+type IGlobalsView interface {
+    IHttpStoreComponentView
+    GlobalsView_() *GlobalsView
+    AddDomNodeInterfaces()
+    ToXmlNode(document *Document) *Node
+    View() string
+}
+
+func (this *GlobalsView) GlobalsView_() *GlobalsView {
+    return this
+}
+
 
 func (this *GlobalsView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

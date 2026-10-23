@@ -48,6 +48,20 @@ type NativeLibraryHelperWrapper struct {
     AnyType any
 }
 
+// The Java class NativeLibraryHelperWrapper has subclasses so its variables are this interface
+type INativeLibraryHelperWrapper interface {
+    NativeLibraryHelperWrapper_() *NativeLibraryHelperWrapper
+    Load()
+    Unload()
+    ToString() string
+    GetLibraryName() string
+    SetLibraryName(libraryName string)
+}
+
+func (this *NativeLibraryHelperWrapper) NativeLibraryHelperWrapper_() *NativeLibraryHelperWrapper {
+    return this
+}
+
 
 func (this *NativeLibraryHelperWrapper) initFields() {
     

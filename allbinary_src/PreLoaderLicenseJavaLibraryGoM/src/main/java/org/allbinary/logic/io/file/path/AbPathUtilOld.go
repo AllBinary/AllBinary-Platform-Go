@@ -72,21 +72,35 @@ func NewAbPathUtilOld() *AbPathUtilOld {
 
 
 // throws Exception
-func (this *AbPathUtilOld) GetExtension(abFilePath *AbFilePath) string {
+func (this *AbPathUtilOld) GetExtension_1(abFilePath *AbFilePath) string {
         return this.GetExtension(fmt.Sprint(abFilePath))
+}
+
+// Java overloads of AbPathUtilOld.getExtension
+func (this *AbPathUtilOld) GetExtension(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*AbFilePath](args[0], pass) {
+            return this.GetExtension_1(Java_Arg[*AbFilePath](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[IAbPath](args[0], pass) {
+            return this.GetExtension_2(Java_Arg[IAbPath](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetExtension_3(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of AbPathUtilOld.getExtension for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *AbPathUtilOld) GetExtension(abPath *AbPath) string {
+func (this *AbPathUtilOld) GetExtension_2(abPath IAbPath) string {
         return this.GetExtension(fmt.Sprint(abPath))
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *AbPathUtilOld) GetExtension(filePath string) string {
+func (this *AbPathUtilOld) GetExtension_3(filePath string) string {
         if len(filePath) < AbPathUtilOld_MIN {
             panic(errors.New(fmt.Sprint("Could not be a file path since its less that 4 characters")))
         }
@@ -100,21 +114,35 @@ func (this *AbPathUtilOld) GetExtension(filePath string) string {
 
 
 // throws Exception
-func (this *AbPathUtilOld) GetWithoutExtension(abFilePath *AbFilePath) string {
+func (this *AbPathUtilOld) GetWithoutExtension_1(abFilePath *AbFilePath) string {
         return this.GetWithoutExtension(fmt.Sprint(abFilePath))
+}
+
+// Java overloads of AbPathUtilOld.getWithoutExtension
+func (this *AbPathUtilOld) GetWithoutExtension(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*AbFilePath](args[0], pass) {
+            return this.GetWithoutExtension_1(Java_Arg[*AbFilePath](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[IAbPath](args[0], pass) {
+            return this.GetWithoutExtension_2(Java_Arg[IAbPath](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetWithoutExtension_3(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of AbPathUtilOld.getWithoutExtension for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *AbPathUtilOld) GetWithoutExtension(abPath *AbPath) string {
+func (this *AbPathUtilOld) GetWithoutExtension_2(abPath IAbPath) string {
         return this.GetWithoutExtension(fmt.Sprint(abPath))
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *AbPathUtilOld) GetWithoutExtension(filePath string) string {
+func (this *AbPathUtilOld) GetWithoutExtension_3(filePath string) string {
         if len(filePath) < AbPathUtilOld_MIN {
             panic(errors.New(fmt.Sprint("Could not be a file path since its less that 4 characters")))
         }
@@ -206,7 +234,7 @@ func (this *AbPathUtilOld) GetNameFromPath(categoryPath string) string {
 
 // throws Exception
 // synchronized
-func (this *AbPathUtilOld) RemoveNameFromPath(categoryPath string) *AbPath {
+func (this *AbPathUtilOld) RemoveNameFromPath(categoryPath string) IAbPath {
         var endIndex int = strings.LastIndex(categoryPath, string(this.AbPathData.SEPARATOR)); _ = endIndex
         if endIndex < 0 {
             endIndex = strings.LastIndex(categoryPath, string(this.FilePathData.SEPARATORCHAR))

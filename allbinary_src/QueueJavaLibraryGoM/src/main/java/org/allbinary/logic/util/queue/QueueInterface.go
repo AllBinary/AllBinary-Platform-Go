@@ -44,8 +44,7 @@ var _ = unicode.IsDigit
 
 type QueueInterface interface {
     Offer(anyType any) bool
-    Remove(anyType any)
-    Remove() any
+    Remove(args ...any) any
 }
 
 

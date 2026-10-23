@@ -59,3 +59,4 @@ func NewLinuxOS() *LinuxOS {
 func (this *LinuxOS) IsAutoHide() bool {
         return true
 }
+

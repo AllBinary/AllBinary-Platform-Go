@@ -60,3 +60,4 @@ func NewNamedAngle(angle int16, name string) *NamedAngle {
         this.Name = name
     return this
 }
+

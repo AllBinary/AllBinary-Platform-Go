@@ -47,7 +47,7 @@ type StoreFileGenerator struct {
     LogUtil *LogUtil
     CommonStrings *CommonStrings
     Output string
-    FileAbPath *AbPath
+    FileAbPath IAbPath
     File *AbFile
 }
 
@@ -71,12 +71,12 @@ func NewStoreFileGenerator(transformInfoInterface TransformInfoInterface) *Store
         stringBuffer.Append(TransformInfoObjectConfigGenerator_URLGLOBALS.GetWebappPath())
         stringBuffer.Append(weblisketSession.GetStoreName())
         stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
-        var abPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = abPath
+        var abPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = abPath
         var fileName string = any(httpTransformInfoInterface.GetPropertiesHashMap().Get(InputOutputTypeData_GetInstance().FILE)).(string); _ = fileName
         var stringValidationUtil *StringValidationUtil = StringValidationUtil_GetInstance(); _ = stringValidationUtil
         if stringValidationUtil.IsEmpty(fileName) {
             var transformInfoHttpStoreInterface TransformInfoHttpStoreInterface = any(transformInfoInterface).(TransformInfoHttpStoreInterface); _ = transformInfoHttpStoreInterface
-            fileName = transformInfoInterface.GetName()[transformInfoHttpStoreInterface.GetStoreName().Length() + 1:]
+            fileName = transformInfoInterface.GetName()[len(transformInfoHttpStoreInterface.GetStoreName()) + 1:]
             var outputMappingHashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = outputMappingHashMap
             outputMappingHashMap.Put(TransformInfosData_GetInstance().PREVIEW, "Preview")
             outputMappingHashMap.Put(TransformInfosData_GetInstance().SMALL_PREVIEW, "SmallPreview")
@@ -118,7 +118,7 @@ func (this *StoreFileGenerator) Process(input string) string {
             this.File.CreateNewFile()
         }
         if this.File.Exists() {
-            var inputStream *InputStream = NewByteArrayInputStream(Java_GetBytes(input)); _ = inputStream
+            var inputStream IInputStream = NewByteArrayInputStream(Java_GetBytes(input)); _ = inputStream
             FileUtil_GetInstance().Write(inputStream, this.File)
         } else {
             panic(errors.New(fmt.Sprint("Could Not Create: " + fmt.Sprint(this.FileAbPath))))

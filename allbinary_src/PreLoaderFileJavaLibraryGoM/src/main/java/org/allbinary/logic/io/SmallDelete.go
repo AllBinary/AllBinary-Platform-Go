@@ -86,7 +86,7 @@ func (this *SmallDelete) DeleteAtStart(start string, end string) bool {
             if endIndex > beginIndex && beginIndex >= 0 && endIndex >= 0 && beginIndex < 10 && endIndex < 525 {
                 var text string = this.String[endIndex:len(this.String)]; _ = text
                 var idFile *FileOutputStream = NewFileOutputStream(this.FileName); _ = idFile
-                var idOutData *DataOutputStream = NewDataOutputStream(idFile); _ = idOutData
+                var idOutData IDataOutputStream = NewDataOutputStream(idFile); _ = idOutData
                 idOutData.WriteBytes(text)
                 tryControl1, tryResult1 = 1, true; return
             }
@@ -119,7 +119,7 @@ func (this *SmallDelete) DeleteBetween(start string, end string, newText string)
                 var newStart string = this.String[0:beginIndex]; _ = newStart
                 var text string = this.String[endIndex + len(end):len(this.String)]; _ = text
                 var idFile *FileOutputStream = NewFileOutputStream(this.FileName); _ = idFile
-                var idOutData *DataOutputStream = NewDataOutputStream(idFile); _ = idOutData
+                var idOutData IDataOutputStream = NewDataOutputStream(idFile); _ = idOutData
                 idOutData.WriteBytes(newStart + newText + text)
                 tryControl1, tryResult1 = 1, true; return
             }

@@ -57,18 +57,32 @@ func (this *ObjectPermutationVisitor) Visit(anyType any) any {
 }
 
 
-func (this *ObjectPermutationVisitor) Print(data []any) {
+func (this *ObjectPermutationVisitor) Print_1(data []any) {
         var stringBuilder *StringMaker = NewStringMaker(); _ = stringBuilder
         this.Print(data, stringBuilder)
 }
 
+// Java overloads of ObjectPermutationVisitor.print
+func (this *ObjectPermutationVisitor) Print(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[[]any](args[0], pass) {
+            this.Print_1(Java_Arg[[]any](args[0]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[[]any](args[0], pass) && Java_IsArg[*StringMaker](args[1], pass) {
+            this.Print_2(Java_Arg[[]any](args[0]), Java_Arg[*StringMaker](args[1]))
+            return
+        }
+    }
+    panic("No Java overload of ObjectPermutationVisitor.print for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *ObjectPermutationVisitor) Print(data []any, stringBuilder *StringMaker) {
+
+func (this *ObjectPermutationVisitor) Print_2(data []any, stringBuilder *StringMaker) {
         var tsUtil *TsUtil = TsUtil_GetInstance(); _ = tsUtil
         var size int = len(data); _ = size
         for i := int(0); i < size; i++ {
-            stringBuilder.Appendint(int(tsUtil.HashCode(data[i])))
+            stringBuilder.Appendint(tsUtil.HashCode(data[i]))
             stringBuilder.Append(CommonSeps_GetInstance().SPACE)
         }
         fmt.Println(fmt.Sprint(stringBuilder))

@@ -66,7 +66,7 @@ func ZipFileUtil_GetInstance() *ZipFileUtil {
 }
 
 
-func (this *ZipFileUtil) Create(outFilename string, fileBasicArrayList *BasicArrayList) {
+func (this *ZipFileUtil) Create(outFilename string, fileBasicArrayList IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -84,7 +84,7 @@ func (this *ZipFileUtil) Create(outFilename string, fileBasicArrayList *BasicArr
             var streamUtil *StreamUtil = StreamUtil_GetInstance(); _ = streamUtil
             var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
             var byteArray []int8 = make([]int8, 16384); _ = byteArray
-            var fileInputStream *AbFileInputStream; _ = fileInputStream
+            var fileInputStream IAbFileInputStream; _ = fileInputStream
             var size int = fileBasicArrayList.Size(); _ = size
             var current int = 0; _ = current
             for i := int(0); i < size; i++ {

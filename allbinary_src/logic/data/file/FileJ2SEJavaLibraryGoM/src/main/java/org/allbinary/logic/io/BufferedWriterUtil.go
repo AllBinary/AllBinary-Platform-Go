@@ -71,7 +71,7 @@ func BufferedWriterUtil_GetInstance() *BufferedWriterUtil {
 
 
 // throws Exception
-func (this *BufferedWriterUtil) Overwrite(path string, data string) {
+func (this *BufferedWriterUtil) Overwrite_1(path string, data string) {
         var abFile *AbFile = AbFile_CreateAbFile(path); _ = abFile
         if abFile.Exists() {
             this.LogUtil.PutF(this.REMOVING_OLD + path, this, this.CommonStrings.CREATE)
@@ -91,10 +91,24 @@ func (this *BufferedWriterUtil) Overwrite(path string, data string) {
         this.Write(abFile, data)
 }
 
+// Java overloads of BufferedWriterUtil.overwrite
+func (this *BufferedWriterUtil) Overwrite(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            this.Overwrite_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            this.Overwrite_2(Java_Arg[*AbFile](args[0]), Java_Arg[string](args[1]))
+            return
+        }
+    }
+    panic("No Java overload of BufferedWriterUtil.overwrite for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *BufferedWriterUtil) Overwrite(abFile *AbFile, data string) {
+func (this *BufferedWriterUtil) Overwrite_2(abFile *AbFile, data string) {
         if abFile.Exists() {
             this.LogUtil.PutF(this.REMOVING_OLD + fmt.Sprint(abFile.GetPath()), this, this.CommonStrings.CREATE)
             abFile.Delete()

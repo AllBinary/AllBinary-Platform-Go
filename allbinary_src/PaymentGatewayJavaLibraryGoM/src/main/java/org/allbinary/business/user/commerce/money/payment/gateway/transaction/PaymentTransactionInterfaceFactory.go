@@ -66,7 +66,6 @@ func NewPaymentTransactionInterfaceFactory() *PaymentTransactionInterfaceFactory
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 func (this *PaymentTransactionInterfaceFactory) GetInstance(orderReview *OrderHistory) PaymentTransactionInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 PaymentTransactionInterface) {
             defer func() {

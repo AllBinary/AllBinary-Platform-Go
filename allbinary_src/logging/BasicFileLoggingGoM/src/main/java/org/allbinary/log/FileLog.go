@@ -123,7 +123,7 @@ func FileLog_CreateLogFileBackup() bool {
             tmpOut.Flush()
             tmpOut.Close()
             tmpIn.Close()
-            FileLog_LogFile.Delete()
+            File_Delete()
             tryControl1, tryResult1 = 1, true; return
             return
         }(); tryControl1 == 1 {
@@ -134,14 +134,32 @@ func FileLog_CreateLogFileBackup() bool {
 
 
 // synchronized
-func FileLog_Put(specialMessage string, anyType any, functionName string) string {
+func FileLog_Put_1(specialMessage string, anyType any, functionName string) string {
         return FileLog_Put(specialMessage, anyType, functionName, nil)
 }
 
+// Java overloads of FileLog.put
+func FileLog_Put(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[any](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return FileLog_Put_1(Java_Arg[string](args[0]), Java_Arg[any](args[1]), Java_Arg[string](args[2]))
+        }
+        if len(args) == 4 && Java_IsArg[string](args[0], pass) && Java_IsArg[any](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[error](args[3], pass) {
+            return FileLog_Put_2(Java_Arg[string](args[0]), Java_Arg[any](args[1]), Java_Arg[string](args[2]), Java_Arg[error](args[3]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return FileLog_Put_3(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+        if len(args) == 4 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[error](args[3], pass) {
+            return FileLog_Put_4(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[error](args[3]))
+        }
+    }
+    panic("No Java overload of FileLog.put for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
+
 // synchronized
-func FileLog_Put(specialMessage string, anyType any, functionName string, exception error) string {
+func FileLog_Put_2(specialMessage string, anyType any, functionName string, exception error) string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -185,16 +203,14 @@ func FileLog_Put(specialMessage string, anyType any, functionName string, except
 }
 
 
-// Java overloaded method: Go needs a different name
 // synchronized
-func FileLog_Put(specialMessage string, className string, functionName string) string {
+func FileLog_Put_3(specialMessage string, className string, functionName string) string {
         return FileLog_Put(specialMessage, className, functionName, nil)
 }
 
 
-// Java overloaded method: Go needs a different name
 // synchronized
-func FileLog_Put(specialMessage string, className string, functionName string, exception error) string {
+func FileLog_Put_4(specialMessage string, className string, functionName string, exception error) string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
                 if recovered := recover(); recovered != nil {

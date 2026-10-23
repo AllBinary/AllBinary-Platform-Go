@@ -65,7 +65,7 @@ type StoreFrontInterface interface {
     GetTestHostNamePath() string
     GetStaticPath() string
     GetCategoryPath() string
-    GetSubStores() *BasicArrayList
+    GetSubStores() IBasicArrayList
     GetTagLocation() string
     GetPackageLocation() string
     GetInventoryControl() string

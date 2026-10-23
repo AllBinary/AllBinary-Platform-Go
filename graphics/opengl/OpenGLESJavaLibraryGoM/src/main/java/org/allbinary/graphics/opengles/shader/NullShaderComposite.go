@@ -51,7 +51,7 @@ var NullShaderComposite_Instance *NullShaderComposite = /* Java anonymous class 
 
     func (this *NullShaderComposite) Init(gl GL10) {
     }
-*/ NewNullShaderComposite(OpenGLCapabilities_GetInstance().VERSION_2_0, []*Shader{NewShader(), NewShader()}, CompositeShaderUpdater_GetInstance(), ShaderInitializer_GetInstance(), ModelViewProjection_GetInstance(), nil, nil, NullOpenGLProcessorFactory_GetInstance())
+*/ NewNullShaderComposite(OpenGLCapabilities_GetInstance().VERSION_2_0, []*Shader{NewShader(), NewShader()}, CompositeShaderUpdater_GetInstance(), ShaderInitializer_GetInstance(), ModelViewProjection_GetInstance(), NullOpenGLProcessorFactory_GetInstance(), NullOpenGLProcessorFactory_GetInstance(), NullOpenGLProcessorFactory_GetInstance())
 
 
 func NullShaderComposite_GetInstance() IShaderComposite {

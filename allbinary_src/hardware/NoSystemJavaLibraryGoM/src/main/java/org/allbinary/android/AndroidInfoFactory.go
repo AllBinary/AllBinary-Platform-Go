@@ -67,3 +67,4 @@ func AndroidInfoFactory_GetInstance() *AndroidInfoFactory {
 func (this *AndroidInfoFactory) GetVersion() int {
         return this.Version
 }
+

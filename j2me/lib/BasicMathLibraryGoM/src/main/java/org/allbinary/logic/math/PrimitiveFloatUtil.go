@@ -56,3 +56,4 @@ func NewPrimitiveFloatUtil() *PrimitiveFloatUtil {
 func PrimitiveFloatUtil_GetArrayInstance() []float32 {
         return make([]float32, 0)
 }
+

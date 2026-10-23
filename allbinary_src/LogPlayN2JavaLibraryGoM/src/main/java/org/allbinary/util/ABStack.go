@@ -54,17 +54,17 @@ func NewABStack[E any]() *ABStack[E] {
 }
 
 
-func (this *ABStack[E]) Push(item E) E {
+func (this *ABStack[E]) Push(item IE) IE {
         return this.Stack.Push(item)
 }
 
 
-func (this *ABStack[E]) Pop() E {
+func (this *ABStack[E]) Pop() IE {
         return this.Stack.Pop()
 }
 
 
-func (this *ABStack[E]) Peek() E {
+func (this *ABStack[E]) Peek() IE {
         return this.Stack.Peek()
 }
 

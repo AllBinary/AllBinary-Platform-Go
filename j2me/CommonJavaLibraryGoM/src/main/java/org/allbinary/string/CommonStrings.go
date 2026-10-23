@@ -164,3 +164,4 @@ func NewCommonStrings() *CommonStrings {
 func CommonStrings_GetInstance() *CommonStrings {
         return CommonStrings_Instance
 }
+

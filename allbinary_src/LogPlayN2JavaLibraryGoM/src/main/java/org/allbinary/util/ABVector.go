@@ -89,22 +89,22 @@ func (this *ABVector[E]) LastIndexOf(obj any) int {
 }
 
 
-func (this *ABVector[E]) ElementAt(index int) E {
+func (this *ABVector[E]) ElementAt(index int) IE {
         return this.Vector.ElementAt(index)
 }
 
 
-func (this *ABVector[E]) FirstElement() E {
+func (this *ABVector[E]) FirstElement() IE {
         return this.Vector.FirstElement()
 }
 
 
-func (this *ABVector[E]) LastElement() E {
+func (this *ABVector[E]) LastElement() IE {
         return this.Vector.LastElement()
 }
 
 
-func (this *ABVector[E]) SetElementAt(obj E, index int) {
+func (this *ABVector[E]) SetElementAt(obj IE, index int) {
         this.Vector.SetElementAt(obj, index)
 }
 
@@ -114,12 +114,12 @@ func (this *ABVector[E]) RemoveElementAt(index int) {
 }
 
 
-func (this *ABVector[E]) AddElement(obj E) {
+func (this *ABVector[E]) AddElement(obj IE) {
         this.Vector.AddElement(obj)
 }
 
 
-func (this *ABVector[E]) InsertElementAt(obj E, index int) {
+func (this *ABVector[E]) InsertElementAt(obj IE, index int) {
         this.Vector.InsertElementAt(obj, index)
 }
 
@@ -144,29 +144,53 @@ func (this *ABVector[E]) ToArray() []any {
 }
 
 
-func (this *ABVector[E]) Set(index int, element E) E {
+func (this *ABVector[E]) Set(index int, element IE) IE {
         return this.Vector.Set(index, element)
 }
 
 
-func (this *ABVector[E]) Add(element E) bool {
+func (this *ABVector[E]) Add_1(element IE) bool {
         return this.Vector.Add(element)
 }
 
-
-func (this *ABVector[E]) Remove(obj any) bool {
-        return this.Vector.Remove(obj)
+// Java overloads of ABVector.add
+func (this *ABVector[E]) Add(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[IE](args[0], pass) {
+            return this.Add_1(Java_Arg[IE](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[int](args[0], pass) && Java_IsArg[IE](args[1], pass) {
+            return this.Add_2(Java_Arg[int](args[0]), Java_Arg[IE](args[1]))
+        }
+    }
+    panic("No Java overload of ABVector.add for the arguments")
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *ABVector[E]) Add(index int, element E) {
+func (this *ABVector[E]) Remove_1(obj any) bool {
+        return this.Vector.Remove(obj)
+}
+
+// Java overloads of ABVector.remove
+func (this *ABVector[E]) Remove(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[any](args[0], pass) {
+            return this.Remove_1(Java_Arg[any](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[int](args[0], pass) {
+            return this.Remove_2(Java_Arg[int](args[0]))
+        }
+    }
+    panic("No Java overload of ABVector.remove for the arguments")
+}
+
+
+func (this *ABVector[E]) Add_2(index int, element IE) {
         this.Vector.Add(index, element)
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *ABVector[E]) Remove(index int) E {
+func (this *ABVector[E]) Remove_2(index int) IE {
         return this.Vector.Remove(index)
 }
 

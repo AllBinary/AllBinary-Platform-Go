@@ -45,7 +45,7 @@ var _ = unicode.IsDigit
 type AbeClientLicense struct {
     Hashtable *ABHashtable[any, any]
     Id string
-    Servers *BasicArrayList
+    Servers IBasicArrayList
     Special string
     LicenseType *LicenseType
 }
@@ -74,7 +74,7 @@ func NewAbeClientLicense(hashtable *ABHashtable[any, any]) *AbeClientLicense {
             }
         }
         this.Id = any(hashtable.Get(abeClientInformationData.LICENSEID)).(string)
-        var vector *BasicArrayList = any(hashtable.Get(abeClientInformationData.LICENSESERVERS)).(*BasicArrayList); _ = vector
+        var vector IBasicArrayList = any(hashtable.Get(abeClientInformationData.LICENSESERVERS)).(IBasicArrayList); _ = vector
         this.Servers = NewBasicArrayListD()
         var size int = vector.Size(); _ = size
         for index := int(0); index < size; index++ {
@@ -113,7 +113,7 @@ func (this *AbeClientLicense) GetLicenseId() string {
 }
 
 
-func (this *AbeClientLicense) GetServers() *BasicArrayList {
+func (this *AbeClientLicense) GetServers() IBasicArrayList {
         return this.Servers
 }
 
@@ -139,7 +139,7 @@ func (this *AbeClientLicense) ToString() string {
         stringBuffer.Append("Keys: ")
         stringBuffer.Append(fmt.Sprint(this.Hashtable))
         stringBuffer.Append(BREAK)
-        var serverVector *BasicArrayList = this.GetServers(); _ = serverVector
+        var serverVector IBasicArrayList = this.GetServers(); _ = serverVector
         var size int = serverVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var nextServerString string = any(serverVector.Get(index)).(string); _ = nextServerString

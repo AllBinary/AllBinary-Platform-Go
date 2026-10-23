@@ -66,7 +66,7 @@ func NewTransformGeneratorUtil() *TransformGeneratorUtil {
 
 
 // throws Exception
-func (this *TransformGeneratorUtil) Generate(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, ownerTransformInfoInterface TransformInfoInterface) {
+func (this *TransformGeneratorUtil) Generate_1(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, ownerTransformInfoInterface TransformInfoInterface) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -97,10 +97,24 @@ func (this *TransformGeneratorUtil) Generate(abeClientInformation AbeClientInfor
         }
 }
 
+// Java overloads of TransformGeneratorUtil.generate
+func (this *TransformGeneratorUtil) Generate(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) && Java_IsArg[TransformInfoInterface](args[2], pass) {
+            this.Generate_1(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]), Java_Arg[TransformInfoInterface](args[2]))
+            return
+        }
+        if len(args) == 3 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[ITransformInfoDomNode](args[1], pass) && Java_IsArg[TransformInfoInterface](args[2], pass) {
+            this.Generate_2(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[ITransformInfoDomNode](args[1]), Java_Arg[TransformInfoInterface](args[2]))
+            return
+        }
+    }
+    panic("No Java overload of TransformGeneratorUtil.generate for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *TransformGeneratorUtil) Generate(abeClientInformation AbeClientInformationInterface, transformInfoDomNode *TransformInfoDomNode, ownerTransformInfoInterface TransformInfoInterface) {
+func (this *TransformGeneratorUtil) Generate_2(abeClientInformation AbeClientInformationInterface, transformInfoDomNode ITransformInfoDomNode, ownerTransformInfoInterface TransformInfoInterface) {
         this.Generate(abeClientInformation, transformInfoDomNode.GetTransformInfoInterface(), ownerTransformInfoInterface)
 }
 

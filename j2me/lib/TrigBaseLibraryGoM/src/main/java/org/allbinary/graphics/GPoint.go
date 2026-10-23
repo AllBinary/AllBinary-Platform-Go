@@ -141,3 +141,4 @@ func GPoint_ToStringStatic(x int, y int, z int) string {
         stringBuffer.Appendint(z)
         return fmt.Sprint(stringBuffer)
 }
+

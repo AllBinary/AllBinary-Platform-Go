@@ -68,8 +68,8 @@ func NewAndroidOperatingSystemFactory() *AndroidOperatingSystemFactory {
 
 
 // throws Exception
-func (this *AndroidOperatingSystemFactory) GetOperatingSystemInstance() *GenericOperatingSystem {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *GenericOperatingSystem) {
+func (this *AndroidOperatingSystemFactory) GetOperatingSystemInstance() IGenericOperatingSystem {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IGenericOperatingSystem) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -79,7 +79,7 @@ func (this *AndroidOperatingSystemFactory) GetOperatingSystemInstance() *Generic
             tryControl1, tryResult1 = 1, NoOperatingSystem_NO_OPERATING_SYSTEM; return
                 }
             }()
-            var GenericOperatingSystem *GenericOperatingSystem; _ = GenericOperatingSystem
+            var GenericOperatingSystem IGenericOperatingSystem; _ = GenericOperatingSystem
             var systemProperties *SystemProperties = SystemProperties_GetInstance(); _ = systemProperties
             var osName string = systemProperties.GetName(); _ = osName
             if this.TsUtil.CompareTo(osName, OperatingSystems_GetInstance().ANDROID) == 0 {

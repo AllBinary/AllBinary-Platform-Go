@@ -64,3 +64,4 @@ func (this *AllBinaryEventCircularPool) InitAllBinaryEventCircularPool(allBinary
             this.OBJECT_ARRAY[index] = allBinaryEventObjectFactoryInterface.GetInstance()
         }
 }
+

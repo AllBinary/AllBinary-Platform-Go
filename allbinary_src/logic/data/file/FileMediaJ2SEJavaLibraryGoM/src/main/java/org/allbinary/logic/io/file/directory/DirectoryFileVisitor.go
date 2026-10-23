@@ -67,7 +67,7 @@ func (this *DirectoryFileVisitor) Visit(anyType any) any {
         for (func() any { aFile = aFile.GetParentFile(); return aFile }()) != nil {
             index++
         }
-        if file.IsDirectory() && index < 5 {
+        if File_IsDirectory() && index < 5 {
             return true
         }
         return false

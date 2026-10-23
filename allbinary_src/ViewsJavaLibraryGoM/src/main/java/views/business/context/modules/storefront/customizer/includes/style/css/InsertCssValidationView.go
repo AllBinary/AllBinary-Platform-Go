@@ -142,7 +142,7 @@ func (this *InsertCssValidationView) View() string {
             panic(e)
                 }
             }()
-            tryControl1, tryResult1 = 1, StoreCustomizerComponentUtil_GetInstance().Generate(this.AbeClientInformation, this.GetTransformInfoInterface()); return
+            tryControl1, tryResult1 = 1, StoreCustomizerComponentUtil_GetInstance().Generate(this.AbeClientInformation, this.GetTransformInfoInterface()).(string); return
             return
         }(); tryControl1 == 1 {
             return tryResult1

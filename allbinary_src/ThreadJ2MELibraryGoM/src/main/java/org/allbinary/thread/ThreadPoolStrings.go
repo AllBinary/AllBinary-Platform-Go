@@ -66,3 +66,4 @@ func NewThreadPoolStrings() *ThreadPoolStrings {
 func ThreadPoolStrings_GetInstance() *ThreadPoolStrings {
         return ThreadPoolStrings_Instance
 }
+

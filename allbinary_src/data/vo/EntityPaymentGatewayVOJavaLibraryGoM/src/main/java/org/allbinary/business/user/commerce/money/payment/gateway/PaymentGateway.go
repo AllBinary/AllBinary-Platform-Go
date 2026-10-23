@@ -131,10 +131,10 @@ func NewPaymentGateway(hashMap *HashMap) *PaymentGateway {
 func (this *PaymentGateway) GetFormData(hashMap *HashMap) {
         var stringUtil *StringUtil = StringUtil_GetInstance(); _ = stringUtil
         var empty string = stringUtil.EMPTY_STRING; _ = empty
-        this.StoreName = any(hashMap.Get(fmt.Sprint(StoreFrontData_GetInstance().NAME))).(string)
+        this.StoreName = any(hashMap.Get(StoreFrontData_GetInstance().NAME)).(string)
         this.Name = any(hashMap.Get(fmt.Sprint(PaymentGatewayData_NAME))).(string)
-        this.Enable = stringUtil.GetNonNull(any(hashMap.Get(fmt.Sprint(EntryData_GetInstance().ENABLE))).(string))
-        this.PaymentMethod = stringUtil.GetNonNull(any(hashMap.Get(fmt.Sprint(PaymentData_METHOD))).(string))
+        this.Enable = stringUtil.GetNonNull(any(hashMap.Get(EntryData_GetInstance().ENABLE)).(string))
+        this.PaymentMethod = stringUtil.GetNonNull(any(hashMap.Get(PaymentData_METHOD)).(string))
         this.Mode = stringUtil.GetNonNull(any(hashMap.Get(fmt.Sprint(PaymentGatewayData_MODE))).(string))
         this.TestProtocol = stringUtil.GetNonNull(any(hashMap.Get(fmt.Sprint(PaymentGatewayData_TESTPROTOCOL))).(string))
         this.TestServer = stringUtil.GetNonNull(any(hashMap.Get(fmt.Sprint(PaymentGatewayData_TESTSERVER))).(string))
@@ -159,11 +159,11 @@ func (this *PaymentGateway) GetFormData(hashMap *HashMap) {
         if this.ServerPath == "" {
             this.ServerPath = empty
         }
-        this.UserName = any(hashMap.Get(fmt.Sprint(UserData_USERNAME))).(string)
+        this.UserName = any(hashMap.Get(UserData_USERNAME)).(string)
         if this.UserName == "" {
             this.UserName = empty
         }
-        this.Password = any(hashMap.Get(fmt.Sprint(UserData_PASSWORD))).(string)
+        this.Password = any(hashMap.Get(UserData_PASSWORD)).(string)
         if this.Password == "" {
             this.Password = empty
         }
@@ -235,11 +235,11 @@ func (this *PaymentGateway) GetFormData(hashMap *HashMap) {
         if this.Special9 == "" {
             this.Special9 = empty
         }
-        this.LastModified = any(hashMap.Get(fmt.Sprint(EntryData_GetInstance().LASTMODIFIED))).(string)
+        this.LastModified = any(hashMap.Get(EntryData_GetInstance().LASTMODIFIED)).(string)
         if this.LastModified == "" {
             this.LastModified = empty
         }
-        this.TimeEntered = any(hashMap.Get(fmt.Sprint(EntryData_GetInstance().TIMECREATED))).(string)
+        this.TimeEntered = any(hashMap.Get(EntryData_GetInstance().TIMECREATED)).(string)
         if this.TimeEntered == "" {
             this.TimeEntered = empty
         }
@@ -587,19 +587,31 @@ func (this *PaymentGateway) SetTimeEntered(value string) {
 
 
 // throws Exception
-func (this *PaymentGateway) ToHashMap() *HashMap {
+func (this *PaymentGateway) ToHashMap_1() *HashMap {
         return this.ToHashMap(true)
+}
+
+// Java overloads of PaymentGateway.toHashMap
+func (this *PaymentGateway) ToHashMap(args ...any) *HashMap {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.ToHashMap_1()
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return this.ToHashMap_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of PaymentGateway.toHashMap for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *PaymentGateway) ToHashMap(isEncrypted bool) *HashMap {
+func (this *PaymentGateway) ToHashMap_2(isEncrypted bool) *HashMap {
         var paymentGatewayHashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = paymentGatewayHashMap
         paymentGatewayHashMap.Put(EntryData_GetInstance().ENABLE, this.Enable)
-        paymentGatewayHashMap.Put(fmt.Sprint(StoreFrontData_GetInstance().NAME), this.StoreName)
+        paymentGatewayHashMap.Put(StoreFrontData_GetInstance().NAME, this.StoreName)
         paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_NAME), this.GetName())
-        paymentGatewayHashMap.Put(fmt.Sprint(PaymentData_METHOD), this.PaymentMethod)
+        paymentGatewayHashMap.Put(PaymentData_METHOD, this.PaymentMethod)
         paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_MODE), this.Mode)
         paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_TESTPROTOCOL), this.TestProtocol)
         paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_TESTSERVER), this.TestServer)
@@ -611,11 +623,11 @@ func (this *PaymentGateway) ToHashMap(isEncrypted bool) *HashMap {
         paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_SERVERPATH), this.ServerPath)
         if isEncrypted {
             var superCrypt *SuperCrypt = NewSuperCrypt(PaymentGatewayData_CRYPTNUM); _ = superCrypt
-            paymentGatewayHashMap.Put(fmt.Sprint(UserData_USERNAME), superCrypt.Encrypt(this.UserName))
-            paymentGatewayHashMap.Put(fmt.Sprint(UserData_PASSWORD), superCrypt.Encrypt(this.Password))
+            paymentGatewayHashMap.Put(UserData_USERNAME, superCrypt.Encrypt(this.UserName))
+            paymentGatewayHashMap.Put(UserData_PASSWORD, superCrypt.Encrypt(this.Password))
         } else {
-            paymentGatewayHashMap.Put(fmt.Sprint(UserData_USERNAME), this.UserName)
-            paymentGatewayHashMap.Put(fmt.Sprint(UserData_PASSWORD), this.Password)
+            paymentGatewayHashMap.Put(UserData_USERNAME, this.UserName)
+            paymentGatewayHashMap.Put(UserData_PASSWORD, this.Password)
         }
         paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_TIMEOUT), this.Timeout)
         paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_PROXYPROTOCOL), this.ProxyProtocol)
@@ -646,19 +658,31 @@ func (this *PaymentGateway) ToHashMap(isEncrypted bool) *HashMap {
             paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_SPECIAL8), this.Special8)
             paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_SPECIAL9), this.Special9)
         }
-        paymentGatewayHashMap.Put(fmt.Sprint(EntryData_GetInstance().LASTMODIFIED), this.LastModified)
+        paymentGatewayHashMap.Put(EntryData_GetInstance().LASTMODIFIED, this.LastModified)
         return paymentGatewayHashMap
 }
 
 
-func (this *PaymentGateway) ToVector() *BasicArrayList {
+func (this *PaymentGateway) ToVector_1() IBasicArrayList {
         return this.ToVector(true)
 }
 
+// Java overloads of PaymentGateway.toVector
+func (this *PaymentGateway) ToVector(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.ToVector_1()
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return this.ToVector_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of PaymentGateway.toVector for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *PaymentGateway) ToVector(isEncrypted bool) *BasicArrayList {
-        var updateVector *BasicArrayList = NewBasicArrayListD(); _ = updateVector
+
+func (this *PaymentGateway) ToVector_2(isEncrypted bool) IBasicArrayList {
+        var updateVector IBasicArrayList = NewBasicArrayListD(); _ = updateVector
         updateVector.Add(this.Enable)
         updateVector.Add(this.StoreName)
         updateVector.Add(this.GetName())

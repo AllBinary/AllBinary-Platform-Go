@@ -49,15 +49,28 @@ type UserDbInitInfo struct {
 var UserDbInitInfo_INITFILE string = "userdbinitdata.dat"
 
 
-func NewUserDbInitInfo() *UserDbInitInfo {
+
+
+// Java overloads of new UserDbInitInfo
+func NewUserDbInitInfo(args ...any) *UserDbInitInfo {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewUserDbInitInfo_1()
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return NewUserDbInitInfo_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of new UserDbInitInfo for the arguments")
+}
+func NewUserDbInitInfo_1() *UserDbInitInfo {
     this := &UserDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(UserDbInitInfo_INITFILE, true)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUserDbInitInfo(read bool) *UserDbInitInfo {
+func NewUserDbInitInfo_2(read bool) *UserDbInitInfo {
     this := &UserDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(UserDbInitInfo_INITFILE, read)
     return this

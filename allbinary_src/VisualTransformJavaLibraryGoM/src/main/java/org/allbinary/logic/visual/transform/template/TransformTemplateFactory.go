@@ -66,7 +66,6 @@ func NewTransformTemplateFactory() *TransformTemplateFactory {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 func (this *TransformTemplateFactory) GetInstance(abeClientInformation AbeClientInformationInterface, templateName string, propertiesHashMap *HashMap, pageContext *PageContext) TransformTemplateInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 TransformTemplateInterface) {
             defer func() {

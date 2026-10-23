@@ -160,3 +160,4 @@ func (this *StringMaker) ToString() string {
 func (this *StringMaker) String() string {
     return this.ToString()
 }
+

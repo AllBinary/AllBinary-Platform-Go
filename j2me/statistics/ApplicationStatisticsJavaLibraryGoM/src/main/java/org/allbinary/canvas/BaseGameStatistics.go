@@ -234,3 +234,4 @@ func (this *BaseGameStatistics) ToString() string {
 func (this *BaseGameStatistics) String() string {
     return this.ToString()
 }
+

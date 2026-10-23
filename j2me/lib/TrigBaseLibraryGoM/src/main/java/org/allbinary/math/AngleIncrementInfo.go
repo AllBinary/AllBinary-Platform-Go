@@ -112,3 +112,4 @@ func (this *AngleIncrementInfo) GetClosestGeneralDirection(angle int16) int {
         }
         return int(closestDirection)
 }
+

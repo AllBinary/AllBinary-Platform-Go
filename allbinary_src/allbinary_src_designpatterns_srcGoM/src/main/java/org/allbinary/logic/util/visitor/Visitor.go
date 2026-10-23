@@ -79,3 +79,4 @@ func (this *Visitor) Visit(anyType any) any {
 func Visitor_GetInstance() IVisitor {
         return Visitor_Instance
 }
+

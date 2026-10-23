@@ -48,6 +48,18 @@ type TransformInfoDomNode struct {
     MappedName string
 }
 
+// The Java class TransformInfoDomNode has subclasses so its variables are this interface
+type ITransformInfoDomNode interface {
+    TransformInfoDomNode_() *TransformInfoDomNode
+    GetTransformInfoInterface() TransformInfoInterface
+    GetMappedName() string
+    GetReplaceKey() string
+}
+
+func (this *TransformInfoDomNode) TransformInfoDomNode_() *TransformInfoDomNode {
+    return this
+}
+
 
 func (this *TransformInfoDomNode) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -56,7 +68,27 @@ func (this *TransformInfoDomNode) initFields() {
 }
 
 
-func NewTransformInfoDomNode(node *Node) *TransformInfoDomNode {
+
+
+// Java overloads of new TransformInfoDomNode
+func NewTransformInfoDomNode(args ...any) *TransformInfoDomNode {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewTransformInfoDomNode_1(Java_Arg[*Node](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[TransformInfoInterface](args[0], pass) {
+            return NewTransformInfoDomNode_2(Java_Arg[TransformInfoInterface](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return NewTransformInfoDomNode_3(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[string](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return NewTransformInfoDomNode_4(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of new TransformInfoDomNode for the arguments")
+}
+func NewTransformInfoDomNode_1(node *Node) *TransformInfoDomNode {
     this := &TransformInfoDomNode{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
@@ -108,8 +140,7 @@ func NewTransformInfoDomNode(node *Node) *TransformInfoDomNode {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoDomNode(transformInfoInterface TransformInfoInterface) *TransformInfoDomNode {
+func NewTransformInfoDomNode_2(transformInfoInterface TransformInfoInterface) *TransformInfoDomNode {
     this := &TransformInfoDomNode{}
     this.initFields()
         this.TransformInfoInterface = transformInfoInterface
@@ -118,8 +149,7 @@ func NewTransformInfoDomNode(transformInfoInterface TransformInfoInterface) *Tra
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoDomNode(transformInfoInterface TransformInfoInterface, mappedName string) *TransformInfoDomNode {
+func NewTransformInfoDomNode_3(transformInfoInterface TransformInfoInterface, mappedName string) *TransformInfoDomNode {
     this := &TransformInfoDomNode{}
     this.initFields()
         this.TransformInfoInterface = transformInfoInterface
@@ -128,8 +158,7 @@ func NewTransformInfoDomNode(transformInfoInterface TransformInfoInterface, mapp
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoDomNode(name string, mappedName string) *TransformInfoDomNode {
+func NewTransformInfoDomNode_4(name string, mappedName string) *TransformInfoDomNode {
     this := &TransformInfoDomNode{}
     this.initFields()
         this.TransformInfoInterface = NewTransformInfo(name)

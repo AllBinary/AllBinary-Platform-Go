@@ -66,8 +66,7 @@ func NewTransformInfoObjectConfigNoManipulationFactory() *TransformInfoObjectCon
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *TransformInfoObjectConfigNoManipulationFactory) GetInstance(transformInfoInterface TransformInfoInterface, objectConfigFileAbPath *AbPath) TransformInfoObjectConfigInterface {
+func (this *TransformInfoObjectConfigNoManipulationFactory) GetInstance(transformInfoInterface TransformInfoInterface, objectConfigFileAbPath IAbPath) TransformInfoObjectConfigInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 TransformInfoObjectConfigInterface) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -81,7 +80,7 @@ func (this *TransformInfoObjectConfigNoManipulationFactory) GetInstance(transfor
                 }
             }()
             var transformInfoObjectConfigData *TransformInfoObjectConfigData = TransformInfoObjectConfigData_GetInstance(); _ = transformInfoObjectConfigData
-            var data string = NewCryptFileReader(transformInfoObjectConfigData.UNCRYPTED_EXTENSION, transformInfoObjectConfigData.GetInstance().ENCRYPTED_EXTENSION).Get(objectConfigFileAbPath); _ = data
+            var data string = NewCryptFileReader(transformInfoObjectConfigData.UNCRYPTED_EXTENSION, TransformInfoObjectConfigData_GetInstance().ENCRYPTED_EXTENSION).Get(objectConfigFileAbPath); _ = data
             tryControl1, tryResult1 = 1, NewTransformInfoObjectConfig(transformInfoInterface, DomDocumentHelper_Create(data)); return
             return
         }(); tryControl1 == 1 {

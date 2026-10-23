@@ -84,8 +84,8 @@ func DomSearchHelper_GetChildNodeList(nodeName string, nodeList *NodeList) *Node
 
 
 // throws Exception
-func DomSearchHelper_GetAllNodes(nodeName string, nodeList *NodeList) *BasicArrayList {
-        var vector *BasicArrayList = DomSearchHelper_GetAllNodesNoThrow(nodeName, nodeList); _ = vector
+func DomSearchHelper_GetAllNodes(nodeName string, nodeList *NodeList) IBasicArrayList {
+        var vector IBasicArrayList = DomSearchHelper_GetAllNodesNoThrow(nodeName, nodeList); _ = vector
         if vector == nil {
             panic(errors.New(fmt.Sprint(nodeName + " Node Not Found in search")))
         } else {
@@ -94,8 +94,8 @@ func DomSearchHelper_GetAllNodes(nodeName string, nodeList *NodeList) *BasicArra
 }
 
 
-func DomSearchHelper_GetAllNodesNoThrow(nodeName string, nodeList *NodeList) *BasicArrayList {
-        var nodeVector *BasicArrayList = NewBasicArrayListD(); _ = nodeVector
+func DomSearchHelper_GetAllNodesNoThrow(nodeName string, nodeList *NodeList) IBasicArrayList {
+        var nodeVector IBasicArrayList = NewBasicArrayListD(); _ = nodeVector
         var numberOfNodes int = nodeList.GetLength(); _ = numberOfNodes
         for index := int(0); index < numberOfNodes; index++ {
             var node *Node = nodeList.Item(index); _ = node

@@ -44,10 +44,9 @@ var _ = unicode.IsDigit
 
 type WorkFlowEntityInterface interface {
     BasicDataTableInterface
-    Get(storeName string) *BasicArrayList
-    Get(name string, storeName string) WorkFlowInterface
+    Get(args ...any) any
     Delete(name string, storeName string)
-    Insert(values *BasicArrayList)
+    Insert(values IBasicArrayList)
     Update(updatedValues *HashMap)
 }
 

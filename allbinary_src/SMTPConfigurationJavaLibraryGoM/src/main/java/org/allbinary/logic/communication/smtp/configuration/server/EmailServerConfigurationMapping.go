@@ -78,8 +78,8 @@ func (this *EmailServerConfigurationMapping) GetKey() any {
 
 
 // throws Exception
-func (this *EmailServerConfigurationMapping) ToVector() *BasicArrayList {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+func (this *EmailServerConfigurationMapping) ToVector() IBasicArrayList {
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         vector.Add(this.EmailServerConfigurationInterface.GetSmtpServer())
         return vector
 }

@@ -79,3 +79,4 @@ func (this *ExceptionUtil) GetStackTrace(e error) string {
         }
         return this.NONE
 }
+

@@ -67,3 +67,4 @@ func PreLogUtil_PutOE(specialMessage string, anyType any, functionName string, e
 func PreLogUtil_PutSE(specialMessage string, className string, functionName string, exception any) {
         panic(errors.New(fmt.Sprint()))
 }
+

@@ -52,18 +52,17 @@ type WeblisketSessionInterface interface {
     GetOrder() OrderInterface
     GetPassword() string
     GetPaymentMethod() string
-    GetRole() *UserRole
+    GetRole() IUserRole
     GetStoreName() string
     GetTimeout() string
     GetUserName() string
     GetWebAppPath() string
     RemoveBasket()
     SetAttempts(value int)
-    SetAuthenticated()
-    SetAuthenticated(value bool)
+    SetAuthenticated(args ...any)
     SetPassword(password string)
     SetPaymentMethod(value string)
-    SetRole(aRole *UserRole)
+    SetRole(aRole IUserRole)
     SetStoreName(value string)
     SetTimeout(value string)
     SetUserName(userName string)

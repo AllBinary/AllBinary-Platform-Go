@@ -68,7 +68,7 @@ func NewBasicGroupItemsEntity() *BasicGroupItemsEntity {
 }
 
 
-func (this *BasicGroupItemsEntity) Insert(values *BasicArrayList) {
+func (this *BasicGroupItemsEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {

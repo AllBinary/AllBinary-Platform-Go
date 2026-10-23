@@ -84,14 +84,26 @@ func (this *BasicEmailQueue) Offer(emailInterface EmailInterface) bool {
 
 
 // synchronized
-func (this *BasicEmailQueue) Remove(emailInterface EmailInterface) {
+func (this *BasicEmailQueue) Remove_1(emailInterface EmailInterface) {
         this.Remove(any(emailInterface).(any))
 }
 
+// Java overloads of BasicEmailQueue.remove
+func (this *BasicEmailQueue) Remove(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[EmailInterface](args[0], pass) {
+            return this.Remove_1(Java_Arg[EmailInterface](args[0]))
+        }
+        if len(args) == 0 {
+            return this.Remove_2()
+        }
+    }
+    panic("No Java overload of BasicEmailQueue.remove for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
+
 // synchronized
-func (this *BasicEmailQueue) Remove() EmailInterface {
+func (this *BasicEmailQueue) Remove_2() EmailInterface {
         return nil
 }
 

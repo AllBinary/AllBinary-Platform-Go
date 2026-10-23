@@ -46,7 +46,7 @@ type IdGeneratorEntityInterface interface {
     BasicDataTableInterface
     Get(name string) int64
     DeleteWhere(key string, value string)
-    Insert(values *BasicArrayList)
+    Insert(values IBasicArrayList)
     Update(updatedValues *HashMap)
 }
 

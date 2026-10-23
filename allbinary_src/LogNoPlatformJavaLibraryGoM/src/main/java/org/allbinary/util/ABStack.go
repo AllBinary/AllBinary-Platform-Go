@@ -52,3 +52,4 @@ func NewABStack[E any]() *ABStack[E] {
     this.Stack = *NewStack()
     return this
 }
+

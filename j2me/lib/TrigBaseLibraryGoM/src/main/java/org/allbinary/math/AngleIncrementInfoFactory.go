@@ -77,3 +77,4 @@ func (this *AngleIncrementInfoFactory) GetAt(angleIncrement int16) *AngleIncreme
         }
         return angleIncrementInfo
 }
+

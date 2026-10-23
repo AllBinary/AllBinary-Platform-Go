@@ -61,6 +61,24 @@ type AbSqlRow struct {
     INSERT_END string
 }
 
+// The Java class AbSqlRow has subclasses so its variables are this interface
+type IAbSqlRow interface {
+    IAbSqlColumn
+    AbSqlRow_() *AbSqlRow
+    GetValue(value string) string
+    UpdateWhere(args ...any)
+    DeleteWhere(args ...any)
+    Insert(values IBasicArrayList)
+    GetRow(keysAndValues *HashMap) *HashMap
+    GetRows(args ...any) IBasicArrayList
+    GetAllRows() IBasicArrayList
+    GetRowsWhereBetween(args ...any) IBasicArrayList
+}
+
+func (this *AbSqlRow) AbSqlRow_() *AbSqlRow {
+    return this
+}
+
 
 func (this *AbSqlRow) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -81,7 +99,7 @@ func (this *AbSqlRow) initFields() {
 }
 
 
-func NewAbSqlRow(databaseConnectionInfoInterface *DbConnectionInfo) *AbSqlRow {
+func NewAbSqlRow(databaseConnectionInfoInterface IDbConnectionInfo) *AbSqlRow {
     this := &AbSqlRow{}
         this.AbSqlColumn = *NewAbSqlColumn(databaseConnectionInfoInterface)
         this.initFields()
@@ -100,7 +118,7 @@ func (this *AbSqlRow) GetValue(value string) string {
 
 
 // synchronized
-func (this *AbSqlRow) UpdateWhere(key string, value string, updatedKeyValuePairs *HashMap) {
+func (this *AbSqlRow) UpdateWhere_1(key string, value string, updatedKeyValuePairs *HashMap) {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.UPDATE)
         stringBuffer.Append(this.GetTableName())
@@ -150,11 +168,25 @@ func (this *AbSqlRow) UpdateWhere(key string, value string, updatedKeyValuePairs
         }
 }
 
+// Java overloads of AbSqlRow.updateWhere
+func (this *AbSqlRow) UpdateWhere(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[*HashMap](args[2], pass) {
+            this.UpdateWhere_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[*HashMap](args[2]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) {
+            this.UpdateWhere_2(Java_Arg[*HashMap](args[0]), Java_Arg[*HashMap](args[1]))
+            return
+        }
+    }
+    panic("No Java overload of AbSqlRow.updateWhere for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 // synchronized
-func (this *AbSqlRow) UpdateWhere(whereKeyValuePairs *HashMap, updatedKeyValuePairs *HashMap) {
+func (this *AbSqlRow) UpdateWhere_2(whereKeyValuePairs *HashMap, updatedKeyValuePairs *HashMap) {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.UPDATE)
         stringBuffer.Append(this.GetTableName())
@@ -222,7 +254,7 @@ func (this *AbSqlRow) UpdateWhere(whereKeyValuePairs *HashMap, updatedKeyValuePa
 
 
 // synchronized
-func (this *AbSqlRow) DeleteWhere(key string, value string) {
+func (this *AbSqlRow) DeleteWhere_1(key string, value string) {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.DELETE)
         stringBuffer.Append(this.SqlStrings.FROM)
@@ -253,10 +285,24 @@ func (this *AbSqlRow) DeleteWhere(key string, value string) {
         }
 }
 
+// Java overloads of AbSqlRow.deleteWhere
+func (this *AbSqlRow) DeleteWhere(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            this.DeleteWhere_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+            return
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            this.DeleteWhere_2(Java_Arg[*HashMap](args[0]))
+            return
+        }
+    }
+    panic("No Java overload of AbSqlRow.deleteWhere for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
+
 // synchronized
-func (this *AbSqlRow) DeleteWhere(keysAndValues *HashMap) {
+func (this *AbSqlRow) DeleteWhere_2(keysAndValues *HashMap) {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.DELETE)
         stringBuffer.Append(this.SqlStrings.FROM)
@@ -298,7 +344,7 @@ func (this *AbSqlRow) DeleteWhere(keysAndValues *HashMap) {
 }
 
 
-func (this *AbSqlRow) Insert(values *BasicArrayList) {
+func (this *AbSqlRow) Insert(values IBasicArrayList) {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.INSERT_INTO)
         stringBuffer.Append(this.GetTableName())
@@ -397,18 +443,30 @@ func (this *AbSqlRow) GetRow(keysAndValues *HashMap) *HashMap {
 }
 
 
-func (this *AbSqlRow) GetRows(keysAndValues *HashMap) *BasicArrayList {
+func (this *AbSqlRow) GetRows_1(keysAndValues *HashMap) IBasicArrayList {
         return this.GetRows(keysAndValues, StringUtil_GetInstance().EMPTY_STRING)
 }
 
+// Java overloads of AbSqlRow.getRows
+func (this *AbSqlRow) GetRows(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return this.GetRows_1(Java_Arg[*HashMap](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.GetRows_2(Java_Arg[*HashMap](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of AbSqlRow.getRows for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *AbSqlRow) GetRows(keysAndValues *HashMap, more string) *BasicArrayList {
+
+func (this *AbSqlRow) GetRows_2(keysAndValues *HashMap, more string) IBasicArrayList {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.SELECT_ALL_FROM)
         stringBuffer.Append(this.GetTableName())
         stringBuffer.Append(this.SqlStrings.WHERE)
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -419,7 +477,7 @@ func (this *AbSqlRow) GetRows(keysAndValues *HashMap, more string) *BasicArrayLi
             tryControl1, tryResult1 = 1, nil; return
                 }
             }()
-            var rows *BasicArrayList = NewBasicArrayListD(); _ = rows
+            var rows IBasicArrayList = NewBasicArrayListD(); _ = rows
             var set Set = keysAndValues.KeySet(); _ = set
             var keyArray []any = set.ToArray(); _ = keyArray
             var size int = len(keyArray); _ = size
@@ -464,11 +522,11 @@ func (this *AbSqlRow) GetRows(keysAndValues *HashMap, more string) *BasicArrayLi
 }
 
 
-func (this *AbSqlRow) GetAllRows() *BasicArrayList {
+func (this *AbSqlRow) GetAllRows() IBasicArrayList {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.SELECT_ALL_FROM)
         stringBuffer.Append(this.GetTableName())
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -482,7 +540,7 @@ func (this *AbSqlRow) GetAllRows() *BasicArrayList {
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().SQLLOGGING) {
                 this.LogUtil.PutF(this.SqlStrings.SQL_STATEMENT_LABEL + stringBuffer, this, this.METHOD_GET_ALL_ROWS)
             }
-            var rows *BasicArrayList = NewBasicArrayListD(); _ = rows
+            var rows IBasicArrayList = NewBasicArrayListD(); _ = rows
             var sqlStatement string = fmt.Sprint(stringBuffer); _ = sqlStatement
             var rset *ResultSet = this.ExecuteSQLStatement(sqlStatement); _ = rset
             var resultSetMetaData *ResultSetMetaData = rset.GetMetaData(); _ = resultSetMetaData
@@ -508,11 +566,11 @@ func (this *AbSqlRow) GetAllRows() *BasicArrayList {
 }
 
 
-func (this *AbSqlRow) GetRowsWhereBetween(whereKeyValuePairs *HashMap, betweenColumn string, smallest string, largest string) *BasicArrayList {
+func (this *AbSqlRow) GetRowsWhereBetween_1(whereKeyValuePairs *HashMap, betweenColumn string, smallest string, largest string) IBasicArrayList {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.SELECT_ALL_FROM)
         stringBuffer.Append(this.GetTableName())
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -523,7 +581,7 @@ func (this *AbSqlRow) GetRowsWhereBetween(whereKeyValuePairs *HashMap, betweenCo
             tryControl1, tryResult1 = 1, nil; return
                 }
             }()
-            var rows *BasicArrayList = NewBasicArrayListD(); _ = rows
+            var rows IBasicArrayList = NewBasicArrayListD(); _ = rows
             stringBuffer.Append(this.SqlStrings.WHERE)
             var set Set = whereKeyValuePairs.KeySet(); _ = set
             var key string; _ = key
@@ -555,7 +613,7 @@ func (this *AbSqlRow) GetRowsWhereBetween(whereKeyValuePairs *HashMap, betweenCo
             var rset *ResultSet = this.ExecuteSQLStatement(sqlStatement); _ = rset
             var resultSetMetaData *ResultSetMetaData = rset.GetMetaData(); _ = resultSetMetaData
             var result *HashMap; _ = result
-            var columnNames *BasicArrayList; _ = columnNames
+            var columnNames IBasicArrayList; _ = columnNames
             var columnCount int; _ = columnCount
             var columnName string; _ = columnName
             var field string; _ = field
@@ -581,13 +639,25 @@ func (this *AbSqlRow) GetRowsWhereBetween(whereKeyValuePairs *HashMap, betweenCo
         panic("unreachable")
 }
 
+// Java overloads of AbSqlRow.getRowsWhereBetween
+func (this *AbSqlRow) GetRowsWhereBetween(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 4 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) {
+            return this.GetRowsWhereBetween_1(Java_Arg[*HashMap](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return this.GetRowsWhereBetween_2(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+    }
+    panic("No Java overload of AbSqlRow.getRowsWhereBetween for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *AbSqlRow) GetRowsWhereBetween(betweenColumn string, smallest string, largest string) *BasicArrayList {
+
+func (this *AbSqlRow) GetRowsWhereBetween_2(betweenColumn string, smallest string, largest string) IBasicArrayList {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.SELECT_ALL_FROM)
         stringBuffer.Append(this.GetTableName())
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -598,7 +668,7 @@ func (this *AbSqlRow) GetRowsWhereBetween(betweenColumn string, smallest string,
             tryControl1, tryResult1 = 1, nil; return
                 }
             }()
-            var rows *BasicArrayList = NewBasicArrayListD(); _ = rows
+            var rows IBasicArrayList = NewBasicArrayListD(); _ = rows
             stringBuffer.Append(this.SqlStrings.WHERE)
             stringBuffer.Append(betweenColumn)
             stringBuffer.Append(this.SqlStrings.MORE_THAN_QUOTE)
@@ -618,7 +688,7 @@ func (this *AbSqlRow) GetRowsWhereBetween(betweenColumn string, smallest string,
             var columnName string; _ = columnName
             var field string; _ = field
             var result *HashMap; _ = result
-            var columnNames *BasicArrayList; _ = columnNames
+            var columnNames IBasicArrayList; _ = columnNames
             var columnCount int; _ = columnCount
             for rset.Next() {
                 result = this.StdUtil.CreateHashMap()

@@ -80,3 +80,4 @@ func (this *AllBinaryEventObject) GetSource() any {
 func (this *AllBinaryEventObject) SetSource(source any) {
         this.Source = source
 }
+

@@ -84,3 +84,4 @@ func NewCommonStateStrings() *CommonStateStrings {
 func CommonStateStrings_GetInstance() *CommonStateStrings {
         return CommonStateStrings_Instance
 }
+

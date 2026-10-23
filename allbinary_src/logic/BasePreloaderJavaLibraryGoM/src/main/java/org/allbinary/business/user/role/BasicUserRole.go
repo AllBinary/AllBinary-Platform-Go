@@ -152,3 +152,4 @@ func BasicUserRole_GetRole(role string) *BasicUserRole {
 func BasicUserRole_GetAll() IBasicArrayList {
         return BasicUserRole_RoleVector
 }
+

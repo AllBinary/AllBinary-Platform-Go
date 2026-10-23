@@ -48,6 +48,17 @@ type AbeClientInformation struct {
     LogUtil *LogUtil
 }
 
+// The Java class AbeClientInformation has subclasses so its variables are this interface
+type IAbeClientInformation interface {
+    IClientInformation
+    AbeClientInformation_() *AbeClientInformation
+    Init()
+}
+
+func (this *AbeClientInformation) AbeClientInformation_() *AbeClientInformation {
+    return this
+}
+
 
 func (this *AbeClientInformation) initFields() {
     this.LogUtil = LogUtil_GetInstance()

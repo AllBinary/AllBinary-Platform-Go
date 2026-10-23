@@ -67,3 +67,4 @@ func ForcedLogUtil_Log(message string, anyType any) {
             return
         }
 }
+

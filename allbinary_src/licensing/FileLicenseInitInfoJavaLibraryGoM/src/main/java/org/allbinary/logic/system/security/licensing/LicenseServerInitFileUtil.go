@@ -45,7 +45,7 @@ var _ = unicode.IsDigit
 type LicenseServerInitFileUtil struct {
     LogUtil *LogUtil
     CommonStrings *CommonStrings
-    NULL_OUTPUT_STREAM *OutputStream
+    NULL_OUTPUT_STREAM IOutputStream
 }
 
 
@@ -86,7 +86,7 @@ func (this *LicenseServerInitFileUtil) Init() {
 
 
 func (this *LicenseServerInitFileUtil) Write() {
-        var fileOutputStream *OutputStream = this.NULL_OUTPUT_STREAM; _ = fileOutputStream
+        var fileOutputStream IOutputStream = this.NULL_OUTPUT_STREAM; _ = fileOutputStream
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -98,7 +98,7 @@ func (this *LicenseServerInitFileUtil) Write() {
             }()
             var resourceUtil *ResourceUtil = ResourceUtil_GetInstance(); _ = resourceUtil
             var filePath string = LicenseInitInfoUtil_GetInstance().INITFILENAME; _ = filePath
-            var inputStream *InputStream = resourceUtil.GetResourceAsStream(filePath); _ = inputStream
+            var inputStream IInputStream = resourceUtil.GetResourceAsStream(filePath); _ = inputStream
             this.LogUtil.PutF("Writing Default License File", this, this.CommonStrings.INIT)
             var fileStreamFactory *FileStreamFactory = FileStreamFactory_GetInstance(); _ = fileStreamFactory
             fileOutputStream = fileStreamFactory.GetFileOutputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, filePath)

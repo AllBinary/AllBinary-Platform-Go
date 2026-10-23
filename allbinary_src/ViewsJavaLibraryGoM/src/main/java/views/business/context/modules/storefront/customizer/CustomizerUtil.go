@@ -79,7 +79,7 @@ func (this *CustomizerUtil) GetTransformInfoInterfaceToCustomize(customizerTrans
 
 
 // throws Exception
-func (this *CustomizerUtil) GetTransformInfoObjectConfigComponentNodesToCustomize(customizerTransformInfoInterface TransformInfoInterface, transformInfoInterface TransformInfoInterface) *BasicArrayList {
+func (this *CustomizerUtil) GetTransformInfoObjectConfigComponentNodesToCustomize(customizerTransformInfoInterface TransformInfoInterface, transformInfoInterface TransformInfoInterface) IBasicArrayList {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             this.LogUtil.PutF("View Name: " + customizerTransformInfoInterface.GetName(), this, "getTransformInfoObjectConfigComponentNodesToCustomize()")
         }
@@ -92,7 +92,7 @@ func (this *CustomizerUtil) GetTransformInfoObjectConfigComponentNodesToCustomiz
 
 
 // throws Exception
-func (this *CustomizerUtil) GetTransformInfoObjectConfigComponentNodes(transformInfoInterface TransformInfoInterface) *BasicArrayList {
+func (this *CustomizerUtil) GetTransformInfoObjectConfigComponentNodes(transformInfoInterface TransformInfoInterface) IBasicArrayList {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             this.LogUtil.PutF("View Name: " + transformInfoInterface.GetName(), this, "getTransformInfoObjectConfigComponentNodes()")
         }
@@ -102,7 +102,7 @@ func (this *CustomizerUtil) GetTransformInfoObjectConfigComponentNodes(transform
 
 
 // throws Exception
-func (this *CustomizerUtil) GetTransformInfoObjectConfigGroupComponentNodes(transformInfoInterface TransformInfoInterface) *BasicArrayList {
+func (this *CustomizerUtil) GetTransformInfoObjectConfigGroupComponentNodes(transformInfoInterface TransformInfoInterface) IBasicArrayList {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             this.LogUtil.PutF("View Name: " + transformInfoInterface.GetName(), this, "getTransformInfoObjectConfigComponentNodes()")
         }
@@ -117,7 +117,7 @@ func (this *CustomizerUtil) Insert(transformInfoInterface TransformInfoInterface
             this.LogUtil.PutF("View Name: " + transformInfoInterface.GetName(), this, "insert()")
         }
         var transformInfoEntityInterface *TransformInfoEntity = TransformInfoEntityBuilder_GetInstance(); _ = transformInfoEntityInterface
-        var allViewsToBeModified *BasicArrayList = this.GetTransformInfoObjectConfigGroupComponentNodes(transformInfoInterface); _ = allViewsToBeModified
+        var allViewsToBeModified IBasicArrayList = this.GetTransformInfoObjectConfigGroupComponentNodes(transformInfoInterface); _ = allViewsToBeModified
         var document *Document = DomDocumentHelper_Create(); _ = document
         document.AppendChild(domNodeInterface.ToXmlNode(document))
         var documentString string = XmlDocumentHelper_ToString(document); _ = documentString
@@ -132,7 +132,7 @@ func (this *CustomizerUtil) Insert(transformInfoInterface TransformInfoInterface
         transformInfoInterface.SetData(documentString)
         var size int = allViewsToBeModified.Size(); _ = size
         for index := int(0); index < size; index++ {
-            var transformInfo *TransformInfo = any(allViewsToBeModified.Get(index)).(*TransformInfo); _ = transformInfo
+            var transformInfo ITransformInfo = any(allViewsToBeModified.Get(index)).(ITransformInfo); _ = transformInfo
             var viewNameOfViewToBeModified string = transformInfo.GetName(); _ = viewNameOfViewToBeModified
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 stringBuffer.Delete(0, stringBuffer.Length())
@@ -188,11 +188,11 @@ func (this *CustomizerUtil) GetViewDataForComponentsInObjectConfig(transformInfo
             this.LogUtil.PutF("View Name: " + transformInfoInterface.GetName(), this, "getViewDataForComponentsInObjectConfig()")
         }
         var transformInfoObjectConfigInterface TransformInfoObjectConfigInterface = transformInfoInterface.GetObjectConfigInterface(); _ = transformInfoObjectConfigInterface
-        var allViewsToBeModified *BasicArrayList = transformInfoObjectConfigInterface.GetGroupTransforms(); _ = allViewsToBeModified
+        var allViewsToBeModified IBasicArrayList = transformInfoObjectConfigInterface.GetGroupTransforms(); _ = allViewsToBeModified
         var transformInfoEntityInterface *TransformInfoEntity = TransformInfoEntityBuilder_GetInstance(); _ = transformInfoEntityInterface
         var size int = allViewsToBeModified.Size(); _ = size
         for index := int(0); index < size; index++ {
-            var nextTransformInfoInterface *TransformInfo = any(allViewsToBeModified.Get(index)).(*TransformInfo); _ = nextTransformInfoInterface
+            var nextTransformInfoInterface ITransformInfo = any(allViewsToBeModified.Get(index)).(ITransformInfo); _ = nextTransformInfoInterface
             var viewNameOfViewToBeModified string = nextTransformInfoInterface.GetName(); _ = viewNameOfViewToBeModified
             var httpTransformInfoInterface TransformInfoHttpInterface = any(transformInfoInterface).(TransformInfoHttpInterface); _ = httpTransformInfoInterface
             var specifiedTransformInfoInterface TransformInfoInterface = transformInfoEntityInterface.Get(viewNameOfViewToBeModified, httpTransformInfoInterface.GetPropertiesHashMap(), httpTransformInfoInterface.GetPageContext()); _ = specifiedTransformInfoInterface

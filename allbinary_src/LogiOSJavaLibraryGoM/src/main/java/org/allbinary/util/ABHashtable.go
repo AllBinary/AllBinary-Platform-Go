@@ -48,15 +48,28 @@ type ABHashtable[K any, V any] struct {
 
 
 
-func NewABHashtable[K any, V any](initialCapacity int) *ABHashtable[K, V] {
+
+
+// Java overloads of new ABHashtable
+func NewABHashtable[K any, V any](args ...any) *ABHashtable[K, V] {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[int](args[0], pass) {
+            return NewABHashtable_1[K, V](Java_Arg[int](args[0]))
+        }
+        if len(args) == 0 {
+            return NewABHashtable_2[K, V]()
+        }
+    }
+    panic("No Java overload of new ABHashtable for the arguments")
+}
+func NewABHashtable_1[K any, V any](initialCapacity int) *ABHashtable[K, V] {
     this := &ABHashtable[K, V]{}
         this.Hashtable = *NewHashtable(initialCapacity)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewABHashtable[K any, V any]() *ABHashtable[K, V] {
+func NewABHashtable_2[K any, V any]() *ABHashtable[K, V] {
     this := &ABHashtable[K, V]{}
         this.Hashtable = *NewHashtable()
     return this

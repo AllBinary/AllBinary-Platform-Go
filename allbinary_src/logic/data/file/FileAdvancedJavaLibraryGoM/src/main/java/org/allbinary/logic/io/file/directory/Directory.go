@@ -59,19 +59,46 @@ func NewDirectory() *Directory {
 }
 
 
-func (this *Directory) Create(directoryAbPath *AbPath) bool {
+func (this *Directory) Create_1(directoryAbPath IAbPath) bool {
         return this.Create(directoryAbPath.ToFileSystemString())
+}
+
+// Java overloads of Directory.create
+func (this *Directory) Create(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[IAbPath](args[0], pass) {
+            return this.Create_1(Java_Arg[IAbPath](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.Create_2(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of Directory.create for the arguments")
 }
 
 
 // throws Exception
-func (this *Directory) Remove(existingDirectoryAbPath *AbPath) {
+func (this *Directory) Remove_1(existingDirectoryAbPath IAbPath) {
         this.Remove(existingDirectoryAbPath.ToFileSystemString())
 }
 
+// Java overloads of Directory.remove
+func (this *Directory) Remove(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[IAbPath](args[0], pass) {
+            this.Remove_1(Java_Arg[IAbPath](args[0]))
+            return
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            this.Remove_2(Java_Arg[string](args[0]))
+            return
+        }
+    }
+    panic("No Java overload of Directory.remove for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *Directory) Create(directory string) bool {
+
+func (this *Directory) Create_2(directory string) bool {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 bool) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -98,8 +125,7 @@ func (this *Directory) Create(directory string) bool {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *Directory) Remove(existingDirectory string) {
+func (this *Directory) Remove_2(existingDirectory string) {
         var existingDirectoryFile *AbFile = FileFactory_GetInstance().GetInstance(existingDirectory); _ = existingDirectoryFile
         if existingDirectoryFile.IsDirectory() {
             if len(existingDirectoryFile.List()) > 0 {
@@ -113,15 +139,45 @@ func (this *Directory) Remove(existingDirectory string) {
 }
 
 
-func (this *Directory) Search(fileFilter *FileFilter, file *AbFile) *BasicArrayList {
+func (this *Directory) Search_1(fileFilter *FileFilter, file *AbFile) IBasicArrayList {
         return this.Search(fileFilter, file, false)
 }
 
+// Java overloads of Directory.search
+func (this *Directory) Search(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[*FileFilter](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) {
+            return this.Search_1(Java_Arg[*FileFilter](args[0]), Java_Arg[*AbFile](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[*FileFilter](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) && Java_IsArg[bool](args[2], pass) {
+            return this.Search_2(Java_Arg[*FileFilter](args[0]), Java_Arg[*AbFile](args[1]), Java_Arg[bool](args[2]))
+        }
+        if len(args) == 1 && Java_IsArg[*AbFile](args[0], pass) {
+            return this.Search_3(Java_Arg[*AbFile](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[bool](args[1], pass) {
+            return this.Search_4(Java_Arg[*AbFile](args[0]), Java_Arg[bool](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) {
+            return this.Search_5(Java_Arg[string](args[0]), Java_Arg[*AbFile](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) && Java_IsArg[bool](args[2], pass) {
+            return this.Search_6(Java_Arg[string](args[0]), Java_Arg[*AbFile](args[1]), Java_Arg[bool](args[2]))
+        }
+        if len(args) == 2 && Java_IsArg[int](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) {
+            return this.Search_7(Java_Arg[int](args[0]), Java_Arg[*AbFile](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[int](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) && Java_IsArg[bool](args[2], pass) {
+            return this.Search_8(Java_Arg[int](args[0]), Java_Arg[*AbFile](args[1]), Java_Arg[bool](args[2]))
+        }
+    }
+    panic("No Java overload of Directory.search for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *Directory) Search(fileFilter *FileFilter, file *AbFile, isRecursiveSearch bool) *BasicArrayList {
-        var fileList *BasicArrayList = NewBasicArrayListD(); _ = fileList
-        var recursiveFileList *BasicArrayList; _ = recursiveFileList
+
+func (this *Directory) Search_2(fileFilter *FileFilter, file *AbFile, isRecursiveSearch bool) IBasicArrayList {
+        var fileList IBasicArrayList = NewBasicArrayListD(); _ = fileList
+        var recursiveFileList IBasicArrayList; _ = recursiveFileList
         if file.IsDirectory() {
             var fileArray []any = file.ListFilesFileFilter(fileFilter); _ = fileArray
             if fileArray == nil {
@@ -144,16 +200,14 @@ func (this *Directory) Search(fileFilter *FileFilter, file *AbFile, isRecursiveS
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *Directory) Search(file *AbFile) *BasicArrayList {
+func (this *Directory) Search_3(file *AbFile) IBasicArrayList {
         return this.Search(file, false)
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *Directory) Search(file *AbFile, isRecursiveSearch bool) *BasicArrayList {
-        var fileList *BasicArrayList = NewBasicArrayListD(); _ = fileList
-        var recursiveFileList *BasicArrayList; _ = recursiveFileList
+func (this *Directory) Search_4(file *AbFile, isRecursiveSearch bool) IBasicArrayList {
+        var fileList IBasicArrayList = NewBasicArrayListD(); _ = fileList
+        var recursiveFileList IBasicArrayList; _ = recursiveFileList
         if file.IsDirectory() {
             var fileArray []any = file.ListFiles(); _ = fileArray
             if fileArray == nil {
@@ -175,16 +229,14 @@ func (this *Directory) Search(file *AbFile, isRecursiveSearch bool) *BasicArrayL
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *Directory) Search(searchValue string, file *AbFile) *BasicArrayList {
+func (this *Directory) Search_5(searchValue string, file *AbFile) IBasicArrayList {
         return this.Search(searchValue, file, false)
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *Directory) Search(searchValue string, file *AbFile, isRecursiveSearch bool) *BasicArrayList {
-        var fileList *BasicArrayList = NewBasicArrayListD(); _ = fileList
-        var recursiveFileList *BasicArrayList; _ = recursiveFileList
+func (this *Directory) Search_6(searchValue string, file *AbFile, isRecursiveSearch bool) IBasicArrayList {
+        var fileList IBasicArrayList = NewBasicArrayListD(); _ = fileList
+        var recursiveFileList IBasicArrayList; _ = recursiveFileList
         if file.IsDirectory() {
             var fileArray []any = file.ListFiles(); _ = fileArray
             if fileArray == nil {
@@ -208,16 +260,14 @@ func (this *Directory) Search(searchValue string, file *AbFile, isRecursiveSearc
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *Directory) Search(level int, file *AbFile) *BasicArrayList {
+func (this *Directory) Search_7(level int, file *AbFile) IBasicArrayList {
         return this.Search(level, file, false)
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *Directory) Search(level int, file *AbFile, isRecursiveSearch bool) *BasicArrayList {
-        var fileList *BasicArrayList = NewBasicArrayListD(); _ = fileList
-        var recursiveFileList *BasicArrayList; _ = recursiveFileList
+func (this *Directory) Search_8(level int, file *AbFile, isRecursiveSearch bool) IBasicArrayList {
+        var fileList IBasicArrayList = NewBasicArrayListD(); _ = fileList
+        var recursiveFileList IBasicArrayList; _ = recursiveFileList
         if file.IsDirectory() {
             var fileArray []any = file.ListFiles(); _ = fileArray
             if fileArray == nil {

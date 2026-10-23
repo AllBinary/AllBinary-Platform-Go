@@ -79,7 +79,7 @@ func (this *TransformInfoPropertiesDocument) ToTransformInfoPropertiesHashMap() 
             var transformInfoPropertiesHashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = transformInfoPropertiesHashMap
             var transformInfosNode *Node = this.Document.GetElementsByTagName(TransformInfosData_GetInstance().NAME).Item(0); _ = transformInfosNode
             var transformInfosChildNodeList *NodeList = transformInfosNode.GetChildNodes(); _ = transformInfosChildNodeList
-            var transformInfoNodeVector *BasicArrayList = DomSearchHelper_GetAllNodes(TransformInfoData_GetInstance().NAME, transformInfosChildNodeList); _ = transformInfoNodeVector
+            var transformInfoNodeVector IBasicArrayList = DomSearchHelper_GetAllNodes(TransformInfoData_GetInstance().NAME, transformInfosChildNodeList); _ = transformInfoNodeVector
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF("Size: " + fmt.Sprint(transformInfoNodeVector.Size()), this, "toTransformInfoPropertiesHashMap()")
             }

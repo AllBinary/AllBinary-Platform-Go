@@ -73,9 +73,9 @@ func (this *DeleteCloud) Delete(prePath string, current int, total int) bool {
                 var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
                 stringBuffer.Append(URLGLOBALS.GetWebappPath())
                 stringBuffer.Append(prePath)
-                var path *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = path
+                var path IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = path
                 var file *AbFile = AbFile_CreateAbFileFromAbPath(path); _ = file
-                var fileBasicArrayList *BasicArrayList = Directory_GetInstance().Search(file, true); _ = fileBasicArrayList
+                var fileBasicArrayList IBasicArrayList = Directory_GetInstance().Search(file, true); _ = fileBasicArrayList
                 var size int = fileBasicArrayList.Size(); _ = size
                 stringBuffer.Delete(0, stringBuffer.Length())
                 stringBuffer.Append("Searched: ")
@@ -103,7 +103,7 @@ func (this *DeleteCloud) Delete(prePath string, current int, total int) bool {
                                 _ = e
                             }
                         }()
-                        if nextFile.GetPath().IndexOf(FileUploadData_GetInstance().FILE) < 0 {
+                        if strings.Index(nextFile.GetPath(), string(FileUploadData_GetInstance().FILE)) < 0 {
                             nextFile.Delete()
                         }
                         return

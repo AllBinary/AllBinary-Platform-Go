@@ -44,8 +44,8 @@ var _ = unicode.IsDigit
 
 type SimpleFileUtil struct {
     LogUtil *LogUtil
-    NULL_WRITER *Writer
-    NULL_READER *Reader
+    NULL_WRITER IWriter
+    NULL_READER IReader
     CommonStrings *CommonStrings
     NullUtil *NullUtil
     StreamUtil *StreamUtil
@@ -74,7 +74,7 @@ func SimpleFileUtil_GetInstance() *SimpleFileUtil {
 }
 
 
-func SimpleFileUtil_NullOutputStream() *OutputStream {
+func SimpleFileUtil_NullOutputStream() IOutputStream {
         return /* Java anonymous class body: implement it as a named type
             
 
@@ -94,25 +94,25 @@ func SimpleFileUtil_NullOutputStream() *OutputStream {
 }
 
 
-func SimpleFileUtil_NullWriter() *Writer {
+func SimpleFileUtil_NullWriter() IWriter {
         return /* Java anonymous class body: implement it as a named type
             
             
 
         // throws IOException
-        func (this *SimpleFileUtil) Append(c rune) *Writer {
+        func (this *SimpleFileUtil) Append(c rune) IWriter {
                 return this
         }
             
 
         // throws IOException
-        func (this *SimpleFileUtil) Append(csq CharSequence) *Writer {
+        func (this *SimpleFileUtil) Append(csq CharSequence) IWriter {
                 return this
         }
             
 
         // throws IOException
-        func (this *SimpleFileUtil) Append(csq CharSequence, start int, end int) *Writer {
+        func (this *SimpleFileUtil) Append(csq CharSequence, start int, end int) IWriter {
                 return this
         }
             
@@ -149,7 +149,7 @@ func SimpleFileUtil_NullWriter() *Writer {
 }
 
 
-func SimpleFileUtil_NullReader() *Reader {
+func SimpleFileUtil_NullReader() IReader {
         return /* Java anonymous class body: implement it as a named type
             
 
@@ -189,18 +189,18 @@ func SimpleFileUtil_NullReader() *Reader {
 }
 
 
-func (this *SimpleFileUtil) LoadFileAsList(inputStream *InputStream, max_ int, byteArray1 []int8) *BasicArrayList {
+func (this *SimpleFileUtil) LoadFileAsList(inputStream IInputStream, max_ int, byteArray1 []int8) IBasicArrayList {
         return this.LoadFileAsListReturnLine(inputStream, max_, byteArray1, 0)
 }
 
 
-func (this *SimpleFileUtil) LoadFileAsListReturnLine(inputStream *InputStream, max_ int, byteArray1 []int8, includeReturnLine int) *BasicArrayList {
-        var stringList *BasicArrayList = NewBasicArrayListD(); _ = stringList
+func (this *SimpleFileUtil) LoadFileAsListReturnLine(inputStream IInputStream, max_ int, byteArray1 []int8, includeReturnLine int) IBasicArrayList {
+        var stringList IBasicArrayList = NewBasicArrayListD(); _ = stringList
         if inputStream == nil {
             return stringList
         }
         var byteArray []int8 = this.NullUtil.NULL_BYTE_ARRAY; _ = byteArray
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)

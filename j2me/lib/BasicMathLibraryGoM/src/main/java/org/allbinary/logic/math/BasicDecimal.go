@@ -195,3 +195,4 @@ func (this *BasicDecimal) GetScaledFactor() int {
 func (this *BasicDecimal) GetScaledFactorValue() int {
         return this.FactorValue
 }
+

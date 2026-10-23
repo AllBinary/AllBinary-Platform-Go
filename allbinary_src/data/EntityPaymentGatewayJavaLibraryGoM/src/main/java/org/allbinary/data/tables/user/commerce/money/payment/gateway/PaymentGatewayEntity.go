@@ -83,7 +83,7 @@ func (this *PaymentGatewayEntity) Add(paymentGatewayInterface PaymentGatewayInte
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().SQLLOGGING) {
                 this.LogUtil.PutF(this.CommonStrings.START, this, "add")
             }
-            var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+            var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
             vector.Add(NewPaymentGatewayIdGenerator().GetNext())
             vector.AddAllList(NewPaymentGatewayEncryptedMapping(paymentGatewayInterface).ToVector())
             var calendar *Calendar = Calendar_GetInstance(); _ = calendar
@@ -116,7 +116,7 @@ func (this *PaymentGatewayEntity) Update(paymentGatewayInterface PaymentGatewayI
             var time string = fmt.Sprint(int64(calendar.GetTimeInMillis())); _ = time
             paymentGatewayInterface.SetLastModified(time)
             var whereKeyValuePairs *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = whereKeyValuePairs
-            whereKeyValuePairs.Put(fmt.Sprint(StoreFrontData_GetInstance().NAME), paymentGatewayInterface.GetStoreName())
+            whereKeyValuePairs.Put(StoreFrontData_GetInstance().NAME, paymentGatewayInterface.GetStoreName())
             whereKeyValuePairs.Put(fmt.Sprint(PaymentGatewayData_NAME), paymentGatewayInterface.GetName())
             if whereKeyValuePairs.Get(EntryData_GetInstance().TIMECREATED) != nil {
                 panic(errors.New(fmt.Sprint("Don't update TimeCreated for update")))
@@ -147,12 +147,12 @@ func (this *PaymentGatewayEntity) GetPaymentGatewayInterface(storeName string, p
             }()
             var paymentGatewayHashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = paymentGatewayHashMap
             var whereKeyAndValue *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = whereKeyAndValue
-            whereKeyAndValue.Put(fmt.Sprint(StoreFrontData_GetInstance().NAME), storeName)
+            whereKeyAndValue.Put(StoreFrontData_GetInstance().NAME, storeName)
             whereKeyAndValue.Put(fmt.Sprint(PaymentGatewayData_NAME), paymentType.GetName())
             paymentGatewayHashMap = this.AbSqlBean.GetRow(whereKeyAndValue)
             if paymentGatewayHashMap != nil {
-                var userName string = any(paymentGatewayHashMap.Get(fmt.Sprint(UserData_USERNAME))).(string); _ = userName
-                var password string = any(paymentGatewayHashMap.Get(fmt.Sprint(UserData_PASSWORD))).(string); _ = password
+                var userName string = any(paymentGatewayHashMap.Get(UserData_USERNAME)).(string); _ = userName
+                var password string = any(paymentGatewayHashMap.Get(UserData_PASSWORD)).(string); _ = password
                 var special1 string = any(paymentGatewayHashMap.Get(fmt.Sprint(PaymentGatewayData_SPECIAL1))).(string); _ = special1
                 var special2 string = any(paymentGatewayHashMap.Get(fmt.Sprint(PaymentGatewayData_SPECIAL2))).(string); _ = special2
                 var special3 string = any(paymentGatewayHashMap.Get(fmt.Sprint(PaymentGatewayData_SPECIAL3))).(string); _ = special3
@@ -163,8 +163,8 @@ func (this *PaymentGatewayEntity) GetPaymentGatewayInterface(storeName string, p
                 var special8 string = any(paymentGatewayHashMap.Get(fmt.Sprint(PaymentGatewayData_SPECIAL8))).(string); _ = special8
                 var special9 string = any(paymentGatewayHashMap.Get(fmt.Sprint(PaymentGatewayData_SPECIAL9))).(string); _ = special9
                 var superCrypt *SuperCrypt = NewSuperCrypt(PaymentGatewayData_CRYPTNUM); _ = superCrypt
-                paymentGatewayHashMap.Put(fmt.Sprint(UserData_USERNAME), superCrypt.Decrypt(userName))
-                paymentGatewayHashMap.Put(fmt.Sprint(UserData_PASSWORD), superCrypt.Decrypt(password))
+                paymentGatewayHashMap.Put(UserData_USERNAME, superCrypt.Decrypt(userName))
+                paymentGatewayHashMap.Put(UserData_PASSWORD, superCrypt.Decrypt(password))
                 paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_SPECIAL1), superCrypt.Decrypt(special1))
                 paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_SPECIAL2), superCrypt.Decrypt(special2))
                 paymentGatewayHashMap.Put(fmt.Sprint(PaymentGatewayData_SPECIAL3), superCrypt.Decrypt(special3))
@@ -190,8 +190,8 @@ func (this *PaymentGatewayEntity) GetPaymentGatewayInterface(storeName string, p
 }
 
 
-func (this *PaymentGatewayEntity) FindPaymentTypeVectorByStore(storeName string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *PaymentGatewayEntity) FindPaymentTypeVectorByStore(storeName string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -202,10 +202,10 @@ func (this *PaymentGatewayEntity) FindPaymentTypeVectorByStore(storeName string)
             tryControl1, tryResult1 = 1, nil; return
                 }
             }()
-            var paymentGatewayNameVector *BasicArrayList = NewBasicArrayListD(); _ = paymentGatewayNameVector
-            paymentGatewayNameVector = this.AbSqlBean.GetColumnWhere(fmt.Sprint(PaymentGatewayData_NAME), fmt.Sprint(StoreFrontData_GetInstance().NAME), storeName)
+            var paymentGatewayNameVector IBasicArrayList = NewBasicArrayListD(); _ = paymentGatewayNameVector
+            paymentGatewayNameVector = this.AbSqlBean.GetColumnWhere(fmt.Sprint(PaymentGatewayData_NAME), StoreFrontData_GetInstance().NAME, storeName)
             if paymentGatewayNameVector != nil {
-                var paymentGatewayVector *BasicArrayList = NewBasicArrayListD(); _ = paymentGatewayVector
+                var paymentGatewayVector IBasicArrayList = NewBasicArrayListD(); _ = paymentGatewayVector
                 var size int = paymentGatewayNameVector.Size(); _ = size
                 for i := int(0); i < size; i++ {
                     var paymentTypeString string = any(paymentGatewayNameVector.Get(i)).(string); _ = paymentTypeString
@@ -239,7 +239,7 @@ func (this *PaymentGatewayEntity) Remove(storeName string, paymentType *BasicPay
                 }
             }()
             var whereHashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = whereHashMap
-            whereHashMap.Put(fmt.Sprint(StoreFrontData_GetInstance().NAME), storeName)
+            whereHashMap.Put(StoreFrontData_GetInstance().NAME, storeName)
             whereHashMap.Put(fmt.Sprint(PaymentGatewayData_NAME), paymentType.GetName())
             this.AbSqlBean.DeleteWhere(whereHashMap)
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().SQLLOGGING) {

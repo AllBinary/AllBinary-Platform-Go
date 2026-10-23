@@ -75,3 +75,4 @@ func (this *RectangleCollisionUtil) IsInside(rectX1 int, rectY1 int, rectX2 int,
             return true
         }
 }
+

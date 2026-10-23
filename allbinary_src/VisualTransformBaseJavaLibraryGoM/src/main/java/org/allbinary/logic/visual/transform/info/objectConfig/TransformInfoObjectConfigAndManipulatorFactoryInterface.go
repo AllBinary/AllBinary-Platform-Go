@@ -43,9 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type TransformInfoObjectConfigAndManipulatorFactoryInterface interface {
-    GetInstance(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, objectConfigFileAbPath *AbPath) TransformInfoObjectConfigInterface
-    GetInstance(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface) TransformInfoObjectConfigInterface
-    GetInstance(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, document *Document) TransformInfoObjectConfigInterface
+    GetInstance(args ...any) TransformInfoObjectConfigInterface
 }
 
 

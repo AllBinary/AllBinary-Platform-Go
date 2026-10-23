@@ -56,14 +56,26 @@ func NewViewEditorWebStoreAdminUserFactory() *ViewEditorWebStoreAdminUserFactory
 
 
 // throws Exception
-func (this *ViewEditorWebStoreAdminUserFactory) GetInstance() UserInterface {
+func (this *ViewEditorWebStoreAdminUserFactory) GetInstance_1() UserInterface {
         return NewViewEditorWebStoreAdminUser()
+}
+
+// Java overloads of ViewEditorWebStoreAdminUserFactory.getInstance
+func (this *ViewEditorWebStoreAdminUserFactory) GetInstance(args ...any) UserInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.GetInstance_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return this.GetInstance_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of ViewEditorWebStoreAdminUserFactory.getInstance for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *ViewEditorWebStoreAdminUserFactory) GetInstance(hashMap *HashMap) UserInterface {
+func (this *ViewEditorWebStoreAdminUserFactory) GetInstance_2(hashMap *HashMap) UserInterface {
         return NewViewEditorWebStoreAdminUser(hashMap)
 }
 

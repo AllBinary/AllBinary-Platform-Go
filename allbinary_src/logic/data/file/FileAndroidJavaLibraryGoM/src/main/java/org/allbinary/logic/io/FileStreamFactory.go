@@ -70,7 +70,7 @@ func NewFileStreamFactory(context *Context) *FileStreamFactory {
 
 
 // throws Exception
-func (this *FileStreamFactory) GetFileInputStreamInstance(path string, fileName string) *AbFileInputStream {
+func (this *FileStreamFactory) GetFileInputStreamInstance(path string, fileName string) IAbFileInputStream {
         return NewAbFileInputStream(this.GetContext().OpenFileInput(fileName))
 }
 

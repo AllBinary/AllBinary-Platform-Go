@@ -61,3 +61,4 @@ func (this *CharacterSet) ToString() string {
 func (this *CharacterSet) String() string {
     return this.ToString()
 }
+

@@ -73,7 +73,7 @@ func AbFile_CreateAbFilePathAndName(filePath string, fileName string) *AbFile {
 }
 
 
-func AbFile_CreateAbFileFromAbPath(abPath *AbPath) *AbFile {
+func AbFile_CreateAbFileFromAbPath(abPath IAbPath) *AbFile {
         return NewAbFile(NewFile(abPath.ToFileSystemString()))
 }
 
@@ -159,12 +159,12 @@ func (this *AbFile) CanWrite() bool {
 
 
 func (this *AbFile) Exists() bool {
-        return this.File.Exists()
+        return File_Exists()
 }
 
 
 func (this *AbFile) IsDirectory() bool {
-        return this.File.IsDirectory()
+        return File_IsDirectory()
 }
 
 
@@ -196,7 +196,7 @@ func (this *AbFile) CreateNewFile() bool {
 
 // throws IOException
 func (this *AbFile) Delete() bool {
-        return this.File.Delete()
+        return File_Delete()
 }
 
 
@@ -206,12 +206,12 @@ func (this *AbFile) DeleteOnExit() {
 
 
 func (this *AbFile) List() []string {
-        return this.File.List()
+        return File_List()
 }
 
 
 func (this *AbFile) ListWithFilter(filter *FilenameFilter) []string {
-        return this.File.List(filter)
+        return File_List(filter)
 }
 
 

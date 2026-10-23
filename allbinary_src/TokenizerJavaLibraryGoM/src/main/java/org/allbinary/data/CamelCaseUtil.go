@@ -71,7 +71,7 @@ func (this *CamelCaseUtil) GetAsCamelCase(string_ string, stringBuilder *StringM
         }
         var stringValidationUtil *StringValidationUtil = StringValidationUtil_GetInstance(); _ = stringValidationUtil
         stringBuilder.Delete(0, stringBuilder.Length())
-        var list *BasicArrayList = NewBasicArrayListD(); _ = list
+        var list IBasicArrayList = NewBasicArrayListD(); _ = list
         var tokenizer *Tokenizer = NewTokenizer(this.CommonSeps.UNDERSCORE); _ = tokenizer
         tokenizer.GetTokensFromString(string_, list)
         var size int = list.Size(); _ = size

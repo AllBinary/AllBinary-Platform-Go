@@ -50,6 +50,19 @@ type BasketView struct {
 
 // Implements DomNodeInterface
 
+// The Java class BasketView has subclasses so its variables are this interface
+type IBasketView interface {
+    IHttpStoreComponentView
+    BasketView_() *BasketView
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *BasketView) BasketView_() *BasketView {
+    return this
+}
+
 
 func (this *BasketView) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -109,7 +122,7 @@ func (this *BasketView) ToXmlNode(document *Document) *Node {
             var totalNumberTextNode *Node = document.CreateTextNode(fmt.Sprint(basketInterface.GetNumberOfItems())); _ = totalNumberTextNode
             totalNumberNode.AppendChild(totalNumberTextNode)
             var totalWeightNode *Node = document.CreateElement(BasketData_TOTALWEIGHT); _ = totalWeightNode
-            var totalWeightTextNode *Node = document.CreateTextNode(fmt.Sprint(basketInterface.GetTotalWeight())); _ = totalWeightTextNode
+            var totalWeightTextNode *Node = document.CreateTextNode(basketInterface.GetTotalWeight()); _ = totalWeightTextNode
             totalWeightNode.AppendChild(totalWeightTextNode)
             var subTotalNode *Node = document.CreateElement(BasketData_SUBTOTAL); _ = subTotalNode
             var subTotalTextNode *Node = document.CreateTextNode(fmt.Sprint(basketInterface.GetSubTotal())); _ = subTotalTextNode

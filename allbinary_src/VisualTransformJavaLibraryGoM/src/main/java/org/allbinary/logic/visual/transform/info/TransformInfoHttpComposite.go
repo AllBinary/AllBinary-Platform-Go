@@ -48,6 +48,19 @@ type TransformInfoHttpComposite struct {
     TransformInfoInterface TransformInfoHttpInterface
 }
 
+// The Java class TransformInfoHttpComposite has subclasses so its variables are this interface
+type ITransformInfoHttpComposite interface {
+    TransformInfoHttpComposite_() *TransformInfoHttpComposite
+    GetTransformInfoInterface() TransformInfoInterface
+    GetWeblisketSession() *WeblisketSession
+    GetPageContext() *PageContext
+    GetPropertiesHashMap() *HashMap
+}
+
+func (this *TransformInfoHttpComposite) TransformInfoHttpComposite_() *TransformInfoHttpComposite {
+    return this
+}
+
 
 func (this *TransformInfoHttpComposite) initFields() {
     this.LogUtil = LogUtil_GetInstance()

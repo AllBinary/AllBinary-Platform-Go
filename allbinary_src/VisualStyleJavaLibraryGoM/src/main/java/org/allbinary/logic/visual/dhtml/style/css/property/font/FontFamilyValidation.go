@@ -55,7 +55,21 @@ func (this *FontFamilyValidation) initFields() {
 }
 
 
-func NewFontFamilyValidation() *FontFamilyValidation {
+
+
+// Java overloads of new FontFamilyValidation
+func NewFontFamilyValidation(args ...any) *FontFamilyValidation {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewFontFamilyValidation_1()
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewFontFamilyValidation_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new FontFamilyValidation for the arguments")
+}
+func NewFontFamilyValidation_1() *FontFamilyValidation {
     this := &FontFamilyValidation{}
         this.FontFamilyView = *NewFontFamilyView()
         this.initFields()
@@ -63,8 +77,7 @@ func NewFontFamilyValidation() *FontFamilyValidation {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewFontFamilyValidation(node *Node) *FontFamilyValidation {
+func NewFontFamilyValidation_2(node *Node) *FontFamilyValidation {
     this := &FontFamilyValidation{}
         this.FontFamilyView = *NewFontFamilyView(node)
         this.initFields()

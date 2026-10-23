@@ -53,8 +53,21 @@ func (this *StylesValidationFactory) initFields() {
 }
 
 
-func StylesValidationFactory_GetInstance() *StylesValidationFactory {
+func StylesValidationFactory_GetInstance_1() *StylesValidationFactory {
         return StylesValidationFactory_Instance
+}
+
+// Java overloads of StylesValidationFactory.getInstance
+func StylesValidationFactory_GetInstance(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return StylesValidationFactory_GetInstance_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return StylesValidationFactory_GetInstance_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of StylesValidationFactory.getInstance for the arguments")
 }
 
 
@@ -66,8 +79,7 @@ func NewStylesValidationFactory() *StylesValidationFactory {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *StylesValidationFactory) GetInstance(document *Document) *BasicArrayList {
+func (this *StylesValidationFactory) GetInstance(document *Document) IBasicArrayList {
         var commonStrings *CommonStrings = CommonStrings_GetInstance(); _ = commonStrings
         var nodeList *NodeList = document.GetElementsByTagName(StylesData_GetInstance().NAME); _ = nodeList
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
@@ -78,13 +90,13 @@ func (this *StylesValidationFactory) GetInstance(document *Document) *BasicArray
         }
         for index := int(0); index < nodeList.GetLength(); index++ {
             var stylesNode *Node = nodeList.Item(index); _ = stylesNode
-            var styleNodeList *BasicArrayList = DomSearchHelper_GetAllNodes(StyleData_GetInstance().NAME, stylesNode.GetChildNodes()); _ = styleNodeList
+            var styleNodeList IBasicArrayList = DomSearchHelper_GetAllNodes(StyleData_GetInstance().NAME, stylesNode.GetChildNodes()); _ = styleNodeList
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF("Number Of Style Nodes Present: " + fmt.Sprint(styleNodeList.Size()), this, commonStrings.GET_INSTANCE)
             }
             for styleNodesIndex := int(0); styleNodesIndex < styleNodeList.Size(); styleNodesIndex++ {
                 var styleNode *Node = any(styleNodeList.Get(styleNodesIndex)).(*Node); _ = styleNode
-                var cssElementStyleNodeList *BasicArrayList = DomSearchHelper_GetAllNodes(CssElementData_GetInstance().NAME, styleNode.GetChildNodes()); _ = cssElementStyleNodeList
+                var cssElementStyleNodeList IBasicArrayList = DomSearchHelper_GetAllNodes(CssElementData_GetInstance().NAME, styleNode.GetChildNodes()); _ = cssElementStyleNodeList
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     this.LogUtil.PutF("Number Of Element Nodes Present: " + fmt.Sprint(cssElementStyleNodeList.Size()), this, commonStrings.GET_INSTANCE)
                 }
@@ -99,9 +111,8 @@ func (this *StylesValidationFactory) GetInstance(document *Document) *BasicArray
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func StylesValidationFactory_GetInstance(hashMap *HashMap) *BasicArrayList {
+func StylesValidationFactory_GetInstance_2(hashMap *HashMap) IBasicArrayList {
         var stylesDocument *Document = any(hashMap.Get(NameSpaceRequestParamData_DOCUMENT)).(*Document); _ = stylesDocument
-        return StylesValidationFactory_GetInstance().GetInstance(stylesDocument)
+        return StylesValidationFactory_GetInstance().(*StylesValidationFactory).GetInstance(stylesDocument)
 }
 

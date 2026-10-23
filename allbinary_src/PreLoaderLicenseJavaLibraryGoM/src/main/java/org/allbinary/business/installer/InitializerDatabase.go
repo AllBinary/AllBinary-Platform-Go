@@ -70,7 +70,21 @@ func (this *InitializerDatabase) initFields() {
 }
 
 
-func NewInitializerDatabase(abeClientInformation AbeClientInformationInterface, map_ Map) *InitializerDatabase {
+
+
+// Java overloads of new InitializerDatabase
+func NewInitializerDatabase(args ...any) *InitializerDatabase {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[Map](args[1], pass) {
+            return NewInitializerDatabase_1(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[Map](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) {
+            return NewInitializerDatabase_2(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[*HashMap](args[1]))
+        }
+    }
+    panic("No Java overload of new InitializerDatabase for the arguments")
+}
+func NewInitializerDatabase_1(abeClientInformation AbeClientInformationInterface, map_ Map) *InitializerDatabase {
     this := &InitializerDatabase{}
     this.initFields()
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
@@ -94,8 +108,7 @@ func NewInitializerDatabase(abeClientInformation AbeClientInformationInterface, 
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewInitializerDatabase(abeClientInformation AbeClientInformationInterface, initHashMap *HashMap) *InitializerDatabase {
+func NewInitializerDatabase_2(abeClientInformation AbeClientInformationInterface, initHashMap *HashMap) *InitializerDatabase {
     this := &InitializerDatabase{}
     this.initFields()
         this.GetFormData(abeClientInformation, initHashMap)
@@ -119,7 +132,7 @@ func (this *InitializerDatabase) GetFormData(abeClientInformation AbeClientInfor
             this.SetAdminSchema(any(hashMap.Get(initializerData.ADMINSCHEMA)).(string))
             this.SetAdminServer(any(hashMap.Get(initializerData.ADMINSERVER)).(string))
             this.SetAdminPort(any(hashMap.Get(initializerData.ADMINPORT)).(string))
-            var dbConnectionInfo *DbConnectionInfo = NewDbConnectionInfo(); _ = dbConnectionInfo
+            var dbConnectionInfo IDbConnectionInfo = NewDbConnectionInfo(); _ = dbConnectionInfo
             var adminDbName string = StringUtil_GetInstance().EMPTY_STRING; _ = adminDbName
             dbConnectionInfo.SetJdbcDriver(this.GetAdminJdbcDriver())
             dbConnectionInfo.SetName(adminDbName)

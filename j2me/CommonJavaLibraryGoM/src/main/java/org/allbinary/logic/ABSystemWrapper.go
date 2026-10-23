@@ -66,3 +66,4 @@ func (this *ABSystemWrapper) Arraycopy(src any, srcPos int, dest any, destPos in
 func (this *ABSystemWrapper) CurrentTimeMillis() int64 {
         return time.Now().UnixMilli()
 }
+

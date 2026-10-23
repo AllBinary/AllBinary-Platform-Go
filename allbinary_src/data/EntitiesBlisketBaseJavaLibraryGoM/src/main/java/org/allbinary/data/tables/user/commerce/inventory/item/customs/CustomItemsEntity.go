@@ -68,7 +68,7 @@ func NewCustomItemsEntity() *CustomItemsEntity {
 }
 
 
-func (this *CustomItemsEntity) Insert(values *BasicArrayList) {
+func (this *CustomItemsEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {

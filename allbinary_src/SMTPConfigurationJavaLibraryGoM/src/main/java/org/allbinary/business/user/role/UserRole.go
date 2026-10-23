@@ -49,6 +49,20 @@ type UserRole struct {
 
 // Implements *Serializable
 
+// The Java class UserRole has subclasses so its variables are this interface
+type IUserRole interface {
+    UserRole_() *UserRole
+    ToString() string
+    GetBasicUserRole() *BasicUserRole
+    GetUserFactory() UserFactoryInterface
+    GetSessionTimeout() int64
+    GetSessionInactivityTimeout() int64
+}
+
+func (this *UserRole) UserRole_() *UserRole {
+    return this
+}
+
 
 func (this *UserRole) initFields() {
     

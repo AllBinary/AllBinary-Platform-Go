@@ -55,7 +55,21 @@ func (this *CssElementValidation) initFields() {
 }
 
 
-func NewCssElementValidation() *CssElementValidation {
+
+
+// Java overloads of new CssElementValidation
+func NewCssElementValidation(args ...any) *CssElementValidation {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewCssElementValidation_1()
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewCssElementValidation_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new CssElementValidation for the arguments")
+}
+func NewCssElementValidation_1() *CssElementValidation {
     this := &CssElementValidation{}
         this.CssElementView = *NewCssElementView()
         this.initFields()
@@ -63,8 +77,7 @@ func NewCssElementValidation() *CssElementValidation {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewCssElementValidation(node *Node) *CssElementValidation {
+func NewCssElementValidation_2(node *Node) *CssElementValidation {
     this := &CssElementValidation{}
         this.CssElementView = *NewCssElementView(node)
         this.initFields()

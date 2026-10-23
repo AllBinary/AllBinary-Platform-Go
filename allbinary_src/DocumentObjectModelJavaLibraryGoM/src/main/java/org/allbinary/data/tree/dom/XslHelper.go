@@ -61,8 +61,8 @@ func NewXslHelper() *XslHelper {
 
 
 // throws Exception
-func (this *XslHelper) Translate(xsltStreamSource *StreamSource, xmlStreamSource *StreamSource, streamResult *StreamResult) *OutputStream {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *OutputStream) {
+func (this *XslHelper) Translate_1(xsltStreamSource *StreamSource, xmlStreamSource *StreamSource, streamResult *StreamResult) IOutputStream {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IOutputStream) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -81,11 +81,32 @@ func (this *XslHelper) Translate(xsltStreamSource *StreamSource, xmlStreamSource
         panic("unreachable")
 }
 
+// Java overloads of XslHelper.translate
+func (this *XslHelper) Translate(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[*StreamSource](args[0], pass) && Java_IsArg[*StreamSource](args[1], pass) && Java_IsArg[*StreamResult](args[2], pass) {
+            return this.Translate_1(Java_Arg[*StreamSource](args[0]), Java_Arg[*StreamSource](args[1]), Java_Arg[*StreamResult](args[2]))
+        }
+        if len(args) == 4 && Java_IsArg[*URIResolver](args[0], pass) && Java_IsArg[*StreamSource](args[1], pass) && Java_IsArg[*StreamSource](args[2], pass) && Java_IsArg[*StreamResult](args[3], pass) {
+            return this.Translate_2(Java_Arg[*URIResolver](args[0]), Java_Arg[*StreamSource](args[1]), Java_Arg[*StreamSource](args[2]), Java_Arg[*StreamResult](args[3]))
+        }
+        if len(args) == 2 && Java_IsArg[*StreamSource](args[0], pass) && Java_IsArg[*Document](args[1], pass) {
+            return this.Translate_3(Java_Arg[*StreamSource](args[0]), Java_Arg[*Document](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[*StreamSource](args[0], pass) && Java_IsArg[*StreamSource](args[1], pass) {
+            return this.Translate_4(Java_Arg[*StreamSource](args[0]), Java_Arg[*StreamSource](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[*URIResolver](args[0], pass) && Java_IsArg[*StreamSource](args[1], pass) && Java_IsArg[*StreamSource](args[2], pass) {
+            return this.Translate_5(Java_Arg[*URIResolver](args[0]), Java_Arg[*StreamSource](args[1]), Java_Arg[*StreamSource](args[2]))
+        }
+    }
+    panic("No Java overload of XslHelper.translate for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *XslHelper) Translate(resolver *URIResolver, xsltStreamSource *StreamSource, xmlStreamSource *StreamSource, streamResult *StreamResult) *OutputStream {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *OutputStream) {
+func (this *XslHelper) Translate_2(resolver *URIResolver, xsltStreamSource *StreamSource, xmlStreamSource *StreamSource, streamResult *StreamResult) IOutputStream {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IOutputStream) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -107,8 +128,7 @@ func (this *XslHelper) Translate(resolver *URIResolver, xsltStreamSource *Stream
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *XslHelper) Translate(xsltStreamSource *StreamSource, xmlDocument *Document) string {
+func (this *XslHelper) Translate_3(xsltStreamSource *StreamSource, xmlDocument *Document) string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -118,7 +138,7 @@ func (this *XslHelper) Translate(xsltStreamSource *StreamSource, xmlDocument *Do
                 }
             }()
             var outputStream *strings.Builder = &strings.Builder{}; _ = outputStream
-            tryControl1, tryResult1 = 1, fmt.Sprint(this.Translate(xsltStreamSource, NewStreamSource(NewStringBufferInputStream(XmlDocumentHelper_ToString(xmlDocument))), NewStreamResult(outputStream))); return
+            tryControl1, tryResult1 = 1, fmt.Sprint(this.Translate(xsltStreamSource, NewStreamSource(NewStringBufferInputStream(XmlDocumentHelper_ToString(xmlDocument))), NewStreamResult(outputStream)).(IOutputStream)); return
             return
         }(); tryControl1 == 1 {
             return tryResult1
@@ -128,8 +148,7 @@ func (this *XslHelper) Translate(xsltStreamSource *StreamSource, xmlDocument *Do
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *XslHelper) Translate(xsltStreamSource *StreamSource, xmlStreamSource *StreamSource) string {
+func (this *XslHelper) Translate_4(xsltStreamSource *StreamSource, xmlStreamSource *StreamSource) string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -139,7 +158,7 @@ func (this *XslHelper) Translate(xsltStreamSource *StreamSource, xmlStreamSource
                 }
             }()
             var outputStream *strings.Builder = &strings.Builder{}; _ = outputStream
-            tryControl1, tryResult1 = 1, fmt.Sprint(this.Translate(xsltStreamSource, xmlStreamSource, NewStreamResult(outputStream))); return
+            tryControl1, tryResult1 = 1, fmt.Sprint(this.Translate(xsltStreamSource, xmlStreamSource, NewStreamResult(outputStream)).(IOutputStream)); return
             return
         }(); tryControl1 == 1 {
             return tryResult1
@@ -149,8 +168,7 @@ func (this *XslHelper) Translate(xsltStreamSource *StreamSource, xmlStreamSource
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *XslHelper) Translate(resolver *URIResolver, xsltStreamSource *StreamSource, xmlStreamSource *StreamSource) string {
+func (this *XslHelper) Translate_5(resolver *URIResolver, xsltStreamSource *StreamSource, xmlStreamSource *StreamSource) string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -160,7 +178,7 @@ func (this *XslHelper) Translate(resolver *URIResolver, xsltStreamSource *Stream
                 }
             }()
             var outputStream *strings.Builder = &strings.Builder{}; _ = outputStream
-            tryControl1, tryResult1 = 1, fmt.Sprint(this.Translate(resolver, xsltStreamSource, xmlStreamSource, NewStreamResult(outputStream))); return
+            tryControl1, tryResult1 = 1, fmt.Sprint(this.Translate(resolver, xsltStreamSource, xmlStreamSource, NewStreamResult(outputStream)).(IOutputStream)); return
             return
         }(); tryControl1 == 1 {
             return tryResult1
@@ -180,7 +198,7 @@ func (this *XslHelper) Export(outputFile *File, xsltFilePath string, xmlDocument
                 }
             }()
             outputFile.CreateNewFile()
-            this.Translate(NewStreamSource(xsltFilePath), NewStreamSource(NewStringBufferInputStream(XmlDocumentHelper_ToString(xmlDocument))), NewStreamResult(outputFile))
+            this.Translate(NewStreamSource(xsltFilePath), NewStreamSource(NewStringBufferInputStream(XmlDocumentHelper_ToString(xmlDocument))), NewStreamResult(outputFile)).(IOutputStream)
             return
         }(); tryControl1 == 1 {
             return

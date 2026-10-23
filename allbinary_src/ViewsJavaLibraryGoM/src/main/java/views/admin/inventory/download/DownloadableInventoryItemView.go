@@ -55,6 +55,26 @@ type DownloadableInventoryItemView struct {
 
 // Implements RequestMapInterface
 
+// The Java class DownloadableInventoryItemView has subclasses so its variables are this interface
+type IDownloadableInventoryItemView interface {
+    IHttpStoreComponentView
+    DownloadableInventoryItemView_() *DownloadableInventoryItemView
+    GetTypeId() int
+    GetFormData()
+    AddDomNodeInterfaces()
+    View() string
+    ProcessFile(fileItem *FileItem)
+    Unzip(fileItem *FileItem)
+    GetItemFilePath() string
+    SetRequestHashMap(requestHashMap *HashMap)
+    GetRequestHashMap() *HashMap
+    GetDownloadableItem() *DownloadableItem
+}
+
+func (this *DownloadableInventoryItemView) DownloadableInventoryItemView_() *DownloadableInventoryItemView {
+    return this
+}
+
 var DownloadableInventoryItemView_TYPE_ID int = 11
 
 func (this *DownloadableInventoryItemView) initFields() {
@@ -68,7 +88,21 @@ func (this *DownloadableInventoryItemView) initFields() {
 }
 
 
-func NewDownloadableInventoryItemView(transformInfoInterface TransformInfoInterface) *DownloadableInventoryItemView {
+
+
+// Java overloads of new DownloadableInventoryItemView
+func NewDownloadableInventoryItemView(args ...any) *DownloadableInventoryItemView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[TransformInfoInterface](args[0], pass) {
+            return NewDownloadableInventoryItemView_1(Java_Arg[TransformInfoInterface](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return NewDownloadableInventoryItemView_2(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of new DownloadableInventoryItemView for the arguments")
+}
+func NewDownloadableInventoryItemView_1(transformInfoInterface TransformInfoInterface) *DownloadableInventoryItemView {
     this := &DownloadableInventoryItemView{}
         this.HttpStoreComponentView = *NewHttpStoreComponentView(transformInfoInterface)
         this.initFields()
@@ -78,8 +112,7 @@ func NewDownloadableInventoryItemView(transformInfoInterface TransformInfoInterf
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewDownloadableInventoryItemView(transformInfoInterface TransformInfoInterface, empty string) *DownloadableInventoryItemView {
+func NewDownloadableInventoryItemView_2(transformInfoInterface TransformInfoInterface, empty string) *DownloadableInventoryItemView {
     this := &DownloadableInventoryItemView{}
         this.HttpStoreComponentView = *NewHttpStoreComponentView(transformInfoInterface)
         this.initFields()
@@ -101,7 +134,7 @@ func (this *DownloadableInventoryItemView) GetFormData() {
 
 
 func (this *DownloadableInventoryItemView) AddDomNodeInterfaces() {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         if this.DownloadableItem != nil {
             vector.Add(NewDownloadableItemView(this.DownloadableItem))
         }

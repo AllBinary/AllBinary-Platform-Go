@@ -46,3 +46,4 @@ type BasicColorCompositeSetterInterface interface {
     SetBasicColorP(basicColor *BasicColor)
 }
 
+

@@ -44,23 +44,23 @@ var _ = unicode.IsDigit
 
 type UserRoleFactory struct {
     BasicUserRoleFactory *BasicUserRoleFactory
-    INSTALLER *UserRole
-    ADMINISTRATOR *UserRole
-    CUSTOMER *UserRole
-    SUBSCRIBERCUSTOMER *UserRole
-    WHOLESALECUSTOMER *UserRole
-    STOREMANAGER *UserRole
-    PRODUCTMANAGER *UserRole
-    CUSTOMERMANAGER *UserRole
-    PAYMENTMANAGER *UserRole
-    ORDERMANAGER *UserRole
-    WEBMANAGER *UserRole
-    REVIEWER *UserRole
-    SHIPPING *UserRole
-    ADJUSTER *UserRole
-    WORKFLOWEDITOR *UserRole
-    WIZARD *UserRole
-    VIEWEDITOR *UserRole
+    INSTALLER IUserRole
+    ADMINISTRATOR IUserRole
+    CUSTOMER IUserRole
+    SUBSCRIBERCUSTOMER IUserRole
+    WHOLESALECUSTOMER IUserRole
+    STOREMANAGER IUserRole
+    PRODUCTMANAGER IUserRole
+    CUSTOMERMANAGER IUserRole
+    PAYMENTMANAGER IUserRole
+    ORDERMANAGER IUserRole
+    WEBMANAGER IUserRole
+    REVIEWER IUserRole
+    SHIPPING IUserRole
+    ADJUSTER IUserRole
+    WORKFLOWEDITOR IUserRole
+    WIZARD IUserRole
+    VIEWEDITOR IUserRole
 }
 
 var UserRoleFactory_Instance *UserRoleFactory = NewUserRoleFactory()

@@ -45,9 +45,9 @@ var _ = unicode.IsDigit
 type AbSqlBasic struct {
     LogUtil *LogUtil
     SqlConnectionPool *SqlConnectionPool
-    DatabaseConnectionInfoInterface *DbConnectionInfo
+    DatabaseConnectionInfoInterface IDbConnectionInfo
     ConnectAttemptCounter int
-    Conn *Connection
+    Conn IConnection
     StringUtil *StringUtil
     CommonStrings *CommonStrings
     CommonSeps *CommonSeps
@@ -68,6 +68,21 @@ type AbSqlBasic struct {
     METHOD_CREATE_CONNECTION string
     METHOD_INITIALIZE string
     LOAD_JDBC_DRIVER_FAILED_LABEL string
+}
+
+// The Java class AbSqlBasic has subclasses so its variables are this interface
+type IAbSqlBasic interface {
+    AbSqlBasic_() *AbSqlBasic
+    ExecuteSQLStatement(statement string) *ResultSet
+    Create(databaseName string) string
+    CreateConnection()
+    Initialize()
+    GetDatabaseConnectionInfoInterface() DatabaseConnectionInfoInterface
+    SetDatabaseConnectionInfoInterface(databaseConnectionInfoInterface IDbConnectionInfo)
+}
+
+func (this *AbSqlBasic) AbSqlBasic_() *AbSqlBasic {
+    return this
 }
 
 
@@ -100,7 +115,7 @@ func (this *AbSqlBasic) initFields() {
 }
 
 
-func NewAbSqlBasic(databaseConnectionInfoInterface *DbConnectionInfo) *AbSqlBasic {
+func NewAbSqlBasic(databaseConnectionInfoInterface IDbConnectionInfo) *AbSqlBasic {
     this := &AbSqlBasic{}
     this.initFields()
         this.DatabaseConnectionInfoInterface = databaseConnectionInfoInterface
@@ -130,7 +145,7 @@ func (this *AbSqlBasic) ExecuteSQLStatement(statement string) *ResultSet {
             stmt.Execute(statement)
             var rset *ResultSet = stmt.GetResultSet(); _ = rset
             stmt.Close()
-            var tempConnection *Connection = this.Conn; _ = tempConnection
+            var tempConnection IConnection = this.Conn; _ = tempConnection
             this.Conn = nil
             this.SqlConnectionPool.Add(this.GetDatabaseConnectionInfoInterface().GetUrl(), tempConnection)
             tryControl1, tryResult1 = 1, rset; return
@@ -248,7 +263,7 @@ func (this *AbSqlBasic) GetDatabaseConnectionInfoInterface() DatabaseConnectionI
 }
 
 
-func (this *AbSqlBasic) SetDatabaseConnectionInfoInterface(databaseConnectionInfoInterface *DbConnectionInfo) {
+func (this *AbSqlBasic) SetDatabaseConnectionInfoInterface(databaseConnectionInfoInterface IDbConnectionInfo) {
         this.DatabaseConnectionInfoInterface = databaseConnectionInfoInterface
 }
 

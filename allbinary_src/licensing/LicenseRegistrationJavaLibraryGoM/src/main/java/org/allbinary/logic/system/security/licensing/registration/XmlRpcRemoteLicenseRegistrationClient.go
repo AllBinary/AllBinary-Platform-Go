@@ -82,15 +82,15 @@ func (this *XmlRpcRemoteLicenseRegistrationClient) Get(anyType any, cryptInterfa
             var server string = this.GetClientInfo().GetLicenseServer(this.GetServer()); _ = server
             var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
             stringBuffer.Append(XmlRpcAbeClient_TRYING)
-            stringBuffer.Appendint(int(this.GetServer()))
+            stringBuffer.Appendint(this.GetServer())
             stringBuffer.Append(SEP)
             stringBuffer.Append(server)
             this.LogUtil.PutF(fmt.Sprint(CommonLabels_GetInstance().START_LABEL) + fmt.Sprint(stringBuffer), this, this.CommonStrings.GET)
-            var param *BasicArrayList = NewBasicArrayListD(); _ = param
+            var param IBasicArrayList = NewBasicArrayListD(); _ = param
             var serverUrl string = this.GetClientInfo().GetLicenseServer(this.GetServer()); _ = serverUrl
             var index int = strings.LastIndex(serverUrl, string("/")); _ = index
             serverUrl = serverUrl[0:index + 1] + this.PAGE
-            var xmlRpcClient *XmlRpcClient = NewXmlRpcClient(serverUrl); _ = xmlRpcClient
+            var xmlRpcClient IXmlRpcClient = NewXmlRpcClient(serverUrl); _ = xmlRpcClient
             this.SetClient(xmlRpcClient)
             xmlRpcClient.SetBasicAuthentication(nil, nil)
             var hashtable *ABHashtable[any, any] = any(anyType).(*ABHashtable[any, any]); _ = hashtable

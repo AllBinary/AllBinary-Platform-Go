@@ -43,18 +43,18 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type WindowsHardware struct {
-    ComponentInterfaceVector *BasicArrayList
-    VideoInterfaceVector *BasicArrayList
-    HardDriveControllerInterfaceVector *BasicArrayList
-    CpuInterfaceVector *BasicArrayList
-    UsbInterfaceVector *BasicArrayList
-    EthernetInterfaceVector *BasicArrayList
-    MultimediaInterfaceVector *BasicArrayList
-    FireWireInterfaceVector *BasicArrayList
-    BridgeInterfaceVector *BasicArrayList
-    HardDriveInterfaceVector *BasicArrayList
-    MacInterfaceVector *BasicArrayList
-    MonitorInterfaceVector *BasicArrayList
+    ComponentInterfaceVector IBasicArrayList
+    VideoInterfaceVector IBasicArrayList
+    HardDriveControllerInterfaceVector IBasicArrayList
+    CpuInterfaceVector IBasicArrayList
+    UsbInterfaceVector IBasicArrayList
+    EthernetInterfaceVector IBasicArrayList
+    MultimediaInterfaceVector IBasicArrayList
+    FireWireInterfaceVector IBasicArrayList
+    BridgeInterfaceVector IBasicArrayList
+    HardDriveInterfaceVector IBasicArrayList
+    MacInterfaceVector IBasicArrayList
+    MonitorInterfaceVector IBasicArrayList
     NAME string
     MINHARDWARE int
     ComponentFactory *ComponentFactory

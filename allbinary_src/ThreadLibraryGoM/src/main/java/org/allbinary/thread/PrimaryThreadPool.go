@@ -75,3 +75,4 @@ func (this *PrimaryThreadPool) StartTask(task Runnable) {
 func (this *PrimaryThreadPool) CompletedTask(task Runnable) {
         this.LogUtil.PutF(fmt.Sprint(NewStringMaker().Append(this.ThreadPoolStrings.COMPLETE_TASK).Append(StringUtil_GetInstance().ToString(task))), this, this.CommonStrings.RUN)
 }
+

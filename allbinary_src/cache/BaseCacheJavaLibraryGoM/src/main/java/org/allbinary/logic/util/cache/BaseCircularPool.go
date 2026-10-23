@@ -94,3 +94,4 @@ func (this *BaseCircularPool) Init(allBinaryObjectFactoryInterface AllBinaryObje
 func (this *BaseCircularPool) GetInstance(index int) any {
         return this.OBJECT_ARRAY[index]
 }
+

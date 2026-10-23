@@ -46,12 +46,26 @@ type OrderView struct {
     HttpStoreComponentView
     LogUtil *LogUtil
     Request *HttpServletRequest
-    Order *Order
+    Order IOrder
     OrderHistory *OrderHistory
     BasketReview *BasketReview
 }
 
 // Implements DomNodeInterface
+
+// The Java class OrderView has subclasses so its variables are this interface
+type IOrderView interface {
+    IHttpStoreComponentView
+    OrderView_() *OrderView
+    GetFormData()
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *OrderView) OrderView_() *OrderView {
+    return this
+}
 
 
 func (this *OrderView) initFields() {

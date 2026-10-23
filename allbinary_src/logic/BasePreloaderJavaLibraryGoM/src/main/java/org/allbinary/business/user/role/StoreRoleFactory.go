@@ -88,3 +88,4 @@ func (this *StoreRoleFactory) GetSubscriberRoles() IBasicArrayList {
 func (this *StoreRoleFactory) GetWholesaleRoles() IBasicArrayList {
         return this.WholesaleRoles
 }
+

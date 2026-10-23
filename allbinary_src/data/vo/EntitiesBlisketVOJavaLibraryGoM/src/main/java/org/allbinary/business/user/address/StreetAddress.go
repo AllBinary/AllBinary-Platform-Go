@@ -68,15 +68,40 @@ func (this *StreetAddress) initFields() {
 }
 
 
-func NewStreetAddress() *StreetAddress {
+
+
+// Java overloads of new StreetAddress
+func NewStreetAddress(args ...any) *StreetAddress {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewStreetAddress_1()
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewStreetAddress_2(Java_Arg[*Node](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*StreetAddress](args[0], pass) {
+            return NewStreetAddress_3(Java_Arg[*StreetAddress](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HttpServletRequest](args[0], pass) {
+            return NewStreetAddress_4(Java_Arg[*HttpServletRequest](args[0]))
+        }
+        if len(args) == 6 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) && Java_IsArg[string](args[4], pass) && Java_IsArg[string](args[5], pass) {
+            return NewStreetAddress_5(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]), Java_Arg[string](args[4]), Java_Arg[string](args[5]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewStreetAddress_6(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new StreetAddress for the arguments")
+}
+func NewStreetAddress_1() *StreetAddress {
     this := &StreetAddress{}
     this.initFields()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewStreetAddress(node *Node) *StreetAddress {
+func NewStreetAddress_2(node *Node) *StreetAddress {
     this := &StreetAddress{}
     this.initFields()
         var nameNode *Node = DomSearchHelper_GetNode(StreetAddressData_NAME, node.GetChildNodes()); _ = nameNode
@@ -96,8 +121,7 @@ func NewStreetAddress(node *Node) *StreetAddress {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewStreetAddress(streetAddress *StreetAddress) *StreetAddress {
+func NewStreetAddress_3(streetAddress *StreetAddress) *StreetAddress {
     this := &StreetAddress{}
     this.initFields()
         this.Id = streetAddress.GetId()
@@ -113,8 +137,7 @@ func NewStreetAddress(streetAddress *StreetAddress) *StreetAddress {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewStreetAddress(request *HttpServletRequest) *StreetAddress {
+func NewStreetAddress_4(request *HttpServletRequest) *StreetAddress {
     this := &StreetAddress{}
     this.initFields()
         this.SetId(request.GetParameter(StreetAddressData_ID))
@@ -129,8 +152,7 @@ func NewStreetAddress(request *HttpServletRequest) *StreetAddress {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewStreetAddress(name string, street string, city string, state string, code string, country string) *StreetAddress {
+func NewStreetAddress_5(name string, street string, city string, state string, code string, country string) *StreetAddress {
     this := &StreetAddress{}
     this.initFields()
         this.Name = name
@@ -144,8 +166,7 @@ func NewStreetAddress(name string, street string, city string, state string, cod
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewStreetAddress(address *HashMap) *StreetAddress {
+func NewStreetAddress_6(address *HashMap) *StreetAddress {
     this := &StreetAddress{}
     this.initFields()
         this.Id = any(address.Get(StreetAddressData_ID)).(string)
@@ -250,7 +271,7 @@ func (this *StreetAddress) IsDefault() bool {
 
 func (this *StreetAddress) IsEmpty() bool {
         var EMPTY_STRING string = StringUtil_GetInstance().EMPTY_STRING; _ = EMPTY_STRING
-        if this.GetName() == "" && strings.Compare(this.GetName(), EMPTY_STRING) == 0 && this.GetStreet() == nil && this.GetStreet().CompareTo(EMPTY_STRING) == 0 && this.GetCity() == nil && this.GetCity().CompareTo(EMPTY_STRING) == 0 && this.GetState() == nil && this.GetState().CompareTo(EMPTY_STRING) == 0 && this.GetCode() == nil && this.GetCode().CompareTo(EMPTY_STRING) == 0 && this.GetCountry() == nil && this.GetCountry().CompareTo(EMPTY_STRING) == 0 {
+        if this.GetName() == "" && strings.Compare(this.GetName(), EMPTY_STRING) == 0 && this.GetStreet() == nil && strings.Compare(this.GetStreet(), EMPTY_STRING) == 0 && this.GetCity() == nil && strings.Compare(this.GetCity(), EMPTY_STRING) == 0 && this.GetState() == nil && strings.Compare(this.GetState(), EMPTY_STRING) == 0 && this.GetCode() == nil && strings.Compare(this.GetCode(), EMPTY_STRING) == 0 && this.GetCountry() == nil && strings.Compare(this.GetCountry(), EMPTY_STRING) == 0 {
             return true
         }
         return false
@@ -259,7 +280,7 @@ func (this *StreetAddress) IsEmpty() bool {
 
 func (this *StreetAddress) IsValid() bool {
         var EMPTY_STRING string = StringUtil_GetInstance().EMPTY_STRING; _ = EMPTY_STRING
-        if this.GetName() == "" || strings.Compare(this.GetName(), EMPTY_STRING) == 0 || this.GetStreet() == nil || this.GetStreet().CompareTo(EMPTY_STRING) == 0 || this.GetCity() == nil || this.GetCity().CompareTo(EMPTY_STRING) == 0 || this.GetState() == nil || this.GetState().CompareTo(EMPTY_STRING) == 0 || this.GetCode() == nil || this.GetCode().CompareTo(EMPTY_STRING) == 0 || this.GetCountry() == nil || this.GetCountry().CompareTo(EMPTY_STRING) == 0 {
+        if this.GetName() == "" || strings.Compare(this.GetName(), EMPTY_STRING) == 0 || this.GetStreet() == nil || strings.Compare(this.GetStreet(), EMPTY_STRING) == 0 || this.GetCity() == nil || strings.Compare(this.GetCity(), EMPTY_STRING) == 0 || this.GetState() == nil || strings.Compare(this.GetState(), EMPTY_STRING) == 0 || this.GetCode() == nil || strings.Compare(this.GetCode(), EMPTY_STRING) == 0 || this.GetCountry() == nil || strings.Compare(this.GetCountry(), EMPTY_STRING) == 0 {
             return false
         }
         return true

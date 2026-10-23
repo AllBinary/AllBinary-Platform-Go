@@ -174,3 +174,4 @@ func (this *AdminRoleFactory) GetAdjusterManagementRoles() IBasicArrayList {
 func (this *AdminRoleFactory) GetOrderManagementRoles() IBasicArrayList {
         return this.OrderManagementRoles
 }
+

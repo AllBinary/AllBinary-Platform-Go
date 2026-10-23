@@ -48,23 +48,35 @@ type ExcludeFileExtensionsBooleanFileVisitor struct {
 
 
 
-func NewExcludeFileExtensionsBooleanFileVisitor(filterStringBasicArrayList *BasicArrayList) *ExcludeFileExtensionsBooleanFileVisitor {
+func NewExcludeFileExtensionsBooleanFileVisitor(filterStringBasicArrayList IBasicArrayList) *ExcludeFileExtensionsBooleanFileVisitor {
     this := &ExcludeFileExtensionsBooleanFileVisitor{}
         this.BooleanFileVisitor = *NewBooleanFileVisitor(filterStringBasicArrayList)
     return this
 }
 
 
-func (this *ExcludeFileExtensionsBooleanFileVisitor) Visit(file *AbFile) bool {
+func (this *ExcludeFileExtensionsBooleanFileVisitor) Visit_1(file *AbFile) bool {
         if this.GetFilterStringBasicArrayList().Size() == 0 {
             return true
         }
-        return this.BooleanFileVisitor.Visit(file)
+        return this.BooleanFileVisitor.Visit(file).(any)
+}
+
+// Java overloads of ExcludeFileExtensionsBooleanFileVisitor.visit
+func (this *ExcludeFileExtensionsBooleanFileVisitor) Visit(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*AbFile](args[0], pass) {
+            return this.Visit_1(Java_Arg[*AbFile](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.Visit_2(Java_Arg[*AbFile](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of ExcludeFileExtensionsBooleanFileVisitor.visit for the arguments")
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *ExcludeFileExtensionsBooleanFileVisitor) Visit(file *AbFile, fileNameString string) bool {
+func (this *ExcludeFileExtensionsBooleanFileVisitor) Visit_2(file *AbFile, fileNameString string) bool {
         var fileNameAndExtension string = file.GetPath(); _ = fileNameAndExtension
         if len(fileNameAndExtension) > len(fileNameString) {
             var startIndex int = len(fileNameAndExtension) - len(fileNameString); _ = startIndex

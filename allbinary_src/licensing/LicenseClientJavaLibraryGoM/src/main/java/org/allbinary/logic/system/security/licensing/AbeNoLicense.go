@@ -43,7 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type AbeNoLicense struct {
-    ServerVector *BasicArrayList
+    ServerVector IBasicArrayList
 }
 
 // Implements AbeLicenseInterface
@@ -87,7 +87,7 @@ func (this *AbeNoLicense) GetSpecial() string {
 }
 
 
-func (this *AbeNoLicense) GetServers() *BasicArrayList {
+func (this *AbeNoLicense) GetServers() IBasicArrayList {
         return this.ServerVector
 }
 

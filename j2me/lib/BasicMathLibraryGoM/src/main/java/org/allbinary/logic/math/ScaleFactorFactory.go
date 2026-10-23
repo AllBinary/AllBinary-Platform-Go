@@ -64,3 +64,4 @@ func NewScaleFactorFactory() *ScaleFactorFactory {
 func ScaleFactorFactory_GetInstance() *ScaleFactorFactory {
         return ScaleFactorFactory_Instance
 }
+

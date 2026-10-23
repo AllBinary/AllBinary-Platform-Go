@@ -47,6 +47,19 @@ type PaymentGatewayViewAbstract struct {
     PaymentGatewayPrimaryKey *PaymentGatewayPrimaryKey
 }
 
+// The Java class PaymentGatewayViewAbstract has subclasses so its variables are this interface
+type IPaymentGatewayViewAbstract interface {
+    ITransformInfoHttpComposite
+    PaymentGatewayViewAbstract_() *PaymentGatewayViewAbstract
+    GetFormData(request *HttpServletRequest)
+    GetPaymentGatewayPrimaryKey() *PaymentGatewayPrimaryKey
+    SetPaymentGatewayPrimaryKey(paymentGatewayPrimaryKey *PaymentGatewayPrimaryKey)
+}
+
+func (this *PaymentGatewayViewAbstract) PaymentGatewayViewAbstract_() *PaymentGatewayViewAbstract {
+    return this
+}
+
 
 func (this *PaymentGatewayViewAbstract) initFields() {
     

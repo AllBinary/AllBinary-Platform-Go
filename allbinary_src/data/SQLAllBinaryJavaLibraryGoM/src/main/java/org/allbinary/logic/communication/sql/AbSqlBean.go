@@ -49,6 +49,18 @@ type AbSqlBean struct {
     METHOD_IS_SUBSET_OF_ENTRY string
 }
 
+// The Java class AbSqlBean has subclasses so its variables are this interface
+type IAbSqlBean interface {
+    IAbSqlRow
+    AbSqlBean_() *AbSqlBean
+    GetField(args ...any) string
+    IsSubsetOfEntry(key string, value string, columnsAndValues *HashMap) string
+}
+
+func (this *AbSqlBean) AbSqlBean_() *AbSqlBean {
+    return this
+}
+
 
 func (this *AbSqlBean) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -57,7 +69,7 @@ func (this *AbSqlBean) initFields() {
 }
 
 
-func NewAbSqlBean(databaseConnectionInfoInterface *DbConnectionInfo) *AbSqlBean {
+func NewAbSqlBean(databaseConnectionInfoInterface IDbConnectionInfo) *AbSqlBean {
     this := &AbSqlBean{}
         this.AbSqlRow = *NewAbSqlRow(databaseConnectionInfoInterface)
         this.initFields()
@@ -65,7 +77,7 @@ func NewAbSqlBean(databaseConnectionInfoInterface *DbConnectionInfo) *AbSqlBean 
 }
 
 
-func (this *AbSqlBean) GetField(key string, value string, requestedField string) string {
+func (this *AbSqlBean) GetField_1(key string, value string, requestedField string) string {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.SELECT)
         stringBuffer.Append(requestedField)
@@ -110,9 +122,21 @@ func (this *AbSqlBean) GetField(key string, value string, requestedField string)
         panic("unreachable")
 }
 
+// Java overloads of AbSqlBean.getField
+func (this *AbSqlBean) GetField(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return this.GetField_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+        if len(args) == 2 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.GetField_2(Java_Arg[*HashMap](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of AbSqlBean.getField for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *AbSqlBean) GetField(keysAndValues *HashMap, requestedField string) string {
+
+func (this *AbSqlBean) GetField_2(keysAndValues *HashMap, requestedField string) string {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.SELECT)
         stringBuffer.Append(requestedField)

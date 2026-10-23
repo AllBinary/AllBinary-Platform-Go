@@ -44,12 +44,11 @@ var _ = unicode.IsDigit
 
 type OrderHistoryEntityInterface interface {
     BasicDataTableInterface
-    Insert(userName string, order *Order)
+    Insert(userName string, order IOrder)
     SetStatus(orderId string, status string)
     SetPaymentMethod(orderId string, status string)
-    GetStoreOrders(storeFrontInterface StoreFrontInterface) *BasicArrayList
-    GetOrders(userName string) *BasicArrayList
-    GetOrders(status string, fromDate string, toDate string) *BasicArrayList
+    GetStoreOrders(storeFrontInterface StoreFrontInterface) IBasicArrayList
+    GetOrders(args ...any) IBasicArrayList
     GetOrder(id string) *OrderHistory
     Update(whereHashMap *HashMap, orderHashMap *HashMap)
 }

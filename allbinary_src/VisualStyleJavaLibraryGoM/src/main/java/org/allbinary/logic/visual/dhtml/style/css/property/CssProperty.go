@@ -58,7 +58,21 @@ func (this *CssProperty) initFields() {
 }
 
 
-func NewCssProperty(name string) *CssProperty {
+
+
+// Java overloads of new CssProperty
+func NewCssProperty(args ...any) *CssProperty {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewCssProperty_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewCssProperty_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new CssProperty for the arguments")
+}
+func NewCssProperty_1(name string) *CssProperty {
     this := &CssProperty{}
     this.initFields()
         this.PropertyName = name
@@ -67,8 +81,7 @@ func NewCssProperty(name string) *CssProperty {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewCssProperty(node *Node) *CssProperty {
+func NewCssProperty_2(node *Node) *CssProperty {
     this := &CssProperty{}
     this.initFields()
         var propertyNode *Node = DomSearchHelper_GetNode(DomData_VALUE, node.GetChildNodes()); _ = propertyNode

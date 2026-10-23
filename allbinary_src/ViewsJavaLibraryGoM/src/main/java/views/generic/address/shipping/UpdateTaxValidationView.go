@@ -65,7 +65,7 @@ func (this *UpdateTaxValidationView) IsValid() bool {
             return false
         }
         var billingAddressesEntity *ShippingAddressesEntity = NewShippingAddressesEntity(this.GetWeblisketSession().GetUserName()); _ = billingAddressesEntity
-        var streetAddressList *BasicArrayList = billingAddressesEntity.Get(); _ = streetAddressList
+        var streetAddressList IBasicArrayList = billingAddressesEntity.Get().(IBasicArrayList); _ = streetAddressList
         if streetAddressList == nil {
             return false
         }

@@ -48,15 +48,28 @@ type TimeLastModified struct {
 
 
 
-func NewTimeLastModified(time string) *TimeLastModified {
+
+
+// Java overloads of new TimeLastModified
+func NewTimeLastModified(args ...any) *TimeLastModified {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewTimeLastModified_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[int64](args[0], pass) {
+            return NewTimeLastModified_2(Java_Arg[int64](args[0]))
+        }
+    }
+    panic("No Java overload of new TimeLastModified for the arguments")
+}
+func NewTimeLastModified_1(time string) *TimeLastModified {
     this := &TimeLastModified{}
         this.Time = *NewTime(time)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTimeLastModified(time int64) *TimeLastModified {
+func NewTimeLastModified_2(time int64) *TimeLastModified {
     this := &TimeLastModified{}
         this.Time = *NewTime(time)
     return this

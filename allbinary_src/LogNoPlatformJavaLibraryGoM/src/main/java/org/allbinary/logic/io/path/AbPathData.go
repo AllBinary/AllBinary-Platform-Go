@@ -135,3 +135,4 @@ func (this *AbPathData) RemoveNameFromPath(path string) string {
             return pathWithoutName
         }
 }
+

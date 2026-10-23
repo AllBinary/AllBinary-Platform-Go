@@ -29,3 +29,4 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 /* Otherwise - classOrInterfaceDeclaration - type - AnnotationDeclaration */
+

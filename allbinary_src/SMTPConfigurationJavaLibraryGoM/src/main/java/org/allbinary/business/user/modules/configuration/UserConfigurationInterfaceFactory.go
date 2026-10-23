@@ -55,16 +55,31 @@ func NewUserConfigurationInterfaceFactory() *UserConfigurationInterfaceFactory {
 
 
 // throws Exception
-func UserConfigurationInterfaceFactory_GetInstance(document *Document) UserConfigurationInterface {
+func UserConfigurationInterfaceFactory_GetInstance_1(document *Document) UserConfigurationInterface {
         var configurationNode *Node = DomSearchHelper_GetNode(UserConfigurationData_NAME, document.GetChildNodes()); _ = configurationNode
         return any(NewUserConfigurationView(configurationNode).GetUserConfigurationInterface()).(UserConfigurationInterface)
 }
 
+// Java overloads of UserConfigurationInterfaceFactory.getInstance
+func UserConfigurationInterfaceFactory_GetInstance(args ...any) UserConfigurationInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*Document](args[0], pass) {
+            return UserConfigurationInterfaceFactory_GetInstance_1(Java_Arg[*Document](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[IUserRole](args[0], pass) {
+            return UserConfigurationInterfaceFactory_GetInstance_2(Java_Arg[IUserRole](args[0]))
+        }
+        if len(args) == 0 {
+            return UserConfigurationInterfaceFactory_GetInstance_3()
+        }
+    }
+    panic("No Java overload of UserConfigurationInterfaceFactory.getInstance for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func UserConfigurationInterfaceFactory_GetInstance(userRole *UserRole) UserConfigurationInterface {
-        var abPath *AbPath = NewAbPath(URLGLOBALS.GetMainPath() + FREEBLISKET_PATH_GLOBALS.GetInstance().USERCONFIGURATIONPATH, fmt.Sprint(UserConfigurationInterfaceFactory_ConfigurationName) + fmt.Sprint(userRole) + fmt.Sprint(AbPathData_GetInstance().EXTENSION_SEP) + fmt.Sprint(UserConfigurationData_UNCRYPTED_EXTENSION)); _ = abPath
+func UserConfigurationInterfaceFactory_GetInstance_2(userRole IUserRole) UserConfigurationInterface {
+        var abPath IAbPath = NewAbPath(URLGLOBALS.GetMainPath() + FREEBLISKET_PATH_GLOBALS.GetInstance().USERCONFIGURATIONPATH, fmt.Sprint(UserConfigurationInterfaceFactory_ConfigurationName) + fmt.Sprint(userRole) + fmt.Sprint(AbPathData_GetInstance().EXTENSION_SEP) + fmt.Sprint(UserConfigurationData_UNCRYPTED_EXTENSION)); _ = abPath
         var documentString string = NewCryptFileReader(UserConfigurationData_UNCRYPTED_EXTENSION, UserConfigurationData_ENCRYPTED_EXTENSION).Get(abPath); _ = documentString
         var document *Document = DomDocumentHelper_Create(documentString); _ = document
         return UserConfigurationInterfaceFactory_GetInstance(document)
@@ -72,8 +87,7 @@ func UserConfigurationInterfaceFactory_GetInstance(userRole *UserRole) UserConfi
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func UserConfigurationInterfaceFactory_GetInstance() UserConfigurationInterface {
+func UserConfigurationInterfaceFactory_GetInstance_3() UserConfigurationInterface {
         return NewUserConfiguration()
 }
 

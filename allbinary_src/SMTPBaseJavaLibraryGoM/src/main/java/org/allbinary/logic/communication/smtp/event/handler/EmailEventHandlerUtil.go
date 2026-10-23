@@ -66,7 +66,7 @@ func NewEmailEventHandlerUtil() *EmailEventHandlerUtil {
 
 
 // throws Exception
-func (this *EmailEventHandlerUtil) GetEventHandler(abeClientInformation AbeClientInformationInterface, userEmailEventNameData *UserEmailEventNameData, userVector *BasicArrayList) *UserEmailEventHandler {
+func (this *EmailEventHandlerUtil) GetEventHandler(abeClientInformation AbeClientInformationInterface, userEmailEventNameData *UserEmailEventNameData, userVector IBasicArrayList) *UserEmailEventHandler {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
             var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
             stringBuffer.Append("Returning UserEmailEventHandler for ")
@@ -79,7 +79,7 @@ func (this *EmailEventHandlerUtil) GetEventHandler(abeClientInformation AbeClien
         var size int = userVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var userInterface UserInterface = any(userVector.Get(index)).(UserInterface); _ = userInterface
-            var vector *BasicArrayList = EmailEventHandlerUtil_GetUserEmailEventListenerVector(abeClientInformation, userEmailEventNameData, userInterface); _ = vector
+            var vector IBasicArrayList = EmailEventHandlerUtil_GetUserEmailEventListenerVector(abeClientInformation, userEmailEventNameData, userInterface); _ = vector
             userEmailEventHandler.AddListener(vector)
         }
         return userEmailEventHandler
@@ -87,12 +87,12 @@ func (this *EmailEventHandlerUtil) GetEventHandler(abeClientInformation AbeClien
 
 
 // throws Exception
-func EmailEventHandlerUtil_GetUserEmailEventListenerVector(abeClientInformation AbeClientInformationInterface, userEmailEventNameData *UserEmailEventNameData, userInterface UserInterface) *BasicArrayList {
+func EmailEventHandlerUtil_GetUserEmailEventListenerVector(abeClientInformation AbeClientInformationInterface, userEmailEventNameData *UserEmailEventNameData, userInterface UserInterface) IBasicArrayList {
         var userConfigurationInterface UserConfigurationInterface = userInterface.GetUserConfigurationInterface(); _ = userConfigurationInterface
         var userEmailConfigurationInterface UserEmailConfigurationInterface = userConfigurationInterface.GetUserEmailConfigurationInterface(); _ = userEmailConfigurationInterface
         var userEmailEventsConfigurationInterface UserEmailEventsConfigurationInterface = userEmailConfigurationInterface.GetUserEmailEventsConfigurationInterface(); _ = userEmailEventsConfigurationInterface
         var userEmailEventListenerInterface UserEmailEventListenerInterface = userEmailEventsConfigurationInterface.GetEventListener(abeClientInformation, userEmailEventNameData, userInterface); _ = userEmailEventListenerInterface
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         vector.Add(userEmailEventListenerInterface)
         return vector
 }

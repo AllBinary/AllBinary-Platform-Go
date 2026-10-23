@@ -63,3 +63,4 @@ func NewBasicArrayListD() *BasicArrayListD {
         this.BasicArrayListS = *NewBasicArrayListS(7)
     return this
 }
+

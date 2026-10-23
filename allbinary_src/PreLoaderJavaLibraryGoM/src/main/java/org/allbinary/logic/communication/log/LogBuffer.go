@@ -44,7 +44,7 @@ var _ = unicode.IsDigit
 
 type LogBuffer struct {
     LogUtil *LogUtil
-    LogEntryVector *BasicArrayList
+    LogEntryVector IBasicArrayList
 }
 
 

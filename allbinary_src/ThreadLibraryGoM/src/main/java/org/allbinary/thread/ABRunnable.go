@@ -97,3 +97,4 @@ func (this *ABRunnable) Run() {
 func (this *ABRunnable) GetType() int {
         return -1
 }
+

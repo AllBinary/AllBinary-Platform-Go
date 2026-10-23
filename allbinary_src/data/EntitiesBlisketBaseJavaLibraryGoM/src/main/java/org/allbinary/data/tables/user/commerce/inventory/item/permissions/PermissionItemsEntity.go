@@ -68,7 +68,7 @@ func NewPermissionItemsEntity() *PermissionItemsEntity {
 }
 
 
-func (this *PermissionItemsEntity) Insert(values *BasicArrayList) {
+func (this *PermissionItemsEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {

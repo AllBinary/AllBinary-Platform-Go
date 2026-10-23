@@ -45,7 +45,7 @@ var _ = unicode.IsDigit
 type EmailsNotUsed struct {
     LogUtil *LogUtil
     CommonStrings *CommonStrings
-    EmailInfoVector *BasicArrayList
+    EmailInfoVector IBasicArrayList
 }
 
 // Implements DomNodeInterface

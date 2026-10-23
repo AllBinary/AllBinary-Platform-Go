@@ -29,6 +29,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type OpenGLProcessor struct {
+    LogUtil *LogUtil
     CommonStrings *CommonStrings
 }
 
@@ -44,6 +45,7 @@ func (this *OpenGLProcessor) OpenGLProcessor_() *OpenGLProcessor {
 
 
 func (this *OpenGLProcessor) initFields() {
+    this.LogUtil = LogUtil_GetInstance()
     this.CommonStrings = CommonStrings_GetInstance()
 }
 

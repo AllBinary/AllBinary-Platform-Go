@@ -75,3 +75,4 @@ func (this *MusicThreadPool) StartTask(task Runnable) {
 func (this *MusicThreadPool) CompletedTask(task Runnable) {
         this.LogUtil.PutF(fmt.Sprint(NewStringMaker().Append(this.ThreadPoolStrings.COMPLETE_TASK).Append(StringUtil_GetInstance().ToString(task)).Appendlong(time.Now().UnixMilli())), this, this.CommonStrings.RUN)
 }
+

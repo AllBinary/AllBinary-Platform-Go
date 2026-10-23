@@ -66,7 +66,7 @@ func NewTransformsGeneratorUtil() *TransformsGeneratorUtil {
 
 
 // throws Exception
-func (this *TransformsGeneratorUtil) GenerateComponentsFromObjectConfig(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, group string) string {
+func (this *TransformsGeneratorUtil) GenerateComponentsFromObjectConfig_1(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, group string) string {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             this.LogUtil.PutF("Started Group: " + group, this, "generateComponentsFromObjectConfig(2)")
         }
@@ -78,14 +78,26 @@ func (this *TransformsGeneratorUtil) GenerateComponentsFromObjectConfig(abeClien
         return result
 }
 
+// Java overloads of TransformsGeneratorUtil.generateComponentsFromObjectConfig
+func (this *TransformsGeneratorUtil) GenerateComponentsFromObjectConfig(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return this.GenerateComponentsFromObjectConfig_1(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]), Java_Arg[string](args[2]))
+        }
+        if len(args) == 4 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoObjectConfigInterface](args[1], pass) && Java_IsArg[TransformInfoInterface](args[2], pass) && Java_IsArg[string](args[3], pass) {
+            return this.GenerateComponentsFromObjectConfig_2(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoObjectConfigInterface](args[1]), Java_Arg[TransformInfoInterface](args[2]), Java_Arg[string](args[3]))
+        }
+    }
+    panic("No Java overload of TransformsGeneratorUtil.generateComponentsFromObjectConfig for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *TransformsGeneratorUtil) GenerateComponentsFromObjectConfig(abeClientInformation AbeClientInformationInterface, transformInfoObjectConfigInterface TransformInfoObjectConfigInterface, transformInfoInterface TransformInfoInterface, group string) string {
+func (this *TransformsGeneratorUtil) GenerateComponentsFromObjectConfig_2(abeClientInformation AbeClientInformationInterface, transformInfoObjectConfigInterface TransformInfoObjectConfigInterface, transformInfoInterface TransformInfoInterface, group string) string {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             this.LogUtil.PutF("Started Group: " + group, this, "generateComponentsFromObjectConfig()")
         }
-        var transformInfoObjectConfigComponentVector *BasicArrayList = transformInfoObjectConfigInterface.GetTransformsGroup(group); _ = transformInfoObjectConfigComponentVector
+        var transformInfoObjectConfigComponentVector IBasicArrayList = transformInfoObjectConfigInterface.GetTransformsGroup(group); _ = transformInfoObjectConfigComponentVector
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
             stringBuffer.Append("Processing ")
@@ -99,7 +111,7 @@ func (this *TransformsGeneratorUtil) GenerateComponentsFromObjectConfig(abeClien
         }
         var size int = transformInfoObjectConfigComponentVector.Size(); _ = size
         for index := int(0); index < size; index++ {
-            var transformInfoObjectConfigComponent *TransformInfoDomNode = any(transformInfoObjectConfigComponentVector.Get(index)).(*TransformInfoDomNode); _ = transformInfoObjectConfigComponent
+            var transformInfoObjectConfigComponent ITransformInfoDomNode = any(transformInfoObjectConfigComponentVector.Get(index)).(ITransformInfoDomNode); _ = transformInfoObjectConfigComponent
             TransformGeneratorUtil_GetInstance().Generate(abeClientInformation, transformInfoObjectConfigComponent, transformInfoInterface)
         }
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {

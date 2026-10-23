@@ -46,7 +46,7 @@ type UserRoleB struct {
     UserRole
 }
 
-var UserRoleB_RoleVector *BasicArrayList = NewBasicArrayListD()
+var UserRoleB_RoleVector IBasicArrayList = NewBasicArrayListD()
 
 
 func NewUserRoleB(aBasicUserRole *BasicUserRole, aUserFactoryInterface UserFactoryInterface) *UserRoleB {
@@ -59,13 +59,13 @@ func NewUserRoleB(aBasicUserRole *BasicUserRole, aUserFactoryInterface UserFacto
 
 // throws Exception
 // synchronized
-func UserRoleB_GetRole(role string) *UserRole {
+func UserRoleB_GetRole(role string) IUserRole {
         UserRoleFactory_GetInstance()
         if !StringValidationUtil_GetInstance().IsEmpty(role) {
-            var roleVector *BasicArrayList = UserRoleB_GetAll(); _ = roleVector
+            var roleVector IBasicArrayList = UserRoleB_GetAll(); _ = roleVector
             var size int = roleVector.Size(); _ = size
             for index := int(0); index < size; index++ {
-                var userRole *UserRole = any(roleVector.Get(index)).(*UserRole); _ = userRole
+                var userRole IUserRole = any(roleVector.Get(index)).(IUserRole); _ = userRole
                 if strings.Compare(role, fmt.Sprint(userRole)) == 0 {
                     return userRole
                 }
@@ -75,7 +75,7 @@ func UserRoleB_GetRole(role string) *UserRole {
 }
 
 
-func UserRoleB_GetAll() *BasicArrayList {
+func UserRoleB_GetAll() IBasicArrayList {
         UserRoleFactory_GetInstance()
         return UserRoleB_RoleVector
 }

@@ -48,15 +48,28 @@ type WorkflowEditorWebStoreAdminUser struct {
 
 
 
-func NewWorkflowEditorWebStoreAdminUser() *WorkflowEditorWebStoreAdminUser {
+
+
+// Java overloads of new WorkflowEditorWebStoreAdminUser
+func NewWorkflowEditorWebStoreAdminUser(args ...any) *WorkflowEditorWebStoreAdminUser {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewWorkflowEditorWebStoreAdminUser_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewWorkflowEditorWebStoreAdminUser_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new WorkflowEditorWebStoreAdminUser for the arguments")
+}
+func NewWorkflowEditorWebStoreAdminUser_1() *WorkflowEditorWebStoreAdminUser {
     this := &WorkflowEditorWebStoreAdminUser{}
         this.User = *NewUser()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewWorkflowEditorWebStoreAdminUser(userHashMap *HashMap) *WorkflowEditorWebStoreAdminUser {
+func NewWorkflowEditorWebStoreAdminUser_2(userHashMap *HashMap) *WorkflowEditorWebStoreAdminUser {
     this := &WorkflowEditorWebStoreAdminUser{}
         this.User = *NewUser(userHashMap)
     return this

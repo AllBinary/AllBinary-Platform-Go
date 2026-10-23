@@ -65,3 +65,4 @@ func NewFilePathData() *FilePathData {
     this.initFields()
     return this
 }
+

@@ -68,7 +68,7 @@ func (this *PaymentGatewayMapping) ToHashMap() *HashMap {
 }
 
 
-func (this *PaymentGatewayMapping) ToVector() *BasicArrayList {
+func (this *PaymentGatewayMapping) ToVector() IBasicArrayList {
         return this.PaymentGatewayInterface.ToVector(false)
 }
 

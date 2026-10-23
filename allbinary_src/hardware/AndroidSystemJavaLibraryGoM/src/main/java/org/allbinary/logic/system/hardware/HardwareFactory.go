@@ -68,8 +68,7 @@ func NewHardwareFactory() *HardwareFactory {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *HardwareFactory) GetInstance(os *GenericOperatingSystem) HardwareInterface {
+func (this *HardwareFactory) GetInstance(os IGenericOperatingSystem) HardwareInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 HardwareInterface) {
             defer func() {
                 if recovered := recover(); recovered != nil {

@@ -48,7 +48,7 @@ type PaymentTypeUtil struct {
     PAYMENTGATEWAYFILEPATHSTRING string
     SHIPPINGMETHODSFILENAME string
     DefaultName string
-    PaymentTypeVector *BasicArrayList
+    PaymentTypeVector IBasicArrayList
 }
 
 var PaymentTypeUtil_Instance *PaymentTypeUtil = NewPaymentTypeUtil()
@@ -125,7 +125,7 @@ func (this *PaymentTypeUtil) InitDefault(storeName string) {
             stringBuffer.Append(storeName)
             stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
             stringBuffer.Append(this.PAYMENTGATEWAYFILEPATHSTRING)
-            var abPath *AbPath = any(NewAbPath(fmt.Sprint(stringBuffer), this.SHIPPINGMETHODSFILENAME)).(*AbPath); _ = abPath
+            var abPath IAbPath = any(NewAbPath(fmt.Sprint(stringBuffer), this.SHIPPINGMETHODSFILENAME)).(IAbPath); _ = abPath
             var data string = NewCryptFileReader(TransformInfoObjectConfigData_GetInstance().UNCRYPTED_EXTENSION, TransformInfoObjectConfigData_GetInstance().ENCRYPTED_EXTENSION).Get(abPath); _ = data
             var document *Document = DomDocumentHelper_Create(data); _ = document
             var nodeList *NodeList = document.GetElementsByTagName(PaymentGatewaysData_NAME); _ = nodeList
@@ -162,8 +162,8 @@ func (this *PaymentTypeUtil) IsContain(paymentType *PaymentType) bool {
 }
 
 
-func (this *PaymentTypeUtil) Difference(a_PaymentTypeVector *BasicArrayList) *BasicArrayList {
-        var diff *BasicArrayList = NewBasicArrayListD(); _ = diff
+func (this *PaymentTypeUtil) Difference(a_PaymentTypeVector IBasicArrayList) IBasicArrayList {
+        var diff IBasicArrayList = NewBasicArrayListD(); _ = diff
         var size int = this.PaymentTypeVector.Size(); _ = size
         for i := int(0); i < size; i++ {
             var paymentType *PaymentType = any(this.PaymentTypeVector.Get(i)).(*PaymentType); _ = paymentType

@@ -61,6 +61,48 @@ type TransformInfo struct {
 
 // Implements TransformInfoInterface
 
+// The Java class TransformInfo has subclasses so its variables are this interface
+type ITransformInfo interface {
+    TransformInfo_() *TransformInfo
+    Override(hashMap *HashMap)
+    Log() string
+    SetName(value string)
+    SetStoreName(value string)
+    GetStoreName() string
+    SetObject(anyType any)
+    SetObjectFile(value string)
+    SetTemplate(value string)
+    SetTemplateFile(value string)
+    SetObjectConfigFileName(value string)
+    SetObjectConfigFile(value string)
+    SetObjectConfig(value string)
+    SetDataFile(value string)
+    SetData(value string)
+    GetName() string
+    GetObject() any
+    GetObjectFile() string
+    GetTemplate() string
+    GetTemplateFile() string
+    GetTemplateFilePath() IAbPath
+    GetObjectConfigFilePath() IAbPath
+    GetDataFilePath() IAbPath
+    GetObjectConfigFile() string
+    GetData() string
+    GetDataDocument() *Document
+    GetDataFile() string
+    ToHashMap() *HashMap
+    ToVector() IBasicArrayList
+    GetKey() any
+    SetChild()
+    IsChild() bool
+    GetObjectConfigInterface() TransformInfoObjectConfigInterface
+    SetObjectConfigInterface(objectConfigInterface TransformInfoObjectConfigInterface)
+}
+
+func (this *TransformInfo) TransformInfo_() *TransformInfo {
+    return this
+}
+
 
 func (this *TransformInfo) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -80,15 +122,31 @@ func (this *TransformInfo) initFields() {
 }
 
 
-func NewTransformInfo() *TransformInfo {
+
+
+// Java overloads of new TransformInfo
+func NewTransformInfo(args ...any) *TransformInfo {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewTransformInfo_1()
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewTransformInfo_2(Java_Arg[string](args[0]))
+        }
+        if len(args) == 5 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) && Java_IsArg[string](args[4], pass) {
+            return NewTransformInfo_3(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]), Java_Arg[string](args[4]))
+        }
+    }
+    panic("No Java overload of new TransformInfo for the arguments")
+}
+func NewTransformInfo_1() *TransformInfo {
     this := &TransformInfo{}
     this.initFields()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfo(name string) *TransformInfo {
+func NewTransformInfo_2(name string) *TransformInfo {
     this := &TransformInfo{}
     this.initFields()
         this.SetName(name)
@@ -96,8 +154,7 @@ func NewTransformInfo(name string) *TransformInfo {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfo(name string, objectFileName string, objectConfigFileName string, templateFileName string, dataFileName string) *TransformInfo {
+func NewTransformInfo_3(name string, objectFileName string, objectConfigFileName string, templateFileName string, dataFileName string) *TransformInfo {
     this := &TransformInfo{}
     this.initFields()
         this.SetName(name)
@@ -138,7 +195,7 @@ func (this *TransformInfo) Override(hashMap *HashMap) {
         stringBuffer.Append(FREEBLISKET_PATH_GLOBALS.GetInstance().XSLPATH)
         stringBuffer.Append(this.StoreName)
         stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
-        var fileAbPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = fileAbPath
+        var fileAbPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = fileAbPath
         var aObject string = any(hashMap.Get(transformInfoData.OBJECT)).(string); _ = aObject
         if !stringValidationUtil.IsEmpty(aObject) {
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
@@ -335,19 +392,19 @@ func (this *TransformInfo) GetTemplateFile() string {
 
 
 // throws Exception
-func (this *TransformInfo) GetTemplateFilePath() *AbPath {
+func (this *TransformInfo) GetTemplateFilePath() IAbPath {
         return NewAbFilePath(this.GetTemplateFile())
 }
 
 
 // throws Exception
-func (this *TransformInfo) GetObjectConfigFilePath() *AbPath {
+func (this *TransformInfo) GetObjectConfigFilePath() IAbPath {
         return NewAbFilePath(this.GetObjectConfigFile())
 }
 
 
 // throws Exception
-func (this *TransformInfo) GetDataFilePath() *AbPath {
+func (this *TransformInfo) GetDataFilePath() IAbPath {
         return NewAbFilePath(this.GetDataFile())
 }
 
@@ -460,8 +517,8 @@ func (this *TransformInfo) ToHashMap() *HashMap {
 }
 
 
-func (this *TransformInfo) ToVector() *BasicArrayList {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+func (this *TransformInfo) ToVector() IBasicArrayList {
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         vector.Add(this.Name)
         vector.Add(this.StoreName)
         vector.Add(this.ObjectFileName)

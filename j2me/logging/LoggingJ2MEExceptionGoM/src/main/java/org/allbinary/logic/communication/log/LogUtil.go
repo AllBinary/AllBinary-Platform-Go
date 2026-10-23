@@ -115,3 +115,4 @@ func (this *LogUtil) Put(specialMessage string, anyType any, functionName string
         fmt.Print(this.LOG_SUCCESS)
         fmt.Println(message)
 }
+

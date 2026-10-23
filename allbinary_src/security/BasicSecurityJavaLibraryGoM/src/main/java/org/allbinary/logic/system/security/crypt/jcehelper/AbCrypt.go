@@ -44,7 +44,7 @@ var _ = unicode.IsDigit
 
 type AbCrypt struct {
     TsUtil *TsUtil
-    SecretComposite *BaseSecretComposite
+    SecretComposite IBaseSecretComposite
     Algorithm string
 }
 

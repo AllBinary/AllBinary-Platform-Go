@@ -56,14 +56,26 @@ func NewWholesaleUserFactory() *WholesaleUserFactory {
 
 
 // throws Exception
-func (this *WholesaleUserFactory) GetInstance() UserInterface {
+func (this *WholesaleUserFactory) GetInstance_1() UserInterface {
         return NewWholesaleUser()
+}
+
+// Java overloads of WholesaleUserFactory.getInstance
+func (this *WholesaleUserFactory) GetInstance(args ...any) UserInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.GetInstance_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return this.GetInstance_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of WholesaleUserFactory.getInstance for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *WholesaleUserFactory) GetInstance(hashMap *HashMap) UserInterface {
+func (this *WholesaleUserFactory) GetInstance_2(hashMap *HashMap) UserInterface {
         return NewWholesaleUser(hashMap)
 }
 

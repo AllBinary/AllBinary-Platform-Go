@@ -62,7 +62,7 @@ func NewPaymentGatewayInterfaceFactory() *PaymentGatewayInterfaceFactory {
 
 
 // throws Exception
-func (this *PaymentGatewayInterfaceFactory) GetInstance(httpServletRequest *HttpServletRequest) PaymentGatewayInterface {
+func (this *PaymentGatewayInterfaceFactory) GetInstance_1(httpServletRequest *HttpServletRequest) PaymentGatewayInterface {
         var commonStrings *CommonStrings = CommonStrings_GetInstance(); _ = commonStrings
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 PaymentGatewayInterface) {
             defer func() {
@@ -86,10 +86,25 @@ func (this *PaymentGatewayInterfaceFactory) GetInstance(httpServletRequest *Http
         panic("unreachable")
 }
 
+// Java overloads of PaymentGatewayInterfaceFactory.getInstance
+func (this *PaymentGatewayInterfaceFactory) GetInstance(args ...any) PaymentGatewayInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*HttpServletRequest](args[0], pass) {
+            return this.GetInstance_1(Java_Arg[*HttpServletRequest](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*BasicPaymentType](args[0], pass) {
+            return this.GetInstance_2(Java_Arg[*BasicPaymentType](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return this.GetInstance_3(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of PaymentGatewayInterfaceFactory.getInstance for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *PaymentGatewayInterfaceFactory) GetInstance(paymentType *BasicPaymentType) PaymentGatewayInterface {
+func (this *PaymentGatewayInterfaceFactory) GetInstance_2(paymentType *BasicPaymentType) PaymentGatewayInterface {
         var hashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = hashMap
         hashMap.Put(fmt.Sprint(PaymentGatewayData_NAME), paymentType.GetName())
         return this.GetInstance(hashMap)
@@ -97,8 +112,7 @@ func (this *PaymentGatewayInterfaceFactory) GetInstance(paymentType *BasicPaymen
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *PaymentGatewayInterfaceFactory) GetInstance(hashMap *HashMap) PaymentGatewayInterface {
+func (this *PaymentGatewayInterfaceFactory) GetInstance_3(hashMap *HashMap) PaymentGatewayInterface {
         var commonStrings *CommonStrings = CommonStrings_GetInstance(); _ = commonStrings
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 PaymentGatewayInterface) {
             defer func() {

@@ -59,6 +59,35 @@ type DbConnectionInfo struct {
 
 // Implements DatabaseConnectionInfoInterface
 
+// The Java class DbConnectionInfo has subclasses so its variables are this interface
+type IDbConnectionInfo interface {
+    DbConnectionInfo_() *DbConnectionInfo
+    UpdateUrl()
+    GetUrl() string
+    GetJdbcDriver() string
+    GetName() string
+    GetUserName() string
+    GetPassword() string
+    UpdateHost()
+    GetHost() string
+    GetSchema() string
+    GetServer() string
+    GetPort() string
+    SetJdbcDriver(value string)
+    SetName(value string)
+    SetUserName(value string)
+    SetPassword(value string)
+    SetSchema(value string)
+    SetServer(value string)
+    SetPort(value string)
+    GetUserNameKey() string
+    GetPasswordKey() string
+}
+
+func (this *DbConnectionInfo) DbConnectionInfo_() *DbConnectionInfo {
+    return this
+}
+
 
 func (this *DbConnectionInfo) initFields() {
     
@@ -126,7 +155,7 @@ func (this *DbConnectionInfo) UpdateHost() {
         stringBuffer.Append(this.GetSchema())
         stringBuffer.Append(this.SCHEMA_SEP)
         stringBuffer.Append(this.GetServer())
-        if this.GetPort() != nil && this.GetPort().Length() > 1 {
+        if this.GetPort() != nil && len(this.GetPort()) > 1 {
             stringBuffer.Append(CommonSeps_GetInstance().COLON)
             stringBuffer.Append(this.GetPort())
         }

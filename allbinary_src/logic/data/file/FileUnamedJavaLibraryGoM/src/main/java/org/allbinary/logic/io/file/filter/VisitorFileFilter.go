@@ -62,15 +62,27 @@ func NewVisitorFileFilter(booleanVisitorInterface VisitorInterface) *VisitorFile
 }
 
 
-func (this *VisitorFileFilter) Accept(file *File) bool {
+func (this *VisitorFileFilter) Accept_1(file *File) bool {
         var abFile *AbFile = FileWrapperUtil_WrapFile(file); _ = abFile
         var isFileAcceptable bool = (any(this.BooleanVisitorInterface.Visit(abFile)).(bool)); _ = isFileAcceptable
-        return isFileAcceptable || file.IsDirectory()
+        return isFileAcceptable || File_IsDirectory()
+}
+
+// Java overloads of VisitorFileFilter.accept
+func (this *VisitorFileFilter) Accept(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*File](args[0], pass) {
+            return this.Accept_1(Java_Arg[*File](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*AbFile](args[0], pass) {
+            return this.Accept_2(Java_Arg[*AbFile](args[0]))
+        }
+    }
+    panic("No Java overload of VisitorFileFilter.accept for the arguments")
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *VisitorFileFilter) Accept(file *AbFile) bool {
+func (this *VisitorFileFilter) Accept_2(file *AbFile) bool {
         var isFileAcceptable bool = (any(this.BooleanVisitorInterface.Visit(file)).(bool)); _ = isFileAcceptable
         return isFileAcceptable || file.IsDirectory()
 }

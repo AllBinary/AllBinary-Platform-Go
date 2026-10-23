@@ -56,7 +56,7 @@ type FileAuthenticationTag struct {
     SessionUserName string
     Role *BasicUserRole
     Timeout string
-    Roles *BasicArrayList
+    Roles IBasicArrayList
 }
 
 
@@ -105,7 +105,7 @@ func (this *FileAuthenticationTag) SetNewPassword(value string) {
 }
 
 
-func (this *FileAuthenticationTag) SetRoles(values *BasicArrayList) {
+func (this *FileAuthenticationTag) SetRoles(values IBasicArrayList) {
         this.Roles = values
 }
 

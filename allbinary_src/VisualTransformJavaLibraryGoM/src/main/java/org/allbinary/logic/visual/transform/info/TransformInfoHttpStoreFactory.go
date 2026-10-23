@@ -62,7 +62,6 @@ func NewTransformInfoHttpStoreFactory() *TransformInfoHttpStoreFactory {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 func (this *TransformInfoHttpStoreFactory) GetInstance(databaseHashMap *HashMap, propertiesHashMap *HashMap, pageContext *PageContext) TransformInfoInterface {
         return NewTransformInfoHttpStore(databaseHashMap, propertiesHashMap, pageContext)
 }

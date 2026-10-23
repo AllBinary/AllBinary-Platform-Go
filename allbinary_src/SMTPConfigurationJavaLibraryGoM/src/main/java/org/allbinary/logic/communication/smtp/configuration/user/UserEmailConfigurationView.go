@@ -58,7 +58,21 @@ func (this *UserEmailConfigurationView) initFields() {
 }
 
 
-func NewUserEmailConfigurationView(node *Node) *UserEmailConfigurationView {
+
+
+// Java overloads of new UserEmailConfigurationView
+func NewUserEmailConfigurationView(args ...any) *UserEmailConfigurationView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewUserEmailConfigurationView_1(Java_Arg[*Node](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[UserEmailConfigurationInterface](args[0], pass) {
+            return NewUserEmailConfigurationView_2(Java_Arg[UserEmailConfigurationInterface](args[0]))
+        }
+    }
+    panic("No Java overload of new UserEmailConfigurationView for the arguments")
+}
+func NewUserEmailConfigurationView_1(node *Node) *UserEmailConfigurationView {
     this := &UserEmailConfigurationView{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
@@ -73,8 +87,7 @@ func NewUserEmailConfigurationView(node *Node) *UserEmailConfigurationView {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUserEmailConfigurationView(userEmailConfigurationInterface UserEmailConfigurationInterface) *UserEmailConfigurationView {
+func NewUserEmailConfigurationView_2(userEmailConfigurationInterface UserEmailConfigurationInterface) *UserEmailConfigurationView {
     this := &UserEmailConfigurationView{}
     this.initFields()
         this.UserEmailConfigurationInterface = userEmailConfigurationInterface

@@ -44,7 +44,7 @@ var _ = unicode.IsDigit
 
 type LicenseClientAndServerTest struct {
     LogUtil *LogUtil
-    Vector *BasicArrayList
+    Vector IBasicArrayList
 }
 
 
@@ -89,7 +89,7 @@ func (this *LicenseClientAndServerTest) Test() {
             this.LogUtil.Put("Test Error: " + fmt.Sprint(stringBuffer), this, "test", e)
                 }
             }()
-            var list *BasicArrayList = NewBasicArrayListD(); _ = list
+            var list IBasicArrayList = NewBasicArrayListD(); _ = list
             var TESTING string = "Testing with new licence:<br/>"; _ = TESTING
             var PROCESSING string = "Processing: <br/>"; _ = PROCESSING
             var END string = "<br/>End<br/>"; _ = END

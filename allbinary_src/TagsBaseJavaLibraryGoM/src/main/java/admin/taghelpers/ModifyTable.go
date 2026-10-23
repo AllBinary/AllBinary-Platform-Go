@@ -49,6 +49,18 @@ type ModifyTable struct {
 
 // Implements ModifyTableInterface
 
+// The Java class ModifyTable has subclasses so its variables are this interface
+type IModifyTable interface {
+    ModifyTable_() *ModifyTable
+    Insert() string
+    Delete() string
+    Update() string
+}
+
+func (this *ModifyTable) ModifyTable_() *ModifyTable {
+    return this
+}
+
 
 func (this *ModifyTable) initFields() {
     this.CommonStrings = CommonStrings_GetInstance()

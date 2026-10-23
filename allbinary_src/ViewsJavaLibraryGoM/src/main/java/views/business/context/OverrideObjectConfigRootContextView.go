@@ -80,7 +80,7 @@ func (this *OverrideObjectConfigRootContextView) View() string {
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF("View Name: " + this.GetTransformInfoInterface().GetName(), this, "view()")
             }
-            var rootTransformInfoInterface TransformInfoInterface = any(NewTransformInfoHttp(any(this.GetTransformInfoInterface()).(*TransformInfoHttp))).(TransformInfoInterface); _ = rootTransformInfoInterface
+            var rootTransformInfoInterface TransformInfoInterface = any(NewTransformInfoHttp(any(this.GetTransformInfoInterface()).(ITransformInfoHttp))).(TransformInfoInterface); _ = rootTransformInfoInterface
             var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
             stringBuffer.Append(this.GetTransformInfoInterface().GetStoreName())
             stringBuffer.Append(CommonSeps_GetInstance().SPACE)

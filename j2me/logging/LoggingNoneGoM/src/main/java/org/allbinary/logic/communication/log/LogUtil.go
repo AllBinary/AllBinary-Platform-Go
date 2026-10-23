@@ -89,3 +89,4 @@ func (this *LogUtil) PutF_2(specialMessage string, className string, functionNam
 
 func (this *LogUtil) Put(specialMessage string, anyType any, functionName string, exception any) {
 }
+

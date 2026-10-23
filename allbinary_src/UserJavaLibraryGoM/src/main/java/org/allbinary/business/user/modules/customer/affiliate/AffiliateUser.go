@@ -53,7 +53,21 @@ func (this *AffiliateUser) initFields() {
 }
 
 
-func NewAffiliateUser() *AffiliateUser {
+
+
+// Java overloads of new AffiliateUser
+func NewAffiliateUser(args ...any) *AffiliateUser {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewAffiliateUser_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewAffiliateUser_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new AffiliateUser for the arguments")
+}
+func NewAffiliateUser_1() *AffiliateUser {
     this := &AffiliateUser{}
         this.User = *NewUser()
         this.initFields()
@@ -62,8 +76,7 @@ func NewAffiliateUser() *AffiliateUser {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewAffiliateUser(userHashMap *HashMap) *AffiliateUser {
+func NewAffiliateUser_2(userHashMap *HashMap) *AffiliateUser {
     this := &AffiliateUser{}
         this.User = *NewUser(userHashMap)
         this.initFields()

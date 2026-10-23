@@ -97,11 +97,11 @@ func NewAndroidOS() *AndroidOS {
         this.StringBuffer.Append(commonStrings.SPACE)
         this.StringBuffer.Append("NetworkType")
         this.StringBuffer.Append(commonStrings.EQUALS)
-        this.StringBuffer.Appendint(int(properties.GetNetworkType()))
+        this.StringBuffer.Appendint(properties.GetNetworkType())
         this.StringBuffer.Append(commonStrings.SPACE)
         this.StringBuffer.Append("PhoneType")
         this.StringBuffer.Append(commonStrings.EQUALS)
-        this.StringBuffer.Appendint(int(properties.GetPhoneType()))
+        this.StringBuffer.Appendint(properties.GetPhoneType())
         this.StringBuffer.Append(commonStrings.SPACE)
         this.StringBuffer.Append("SimCountryIso")
         this.StringBuffer.Append(commonStrings.EQUALS)
@@ -137,7 +137,7 @@ func NewAndroidOS() *AndroidOS {
 
 func (this *AndroidOS) IsOverScan() bool {
         var properties *AndroidSystemProperties = AndroidSystemProperties_GetInstance(); _ = properties
-        if strings.Index(properties.GetDevice().ToLowerCase(), string(this.OUYA)) >= 0 {
+        if strings.Index(strings.ToLower(properties.GetDevice()), string(this.OUYA)) >= 0 {
             return true
         }
         return false

@@ -68,7 +68,7 @@ func NewInstallerInfo() *InstallerInfo {
 // throws Exception
 // synchronized
 func (this *InstallerInfo) Write() {
-        var FILEABPATH *AbPath = NewAbPath(URLGLOBALS.GetMainPath() + InstallerInfo_PACKAGE, InstallerInfo_INITFILENAME); _ = FILEABPATH
+        var FILEABPATH IAbPath = NewAbPath(URLGLOBALS.GetMainPath() + InstallerInfo_PACKAGE, InstallerInfo_INITFILENAME); _ = FILEABPATH
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -83,8 +83,8 @@ func (this *InstallerInfo) Write() {
             var newFile *AbFile = AbFile_CreateAbFileFromAbPath(FILEABPATH); _ = newFile
             newFile.CreateNewFile()
             var dataOutputStream *AbDataOutputStream = DataOutputStreamFactory_GetInstance().GetInstanceForAbFile(newFile); _ = dataOutputStream
-            var cryptedUserName []int8 = NewWeakCrypt(1).Encrypt(this.GetUserName()).GetBytes(); _ = cryptedUserName
-            var cryptedPassword []int8 = NewWeakCrypt(2).Encrypt(this.GetPassword()).GetBytes(); _ = cryptedPassword
+            var cryptedUserName []int8 = Java_GetBytes(NewWeakCrypt(1).Encrypt(this.GetUserName())); _ = cryptedUserName
+            var cryptedPassword []int8 = Java_GetBytes(NewWeakCrypt(2).Encrypt(this.GetPassword())); _ = cryptedPassword
             dataOutputStream.WriteUTF(DatabaseEncoder_Encode(cryptedUserName))
             dataOutputStream.WriteUTF(DatabaseEncoder_Encode(cryptedPassword))
             InstallerInfo_HasRead = false
@@ -98,7 +98,7 @@ func (this *InstallerInfo) Write() {
 // throws Exception
 // synchronized
 func (this *InstallerInfo) Read() {
-        var FILEABPATH *AbPath = NewAbPath(URLGLOBALS.GetMainPath() + InstallerInfo_PACKAGE, InstallerInfo_INITFILENAME); _ = FILEABPATH
+        var FILEABPATH IAbPath = NewAbPath(URLGLOBALS.GetMainPath() + InstallerInfo_PACKAGE, InstallerInfo_INITFILENAME); _ = FILEABPATH
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {

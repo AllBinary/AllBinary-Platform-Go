@@ -54,7 +54,21 @@ func (this *UserConfigurationView) initFields() {
 }
 
 
-func NewUserConfigurationView(node *Node) *UserConfigurationView {
+
+
+// Java overloads of new UserConfigurationView
+func NewUserConfigurationView(args ...any) *UserConfigurationView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewUserConfigurationView_1(Java_Arg[*Node](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[UserConfigurationInterface](args[0], pass) {
+            return NewUserConfigurationView_2(Java_Arg[UserConfigurationInterface](args[0]))
+        }
+    }
+    panic("No Java overload of new UserConfigurationView for the arguments")
+}
+func NewUserConfigurationView_1(node *Node) *UserConfigurationView {
     this := &UserConfigurationView{}
     this.initFields()
         this.UserConfigurationInterface = any(NewUserConfiguration()).(UserConfigurationInterface)
@@ -73,8 +87,7 @@ func NewUserConfigurationView(node *Node) *UserConfigurationView {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUserConfigurationView(userConfigurationInterface UserConfigurationInterface) *UserConfigurationView {
+func NewUserConfigurationView_2(userConfigurationInterface UserConfigurationInterface) *UserConfigurationView {
     this := &UserConfigurationView{}
     this.initFields()
         this.UserConfigurationInterface = userConfigurationInterface

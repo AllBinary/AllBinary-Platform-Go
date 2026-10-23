@@ -90,3 +90,4 @@ func (this *SystemProperties) GetVersion() string {
 func (this *SystemProperties) GetUserHomePath() string {
         return System_GetProperty(this.USER_HOME)
 }
+

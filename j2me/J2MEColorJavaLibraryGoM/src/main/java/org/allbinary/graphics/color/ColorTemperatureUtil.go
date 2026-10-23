@@ -83,3 +83,4 @@ func (this *ColorTemperatureUtil) GetBasicColor(thirdTemp int) *BasicColor {
         }
         return basicColor
 }
+

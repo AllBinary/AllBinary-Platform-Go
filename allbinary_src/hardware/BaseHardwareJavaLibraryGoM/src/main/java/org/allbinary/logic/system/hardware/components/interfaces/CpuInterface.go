@@ -54,3 +54,4 @@ type CpuInterface interface {
     CompareTo(cpuInterface CpuInterface) bool
 }
 
+

@@ -104,8 +104,8 @@ func (this *PaymentEntity) SetDefault(userName string, index int) {
 }
 
 
-func (this *PaymentEntity) Get(userName string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *PaymentEntity) Get(userName string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -116,10 +116,10 @@ func (this *PaymentEntity) Get(userName string) *BasicArrayList {
             tryControl1, tryResult1 = 1, nil; return
                 }
             }()
-            var paymentVector *BasicArrayList = NewBasicArrayListD(); _ = paymentVector
+            var paymentVector IBasicArrayList = NewBasicArrayListD(); _ = paymentVector
             var keyAndValue *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keyAndValue
             keyAndValue.Put(UserData_USERNAME, userName)
-            var paymentList *BasicArrayList = this.AbSqlBean.GetRows(keyAndValue); _ = paymentList
+            var paymentList IBasicArrayList = this.AbSqlBean.GetRows(keyAndValue); _ = paymentList
             var size int = paymentList.Size(); _ = size
             for index := int(0); index < size; index++ {
                 var paymentHashMap *HashMap = any(paymentList.Get(index)).(*HashMap); _ = paymentHashMap
@@ -207,7 +207,7 @@ func (this *PaymentEntity) Add(userName string, paymentInterface PaymentInterfac
             }
                 }
             }()
-            var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+            var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
             vector.Add(NewPaymentIdGenerator().GetNext())
             vector.Add(userName)
             vector.Add(StringUtil_GetInstance().EMPTY_STRING)

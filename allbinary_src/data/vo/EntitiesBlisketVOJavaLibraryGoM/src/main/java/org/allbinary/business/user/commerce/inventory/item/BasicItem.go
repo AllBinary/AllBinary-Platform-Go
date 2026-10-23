@@ -80,6 +80,79 @@ type BasicItem struct {
 
 // Implements ItemInterface
 
+// The Java class BasicItem has subclasses so its variables are this interface
+type IBasicItem interface {
+    BasicItem_() *BasicItem
+    SetId(itemId string)
+    SetNumber(number string)
+    SetInBaskets(value string)
+    SetWeight(value string)
+    SetNewOrUsed(value string)
+    SetSummary(value string)
+    SetDistributor(value string)
+    SetIdUsedByDistributor(value string)
+    SetProducedBy(value string)
+    SetProductionDate(value string)
+    SetStartProductionDate(value string)
+    SetDescription(value string)
+    SetKeywords(value string)
+    SetCategory(value string)
+    SetType(value string)
+    SetSmallImage(value string)
+    SetMediumImage(value string)
+    SetLargeImage(value string)
+    SetTimeEntered(value string)
+    SetLastModified(value string)
+    SetPrice(value *Money)
+    SetComment(value string)
+    SetCustoms(value string)
+    SetDownloads(value string)
+    SetGroups(value string)
+    SetOptions(value string)
+    SetPermissions(value string)
+    SetSpecials(value string)
+    SetEnabled(value string)
+    GetId() string
+    GetNumber() string
+    GetInBaskets() string
+    GetWeight() string
+    GetNewOrUsed() string
+    GetSummary() string
+    GetDistributor() string
+    GetIdUsedByDistributor() string
+    GetProducedBy() string
+    GetProductionDate() string
+    GetStartProductionDate() string
+    GetDescription() string
+    GetKeywords() string
+    GetCategory() string
+    GetType() string
+    GetSmallImage() string
+    GetMediumImage() string
+    GetLargeImage() string
+    GetTimeEntered() string
+    GetLastModified() string
+    GetPrice() *Money
+    GetComment() string
+    GetCustoms() string
+    GetDownloads() string
+    GetGroups() string
+    GetOptions() string
+    GetPermissions() string
+    GetSpecials() string
+    SetDownloadable(downloadable bool)
+    IsDownloadable() bool
+    GetEnabled() string
+    GetTotal() *Money
+    ToHashMap() *HashMap
+    ToVector() IBasicArrayList
+    GetKey() any
+}
+
+func (this *BasicItem) BasicItem_() *BasicItem {
+    return this
+}
+
 
 func (this *BasicItem) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -118,7 +191,21 @@ func (this *BasicItem) initFields() {
 }
 
 
-func NewBasicItem(itemHashMap *HashMap) *BasicItem {
+
+
+// Java overloads of new BasicItem
+func NewBasicItem(args ...any) *BasicItem {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewBasicItem_1(Java_Arg[*HashMap](args[0]))
+        }
+        if len(args) == 0 {
+            return NewBasicItem_2()
+        }
+    }
+    panic("No Java overload of new BasicItem for the arguments")
+}
+func NewBasicItem_1(itemHashMap *HashMap) *BasicItem {
     this := &BasicItem{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().PRODUCTSEARCHLOGGING) {
@@ -157,8 +244,7 @@ func NewBasicItem(itemHashMap *HashMap) *BasicItem {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewBasicItem() *BasicItem {
+func NewBasicItem_2() *BasicItem {
     this := &BasicItem{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().PRODUCTSEARCHLOGGING) {
@@ -550,11 +636,11 @@ func (this *BasicItem) ToHashMap() *HashMap {
 }
 
 
-func (this *BasicItem) ToVector() *BasicArrayList {
+func (this *BasicItem) ToVector() IBasicArrayList {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().PRODUCTSEARCHLOGGING) {
             this.LogUtil.PutF(this.CommonStrings.START, this, "toVector")
         }
-        var values *BasicArrayList = NewBasicArrayListD(); _ = values
+        var values IBasicArrayList = NewBasicArrayListD(); _ = values
         values.Add(this.ItemId)
         values.Add(this.Number)
         values.Add(this.InBaskets)

@@ -60,7 +60,21 @@ func (this *Cpu) initFields() {
 }
 
 
-func NewCpu(filePath string) *Cpu {
+
+
+// Java overloads of new Cpu
+func NewCpu(args ...any) *Cpu {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewCpu_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 0 {
+            return NewCpu_2()
+        }
+    }
+    panic("No Java overload of new Cpu for the arguments")
+}
+func NewCpu_1(filePath string) *Cpu {
     this := &Cpu{}
     this.initFields()
         this.Init(filePath)
@@ -68,8 +82,7 @@ func NewCpu(filePath string) *Cpu {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewCpu() *Cpu {
+func NewCpu_2() *Cpu {
     this := &Cpu{}
     this.initFields()
         this.Init(this.CPUFILE)
@@ -78,7 +91,7 @@ func NewCpu() *Cpu {
 
 
 // throws Exception
-func (this *Cpu) Init(filePath string) {
+func (this *Cpu) Init_1(filePath string) {
         var lineNumberReader *LineNumberReader = nil; _ = lineNumberReader
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
@@ -98,10 +111,24 @@ func (this *Cpu) Init(filePath string) {
         }
 }
 
+// Java overloads of Cpu.init
+func (this *Cpu) Init(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            this.Init_1(Java_Arg[string](args[0]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[*LineNumberReader](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            this.Init_2(Java_Arg[*LineNumberReader](args[0]), Java_Arg[string](args[1]))
+            return
+        }
+    }
+    panic("No Java overload of Cpu.init for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *Cpu) Init(lineNumberReader *LineNumberReader, filePath string) {
+func (this *Cpu) Init_2(lineNumberReader *LineNumberReader, filePath string) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
             if lineNumberReader != nil {
@@ -112,7 +139,7 @@ func (this *Cpu) Init(lineNumberReader *LineNumberReader, filePath string) {
             lineNumberReader = NewLineNumberReader(fileReader)
             this.CpuHashMap = StdUtil_GetInstance().CreateHashMap()
             if lineNumberReader == nil {
-                var fileVector *BasicArrayList = SubDirectory_GetInstance().Search(filePath, AbFile_CreateAbFile(FilePathData_GetInstance().PATH_START)); _ = fileVector
+                var fileVector IBasicArrayList = SubDirectory_GetInstance().Search(filePath, AbFile_CreateAbFile(FilePathData_GetInstance().PATH_START)); _ = fileVector
                 if LogConfigTypes_LOGGING.Contains(LogConfigTypeFactory_GetInstance().OS) {
                     this.LogUtil.PutF(fmt.Sprint(NewStringMaker().Append("Cpu File BasicArrayList Size: ").Appendint(fileVector.Size())), this, this.CommonStrings.CONSTRUCTOR)
                 }
@@ -204,13 +231,25 @@ func (this *Cpu) GetCacheSize() string {
 }
 
 
-func (this *Cpu) CompareTo(cpuInterface CpuInterface) bool {
+func (this *Cpu) CompareTo_1(cpuInterface CpuInterface) bool {
         return true
 }
 
+// Java overloads of Cpu.compareTo
+func (this *Cpu) CompareTo(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[CpuInterface](args[0], pass) {
+            return this.CompareTo_1(Java_Arg[CpuInterface](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[HardwareComponentInterface](args[0], pass) {
+            return this.CompareTo_2(Java_Arg[HardwareComponentInterface](args[0]))
+        }
+    }
+    panic("No Java overload of Cpu.compareTo for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *Cpu) CompareTo(componentInterface HardwareComponentInterface) bool {
+
+func (this *Cpu) CompareTo_2(componentInterface HardwareComponentInterface) bool {
         return true
 }
 

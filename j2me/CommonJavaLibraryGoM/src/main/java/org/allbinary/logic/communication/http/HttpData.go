@@ -73,3 +73,4 @@ func NewHttpData() *HttpData {
         this.URL_PARAM_SEP = commonSeps.QUESTION
     return this
 }
+

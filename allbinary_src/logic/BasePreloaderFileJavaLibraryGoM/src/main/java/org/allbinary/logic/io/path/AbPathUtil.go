@@ -43,7 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type AbPathUtil struct {
-    NO_ABPATH *AbPath
+    NO_ABPATH IAbPath
 }
 
 var AbPathUtil_Instance *AbPathUtil = NewAbPathUtil()

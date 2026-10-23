@@ -66,7 +66,7 @@ func NewStreamUtil() *StreamUtil {
 
 
 // throws Exception
-func (this *StreamUtil) Get(inputStream *InputStream, outputStream *OutputStream, buffer []int8) *OutputStream {
+func (this *StreamUtil) Get(inputStream IInputStream, outputStream IOutputStream, buffer []int8) IOutputStream {
         var len_ int = 0; _ = len_
         for true {
             len_ = inputStream.Read(buffer, 0, len(buffer))
@@ -81,7 +81,7 @@ func (this *StreamUtil) Get(inputStream *InputStream, outputStream *OutputStream
 
 
 // throws Exception
-func (this *StreamUtil) GetByteArray(inputStream *InputStream, outputStream2 *strings.Builder, byteArray []int8) []int8 {
+func (this *StreamUtil) GetByteArray(inputStream IInputStream, outputStream2 *strings.Builder, byteArray []int8) []int8 {
         var outputStream *strings.Builder = outputStream2; _ = outputStream
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 []int8) {
             defer func() {

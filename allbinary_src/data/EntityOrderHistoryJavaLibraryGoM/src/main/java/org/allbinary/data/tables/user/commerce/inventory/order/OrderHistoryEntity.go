@@ -66,8 +66,8 @@ func NewOrderHistoryEntity() *OrderHistoryEntity {
 }
 
 
-func (this *OrderHistoryEntity) Insert(userName string, order *Order) {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+func (this *OrderHistoryEntity) Insert_1(userName string, order IOrder) {
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -173,9 +173,23 @@ func (this *OrderHistoryEntity) Insert(userName string, order *Order) {
         }
 }
 
+// Java overloads of OrderHistoryEntity.insert
+func (this *OrderHistoryEntity) Insert(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[IOrder](args[1], pass) {
+            this.Insert_1(Java_Arg[string](args[0]), Java_Arg[IOrder](args[1]))
+            return
+        }
+        if len(args) == 1 && Java_IsArg[IBasicArrayList](args[0], pass) {
+            this.Insert_2(Java_Arg[IBasicArrayList](args[0]))
+            return
+        }
+    }
+    panic("No Java overload of OrderHistoryEntity.insert for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *OrderHistoryEntity) Insert(values *BasicArrayList) {
+
+func (this *OrderHistoryEntity) Insert_2(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -250,11 +264,11 @@ func (this *OrderHistoryEntity) SetPaymentMethod(orderId string, paymentMethod s
 
 
 // throws Exception
-func (this *OrderHistoryEntity) GetStoreOrders(storeFrontInterface StoreFrontInterface) *BasicArrayList {
-        var orderReviewVector *BasicArrayList = NewBasicArrayListD(); _ = orderReviewVector
+func (this *OrderHistoryEntity) GetStoreOrders(storeFrontInterface StoreFrontInterface) IBasicArrayList {
+        var orderReviewVector IBasicArrayList = NewBasicArrayListD(); _ = orderReviewVector
         var whereHashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = whereHashMap
         whereHashMap.Put(StoreFrontData_GetInstance().NAME, storeFrontInterface.GetName())
-        var orderHashMapVector *BasicArrayList = this.AbSqlBean.GetRows(whereHashMap); _ = orderHashMapVector
+        var orderHashMapVector IBasicArrayList = this.AbSqlBean.GetRows(whereHashMap); _ = orderHashMapVector
         var size int = orderHashMapVector.Size(); _ = size
         for i := int(0); i < size; i++ {
             var orderReviewHashMap *HashMap = any(orderHashMapVector.Get(i)).(*HashMap); _ = orderReviewHashMap
@@ -266,11 +280,11 @@ func (this *OrderHistoryEntity) GetStoreOrders(storeFrontInterface StoreFrontInt
 
 
 // throws Exception
-func (this *OrderHistoryEntity) GetOrders(userName string) *BasicArrayList {
-        var orderReviewVector *BasicArrayList = NewBasicArrayListD(); _ = orderReviewVector
+func (this *OrderHistoryEntity) GetOrders_1(userName string) IBasicArrayList {
+        var orderReviewVector IBasicArrayList = NewBasicArrayListD(); _ = orderReviewVector
         var whereHashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = whereHashMap
         whereHashMap.Put(UserData_USERNAME, userName)
-        var orderHashMapVector *BasicArrayList = this.AbSqlBean.GetRows(whereHashMap); _ = orderHashMapVector
+        var orderHashMapVector IBasicArrayList = this.AbSqlBean.GetRows(whereHashMap); _ = orderHashMapVector
         var size int = orderHashMapVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var orderReviewHashMap *HashMap = any(orderHashMapVector.Get(index)).(*HashMap); _ = orderReviewHashMap
@@ -280,14 +294,29 @@ func (this *OrderHistoryEntity) GetOrders(userName string) *BasicArrayList {
         return orderReviewVector
 }
 
+// Java overloads of OrderHistoryEntity.getOrders
+func (this *OrderHistoryEntity) GetOrders(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetOrders_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return this.GetOrders_2(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.GetOrders_3(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of OrderHistoryEntity.getOrders for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *OrderHistoryEntity) GetOrders(status string, fromDate string, toDate string) *BasicArrayList {
-        var orderReviewVector *BasicArrayList = NewBasicArrayListD(); _ = orderReviewVector
+func (this *OrderHistoryEntity) GetOrders_2(status string, fromDate string, toDate string) IBasicArrayList {
+        var orderReviewVector IBasicArrayList = NewBasicArrayListD(); _ = orderReviewVector
         var whereHashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = whereHashMap
         whereHashMap.Put(OrderHistoryData_STATUS, status)
-        var orderHashMapVector *BasicArrayList = this.AbSqlBean.GetRowsWhereBetween(whereHashMap, OrderHistoryData_ORDERDATE, fromDate, toDate); _ = orderHashMapVector
+        var orderHashMapVector IBasicArrayList = this.AbSqlBean.GetRowsWhereBetween(whereHashMap, OrderHistoryData_ORDERDATE, fromDate, toDate); _ = orderHashMapVector
         var size int = orderHashMapVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var orderReviewHashMap *HashMap = any(orderHashMapVector.Get(index)).(*HashMap); _ = orderReviewHashMap
@@ -299,10 +328,9 @@ func (this *OrderHistoryEntity) GetOrders(status string, fromDate string, toDate
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *OrderHistoryEntity) GetOrders(fromDate string, toDate string) *BasicArrayList {
-        var orderReviewVector *BasicArrayList = NewBasicArrayListD(); _ = orderReviewVector
-        var orderHashMapVector *BasicArrayList = this.AbSqlBean.GetRowsWhereBetween(OrderHistoryData_ORDERDATE, fromDate, toDate); _ = orderHashMapVector
+func (this *OrderHistoryEntity) GetOrders_3(fromDate string, toDate string) IBasicArrayList {
+        var orderReviewVector IBasicArrayList = NewBasicArrayListD(); _ = orderReviewVector
+        var orderHashMapVector IBasicArrayList = this.AbSqlBean.GetRowsWhereBetween(OrderHistoryData_ORDERDATE, fromDate, toDate); _ = orderHashMapVector
         var size int = orderHashMapVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var orderReviewHashMap *HashMap = any(orderHashMapVector.Get(index)).(*HashMap); _ = orderReviewHashMap

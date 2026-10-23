@@ -48,7 +48,7 @@ type TransformInfoEntity struct {
     TableName string
     AbeClientInformation AbeClientInformationInterface
     TransformInfoFactoryInterface TransformInfoFactoryInterface
-    TransformInfoObjectConfigAndManipulatorFactoryInterface *TransformInfoObjectConfigAndManipulatorFactoryBase
+    TransformInfoObjectConfigAndManipulatorFactoryInterface ITransformInfoObjectConfigAndManipulatorFactoryBase
     TransformInfoObjectConfigGeneratorFactoryInterface TransformInfoObjectConfigGeneratorFactoryInterface
 }
 
@@ -65,7 +65,7 @@ func (this *TransformInfoEntity) initFields() {
 }
 
 
-func NewTransformInfoEntity(transformInfoObjectConfigGeneratorFactoryInterface TransformInfoObjectConfigGeneratorFactoryInterface, transformInfoObjectConfigAndManipulatorFactoryInterface *TransformInfoObjectConfigAndManipulatorFactoryBase, transformInfoFactoryInterface TransformInfoFactoryInterface) *TransformInfoEntity {
+func NewTransformInfoEntity(transformInfoObjectConfigGeneratorFactoryInterface TransformInfoObjectConfigGeneratorFactoryInterface, transformInfoObjectConfigAndManipulatorFactoryInterface ITransformInfoObjectConfigAndManipulatorFactoryBase, transformInfoFactoryInterface TransformInfoFactoryInterface) *TransformInfoEntity {
     this := &TransformInfoEntity{}
         this.AbSqlBean = *NewAbSqlBean(NewUserDbInitInfo())
         this.initFields()
@@ -77,7 +77,7 @@ func NewTransformInfoEntity(transformInfoObjectConfigGeneratorFactoryInterface T
 }
 
 
-func (this *TransformInfoEntity) Insert(values *BasicArrayList) {
+func (this *TransformInfoEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -146,9 +146,9 @@ func (this *TransformInfoEntity) Get(name string, propertiesHashMap *HashMap, pa
 
 
 // throws Exception
-func (this *TransformInfoEntity) GetObjectConfigs(storeName string) *BasicArrayList {
-        var objectConfigVector *BasicArrayList = NewBasicArrayListD(); _ = objectConfigVector
-        var objectConfigColumnVector *BasicArrayList = this.GetColumnWhere(TransformInfoData_GetInstance().OBJECTCONFIG, StoreFrontData_GetInstance().NAME, storeName); _ = objectConfigColumnVector
+func (this *TransformInfoEntity) GetObjectConfigs(storeName string) IBasicArrayList {
+        var objectConfigVector IBasicArrayList = NewBasicArrayListD(); _ = objectConfigVector
+        var objectConfigColumnVector IBasicArrayList = this.GetColumnWhere(TransformInfoData_GetInstance().OBJECTCONFIG, StoreFrontData_GetInstance().NAME, storeName); _ = objectConfigColumnVector
         var size int = objectConfigColumnVector.Size(); _ = size
         for i := int(0); i < size; i++ {
             var objectConfigString string = any(objectConfigColumnVector.Get(i)).(string); _ = objectConfigString
@@ -160,9 +160,9 @@ func (this *TransformInfoEntity) GetObjectConfigs(storeName string) *BasicArrayL
 
 
 // throws Exception
-func (this *TransformInfoEntity) GetNames(storeName string) *BasicArrayList {
-        var viewNameVector *BasicArrayList = NewBasicArrayListD(); _ = viewNameVector
-        var columnVector *BasicArrayList = this.GetColumnWhere(TransformInfoData_GetInstance().NAME, StoreFrontData_GetInstance().NAME, storeName); _ = columnVector
+func (this *TransformInfoEntity) GetNames(storeName string) IBasicArrayList {
+        var viewNameVector IBasicArrayList = NewBasicArrayListD(); _ = viewNameVector
+        var columnVector IBasicArrayList = this.GetColumnWhere(TransformInfoData_GetInstance().NAME, StoreFrontData_GetInstance().NAME, storeName); _ = columnVector
         var size int = columnVector.Size(); _ = size
         for i := int(0); i < size; i++ {
             var viewNameString string = any(columnVector.Get(i)).(string); _ = viewNameString

@@ -61,3 +61,4 @@ func PrimitiveIntUtil_GetArrayInstance() []int {
 func PrimitiveIntUtil_GetTwoDimensionalArrayInstance() [][]int {
         return NullUtil_GetInstance().NULL_INT_ARRAY_ARRAY
 }
+

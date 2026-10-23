@@ -68,3 +68,4 @@ func (this *VectorUtil) ElementAt(anyType any, index int) any {
         var vector IVector = any(anyType).(IVector); _ = vector
         return vector.ElementAt(index)
 }
+

@@ -49,13 +49,44 @@ type TransformInfoHttpStore struct {
 
 // Implements TransformInfoHttpStoreInterface
 
+// The Java class TransformInfoHttpStore has subclasses so its variables are this interface
+type ITransformInfoHttpStore interface {
+    ITransformInfoHttp
+    TransformInfoHttpStore_() *TransformInfoHttpStore
+    GetPath() string
+    GetTemplateFilePath() IAbPath
+    GetObjectConfigFilePath() IAbPath
+    GetDataFilePath() IAbPath
+}
+
+func (this *TransformInfoHttpStore) TransformInfoHttpStore_() *TransformInfoHttpStore {
+    return this
+}
+
 
 func (this *TransformInfoHttpStore) initFields() {
     this.LogUtil = LogUtil_GetInstance()
 }
 
 
-func NewTransformInfoHttpStore(propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpStore {
+
+
+// Java overloads of new TransformInfoHttpStore
+func NewTransformInfoHttpStore(args ...any) *TransformInfoHttpStore {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[*PageContext](args[1], pass) {
+            return NewTransformInfoHttpStore_1(Java_Arg[*HashMap](args[0]), Java_Arg[*PageContext](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) && Java_IsArg[*PageContext](args[2], pass) {
+            return NewTransformInfoHttpStore_2(Java_Arg[*HashMap](args[0]), Java_Arg[*HashMap](args[1]), Java_Arg[*PageContext](args[2]))
+        }
+        if len(args) == 3 && Java_IsArg[StoreFrontInterface](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) && Java_IsArg[*PageContext](args[2], pass) {
+            return NewTransformInfoHttpStore_3(Java_Arg[StoreFrontInterface](args[0]), Java_Arg[*HashMap](args[1]), Java_Arg[*PageContext](args[2]))
+        }
+    }
+    panic("No Java overload of new TransformInfoHttpStore for the arguments")
+}
+func NewTransformInfoHttpStore_1(propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpStore {
     this := &TransformInfoHttpStore{}
         this.TransformInfoHttp = *NewTransformInfoHttp(propertiesHashMap, pageContext, true)
         this.initFields()
@@ -66,8 +97,7 @@ func NewTransformInfoHttpStore(propertiesHashMap *HashMap, pageContext *PageCont
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoHttpStore(databaseHashMap *HashMap, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpStore {
+func NewTransformInfoHttpStore_2(databaseHashMap *HashMap, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpStore {
     this := &TransformInfoHttpStore{}
         this.TransformInfoHttp = *NewTransformInfoHttp(databaseHashMap, propertiesHashMap, pageContext)
         this.initFields()
@@ -84,8 +114,7 @@ func NewTransformInfoHttpStore(databaseHashMap *HashMap, propertiesHashMap *Hash
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoHttpStore(storeFrontInterface StoreFrontInterface, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpStore {
+func NewTransformInfoHttpStore_3(storeFrontInterface StoreFrontInterface, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttpStore {
     this := &TransformInfoHttpStore{}
         this.TransformInfoHttp = *NewTransformInfoHttp(propertiesHashMap, pageContext)
         this.initFields()
@@ -109,19 +138,19 @@ func (this *TransformInfoHttpStore) GetPath() string {
 
 
 // throws Exception
-func (this *TransformInfoHttpStore) GetTemplateFilePath() *AbPath {
+func (this *TransformInfoHttpStore) GetTemplateFilePath() IAbPath {
         return NewAbPath(this.GetPath(), this.GetTemplateFile())
 }
 
 
 // throws Exception
-func (this *TransformInfoHttpStore) GetObjectConfigFilePath() *AbPath {
+func (this *TransformInfoHttpStore) GetObjectConfigFilePath() IAbPath {
         return NewAbPath(this.GetPath(), this.GetObjectConfigFile())
 }
 
 
 // throws Exception
-func (this *TransformInfoHttpStore) GetDataFilePath() *AbPath {
+func (this *TransformInfoHttpStore) GetDataFilePath() IAbPath {
         return NewAbPath(this.GetPath(), this.GetDataFile())
 }
 

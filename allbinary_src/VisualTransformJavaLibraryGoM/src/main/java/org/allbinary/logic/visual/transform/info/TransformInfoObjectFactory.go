@@ -66,7 +66,6 @@ func NewTransformInfoObjectFactory() *TransformInfoObjectFactory {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 func (this *TransformInfoObjectFactory) GetInstance(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface) TransformInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 TransformInterface) {
             defer func() {

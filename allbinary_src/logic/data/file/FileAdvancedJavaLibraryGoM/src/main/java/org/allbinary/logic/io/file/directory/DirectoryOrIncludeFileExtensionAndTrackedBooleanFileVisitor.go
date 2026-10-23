@@ -57,7 +57,21 @@ func (this *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor) initFie
 }
 
 
-func NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor(filterStringBasicArrayList *BasicArrayList) *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor {
+
+
+// Java overloads of new DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor
+func NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor(args ...any) *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[IBasicArrayList](args[0], pass) {
+            return NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor_1(Java_Arg[IBasicArrayList](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[IBasicArrayList](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor_2(Java_Arg[IBasicArrayList](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of new DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor for the arguments")
+}
+func NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor_1(filterStringBasicArrayList IBasicArrayList) *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor {
     this := &DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor{}
         this.IncludeFileExtensionsBooleanFileVisitor = *NewIncludeFileExtensionsBooleanFileVisitor(filterStringBasicArrayList)
         this.initFields()
@@ -66,8 +80,7 @@ func NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor(filterString
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor(filterStringBasicArrayList *BasicArrayList, includesString string) *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor {
+func NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor_2(filterStringBasicArrayList IBasicArrayList, includesString string) *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor {
     this := &DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor{}
         this.IncludeFileExtensionsBooleanFileVisitor = *NewIncludeFileExtensionsBooleanFileVisitor(filterStringBasicArrayList)
         this.initFields()
@@ -76,20 +89,32 @@ func NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor(filterString
 }
 
 
-func (this *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor) Visit(file *AbFile) bool {
+func (this *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor) Visit_1(file *AbFile) bool {
         if file.IsDirectory() {
             return true
         }
-        if this.IncludesString == "" || file.GetAbsolutePath().IndexOf(this.IncludesString) >= 0 {
+        if this.IncludesString == "" || strings.Index(file.GetAbsolutePath(), string(this.IncludesString)) >= 0 {
             return this.IncludeFileExtensionsBooleanFileVisitor.Visit(file)
         } else {
             return false
         }
 }
 
+// Java overloads of DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor.visit
+func (this *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor) Visit(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*AbFile](args[0], pass) {
+            return this.Visit_1(Java_Arg[*AbFile](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.Visit_2(Java_Arg[*AbFile](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor.visit for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor) Visit(file *AbFile, fileNameString string) bool {
+
+func (this *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor) Visit_2(file *AbFile, fileNameString string) bool {
         var filePath string = file.GetPath(); _ = filePath
         if this.IncludeFileExtensionsBooleanFileVisitor.Visit(file, fileNameString) {
             if !(strings.Contains(filePath, this.TrackedStrings.APPLICATION) || strings.Contains(filePath, this.TrackedStrings.APP) || strings.Contains(filePath, this.TrackedStrings.HTML_TEMP)) {
@@ -109,7 +134,7 @@ func (this *DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor) Visit(f
 
 func DirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor_Main(args []string) {
         var commonFileStrings *CommonDataFileStrings = CommonDataFileStrings_GetInstance(); _ = commonFileStrings
-        var list *BasicArrayList = NewBasicArrayListD(); _ = list
+        var list IBasicArrayList = NewBasicArrayListD(); _ = list
         list.Add(commonFileStrings.JAVA)
         var filePath string = "G:\\mnt\\bc\\mydev\\games\\ZeptoRacer\\platform\\j2se\\ZeptoRacerStaticPathsJ2SEM\\target\\dependency\\org\\allbinary\\logic\\system\\security\\licensing\\ZeptoRacerPCClientInformation.java"; _ = filePath
         var result bool = NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor(list).Visit(AbFile_CreateAbFileFromRawPath(filePath)); _ = result

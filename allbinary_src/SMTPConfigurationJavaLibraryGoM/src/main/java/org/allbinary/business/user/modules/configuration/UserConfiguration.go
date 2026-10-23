@@ -58,7 +58,21 @@ func (this *UserConfiguration) initFields() {
 }
 
 
-func NewUserConfiguration() *UserConfiguration {
+
+
+// Java overloads of new UserConfiguration
+func NewUserConfiguration(args ...any) *UserConfiguration {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewUserConfiguration_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewUserConfiguration_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new UserConfiguration for the arguments")
+}
+func NewUserConfiguration_1() *UserConfiguration {
     this := &UserConfiguration{}
     this.initFields()
         this.UserEmailConfigurationInterface = any(NewUserEmailConfiguration()).(UserEmailConfigurationInterface)
@@ -68,8 +82,7 @@ func NewUserConfiguration() *UserConfiguration {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUserConfiguration(hashMap *HashMap) *UserConfiguration {
+func NewUserConfiguration_2(hashMap *HashMap) *UserConfiguration {
     this := &UserConfiguration{}
     this.initFields()
         this.UserEmailConfigurationInterface = any(NewUserEmailConfiguration(hashMap)).(UserEmailConfigurationInterface)

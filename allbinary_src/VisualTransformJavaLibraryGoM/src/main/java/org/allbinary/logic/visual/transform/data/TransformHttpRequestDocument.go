@@ -51,6 +51,18 @@ type TransformHttpRequestDocument struct {
 
 // Implements TransformDocumentInterface
 
+// The Java class TransformHttpRequestDocument has subclasses so its variables are this interface
+type ITransformHttpRequestDocument interface {
+    TransformHttpRequestDocument_() *TransformHttpRequestDocument
+    GetBaseNode() *Node
+    GetDoc() *Document
+    Log() string
+}
+
+func (this *TransformHttpRequestDocument) TransformHttpRequestDocument_() *TransformHttpRequestDocument {
+    return this
+}
+
 var TransformHttpRequestDocument_Language string = "en"
 var TransformHttpRequestDocument_Local string = "US"
 
@@ -62,7 +74,21 @@ func (this *TransformHttpRequestDocument) initFields() {
 }
 
 
-func NewTransformHttpRequestDocument(pageContext *PageContext, weblisketSession *WeblisketSession) *TransformHttpRequestDocument {
+
+
+// Java overloads of new TransformHttpRequestDocument
+func NewTransformHttpRequestDocument(args ...any) *TransformHttpRequestDocument {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[*PageContext](args[0], pass) && Java_IsArg[*WeblisketSession](args[1], pass) {
+            return NewTransformHttpRequestDocument_1(Java_Arg[*PageContext](args[0]), Java_Arg[*WeblisketSession](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[*SearchRequest](args[0], pass) {
+            return NewTransformHttpRequestDocument_2(Java_Arg[*SearchRequest](args[0]))
+        }
+    }
+    panic("No Java overload of new TransformHttpRequestDocument for the arguments")
+}
+func NewTransformHttpRequestDocument_1(pageContext *PageContext, weblisketSession *WeblisketSession) *TransformHttpRequestDocument {
     this := &TransformHttpRequestDocument{}
     this.initFields()
         if tryControl1 := func() (tryControl1 int) {
@@ -96,8 +122,7 @@ func NewTransformHttpRequestDocument(pageContext *PageContext, weblisketSession 
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformHttpRequestDocument(searchRequest *SearchRequest) *TransformHttpRequestDocument {
+func NewTransformHttpRequestDocument_2(searchRequest *SearchRequest) *TransformHttpRequestDocument {
     this := &TransformHttpRequestDocument{}
     this.initFields()
         if tryControl1 := func() (tryControl1 int) {

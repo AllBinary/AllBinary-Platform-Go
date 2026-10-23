@@ -53,7 +53,21 @@ func (this *TransformStoreDocument) initFields() {
 }
 
 
-func NewTransformStoreDocument(pageContext *PageContext, weblisketSession *WeblisketSession) *TransformStoreDocument {
+
+
+// Java overloads of new TransformStoreDocument
+func NewTransformStoreDocument(args ...any) *TransformStoreDocument {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[*PageContext](args[0], pass) && Java_IsArg[*WeblisketSession](args[1], pass) {
+            return NewTransformStoreDocument_1(Java_Arg[*PageContext](args[0]), Java_Arg[*WeblisketSession](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[*SearchRequest](args[0], pass) {
+            return NewTransformStoreDocument_2(Java_Arg[*SearchRequest](args[0]))
+        }
+    }
+    panic("No Java overload of new TransformStoreDocument for the arguments")
+}
+func NewTransformStoreDocument_1(pageContext *PageContext, weblisketSession *WeblisketSession) *TransformStoreDocument {
     this := &TransformStoreDocument{}
         this.TransformHttpRequestDocument = *NewTransformHttpRequestDocument(pageContext, weblisketSession)
         this.initFields()
@@ -82,8 +96,7 @@ func NewTransformStoreDocument(pageContext *PageContext, weblisketSession *Webli
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformStoreDocument(searchRequest *SearchRequest) *TransformStoreDocument {
+func NewTransformStoreDocument_2(searchRequest *SearchRequest) *TransformStoreDocument {
     this := &TransformStoreDocument{}
         this.TransformHttpRequestDocument = *NewTransformHttpRequestDocument(searchRequest)
         this.initFields()

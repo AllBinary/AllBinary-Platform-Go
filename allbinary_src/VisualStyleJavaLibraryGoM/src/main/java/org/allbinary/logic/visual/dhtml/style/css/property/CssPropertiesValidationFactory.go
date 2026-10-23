@@ -54,8 +54,8 @@ func NewCssPropertiesValidationFactory() *CssPropertiesValidationFactory {
 
 
 // throws Exception
-func CssPropertiesValidationFactory_GetInstance(nodeList *NodeList) *BasicArrayList {
-        var propertiesVector *BasicArrayList = NewBasicArrayListD(); _ = propertiesVector
+func CssPropertiesValidationFactory_GetInstance_1(nodeList *NodeList) IBasicArrayList {
+        var propertiesVector IBasicArrayList = NewBasicArrayListD(); _ = propertiesVector
         for index := int(0); index < nodeList.GetLength(); index++ {
             var node *Node = nodeList.Item(index); _ = node
             if node.GetNodeName().CompareTo(CssPropertyData_GetInstance().NAME) == 0 {
@@ -66,10 +66,22 @@ func CssPropertiesValidationFactory_GetInstance(nodeList *NodeList) *BasicArrayL
         return propertiesVector
 }
 
+// Java overloads of CssPropertiesValidationFactory.getInstance
+func CssPropertiesValidationFactory_GetInstance(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*NodeList](args[0], pass) {
+            return CssPropertiesValidationFactory_GetInstance_1(Java_Arg[*NodeList](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return CssPropertiesValidationFactory_GetInstance_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of CssPropertiesValidationFactory.getInstance for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func CssPropertiesValidationFactory_GetInstance(hashMap *HashMap) *BasicArrayList {
-        var styles *BasicArrayList = NewBasicArrayListD(); _ = styles
+
+func CssPropertiesValidationFactory_GetInstance_2(hashMap *HashMap) IBasicArrayList {
+        var styles IBasicArrayList = NewBasicArrayListD(); _ = styles
         return styles
 }
 

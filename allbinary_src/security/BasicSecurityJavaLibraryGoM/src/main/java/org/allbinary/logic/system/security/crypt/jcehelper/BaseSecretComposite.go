@@ -45,7 +45,18 @@ var _ = unicode.IsDigit
 type BaseSecretComposite struct {
 }
 
-var BaseSecretComposite_NULL_SECRET_COMPOSITE *BaseSecretComposite = NewBaseSecretComposite()
+// The Java class BaseSecretComposite has subclasses so its variables are this interface
+type IBaseSecretComposite interface {
+    BaseSecretComposite_() *BaseSecretComposite
+    Encrypt(array []int8) []int8
+    Decrypt(array []int8) []int8
+}
+
+func (this *BaseSecretComposite) BaseSecretComposite_() *BaseSecretComposite {
+    return this
+}
+
+var BaseSecretComposite_NULL_SECRET_COMPOSITE IBaseSecretComposite = NewBaseSecretComposite()
 
 func NewBaseSecretComposite() *BaseSecretComposite {
     this := &BaseSecretComposite{}

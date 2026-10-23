@@ -76,3 +76,4 @@ func (this *BasicColorArrayIndexer) Get() *BasicColor {
 func (this *BasicColorArrayIndexer) GetBasicColorArray() []*BasicColor {
         return this.BasicColorArray
 }
+

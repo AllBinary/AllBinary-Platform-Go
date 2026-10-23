@@ -46,25 +46,49 @@ type AbFileInputStream struct {
     FileInputStream
 }
 
+// The Java class AbFileInputStream has subclasses so its variables are this interface
+type IAbFileInputStream interface {
+    AbFileInputStream_() *AbFileInputStream
+}
+
+func (this *AbFileInputStream) AbFileInputStream_() *AbFileInputStream {
+    return this
+}
 
 
-func NewAbFileInputStream(name string) *AbFileInputStream {
+
+
+
+// Java overloads of new AbFileInputStream
+func NewAbFileInputStream(args ...any) *AbFileInputStream {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewAbFileInputStream_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*AbFile](args[0], pass) {
+            return NewAbFileInputStream_2(Java_Arg[*AbFile](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*File](args[0], pass) {
+            return NewAbFileInputStream_3(Java_Arg[*File](args[0]))
+        }
+    }
+    panic("No Java overload of new AbFileInputStream for the arguments")
+}
+func NewAbFileInputStream_1(name string) *AbFileInputStream {
     this := &AbFileInputStream{}
         this.FileInputStream = *NewFileInputStream(name)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewAbFileInputStream(file *AbFile) *AbFileInputStream {
+func NewAbFileInputStream_2(file *AbFile) *AbFileInputStream {
     this := &AbFileInputStream{}
         this.FileInputStream = *NewFileInputStream(AbFileNativeUtil_Get(file))
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewAbFileInputStream(file *File) *AbFileInputStream {
+func NewAbFileInputStream_3(file *File) *AbFileInputStream {
     this := &AbFileInputStream{}
         this.FileInputStream = *NewFileInputStream(file)
     return this

@@ -60,3 +60,4 @@ func NewColorChangeEventHandler() *ColorChangeEventHandler {
 func ColorChangeEventHandler_GetInstance() *ColorChangeEventHandler {
         return ColorChangeEventHandler_EventHandler
 }
+

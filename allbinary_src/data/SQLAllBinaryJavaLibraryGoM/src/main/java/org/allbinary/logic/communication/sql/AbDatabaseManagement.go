@@ -58,6 +58,19 @@ type AbDatabaseManagement struct {
     ADD_TABLES_RESULTS_LABEL string
 }
 
+// The Java class AbDatabaseManagement has subclasses so its variables are this interface
+type IAbDatabaseManagement interface {
+    IAbSqlBean
+    AbDatabaseManagement_() *AbDatabaseManagement
+    GetHostName() string
+    AddDbUser(args ...any) bool
+    AddDb(db string) bool
+}
+
+func (this *AbDatabaseManagement) AbDatabaseManagement_() *AbDatabaseManagement {
+    return this
+}
+
 
 func (this *AbDatabaseManagement) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -83,16 +96,29 @@ func (this *AbDatabaseManagement) initFields() {
 }
 
 
-func NewAbDatabaseManagement(databaseConnectionInfoInterface DatabaseConnectionInfoInterface) *AbDatabaseManagement {
+
+
+// Java overloads of new AbDatabaseManagement
+func NewAbDatabaseManagement(args ...any) *AbDatabaseManagement {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[DatabaseConnectionInfoInterface](args[0], pass) {
+            return NewAbDatabaseManagement_1(Java_Arg[DatabaseConnectionInfoInterface](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[IDbConnectionInfo](args[0], pass) {
+            return NewAbDatabaseManagement_2(Java_Arg[IDbConnectionInfo](args[0]))
+        }
+    }
+    panic("No Java overload of new AbDatabaseManagement for the arguments")
+}
+func NewAbDatabaseManagement_1(databaseConnectionInfoInterface DatabaseConnectionInfoInterface) *AbDatabaseManagement {
     this := &AbDatabaseManagement{}
-        this.AbSqlBean = *NewAbSqlBean(any(databaseConnectionInfoInterface).(*DbConnectionInfo))
+        this.AbSqlBean = *NewAbSqlBean(any(databaseConnectionInfoInterface).(IDbConnectionInfo))
         this.initFields()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewAbDatabaseManagement(connectionInfo *DbConnectionInfo) *AbDatabaseManagement {
+func NewAbDatabaseManagement_2(connectionInfo IDbConnectionInfo) *AbDatabaseManagement {
     this := &AbDatabaseManagement{}
         this.AbSqlBean = *NewAbSqlBean(connectionInfo)
         this.initFields()
@@ -121,7 +147,7 @@ func (this *AbDatabaseManagement) GetHostName() string {
 
 
 // throws Exception
-func (this *AbDatabaseManagement) AddDbUser(hostName string, db string, userName string, password string) bool {
+func (this *AbDatabaseManagement) AddDbUser_1(hostName string, db string, userName string, password string) bool {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.GRANT_ALL)
         stringBuffer.Append(db)
@@ -139,9 +165,21 @@ func (this *AbDatabaseManagement) AddDbUser(hostName string, db string, userName
         return true
 }
 
+// Java overloads of AbDatabaseManagement.addDbUser
+func (this *AbDatabaseManagement) AddDbUser(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 4 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) {
+            return this.AddDbUser_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return this.AddDbUser_2(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+    }
+    panic("No Java overload of AbDatabaseManagement.addDbUser for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *AbDatabaseManagement) AddDbUser(db string, userName string, password string) bool {
+
+func (this *AbDatabaseManagement) AddDbUser_2(db string, userName string, password string) bool {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 bool) {
             defer func() {
                 if recovered := recover(); recovered != nil {

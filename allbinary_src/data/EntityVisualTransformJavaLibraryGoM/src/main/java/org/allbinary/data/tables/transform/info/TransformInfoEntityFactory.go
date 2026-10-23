@@ -53,7 +53,7 @@ func NewTransformInfoEntityFactory() *TransformInfoEntityFactory {
 }
 
 
-func TransformInfoEntityFactory_GetInstance(transformInfoObjectConfigGeneratorFactoryInterface TransformInfoObjectConfigGeneratorFactoryInterface, transformInfoObjectConfigAndManipulatorFactoryInterface *TransformInfoObjectConfigAndManipulatorFactoryBase, transformInfoFactoryInterface TransformInfoFactoryInterface) *TransformInfoEntity {
+func TransformInfoEntityFactory_GetInstance(transformInfoObjectConfigGeneratorFactoryInterface TransformInfoObjectConfigGeneratorFactoryInterface, transformInfoObjectConfigAndManipulatorFactoryInterface ITransformInfoObjectConfigAndManipulatorFactoryBase, transformInfoFactoryInterface TransformInfoFactoryInterface) *TransformInfoEntity {
         var logUtil *LogUtil = LogUtil_GetInstance(); _ = logUtil
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *TransformInfoEntity) {
             defer func() {

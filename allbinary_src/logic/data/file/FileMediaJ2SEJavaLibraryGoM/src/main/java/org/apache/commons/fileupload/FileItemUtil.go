@@ -53,14 +53,26 @@ func FileItemUtil_GetInstance() *FileItemUtil {
 
 
 // throws Exception
-func (this *FileItemUtil) GetString(byteArray []int8) string {
+func (this *FileItemUtil) GetString_1(byteArray []int8) string {
         return NewString(byteArray, this.DEFAULT_CHARSET)
+}
+
+// Java overloads of FileItemUtil.getString
+func (this *FileItemUtil) GetString(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[[]int8](args[0], pass) {
+            return this.GetString_1(Java_Arg[[]int8](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*FileItemStream](args[0], pass) {
+            return this.GetString_2(Java_Arg[*FileItemStream](args[0]))
+        }
+    }
+    panic("No Java overload of FileItemUtil.getString for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileItemUtil) GetString(fileItem *FileItemStream) string {
+func (this *FileItemUtil) GetString_2(fileItem *FileItemStream) string {
         return NewString(this.GetBytes(fileItem), this.DEFAULT_CHARSET)
 }
 
@@ -68,7 +80,7 @@ func (this *FileItemUtil) GetString(fileItem *FileItemStream) string {
 // throws Exception
 func (this *FileItemUtil) GetBytes(fileItem *FileItemStream) []int8 {
         var streamUtil *StreamUtil = StreamUtil_GetInstance(); _ = streamUtil
-        var inputStream *InputStream = nil; _ = inputStream
+        var inputStream IInputStream = nil; _ = inputStream
         var outputStream *strings.Builder = nil; _ = outputStream
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 []int8) {
             defer func() {

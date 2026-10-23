@@ -102,7 +102,7 @@ func (this *TransactionEntity) Add(userName string, orderNumber string, paymentT
             }
                 }
             }()
-            var values *BasicArrayList = NewBasicArrayListD(); _ = values
+            var values IBasicArrayList = NewBasicArrayListD(); _ = values
             values.Add(orderNumber)
             values.Add(userName)
             values.AddAllList(paymentTransactionInterface.ToVector())

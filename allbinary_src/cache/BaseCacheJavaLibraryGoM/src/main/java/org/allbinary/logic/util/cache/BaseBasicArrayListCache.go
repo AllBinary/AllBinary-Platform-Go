@@ -74,3 +74,4 @@ func (this *BaseBasicArrayListCache) Log() string {
         stringBuffer.Appendint(this.List.Size())
         return fmt.Sprint(stringBuffer)
 }
+

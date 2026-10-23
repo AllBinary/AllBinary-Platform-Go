@@ -61,3 +61,4 @@ func AndroidUtil_IsMemoryRestrictive() bool {
 func AndroidUtil_IsAndroid() bool {
         return false
 }
+

@@ -47,3 +47,4 @@ type HardwareComponentInterface interface {
     ToString() string
 }
 
+

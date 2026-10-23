@@ -60,7 +60,21 @@ func (this *TransactionResult) initFields() {
 }
 
 
-func NewTransactionResult(result string) *TransactionResult {
+
+
+// Java overloads of new TransactionResult
+func NewTransactionResult(args ...any) *TransactionResult {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewTransactionResult_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewTransactionResult_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new TransactionResult for the arguments")
+}
+func NewTransactionResult_1(result string) *TransactionResult {
     this := &TransactionResult{}
     this.initFields()
         if tryControl1 := func() (tryControl1 int) {
@@ -74,7 +88,7 @@ func NewTransactionResult(result string) *TransactionResult {
             }()
             this.Result = result
             var tokenizer *Tokenizer = NewTokenizer(CommonSeps_GetInstance().AMPERSAND); _ = tokenizer
-            var tokens *BasicArrayList = tokenizer.GetTokensFromString(result, NewBasicArrayListD()); _ = tokens
+            var tokens IBasicArrayList = tokenizer.GetTokensFromString(result, NewBasicArrayListD()); _ = tokens
             var tokenizer2 *Tokenizer = NewTokenizer(CommonSeps_GetInstance().EQUALS); _ = tokenizer2
             var hashtable *ABHashtable[any, any] = tokenizer2.GetTokens(tokens); _ = hashtable
             this.KeyValuePairs.PutAll(hashtable)
@@ -86,8 +100,7 @@ func NewTransactionResult(result string) *TransactionResult {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransactionResult(keyValuePairs *HashMap) *TransactionResult {
+func NewTransactionResult_2(keyValuePairs *HashMap) *TransactionResult {
     this := &TransactionResult{}
     this.initFields()
         keyValuePairs = keyValuePairs
@@ -110,9 +123,9 @@ func (this *TransactionResult) ToHashMap() *HashMap {
 }
 
 
-func (this *TransactionResult) GetAllPossibleKeys() *BasicArrayList {
+func (this *TransactionResult) GetAllPossibleKeys() IBasicArrayList {
         var paymentTransactionKeysFactory *PaymentTransactionKeysFactory = PaymentTransactionKeysFactory_GetInstance(); _ = paymentTransactionKeysFactory
-        var verisignResponseKeys *BasicArrayList = NewBasicArrayListD(); _ = verisignResponseKeys
+        var verisignResponseKeys IBasicArrayList = NewBasicArrayListD(); _ = verisignResponseKeys
         verisignResponseKeys.Add(fmt.Sprint(paymentTransactionKeysFactory.RESULT))
         verisignResponseKeys.Add(fmt.Sprint(paymentTransactionKeysFactory.PNREF))
         verisignResponseKeys.Add(fmt.Sprint(paymentTransactionKeysFactory.RESPMSG))
@@ -139,9 +152,9 @@ func (this *TransactionResult) GetAllPossibleKeys() *BasicArrayList {
 }
 
 
-func (this *TransactionResult) GetValues() *BasicArrayList {
-        var keyVector *BasicArrayList = this.GetAllPossibleKeys(); _ = keyVector
-        var valueVector *BasicArrayList = NewBasicArrayListD(); _ = valueVector
+func (this *TransactionResult) GetValues() IBasicArrayList {
+        var keyVector IBasicArrayList = this.GetAllPossibleKeys(); _ = keyVector
+        var valueVector IBasicArrayList = NewBasicArrayListD(); _ = valueVector
         var size int = keyVector.Size(); _ = size
         for i := int(0); i < size; i++ {
             var key string = any(keyVector.Get(i)).(string); _ = key

@@ -44,7 +44,7 @@ var _ = unicode.IsDigit
 
 type LicenseInitInfo struct {
     Id string
-    ServerList *BasicArrayList
+    ServerList IBasicArrayList
 }
 
 
@@ -96,12 +96,12 @@ func (this *LicenseInitInfo) AddServer(value string) {
 }
 
 
-func (this *LicenseInitInfo) GetServerList() *BasicArrayList {
+func (this *LicenseInitInfo) GetServerList() IBasicArrayList {
         return this.ServerList
 }
 
 
-func (this *LicenseInitInfo) SetServerList(servers *BasicArrayList) {
+func (this *LicenseInitInfo) SetServerList(servers IBasicArrayList) {
         if DebugFactory_GetInstance() == NoDebug_GetInstance() {
             this.ServerList = servers
         }

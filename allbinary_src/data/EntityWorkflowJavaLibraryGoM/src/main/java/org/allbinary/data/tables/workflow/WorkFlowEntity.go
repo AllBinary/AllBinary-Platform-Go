@@ -72,7 +72,7 @@ func NewWorkFlowEntity() *WorkFlowEntity {
 }
 
 
-func (this *WorkFlowEntity) Insert(values *BasicArrayList) {
+func (this *WorkFlowEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -120,7 +120,7 @@ func (this *WorkFlowEntity) Delete(name string, storeName string) {
 
 
 // throws Exception, LicensingException
-func (this *WorkFlowEntity) Get(name string, storeName string) WorkFlowInterface {
+func (this *WorkFlowEntity) Get_1(name string, storeName string) WorkFlowInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 WorkFlowInterface) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -144,10 +144,22 @@ func (this *WorkFlowEntity) Get(name string, storeName string) WorkFlowInterface
         panic("unreachable")
 }
 
+// Java overloads of WorkFlowEntity.get
+func (this *WorkFlowEntity) Get(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.Get_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.Get_2(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of WorkFlowEntity.get for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *WorkFlowEntity) Get(storeName string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+
+func (this *WorkFlowEntity) Get_2(storeName string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -158,10 +170,10 @@ func (this *WorkFlowEntity) Get(storeName string) *BasicArrayList {
             tryControl1, tryResult1 = 1, nil; return
                 }
             }()
-            var workFlowsVector *BasicArrayList = NewBasicArrayListD(); _ = workFlowsVector
+            var workFlowsVector IBasicArrayList = NewBasicArrayListD(); _ = workFlowsVector
             var keysAndValues *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keysAndValues
             keysAndValues.Put(StoreFrontData_GetInstance().NAME, storeName)
-            var hashMapVector *BasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = hashMapVector
+            var hashMapVector IBasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = hashMapVector
             var size int = hashMapVector.Size(); _ = size
             for i := int(0); i < size; i++ {
                 var workFlowHashMap *HashMap = any(hashMapVector.Get(i)).(*HashMap); _ = workFlowHashMap

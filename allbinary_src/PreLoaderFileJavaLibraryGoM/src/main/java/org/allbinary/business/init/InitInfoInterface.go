@@ -48,11 +48,11 @@ type InitInfoInterface interface {
     GetTestHtmlPath() string
     GetMainPath() string
     SetTesting(value string)
-    SetTestHtmlPath(value *AbPath)
-    SetMainPath(value *AbPath)
+    SetTestHtmlPath(value IAbPath)
+    SetMainPath(value IAbPath)
     IsTestingValid(testing string) bool
-    IsTestHtmlPathValid(value *AbPath) bool
-    IsMainPathValid(value *AbPath) bool
+    IsTestHtmlPathValid(value IAbPath) bool
+    IsMainPathValid(value IAbPath) bool
 }
 
 

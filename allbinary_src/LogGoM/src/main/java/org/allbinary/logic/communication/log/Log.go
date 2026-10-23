@@ -103,3 +103,4 @@ func (this *Log) ToString() string {
 func (this *Log) String() string {
     return this.ToString()
 }
+

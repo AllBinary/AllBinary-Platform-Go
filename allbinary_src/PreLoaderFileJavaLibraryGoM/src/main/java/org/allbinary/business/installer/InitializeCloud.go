@@ -76,12 +76,12 @@ func (this *InitializeCloud) Initialize(cloud string, overwriteNewer bool, overw
                 stringBuffer.Append(URLGLOBALS.GetWebappPath())
                 stringBuffer.Append(cloud)
                 stringBuffer.Append(PATH_GLOBALS.GetInstance().DATA_PATH)
-                var path *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = path
+                var path IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = path
                 stringBuffer.Delete(0, stringBuffer.Length())
                 stringBuffer.Append(URLGLOBALS.GetWebappPath())
-                var realPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = realPath
+                var realPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = realPath
                 var file *AbFile = AbFile_CreateAbFileFromAbPath(path); _ = file
-                var fileBasicArrayList *BasicArrayList = Directory_GetInstance().Search(file, true); _ = fileBasicArrayList
+                var fileBasicArrayList IBasicArrayList = Directory_GetInstance().Search(file, true); _ = fileBasicArrayList
                 var size int = fileBasicArrayList.Size(); _ = size
                 stringBuffer.Delete(0, stringBuffer.Length())
                 stringBuffer.Append("Searched: ")

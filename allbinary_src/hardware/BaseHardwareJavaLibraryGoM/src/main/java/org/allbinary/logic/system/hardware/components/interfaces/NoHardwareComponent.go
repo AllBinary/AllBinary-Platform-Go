@@ -75,3 +75,4 @@ func (this *NoHardwareComponent) ToString() string {
 func (this *NoHardwareComponent) String() string {
     return this.ToString()
 }
+

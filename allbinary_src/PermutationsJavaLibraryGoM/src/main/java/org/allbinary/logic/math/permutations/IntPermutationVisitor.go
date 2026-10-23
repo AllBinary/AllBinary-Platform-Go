@@ -34,6 +34,18 @@ type IntPermutationVisitor struct {
     StringBuilder *StringMaker
 }
 
+// The Java class IntPermutationVisitor has subclasses so its variables are this interface
+type IIntPermutationVisitor interface {
+    IVisitor
+    IntPermutationVisitor_() *IntPermutationVisitor
+    Visit(anyType any) any
+    Print(args ...any)
+}
+
+func (this *IntPermutationVisitor) IntPermutationVisitor_() *IntPermutationVisitor {
+    return this
+}
+
 
 func (this *IntPermutationVisitor) initFields() {
     
@@ -57,14 +69,28 @@ func (this *IntPermutationVisitor) Visit(anyType any) any {
 }
 
 
-func (this *IntPermutationVisitor) Print(data []int) {
+func (this *IntPermutationVisitor) Print_1(data []int) {
         var stringBuilder *StringMaker = NewStringMaker(); _ = stringBuilder
         this.Print(data, stringBuilder)
 }
 
+// Java overloads of IntPermutationVisitor.print
+func (this *IntPermutationVisitor) Print(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[[]int](args[0], pass) {
+            this.Print_1(Java_Arg[[]int](args[0]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[[]int](args[0], pass) && Java_IsArg[*StringMaker](args[1], pass) {
+            this.Print_2(Java_Arg[[]int](args[0]), Java_Arg[*StringMaker](args[1]))
+            return
+        }
+    }
+    panic("No Java overload of IntPermutationVisitor.print for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *IntPermutationVisitor) Print(data []int, stringBuilder *StringMaker) {
+
+func (this *IntPermutationVisitor) Print_2(data []int, stringBuilder *StringMaker) {
         var commonSeps *CommonSeps = CommonSeps_GetInstance(); _ = commonSeps
         var size int = len(data); _ = size
         for i := int(0); i < size; i++ {

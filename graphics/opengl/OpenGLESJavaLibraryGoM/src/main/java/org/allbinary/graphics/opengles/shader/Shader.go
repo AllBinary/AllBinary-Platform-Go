@@ -51,9 +51,9 @@ type Shader struct {
 
 
 func (this *Shader) initFields() {
-    
-    
-    
+    this.ShaderName = StringUtil_GetInstance().EMPTY_STRING
+    this.ShaderStringList = BasicArrayListUtil_GetInstance().GetImmutableInstance()
+    this.ShaderAsString = StringUtil_GetInstance().EMPTY_STRING
     
 }
 

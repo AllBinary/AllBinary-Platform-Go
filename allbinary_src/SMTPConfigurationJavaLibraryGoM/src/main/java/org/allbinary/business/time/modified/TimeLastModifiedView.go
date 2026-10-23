@@ -54,7 +54,21 @@ func (this *TimeLastModifiedView) initFields() {
 }
 
 
-func NewTimeLastModifiedView(timeLastModified *TimeLastModified) *TimeLastModifiedView {
+
+
+// Java overloads of new TimeLastModifiedView
+func NewTimeLastModifiedView(args ...any) *TimeLastModifiedView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*TimeLastModified](args[0], pass) {
+            return NewTimeLastModifiedView_1(Java_Arg[*TimeLastModified](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewTimeLastModifiedView_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new TimeLastModifiedView for the arguments")
+}
+func NewTimeLastModifiedView_1(timeLastModified *TimeLastModified) *TimeLastModifiedView {
     this := &TimeLastModifiedView{}
     this.initFields()
         this.SetTimeLastModified(timeLastModified)
@@ -62,8 +76,7 @@ func NewTimeLastModifiedView(timeLastModified *TimeLastModified) *TimeLastModifi
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTimeLastModifiedView(node *Node) *TimeLastModifiedView {
+func NewTimeLastModifiedView_2(node *Node) *TimeLastModifiedView {
     this := &TimeLastModifiedView{}
     this.initFields()
         this.SetTimeLastModified(NewTimeLastModified(DomNodeHelper_GetTextNodeValue(node)))

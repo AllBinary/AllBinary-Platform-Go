@@ -47,8 +47,8 @@ type InitInfo struct {
     MAINPATH string
     TESTHTMLPATH string
     Testing string
-    MainPath *AbPath
-    TestHtmlPath *AbPath
+    MainPath IAbPath
+    TestHtmlPath IAbPath
     HasRead bool
 }
 
@@ -79,7 +79,7 @@ func NewInitInfo() *InitInfo {
 
 // throws InitException
 // synchronized
-func (this *InitInfo) Set() {
+func (this *InitInfo) Set_1() {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -112,10 +112,24 @@ func (this *InitInfo) Set() {
         }
 }
 
+// Java overloads of InitInfo.set
+func (this *InitInfo) Set(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            this.Set_1()
+            return
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            this.Set_2(Java_Arg[*HashMap](args[0]))
+            return
+        }
+    }
+    panic("No Java overload of InitInfo.set for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
+
 // synchronized
-func (this *InitInfo) Set(hashMap *HashMap) {
+func (this *InitInfo) Set_2(hashMap *HashMap) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -244,22 +258,22 @@ func (this *InitInfo) SetTesting(value string) {
 }
 
 
-func (this *InitInfo) SetTestHtmlPath(value *AbPath) {
+func (this *InitInfo) SetTestHtmlPath(value IAbPath) {
         this.TestHtmlPath = value
 }
 
 
-func (this *InitInfo) SetMainPath(value *AbPath) {
+func (this *InitInfo) SetMainPath(value IAbPath) {
         this.MainPath = value
 }
 
 
-func (this *InitInfo) IsMainPathValid(abPath *AbPath) bool {
+func (this *InitInfo) IsMainPathValid(abPath IAbPath) bool {
         return true
 }
 
 
-func (this *InitInfo) IsTestHtmlPathValid(abPath *AbPath) bool {
+func (this *InitInfo) IsTestHtmlPathValid(abPath IAbPath) bool {
         return true
 }
 

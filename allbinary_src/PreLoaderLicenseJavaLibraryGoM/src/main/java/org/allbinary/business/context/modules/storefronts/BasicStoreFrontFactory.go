@@ -66,7 +66,6 @@ func NewBasicStoreFrontFactory() *BasicStoreFrontFactory {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 func (this *BasicStoreFrontFactory) GetInstance(storeName string) BasicStoreFrontInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 BasicStoreFrontInterface) {
             defer func() {

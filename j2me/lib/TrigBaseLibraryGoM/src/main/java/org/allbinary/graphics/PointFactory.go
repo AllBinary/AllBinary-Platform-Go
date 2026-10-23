@@ -77,3 +77,4 @@ func (this *PointFactory) CreateXY(x int, y int) IGPoint {
 func (this *PointFactory) CreateXYZ(x int, y int, z int) IGPoint {
         return NewGPoint(x, y, z)
 }
+

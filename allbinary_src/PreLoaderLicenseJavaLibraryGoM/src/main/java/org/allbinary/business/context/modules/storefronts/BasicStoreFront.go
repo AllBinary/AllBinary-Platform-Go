@@ -108,15 +108,28 @@ func (this *BasicStoreFront) initFields() {
 }
 
 
-func NewBasicStoreFront() *BasicStoreFront {
+
+
+// Java overloads of new BasicStoreFront
+func NewBasicStoreFront(args ...any) *BasicStoreFront {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewBasicStoreFront_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewBasicStoreFront_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new BasicStoreFront for the arguments")
+}
+func NewBasicStoreFront_1() *BasicStoreFront {
     this := &BasicStoreFront{}
     this.initFields()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewBasicStoreFront(storeHashMap *HashMap) *BasicStoreFront {
+func NewBasicStoreFront_2(storeHashMap *HashMap) *BasicStoreFront {
     this := &BasicStoreFront{}
     this.initFields()
         var storeFrontData *StoreFrontData = StoreFrontData_GetInstance(); _ = storeFrontData
@@ -272,8 +285,8 @@ func (this *BasicStoreFront) GetInventoryControl() string {
 
 
 // throws Exception
-func (this *BasicStoreFront) GetSubStores() *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *BasicStoreFront) GetSubStores() IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -282,7 +295,7 @@ func (this *BasicStoreFront) GetSubStores() *BasicArrayList {
                 }
             }()
             var tokenizer *Tokenizer = NewTokenizer(CommonSeps_GetInstance().SEMICOLON); _ = tokenizer
-            var subStoreVector *BasicArrayList = tokenizer.GetTokensFromString(this.SubStores, NewBasicArrayListD()); _ = subStoreVector
+            var subStoreVector IBasicArrayList = tokenizer.GetTokensFromString(this.SubStores, NewBasicArrayListD()); _ = subStoreVector
             tryControl1, tryResult1 = 1, subStoreVector; return
             return
         }(); tryControl1 == 1 {

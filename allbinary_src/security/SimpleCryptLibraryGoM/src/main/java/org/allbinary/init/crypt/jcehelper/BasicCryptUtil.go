@@ -69,7 +69,7 @@ func BasicCryptUtil_GetInstance() *BasicCryptUtil {
 
 
 // throws Exception
-func (this *BasicCryptUtil) GetDecryptedInputStream(inputStream *InputStream, cryptInterface CryptInterface) *InputStream {
+func (this *BasicCryptUtil) GetDecryptedInputStream(inputStream IInputStream, cryptInterface CryptInterface) IInputStream {
         var buffer *strings.Builder = &strings.Builder{}; _ = buffer
         var ch int; _ = ch
         for true {

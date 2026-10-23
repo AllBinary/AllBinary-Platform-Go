@@ -70,8 +70,8 @@ func NewWeblisketFinder() *WeblisketFinder {
 }
 
 
-func (this *WeblisketFinder) FindAll(path string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *WeblisketFinder) FindAll(path string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -122,7 +122,7 @@ func (this *WeblisketFinder) GetInstallationPath(file *AbFile) string {
 // throws Exception
 func WeblisketFinder_Main(args []string) {
         var stringUtil *StringUtil = StringUtil_GetInstance(); _ = stringUtil
-        var vector *BasicArrayList = WeblisketFinder_GetInstance().FindAll(stringUtil.EMPTY_STRING); _ = vector
+        var vector IBasicArrayList = WeblisketFinder_GetInstance().FindAll(stringUtil.EMPTY_STRING); _ = vector
         fmt.Println(vector.Size())
 }
 

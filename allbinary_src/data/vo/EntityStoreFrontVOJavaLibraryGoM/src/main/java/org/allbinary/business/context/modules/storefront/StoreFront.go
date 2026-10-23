@@ -51,27 +51,27 @@ type StoreFront struct {
     Name string
     BasketName string
     HomeHostName string
-    HomeHostNamePath *AbPath
+    HomeHostNamePath IAbPath
     HostName string
-    HostNamePath *AbPath
+    HostNamePath IAbPath
     TestHomeHostName string
-    TestHomeHostNamePath *AbPath
+    TestHomeHostNamePath IAbPath
     TestHostName string
-    TestHostNamePath *AbPath
-    ImagePath *AbPath
-    StaticPath *AbPath
-    CategoryPath *AbPath
+    TestHostNamePath IAbPath
+    ImagePath IAbPath
+    StaticPath IAbPath
+    CategoryPath IAbPath
     InventoryControl string
     ContextConfigurationInterface ContextConfigurationInterface
     SubStores string
     TagLocation string
     PackageLocation string
     Ftp string
-    FtpPath *AbPath
+    FtpPath IAbPath
     FtpUserName string
     FtpPassword string
     TestFtp string
-    TestFtpPath *AbPath
+    TestFtpPath IAbPath
     TestFtpUserName string
     TestFtpPassword string
     TimeCreated string
@@ -129,7 +129,24 @@ func (this *StoreFront) initFields() {
 }
 
 
-func NewStoreFront() *StoreFront {
+
+
+// Java overloads of new StoreFront
+func NewStoreFront(args ...any) *StoreFront {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewStoreFront_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HttpServletRequest](args[0], pass) {
+            return NewStoreFront_2(Java_Arg[*HttpServletRequest](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewStoreFront_3(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new StoreFront for the arguments")
+}
+func NewStoreFront_1() *StoreFront {
     this := &StoreFront{}
     this.initFields()
         this.ContextConfigurationInterface = NewContextConfiguration()
@@ -137,8 +154,7 @@ func NewStoreFront() *StoreFront {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewStoreFront(request *HttpServletRequest) *StoreFront {
+func NewStoreFront_2(request *HttpServletRequest) *StoreFront {
     this := &StoreFront{}
     this.initFields()
         this.GetFormData(NewRequestParams(request).ToHashMap())
@@ -150,8 +166,7 @@ func NewStoreFront(request *HttpServletRequest) *StoreFront {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewStoreFront(hashMap *HashMap) *StoreFront {
+func NewStoreFront_3(hashMap *HashMap) *StoreFront {
     this := &StoreFront{}
     this.initFields()
         this.GetFormData(hashMap)
@@ -174,14 +189,26 @@ func (this *StoreFront) IsColumn(columnName string) bool {
 
 
 // throws Exception
-func (this *StoreFront) CreatePath(key string, hashMap *HashMap) *AbPath {
+func (this *StoreFront) CreatePath_1(key string, hashMap *HashMap) IAbPath {
         return NewAbPath(this.Create(this.EMPTY_STRING, key, hashMap), StringUtil_GetInstance().EMPTY_STRING)
+}
+
+// Java overloads of StoreFront.createPath
+func (this *StoreFront) CreatePath(args ...any) IAbPath {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) {
+            return this.CreatePath_1(Java_Arg[string](args[0]), Java_Arg[*HashMap](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[*HashMap](args[2], pass) {
+            return this.CreatePath_2(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[*HashMap](args[2]))
+        }
+    }
+    panic("No Java overload of StoreFront.createPath for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *StoreFront) CreatePath(append_ string, key string, hashMap *HashMap) *AbPath {
+func (this *StoreFront) CreatePath_2(append_ string, key string, hashMap *HashMap) IAbPath {
         return NewAbPath(this.Create(append_, key, hashMap), StringUtil_GetInstance().EMPTY_STRING)
 }
 
@@ -580,8 +607,8 @@ func (this *StoreFront) GetInventoryControl() string {
 
 
 // throws Exception
-func (this *StoreFront) GetSubStores() *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *StoreFront) GetSubStores() IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -590,7 +617,7 @@ func (this *StoreFront) GetSubStores() *BasicArrayList {
                 }
             }()
             var tokenizer *Tokenizer = NewTokenizer(CommonSeps_GetInstance().SEMICOLON); _ = tokenizer
-            var subStoreVector *BasicArrayList = tokenizer.GetTokensFromString(this.SubStores, NewBasicArrayListD()); _ = subStoreVector
+            var subStoreVector IBasicArrayList = tokenizer.GetTokensFromString(this.SubStores, NewBasicArrayListD()); _ = subStoreVector
             tryControl1, tryResult1 = 1, subStoreVector; return
             return
         }(); tryControl1 == 1 {
@@ -605,8 +632,21 @@ func (this *StoreFront) GetTagLocation() string {
 }
 
 
-func (this *StoreFront) GetPackageLocation() string {
+func (this *StoreFront) GetPackageLocation_1() string {
         return this.PackageLocation
+}
+
+// Java overloads of StoreFront.getPackageLocation
+func (this *StoreFront) GetPackageLocation(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.GetPackageLocation_1()
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetPackageLocation_2(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of StoreFront.getPackageLocation for the arguments")
 }
 
 
@@ -752,8 +792,7 @@ func (this *StoreFront) SetInventoryControl(value string) {
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *StoreFront) GetPackageLocation(value string) {
+func (this *StoreFront) GetPackageLocation_2(value string) {
         this.PackageLocation = value
 }
 
@@ -812,7 +851,7 @@ func (this *StoreFront) SetTestFtpPath(value string) {
 
 // throws Exception
 func (this *StoreFront) CreateDirectories() bool {
-        var storeAbPath *AbPath = NewAbPath(URLGLOBALS.GetWebappPath() + this.GetCurrentHomeHostNamePath(), StringUtil_GetInstance().EMPTY_STRING); _ = storeAbPath
+        var storeAbPath IAbPath = NewAbPath(URLGLOBALS.GetWebappPath() + this.GetCurrentHomeHostNamePath(), StringUtil_GetInstance().EMPTY_STRING); _ = storeAbPath
         if !this.Directory.Create(storeAbPath) {
             return false
         }
@@ -850,17 +889,17 @@ func (this *StoreFront) Install(current int, total int) {
             stringBuffer.Delete(0, stringBuffer.Length())
             stringBuffer.Append(viewPath)
             stringBuffer.Append(FREEBLISKET_PATH_GLOBALS.GetInstance().INSTALLPATH)
-            var fromDirectoryAbPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = fromDirectoryAbPath
+            var fromDirectoryAbPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = fromDirectoryAbPath
             stringBuffer.Delete(0, stringBuffer.Length())
             stringBuffer.Append(viewPath)
             stringBuffer.Append("special")
             stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
-            var fromSpecialDirectoryAbPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = fromSpecialDirectoryAbPath
+            var fromSpecialDirectoryAbPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = fromSpecialDirectoryAbPath
             stringBuffer.Delete(0, stringBuffer.Length())
             stringBuffer.Append(viewPath)
             stringBuffer.Append(this.GetName())
             stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
-            var toDirectoryAbPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = toDirectoryAbPath
+            var toDirectoryAbPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = toDirectoryAbPath
             if current == 0 {
                 if !this.Directory.Create(toDirectoryAbPath) {
                     panic(errors.New(fmt.Sprint("Unable to create store view directory: " + fmt.Sprint(toDirectoryAbPath))))
@@ -893,46 +932,46 @@ func (this *StoreFront) Install(current int, total int) {
 
 
 // throws Exception
-func (this *StoreFront) InstallViews(fromDirectoryAbPath *AbPath, toDirectoryAbPath *AbPath, current int, total int) {
+func (this *StoreFront) InstallViews(fromDirectoryAbPath IAbPath, toDirectoryAbPath IAbPath, current int, total int) {
         FileUtil_GetInstance().CopyDirectoryPortion(fromDirectoryAbPath, toDirectoryAbPath, true, false, current, total)
 }
 
 
 // throws Exception
-func (this *StoreFront) InstallResources(fromDirectoryAbPath *AbPath, current int, total int) {
+func (this *StoreFront) InstallResources(fromDirectoryAbPath IAbPath, current int, total int) {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(fmt.Sprint(fromDirectoryAbPath))
         stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
         stringBuffer.Append("Resources")
         stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
-        var installCategoryAbPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = installCategoryAbPath
+        var installCategoryAbPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = installCategoryAbPath
         stringBuffer.Delete(0, stringBuffer.Length())
         stringBuffer.Append(URLGLOBALS.GetMainPath())
         stringBuffer.Append(this.GetCurrentHomeHostNamePath())
         stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
         stringBuffer.Append(this.GetCategoryPath())
-        var categoryAbPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = categoryAbPath
+        var categoryAbPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = categoryAbPath
         FileUtil_GetInstance().CopyDirectoryPortion(installCategoryAbPath, categoryAbPath, true, false, current, total)
 }
 
 
 // throws Exception
-func (this *StoreFront) InstallMedia(fromDirectoryAbPath *AbPath, current int, total int) {
+func (this *StoreFront) InstallMedia(fromDirectoryAbPath IAbPath, current int, total int) {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(fmt.Sprint(fromDirectoryAbPath))
         stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
         stringBuffer.Append(FREEBLISKET_PATH_GLOBALS.GetInstance().TEMPLATEPATH)
         stringBuffer.Append("images")
         stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
-        var viewStoreImagesDirectoryAbPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = viewStoreImagesDirectoryAbPath
-        var storeAbPath *AbPath = NewAbPath(URLGLOBALS.GetWebappPath() + this.GetCurrentHomeHostNamePath(), StringUtil_GetInstance().EMPTY_STRING); _ = storeAbPath
+        var viewStoreImagesDirectoryAbPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = viewStoreImagesDirectoryAbPath
+        var storeAbPath IAbPath = NewAbPath(URLGLOBALS.GetWebappPath() + this.GetCurrentHomeHostNamePath(), StringUtil_GetInstance().EMPTY_STRING); _ = storeAbPath
         FileUtil_GetInstance().CopyDirectoryPortion(viewStoreImagesDirectoryAbPath, storeAbPath, true, false, current, total)
 }
 
 
 // throws Exception
-func (this *StoreFront) ToVector() *BasicArrayList {
-        var dataVector *BasicArrayList = NewBasicArrayListD(); _ = dataVector
+func (this *StoreFront) ToVector() IBasicArrayList {
+        var dataVector IBasicArrayList = NewBasicArrayListD(); _ = dataVector
         dataVector.Add(this.Name)
         dataVector.Add(this.HomeHostName)
         dataVector.Add(fmt.Sprint(this.HomeHostNamePath))

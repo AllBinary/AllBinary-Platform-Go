@@ -48,6 +48,16 @@ type TransformInfoObjectConfigGenerator struct {
 
 // Implements TransformInfoObjectConfigGeneratorInterface
 
+// The Java class TransformInfoObjectConfigGenerator has subclasses so its variables are this interface
+type ITransformInfoObjectConfigGenerator interface {
+    TransformInfoObjectConfigGenerator_() *TransformInfoObjectConfigGenerator
+    Process(input string) string
+}
+
+func (this *TransformInfoObjectConfigGenerator) TransformInfoObjectConfigGenerator_() *TransformInfoObjectConfigGenerator {
+    return this
+}
+
 
 func (this *TransformInfoObjectConfigGenerator) initFields() {
     this.CommonStrings = CommonStrings_GetInstance()

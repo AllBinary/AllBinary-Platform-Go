@@ -45,7 +45,7 @@ var _ = unicode.IsDigit
 type PaymentGatewaysView struct {
     HttpStoreComponentView
     LogUtil *LogUtil
-    PaymentGatewayVector *BasicArrayList
+    PaymentGatewayVector IBasicArrayList
 }
 
 // Implements DomNodeInterface
@@ -57,7 +57,7 @@ func (this *PaymentGatewaysView) initFields() {
 }
 
 
-func NewPaymentGatewaysView(transformInfoInterface TransformInfoInterface, gatewayVector *BasicArrayList) *PaymentGatewaysView {
+func NewPaymentGatewaysView(transformInfoInterface TransformInfoInterface, gatewayVector IBasicArrayList) *PaymentGatewaysView {
     this := &PaymentGatewaysView{}
         this.HttpStoreComponentView = *NewHttpStoreComponentView(transformInfoInterface)
         this.initFields()

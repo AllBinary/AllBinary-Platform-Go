@@ -73,3 +73,4 @@ func (this *LogFormatUtil) GetS(className string, functionName string, specialMe
 func (this *LogFormatUtil) GetO(exception any) string {
         panic(errors.New(fmt.Sprint()))
 }
+

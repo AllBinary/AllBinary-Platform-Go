@@ -46,7 +46,7 @@ type LogConfigTypes struct {
 }
 
 var LogConfigTypes_JSP_ERROR_NO_FUNCTION string = "in JSP Not In Function"
-var LogConfigTypes_LOGGING *BasicArrayList = NewBasicArrayListD()
+var LogConfigTypes_LOGGING IBasicArrayList = NewBasicArrayListD()
 
 
 func init() {
@@ -73,7 +73,7 @@ func LogConfigTypes_Init() {
             PreLogUtil_Put("Initialize LogconfigTypes", "LogConfigTypes", "init()")
             LogConfigTypeFactory_GetInstance()
             var loggingInitInfo *LoggingInitInfo = NewLoggingInitInfo(); _ = loggingInitInfo
-            var logConfigTypeVector *BasicArrayList = loggingInitInfo.GetTypeList(); _ = logConfigTypeVector
+            var logConfigTypeVector IBasicArrayList = LoggingInitInfo_GetTypeList(); _ = logConfigTypeVector
             PreLogUtil_Put("Number Of Log Configs: " + fmt.Sprint(loggingInitInfo.GetNumberOfLogConfigs()), "LogConfigTypes", "init()")
             PreLogUtil_Put("Number Of Log Config Type Names: " + fmt.Sprint(logConfigTypeVector.Size()), "LogConfigTypes", "init()")
             LogConfigTypes_LOGGING.AddAllList(logConfigTypeVector)
@@ -93,7 +93,7 @@ func LogConfigTypes_GetInstance(node *Node) *LogConfigType {
         if descriptionValueNode != nil {
             var description string = DomNodeHelper_GetTextNodeValue(descriptionValueNode); _ = description
         }
-        var availableLogConfigTypes *BasicArrayList = LogConfigType_AvailableLogConfigTypes; _ = availableLogConfigTypes
+        var availableLogConfigTypes IBasicArrayList = LogConfigType_AvailableLogConfigTypes; _ = availableLogConfigTypes
         var size int = availableLogConfigTypes.Size(); _ = size
         var logConfigType *LogConfigType; _ = logConfigType
         for index := int(0); index < size; index++ {

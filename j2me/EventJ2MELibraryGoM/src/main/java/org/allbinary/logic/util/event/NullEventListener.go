@@ -57,3 +57,4 @@ func NewNullEventListener() *NullEventListener {
 
 func (this *NullEventListener) OnEvent(eventObject IAllBinaryEventObject) {
 }
+

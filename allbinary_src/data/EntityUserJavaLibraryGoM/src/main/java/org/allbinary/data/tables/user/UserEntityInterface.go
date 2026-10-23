@@ -44,15 +44,15 @@ var _ = unicode.IsDigit
 
 type UserEntityInterface interface {
     BasicDataTableInterface
-    GetAdministrators() *BasicArrayList
-    GetStoreManagers(storeFrontInterface StoreFrontInterface) *BasicArrayList
-    GetCustomers() *BasicArrayList
-    GetUsersWithRole(userRole *UserRole) *BasicArrayList
-    GetUsers(storeFrontInterface StoreFrontInterface) *BasicArrayList
+    GetAdministrators() IBasicArrayList
+    GetStoreManagers(storeFrontInterface StoreFrontInterface) IBasicArrayList
+    GetCustomers() IBasicArrayList
+    GetUsersWithRole(userRole IUserRole) IBasicArrayList
+    GetUsers(storeFrontInterface StoreFrontInterface) IBasicArrayList
     GetUser(userName string) UserInterface
     Login(userName string, password string) string
     DeleteWhere(key string, value string)
-    Insert(values *BasicArrayList)
+    Insert(values IBasicArrayList)
     Update(userName string, updatedValues *HashMap)
 }
 

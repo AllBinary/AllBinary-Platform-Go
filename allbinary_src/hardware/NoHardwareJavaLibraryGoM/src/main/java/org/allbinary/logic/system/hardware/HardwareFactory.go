@@ -82,3 +82,4 @@ func (this *HardwareFactory) GetInstance(os OperatingSystemInterface) HardwareIn
         }
         panic("unreachable")
 }
+

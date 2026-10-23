@@ -44,12 +44,14 @@ var _ = unicode.IsDigit
 
 type GLUtil struct {
     BYTES_PER_FLOAT int
+    NULL_FLOAT_BUFFER *FloatBuffer
 }
 
 var GLUtil_Instance *GLUtil = NewGLUtil()
 
 func (this *GLUtil) initFields() {
     this.BYTES_PER_FLOAT = 4
+    this.NULL_FLOAT_BUFFER = ByteBuffer_AllocateDirect(0).AsFloatBuffer()
 }
 
 func NewGLUtil() *GLUtil {
@@ -96,7 +98,7 @@ func (this *GLUtil) MakeFloatBuffer(byteBuffer *ByteBuffer) *FloatBuffer {
         var unsigned int; _ = unsigned
         var v float32; _ = v
         for byteBuffer.HasRemaining() {
-            unsigned = byteBuffer.Get() & 0xFF
+            unsigned = (int(byteBuffer.Get())) & 0xFF
             v = (float32(unsigned)) / 255
             buffer.Put(v)
         }
@@ -111,7 +113,7 @@ func (this *GLUtil) Position(buffer *Buffer, newPosition int) *Buffer {
 
 
 func (this *GLUtil) RotateUVs(uvs []float32, angleDegrees float32, pivotU float32, pivotV float32) {
-        var angleRad float64 = (float64(angleDegrees) * math.Pi / 180); _ = angleRad
+        var angleRad float64 = (float64(float64(angleDegrees)) * math.Pi / 180); _ = angleRad
         var cosA float64 = math.Cos(angleRad); _ = cosA
         var sinA float64 = math.Sin(angleRad); _ = sinA
         for i := int(0); i < len(uvs); i += 2 {

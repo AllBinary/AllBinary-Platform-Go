@@ -44,17 +44,17 @@ var _ = unicode.IsDigit
 
 type AbeClientInformationInterface interface {
     Init()
-    GetOperatingSystemInterface() *GenericOperatingSystem
+    GetOperatingSystemInterface() IGenericOperatingSystem
     GetName() string
     GetSpecialName() string
     GetVersion() string
     GetLicenseId() string
-    GetLicenseServers() *BasicArrayList
+    GetLicenseServers() IBasicArrayList
     GetLicenseServer(index int) string
     GetNumberOfLicenseServers() int
     ToHashtable() *ABHashtable[any, any]
     IsSameId(alicenseId string) bool
-    IsLargerOrDifferentServerList(vector *BasicArrayList) bool
+    IsLargerOrDifferentServerList(vector IBasicArrayList) bool
     IsHardSale() bool
     ToShortString() string
 }

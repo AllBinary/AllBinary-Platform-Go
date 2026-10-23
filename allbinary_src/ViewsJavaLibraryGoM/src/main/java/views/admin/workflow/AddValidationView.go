@@ -100,7 +100,7 @@ func (this *AddValidationView) ValidationInfo() string {
                 }
             }()
             var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
-            if WorkFlowEntityFactory_GetInstance().Create2().Get(this.WorkFlowInterface.GetName(), this.GetTransformInfoInterface().GetStoreName()) != nil {
+            if WorkFlowEntityFactory_GetInstance().Create2().Get(this.WorkFlowInterface.GetName(), this.GetTransformInfoInterface().GetStoreName()).(WorkFlowInterface) != nil {
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     this.LogUtil.PutF("Workflow already exist", this, "validationInfo()")
                 }

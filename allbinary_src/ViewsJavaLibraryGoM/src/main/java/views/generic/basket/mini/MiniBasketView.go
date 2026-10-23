@@ -49,6 +49,19 @@ type MiniBasketView struct {
 
 // Implements DomNodeInterface
 
+// The Java class MiniBasketView has subclasses so its variables are this interface
+type IMiniBasketView interface {
+    IHttpStoreComponentView
+    MiniBasketView_() *MiniBasketView
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *MiniBasketView) MiniBasketView_() *MiniBasketView {
+    return this
+}
+
 
 func (this *MiniBasketView) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -82,7 +95,7 @@ func (this *MiniBasketView) ToXmlNode(document *Document) *Node {
             var totalNumberTextNode *Node = document.CreateTextNode(fmt.Sprint(basketInterface.GetNumberOfItems())); _ = totalNumberTextNode
             totalNumberNode.AppendChild(totalNumberTextNode)
             var totalWeightNode *Node = document.CreateElement(BasketData_TOTALWEIGHT); _ = totalWeightNode
-            var totalWeightTextNode *Node = document.CreateTextNode(fmt.Sprint(basketInterface.GetTotalWeight())); _ = totalWeightTextNode
+            var totalWeightTextNode *Node = document.CreateTextNode(basketInterface.GetTotalWeight()); _ = totalWeightTextNode
             totalWeightNode.AppendChild(totalWeightTextNode)
             var subTotalNode *Node = document.CreateElement(BasketData_SUBTOTAL); _ = subTotalNode
             var subTotalTextNode *Node = document.CreateTextNode(fmt.Sprint(basketInterface.GetSubTotal())); _ = subTotalTextNode

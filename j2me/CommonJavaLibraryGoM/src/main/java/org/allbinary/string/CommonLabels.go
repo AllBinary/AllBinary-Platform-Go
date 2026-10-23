@@ -90,3 +90,4 @@ func NewCommonLabels() *CommonLabels {
 func CommonLabels_GetInstance() *CommonLabels {
         return CommonLabels_Instance
 }
+

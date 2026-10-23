@@ -62,7 +62,24 @@ func (this *Replace) initFields() {
 }
 
 
-func NewReplace(key string, value string) *Replace {
+
+
+// Java overloads of new Replace
+func NewReplace(args ...any) *Replace {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return NewReplace_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[[]string](args[0], pass) && Java_IsArg[[]string](args[1], pass) {
+            return NewReplace_2(Java_Arg[[]string](args[0]), Java_Arg[[]string](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewReplace_3(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new Replace for the arguments")
+}
+func NewReplace_1(key string, value string) *Replace {
     this := &Replace{}
     this.initFields()
         this.HashMap = StdUtil_GetInstance().CreateHashMap()
@@ -71,8 +88,7 @@ func NewReplace(key string, value string) *Replace {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewReplace(keys []string, values []string) *Replace {
+func NewReplace_2(keys []string, values []string) *Replace {
     this := &Replace{}
     this.initFields()
         this.HashMap = StdUtil_GetInstance().CreateHashMap()
@@ -81,8 +97,7 @@ func NewReplace(keys []string, values []string) *Replace {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewReplace(hashMap *HashMap) *Replace {
+func NewReplace_3(hashMap *HashMap) *Replace {
     this := &Replace{}
     this.initFields()
         this.HashMap = hashMap

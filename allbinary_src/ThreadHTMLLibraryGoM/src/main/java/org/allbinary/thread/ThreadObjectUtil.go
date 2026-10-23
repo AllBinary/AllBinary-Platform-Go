@@ -67,3 +67,4 @@ func (this *ThreadObjectUtil) WaitObjectFor(anyType any, delay int64) {
 func (this *ThreadObjectUtil) ProcessThread(runnable Runnable) {
         runnable.Run()
 }
+

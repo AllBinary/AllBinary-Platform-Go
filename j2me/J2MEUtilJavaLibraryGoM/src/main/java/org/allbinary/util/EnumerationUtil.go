@@ -76,3 +76,4 @@ func (this *EnumerationUtil) GetAsArray(enumeration Enumeration) []any {
         }
         return basicArrayList.ToArray()
 }
+

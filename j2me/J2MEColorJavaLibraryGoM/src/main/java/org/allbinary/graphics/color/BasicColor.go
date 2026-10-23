@@ -156,3 +156,4 @@ func (this *BasicColor) GetBlueComponent() float32 {
 func (this *BasicColor) GetAlphaComponent() float32 {
         return this.AlphaComponent
 }
+

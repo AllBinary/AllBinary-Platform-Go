@@ -69,3 +69,4 @@ func LogFactory_GetInstance(specialMessage string, anyType any, functionName str
 func LogFactory_GetInstanceF(specialMessage string, anyType any, functionName string) *Log {
         return LogFactory_LOG
 }
+

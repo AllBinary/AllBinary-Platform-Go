@@ -51,10 +51,10 @@ type TransformInfoInterface interface {
     GetStoreName() string
     GetObjectFile() string
     GetObject() any
-    GetTemplateFilePath() *AbPath
+    GetTemplateFilePath() IAbPath
     GetTemplateFile() string
     GetTemplate() string
-    GetDataFilePath() *AbPath
+    GetDataFilePath() IAbPath
     GetDataFile() string
     GetDataDocument() *Document
     SetName(value string)

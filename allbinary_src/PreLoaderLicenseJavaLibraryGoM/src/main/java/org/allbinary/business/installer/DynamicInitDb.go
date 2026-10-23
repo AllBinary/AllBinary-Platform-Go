@@ -49,7 +49,21 @@ type DynamicInitDb struct {
 
 
 
-func NewDynamicInitDb(abeClientInformation AbeClientInformationInterface) *DynamicInitDb {
+
+
+// Java overloads of new DynamicInitDb
+func NewDynamicInitDb(args ...any) *DynamicInitDb {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[AbeClientInformationInterface](args[0], pass) {
+            return NewDynamicInitDb_1(Java_Arg[AbeClientInformationInterface](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[DatabaseConnectionInfoInterface](args[1], pass) {
+            return NewDynamicInitDb_2(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[DatabaseConnectionInfoInterface](args[1]))
+        }
+    }
+    panic("No Java overload of new DynamicInitDb for the arguments")
+}
+func NewDynamicInitDb_1(abeClientInformation AbeClientInformationInterface) *DynamicInitDb {
     this := &DynamicInitDb{}
     this.InitDb = *NewInitDb()
         this.SetHelper(InitDbHelperFactory_GetInstance(abeClientInformation))
@@ -57,8 +71,7 @@ func NewDynamicInitDb(abeClientInformation AbeClientInformationInterface) *Dynam
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewDynamicInitDb(abeClientInformation AbeClientInformationInterface, databaseConnectionInfoInterface DatabaseConnectionInfoInterface) *DynamicInitDb {
+func NewDynamicInitDb_2(abeClientInformation AbeClientInformationInterface, databaseConnectionInfoInterface DatabaseConnectionInfoInterface) *DynamicInitDb {
     this := &DynamicInitDb{}
     this.InitDb = *NewInitDb()
         this.SetHelper(InitDbHelperFactory_GetInstance(abeClientInformation, databaseConnectionInfoInterface))

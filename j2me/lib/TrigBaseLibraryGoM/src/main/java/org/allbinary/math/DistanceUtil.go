@@ -69,3 +69,4 @@ func (this *DistanceUtil) GetDistance(x1 int, y1 int, x2 int, y2 int) int {
         var dy int = y1 - y2; _ = dy
         return this.MathUtil.Sqrt((dx * dx) + (dy * dy))
 }
+

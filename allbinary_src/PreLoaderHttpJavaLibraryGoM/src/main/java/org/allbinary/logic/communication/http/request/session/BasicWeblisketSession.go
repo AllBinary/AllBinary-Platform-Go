@@ -65,12 +65,12 @@ func NewBasicWeblisketSession(pageContext *PageContext) *BasicWeblisketSession {
 
 
 func (this *BasicWeblisketSession) SetRole(aRole *BasicUserRole) {
-        this.Session.SetAttribute(fmt.Sprint(BasicUserRoleData_NAME), aRole)
+        this.Session.SetAttribute(BasicUserRoleData_NAME, aRole)
 }
 
 
 func (this *BasicWeblisketSession) GetRole() *BasicUserRole {
-        return any(this.Session.GetAttribute(fmt.Sprint(BasicUserRoleData_NAME))).(*BasicUserRole)
+        return any(this.Session.GetAttribute(BasicUserRoleData_NAME)).(*BasicUserRole)
 }
 
 
@@ -89,8 +89,23 @@ func (this *BasicWeblisketSession) SetPaymentMethod(value string) {
 }
 
 
-func (this *BasicWeblisketSession) SetAuthenticated() {
+func (this *BasicWeblisketSession) SetAuthenticated_1() {
         this.Session.SetAttribute(WeblisketSessionData_AUTHENTICATED, BooleanFactory_GetInstance().TRUE_STRING)
+}
+
+// Java overloads of BasicWeblisketSession.setAuthenticated
+func (this *BasicWeblisketSession) SetAuthenticated(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            this.SetAuthenticated_1()
+            return
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            this.SetAuthenticated_2(Java_Arg[bool](args[0]))
+            return
+        }
+    }
+    panic("No Java overload of BasicWeblisketSession.setAuthenticated for the arguments")
 }
 
 
@@ -149,8 +164,7 @@ func (this *BasicWeblisketSession) GetStoreName() string {
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *BasicWeblisketSession) SetAuthenticated(value bool) {
+func (this *BasicWeblisketSession) SetAuthenticated_2(value bool) {
         this.Session.SetAttribute(WeblisketSessionData_AUTHENTICATED, BooleanFactory_GetInstance().FALSE_STRING)
 }
 
@@ -158,7 +172,7 @@ func (this *BasicWeblisketSession) SetAuthenticated(value bool) {
 func (this *BasicWeblisketSession) Clear() {
         this.Session.RemoveAttribute(WeblisketSessionData_AUTHENTICATED)
         this.Session.RemoveAttribute(WeblisketSessionData_TIMEOUT)
-        this.Session.RemoveAttribute(fmt.Sprint(BasicUserRoleData_NAME))
+        this.Session.RemoveAttribute(BasicUserRoleData_NAME)
         this.Session.RemoveAttribute(UserData_USERNAME)
 }
 

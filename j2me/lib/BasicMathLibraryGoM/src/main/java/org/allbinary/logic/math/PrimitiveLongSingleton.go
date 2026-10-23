@@ -82,3 +82,4 @@ func (this *PrimitiveLongSingleton) GetNumberFromChar(numberAsChar rune) int8 {
         }
         panic(errors.New(fmt.Sprint(fmt.Sprint(NewStringMaker().Append("numberAsChar was not in array: ").Appendchar(numberAsChar)))))
 }
+

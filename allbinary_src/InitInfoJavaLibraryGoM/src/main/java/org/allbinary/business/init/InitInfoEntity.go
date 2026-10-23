@@ -175,7 +175,7 @@ func (this *InitInfoEntity) Add() {
             }
                 }
             }()
-            var values *BasicArrayList = NewBasicArrayListD(); _ = values
+            var values IBasicArrayList = NewBasicArrayListD(); _ = values
             values.Add(this.NOTHING)
             values.Add(InitInfo_GetInstance().GetTesting())
             values.Add(InitInfo_GetInstance().GetTestHtmlPath())

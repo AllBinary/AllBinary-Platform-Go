@@ -50,31 +50,48 @@ type TransformInfoDomNodeView struct {
 
 
 
-func NewTransformInfoDomNodeView(transformInfoInterface TransformInfoInterface, mapping string) *TransformInfoDomNodeView {
+
+
+// Java overloads of new TransformInfoDomNodeView
+func NewTransformInfoDomNodeView(args ...any) *TransformInfoDomNodeView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return NewTransformInfoDomNodeView_1(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[string](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[TransformInfoInterface](args[0], pass) {
+            return NewTransformInfoDomNodeView_2(Java_Arg[TransformInfoInterface](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return NewTransformInfoDomNodeView_3(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewTransformInfoDomNodeView_4(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of new TransformInfoDomNodeView for the arguments")
+}
+func NewTransformInfoDomNodeView_1(transformInfoInterface TransformInfoInterface, mapping string) *TransformInfoDomNodeView {
     this := &TransformInfoDomNodeView{}
         this.TransformInfoDomNode = *NewTransformInfoDomNode(transformInfoInterface, mapping)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoDomNodeView(transformInfoInterface TransformInfoInterface) *TransformInfoDomNodeView {
+func NewTransformInfoDomNodeView_2(transformInfoInterface TransformInfoInterface) *TransformInfoDomNodeView {
     this := &TransformInfoDomNodeView{}
         this.TransformInfoDomNode = *NewTransformInfoDomNode(transformInfoInterface)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoDomNodeView(name string, mappedName string) *TransformInfoDomNodeView {
+func NewTransformInfoDomNodeView_3(name string, mappedName string) *TransformInfoDomNodeView {
     this := &TransformInfoDomNodeView{}
         this.TransformInfoDomNode = *NewTransformInfoDomNode(name, mappedName)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoDomNodeView(name string) *TransformInfoDomNodeView {
+func NewTransformInfoDomNodeView_4(name string) *TransformInfoDomNodeView {
     this := &TransformInfoDomNodeView{}
         this.TransformInfoDomNode = *NewTransformInfoDomNode(name, nil)
     return this

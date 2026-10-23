@@ -73,7 +73,7 @@ func (this *InputMappingHelpPaintable) initFields() {
     this.EMPTY_STRING = StringUtil_GetInstance().EMPTY_STRING
     
     this.KeyMappingArray = make([]IBasicArrayList, 0)
-    this.ActionBasicColor = make([]*BasicColor, 0)
+    this.ActionBasicColor = BasicColorUtil_GetInstance().ZERO_ARRAY
     this.InputBasicColorArray = func() [][]*BasicColor { array := make([][]*BasicColor, 0); for index := range array { array[index] = make([]*BasicColor, 0) }; return array }()
     
     this.UpdateMyFontProperties = NewUpdateMyFontProperties()

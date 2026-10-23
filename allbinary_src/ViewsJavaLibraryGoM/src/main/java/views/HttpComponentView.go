@@ -46,12 +46,29 @@ type HttpComponentView struct {
     TransformInfoHttpComposite
     LogUtil *LogUtil
     AbeClientInformation AbeClientInformationInterface
-    DomNodeInterfaceVector *BasicArrayList
+    DomNodeInterfaceVector IBasicArrayList
     TransformDocumentInterface TransformDocumentInterface
     NO_TYPE int
 }
 
 // Implements TransformInterface
+
+// The Java class HttpComponentView has subclasses so its variables are this interface
+type IHttpComponentView interface {
+    ITransformInfoHttpComposite
+    HttpComponentView_() *HttpComponentView
+    GetTypeId() int
+    GetTransformDocumentInterface() TransformDocumentInterface
+    SetTransformDocumentInterface(transformDocumentInterface TransformDocumentInterface)
+    AddDomNodeInterface(domNodeInterface DomNodeInterface)
+    ToXmlDoc() *Document
+    GetDoc() *Document
+    View() string
+}
+
+func (this *HttpComponentView) HttpComponentView_() *HttpComponentView {
+    return this
+}
 
 
 func (this *HttpComponentView) initFields() {

@@ -47,6 +47,20 @@ type DbInitInfo struct {
     DbConnectionInfo
 }
 
+// The Java class DbInitInfo has subclasses so its variables are this interface
+type IDbInitInfo interface {
+    IDbConnectionInfo
+    DbInitInfo_() *DbInitInfo
+    GetUrl() string
+    Write()
+    Load()
+    SetHasRead(value bool)
+}
+
+func (this *DbInitInfo) DbInitInfo_() *DbInitInfo {
+    return this
+}
+
 
 
 func NewDbInitInfo(initFileName string, read bool) *DbInitInfo {

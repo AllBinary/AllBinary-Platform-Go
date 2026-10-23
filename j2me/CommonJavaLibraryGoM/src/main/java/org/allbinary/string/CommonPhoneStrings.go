@@ -94,3 +94,4 @@ func NewCommonPhoneStrings() *CommonPhoneStrings {
 func CommonPhoneStrings_GetInstance() *CommonPhoneStrings {
         return CommonPhoneStrings_Instance
 }
+

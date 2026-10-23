@@ -85,7 +85,7 @@ func (this *ABHashtable[K, V]) ContainsKey(key any) bool {
 }
 
 
-func (this *ABHashtable[K, V]) Get(key any) V {
+func (this *ABHashtable[K, V]) Get(key any) IV {
         return this.Hashtable.Get(key)
 }
 

@@ -81,15 +81,37 @@ func NewFileUtil() *FileUtil {
 
 
 // throws Exception
-func (this *FileUtil) Write(inputStream *InputStream, file *AbFile) {
+func (this *FileUtil) Write_1(inputStream IInputStream, file *AbFile) {
         var dataOutputStream *AbDataOutputStream = DataOutputStreamFactory_GetInstance().GetInstanceForAbFile(file); _ = dataOutputStream
         this.Write(inputStream, dataOutputStream)
 }
 
+// Java overloads of FileUtil.write
+func (this *FileUtil) Write(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[IInputStream](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) {
+            this.Write_1(Java_Arg[IInputStream](args[0]), Java_Arg[*AbFile](args[1]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[IInputStream](args[0], pass) && Java_IsArg[*AbDataOutputStream](args[1], pass) {
+            this.Write_2(Java_Arg[IInputStream](args[0]), Java_Arg[*AbDataOutputStream](args[1]))
+            return
+        }
+        if len(args) == 3 && Java_IsArg[IInputStream](args[0], pass) && Java_IsArg[*AbDataOutputStream](args[1], pass) && Java_IsArg[[]int8](args[2], pass) {
+            this.Write_3(Java_Arg[IInputStream](args[0]), Java_Arg[*AbDataOutputStream](args[1]), Java_Arg[[]int8](args[2]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            this.Write_4(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+            return
+        }
+    }
+    panic("No Java overload of FileUtil.write for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileUtil) Write(inputStream *InputStream, dataOutputStream *AbDataOutputStream) {
+func (this *FileUtil) Write_2(inputStream IInputStream, dataOutputStream *AbDataOutputStream) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
             StreamUtil_GetInstance().Close(dataOutputStream)
@@ -104,8 +126,7 @@ func (this *FileUtil) Write(inputStream *InputStream, dataOutputStream *AbDataOu
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileUtil) Write(inputStream *InputStream, dataOutputStream *AbDataOutputStream, buffer []int8) {
+func (this *FileUtil) Write_3(inputStream IInputStream, dataOutputStream *AbDataOutputStream, buffer []int8) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
             StreamUtil_GetInstance().Close(dataOutputStream)
@@ -120,7 +141,7 @@ func (this *FileUtil) Write(inputStream *InputStream, dataOutputStream *AbDataOu
 
 
 // throws Exception
-func (this *FileUtil) Copy(dataInputStream *AbFileInputStream, dataOutputStream *AbDataOutputStream) {
+func (this *FileUtil) Copy_1(dataInputStream IAbFileInputStream, dataOutputStream *AbDataOutputStream) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
             StreamUtil_GetInstance().Close(dataOutputStream)
@@ -134,32 +155,67 @@ func (this *FileUtil) Copy(dataInputStream *AbFileInputStream, dataOutputStream 
         }
 }
 
+// Java overloads of FileUtil.copy
+func (this *FileUtil) Copy(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[IAbFileInputStream](args[0], pass) && Java_IsArg[*AbDataOutputStream](args[1], pass) {
+            return this.Copy_1(Java_Arg[IAbFileInputStream](args[0]), Java_Arg[*AbDataOutputStream](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[IAbPath](args[0], pass) && Java_IsArg[IAbPath](args[1], pass) {
+            return this.Copy_2(Java_Arg[IAbPath](args[0]), Java_Arg[IAbPath](args[1]))
+        }
+    }
+    panic("No Java overload of FileUtil.copy for the arguments")
+}
+
 
 // throws Exception
-func (this *FileUtil) FixPath(file *AbFile, path *AbPath, realPath *AbPath, cloud string) *AbPath {
-        var beginIndex int = file.GetPath().IndexOf(cloud) + len(cloud); _ = beginIndex
-        var endIndex int = file.GetPath().IndexOf(file.GetName()); _ = endIndex
-        var fixedPathString string = fmt.Sprint(realPath.ToFileSystemString()) + file.GetPath().Substring(beginIndex, endIndex); _ = fixedPathString
-        var fixedPath *AbPath = NewAbPath(fixedPathString, StringUtil_GetInstance().EMPTY_STRING); _ = fixedPath
+func (this *FileUtil) FixPath(file *AbFile, path IAbPath, realPath IAbPath, cloud string) IAbPath {
+        var beginIndex int = strings.Index(file.GetPath(), string(cloud)) + len(cloud); _ = beginIndex
+        var endIndex int = strings.Index(file.GetPath(), string(file.GetName())); _ = endIndex
+        var fixedPathString string = fmt.Sprint(realPath.ToFileSystemString()) + file.GetPath()[beginIndex:endIndex]; _ = fixedPathString
+        var fixedPath IAbPath = NewAbPath(fixedPathString, StringUtil_GetInstance().EMPTY_STRING); _ = fixedPath
         this.Directory.Create(fixedPath)
         var string_ string = fixedPath.ToFileSystemString(); _ = string_
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(this.LogConfigTypeFactory.FILE) {
             this.LogUtil.PutF(string_, this, "fixPath")
         }
-        var outPath *AbPath = NewAbPath(string_, file.GetName()); _ = outPath
+        var outPath IAbPath = NewAbPath(string_, file.GetName()); _ = outPath
         return outPath
 }
 
 
 // throws Exception
-func (this *FileUtil) CopyToCloud(file *AbFile, path *AbPath, realPath *AbPath, cloud string) {
+func (this *FileUtil) CopyToCloud_1(file *AbFile, path IAbPath, realPath IAbPath, cloud string) {
         this.CopyToCloud(file, path, realPath, cloud, false, false)
+}
+
+// Java overloads of FileUtil.copyToCloud
+func (this *FileUtil) CopyToCloud(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 4 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[IAbPath](args[1], pass) && Java_IsArg[IAbPath](args[2], pass) && Java_IsArg[string](args[3], pass) {
+            this.CopyToCloud_1(Java_Arg[*AbFile](args[0]), Java_Arg[IAbPath](args[1]), Java_Arg[IAbPath](args[2]), Java_Arg[string](args[3]))
+            return
+        }
+        if len(args) == 6 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[IAbPath](args[1], pass) && Java_IsArg[IAbPath](args[2], pass) && Java_IsArg[string](args[3], pass) && Java_IsArg[bool](args[4], pass) && Java_IsArg[bool](args[5], pass) {
+            this.CopyToCloud_2(Java_Arg[*AbFile](args[0]), Java_Arg[IAbPath](args[1]), Java_Arg[IAbPath](args[2]), Java_Arg[string](args[3]), Java_Arg[bool](args[4]), Java_Arg[bool](args[5]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) {
+            this.CopyToCloud_3(Java_Arg[*AbFile](args[0]), Java_Arg[*AbFile](args[1]))
+            return
+        }
+        if len(args) == 4 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) && Java_IsArg[bool](args[2], pass) && Java_IsArg[bool](args[3], pass) {
+            this.CopyToCloud_4(Java_Arg[*AbFile](args[0]), Java_Arg[*AbFile](args[1]), Java_Arg[bool](args[2]), Java_Arg[bool](args[3]))
+            return
+        }
+    }
+    panic("No Java overload of FileUtil.copyToCloud for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileUtil) CopyToCloud(file *AbFile, path *AbPath, realPath *AbPath, cloud string, overwriteNewer bool, overwriteAll bool) {
+func (this *FileUtil) CopyToCloud_2(file *AbFile, path IAbPath, realPath IAbPath, cloud string, overwriteNewer bool, overwriteAll bool) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -175,7 +231,7 @@ func (this *FileUtil) CopyToCloud(file *AbFile, path *AbPath, realPath *AbPath, 
             panic(e)
                 }
             }()
-            var outPath *AbPath = this.FixPath(file, path, realPath, cloud); _ = outPath
+            var outPath IAbPath = this.FixPath(file, path, realPath, cloud); _ = outPath
             var outFile *AbFile = AbFile_CreateAbFileFromAbPath(outPath); _ = outFile
             if !this.CopyPrepare(file, outFile, overwriteNewer, overwriteAll) {
                 tryControl1 = 1; return
@@ -191,7 +247,7 @@ func (this *FileUtil) CopyToCloud(file *AbFile, path *AbPath, realPath *AbPath, 
                 }
             }
             var dataOutputStream *AbDataOutputStream = DataOutputStreamFactory_GetInstance().GetInstanceForAbFile(outFile); _ = dataOutputStream
-            var fileInputStream *AbFileInputStream = NewAbFileLocalInputStream(file); _ = fileInputStream
+            var fileInputStream IAbFileInputStream = NewAbFileLocalInputStream(file); _ = fileInputStream
             this.Copy(fileInputStream, dataOutputStream)
             return
         }(); tryControl1 == 1 {
@@ -201,15 +257,13 @@ func (this *FileUtil) CopyToCloud(file *AbFile, path *AbPath, realPath *AbPath, 
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileUtil) CopyToCloud(file *AbFile, outFile *AbFile) {
+func (this *FileUtil) CopyToCloud_3(file *AbFile, outFile *AbFile) {
         this.CopyToCloud(file, outFile, false, false)
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileUtil) CopyToCloud(file *AbFile, outFile *AbFile, overwriteNewer bool, overwriteAll bool) {
+func (this *FileUtil) CopyToCloud_4(file *AbFile, outFile *AbFile, overwriteNewer bool, overwriteAll bool) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -240,7 +294,7 @@ func (this *FileUtil) CopyToCloud(file *AbFile, outFile *AbFile, overwriteNewer 
                 }
             }
             var dataOutputStream *AbDataOutputStream = DataOutputStreamFactory_GetInstance().GetInstanceForAbFile(outFile); _ = dataOutputStream
-            var fileInputStream *AbFileInputStream = NewAbFileLocalInputStream(file); _ = fileInputStream
+            var fileInputStream IAbFileInputStream = NewAbFileLocalInputStream(file); _ = fileInputStream
             this.Copy(fileInputStream, dataOutputStream)
             return
         }(); tryControl1 == 1 {
@@ -266,7 +320,7 @@ func (this *FileUtil) CopyPrepare(fromFile *AbFile, toFile *AbFile, overwriteNew
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(this.LogConfigTypeFactory.FILE) {
                     stringBuffer.Delete(0, stringBuffer.Length())
                     stringBuffer.Append("Newer by: ")
-                    stringBuffer.Appendlong(int64(fromFile.LastModified() - toFile.LastModified()))
+                    stringBuffer.Appendlong(fromFile.LastModified() - toFile.LastModified())
                     stringBuffer.Append("ms ")
                     stringBuffer.Append("Copying File: ")
                     stringBuffer.Append(toFile.GetPath())
@@ -297,14 +351,28 @@ func (this *FileUtil) CopyPrepare(fromFile *AbFile, toFile *AbFile, overwriteNew
 
 
 // throws Exception
-func (this *FileUtil) CopyFile(fromFile *AbFile, toFile *AbFile) {
+func (this *FileUtil) CopyFile_1(fromFile *AbFile, toFile *AbFile) {
         this.CopyFile(fromFile, toFile, false, false)
+}
+
+// Java overloads of FileUtil.copyFile
+func (this *FileUtil) CopyFile(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) {
+            this.CopyFile_1(Java_Arg[*AbFile](args[0]), Java_Arg[*AbFile](args[1]))
+            return
+        }
+        if len(args) == 4 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) && Java_IsArg[bool](args[2], pass) && Java_IsArg[bool](args[3], pass) {
+            this.CopyFile_2(Java_Arg[*AbFile](args[0]), Java_Arg[*AbFile](args[1]), Java_Arg[bool](args[2]), Java_Arg[bool](args[3]))
+            return
+        }
+    }
+    panic("No Java overload of FileUtil.copyFile for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileUtil) CopyFile(fromFile *AbFile, toFile *AbFile, overwriteNewer bool, overwriteAll bool) {
+func (this *FileUtil) CopyFile_2(fromFile *AbFile, toFile *AbFile, overwriteNewer bool, overwriteAll bool) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -335,7 +403,7 @@ func (this *FileUtil) CopyFile(fromFile *AbFile, toFile *AbFile, overwriteNewer 
                 tryControl1 = 1; return
             }
             var dataOutputStream *AbDataOutputStream = DataOutputStreamFactory_GetInstance().GetInstanceForAbFile(toFile); _ = dataOutputStream
-            var fileInputStream *AbFileInputStream = NewAbFileInputStream(fromFile); _ = fileInputStream
+            var fileInputStream IAbFileInputStream = NewAbFileInputStream(fromFile); _ = fileInputStream
             this.Copy(fileInputStream, dataOutputStream)
             return
         }(); tryControl1 == 1 {
@@ -360,12 +428,12 @@ func FileUtil_GetNewDirectory(fromFile *AbFile) string {
 
 
 // throws Exception
-func (this *FileUtil) CopyDirectoryPortion(fromDirectoryAbPath *AbPath, toDirectoryAbPath *AbPath, overwriteNewer bool, overwriteAll bool, current int, total int) {
+func (this *FileUtil) CopyDirectoryPortion(fromDirectoryAbPath IAbPath, toDirectoryAbPath IAbPath, overwriteNewer bool, overwriteAll bool, current int, total int) {
         var file *AbFile = AbFile_CreateAbFileFromAbPath(fromDirectoryAbPath); _ = file
         if !file.IsDirectory() {
             panic(errors.New(fmt.Sprint("Not a directory: " + fmt.Sprint(file.GetPath()))))
         }
-        var fileList *BasicArrayList = this.Directory.Search(file, true); _ = fileList
+        var fileList IBasicArrayList = this.Directory.Search(file, true); _ = fileList
         var size int = fileList.Size(); _ = size
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append("Searched: ")
@@ -391,9 +459,9 @@ func (this *FileUtil) CopyDirectoryPortion(fromDirectoryAbPath *AbPath, toDirect
             if nextFile.IsDirectory() {
             } else {
                 var path string = NewAbPath(nextFile.GetPath(), StringUtil_GetInstance().EMPTY_STRING).GetPath(); _ = path
-                var beginIndex int = fromDirectoryAbPath.GetPath().Length(); _ = beginIndex
+                var beginIndex int = len(fromDirectoryAbPath.GetPath()); _ = beginIndex
                 if path.IndexOf(URLGLOBALS.GetWebappPath()) < 0 {
-                    beginIndex -= NewAbPath(URLGLOBALS.GetWebappPath(), StringUtil_GetInstance().EMPTY_STRING).GetPath().Length()
+                    beginIndex -= len(NewAbPath(URLGLOBALS.GetWebappPath(), StringUtil_GetInstance().EMPTY_STRING).GetPath())
                 }
                 var newPath string = fmt.Sprint(toDirectoryAbPath.ToFileSystemString()) + path.Substring(beginIndex); _ = newPath
                 var toFile *AbFile = AbFile_CreateAbFileFromAbPath(NewAbPath(newPath, StringUtil_GetInstance().EMPTY_STRING)); _ = toFile
@@ -430,7 +498,7 @@ func (this *FileUtil) CopyDirectory(fromFile *AbFile, to *AbFile) {
                 this.LogUtil.PutF(fmt.Sprint(stringBuffer), FileUtil_GetInstance(), "copyDirectory")
             }
             var newDirectory string = FileUtil_GetNewDirectory(fromFile); _ = newDirectory
-            var newDirectoryAbPath *AbPath = NewAbPath(fmt.Sprint(to.GetPath() + AbPathData_GetInstance().SEPARATOR) + newDirectory, StringUtil_GetInstance().EMPTY_STRING); _ = newDirectoryAbPath
+            var newDirectoryAbPath IAbPath = NewAbPath(fmt.Sprint(to.GetPath() + AbPathData_GetInstance().SEPARATOR) + newDirectory, StringUtil_GetInstance().EMPTY_STRING); _ = newDirectoryAbPath
             if !this.Directory.Create(newDirectoryAbPath) {
                 panic(errors.New(fmt.Sprint("Failed to create directory: " + fmt.Sprint(newDirectoryAbPath))))
             }
@@ -465,9 +533,8 @@ func (this *FileUtil) CopyDirectory(fromFile *AbFile, to *AbFile) {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 // synchronized
-func (this *FileUtil) Copy(fromAbPath *AbPath, to *AbPath) bool {
+func (this *FileUtil) Copy_2(fromAbPath IAbPath, to IAbPath) bool {
         var COPY string = "copy"; _ = COPY
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 bool) {
             defer func() {
@@ -528,7 +595,7 @@ func (this *FileUtil) Copy(fromAbPath *AbPath, to *AbPath) bool {
                     }
                 }
             } else if fromLocationFile.IsDirectory() && toLocationFile.IsDirectory() {
-                if fromAbPath.ToFileSystemString().CharAt(fromAbPath.ToFileSystemString().Length() - 1) == java_Io.File.SeparatorChar {
+                if rune(fromAbPath.ToFileSystemString()[len(fromAbPath.ToFileSystemString()) - 1]) == java_Io.File.SeparatorChar {
                     if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(this.LogConfigTypeFactory.FILE) {
                         this.LogUtil.PutF("Copying subdirectories", FileUtil_GetInstance(), COPY)
                     }
@@ -571,7 +638,7 @@ func (this *FileUtil) ShouldSkip(file *AbFile, skipFiles []string) bool {
         var skipFile string; _ = skipFile
         for index := int(0); index < size; index++ {
             skipFile = skipFiles[index]
-            if file.GetPath().CompareTo(skipFile) == 0 {
+            if strings.Compare(file.GetPath(), skipFile) == 0 {
                 return true
             }
         }
@@ -580,8 +647,7 @@ func (this *FileUtil) ShouldSkip(file *AbFile, skipFiles []string) bool {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileUtil) Write(filePath string, string_ string) {
+func (this *FileUtil) Write_4(filePath string, string_ string) {
         var dataOutputStream *AbDataOutputStream = nil; _ = dataOutputStream
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
@@ -589,7 +655,7 @@ func (this *FileUtil) Write(filePath string, string_ string) {
             }()
             PreLogUtil_Put(fmt.Sprint(NewStringMaker().Append(this.WRITE_LABEL).Append(filePath).Append(this.DATA_LABEL).Append(string_)), this, this.WRITE_METHOD)
             var fileInputStreamFactory *FileStreamFactory = FileStreamFactory_GetInstance(); _ = fileInputStreamFactory
-            var fileOutputStream *OutputStream = fileInputStreamFactory.GetFileOutputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, filePath); _ = fileOutputStream
+            var fileOutputStream IOutputStream = fileInputStreamFactory.GetFileOutputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, filePath); _ = fileOutputStream
             dataOutputStream = NewAbDataOutputStream(fileOutputStream)
             dataOutputStream.Write(Java_GetBytes(string_), 0, len(string_))
             dataOutputStream.Flush()
@@ -600,7 +666,7 @@ func (this *FileUtil) Write(filePath string, string_ string) {
 }
 
 
-func (this *FileUtil) LoadFileAsList(file *AbFile, max_ int, byteArray1 []int8) *BasicArrayList {
+func (this *FileUtil) LoadFileAsList(file *AbFile, max_ int, byteArray1 []int8) IBasicArrayList {
         return FileUtil2_GetInstance().LoadFileAsList(file, max_, byteArray1)
 }
 

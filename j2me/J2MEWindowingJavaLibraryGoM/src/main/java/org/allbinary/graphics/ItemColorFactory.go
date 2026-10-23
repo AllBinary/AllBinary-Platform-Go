@@ -66,3 +66,4 @@ func NewItemColorFactory() *ItemColorFactory {
 func ItemColorFactory_GetInstance() *ItemColorFactory {
         return ItemColorFactory_Instance
 }
+

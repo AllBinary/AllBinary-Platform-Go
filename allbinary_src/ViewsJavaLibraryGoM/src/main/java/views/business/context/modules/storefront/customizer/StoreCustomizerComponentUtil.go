@@ -66,16 +66,16 @@ func NewStoreCustomizerComponentUtil() *StoreCustomizerComponentUtil {
 
 
 // throws Exception
-func (this *StoreCustomizerComponentUtil) Generate(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface) string {
+func (this *StoreCustomizerComponentUtil) Generate_1(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface) string {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             this.LogUtil.PutF("Generating Modified Views For: " + transformInfoInterface.GetName(), this, "generateModifiedViews()")
         }
         var customizerUtil *CustomizerUtil = CustomizerUtil_GetInstance(); _ = customizerUtil
-        var allCustomizedViews *BasicArrayList = customizerUtil.GetTransformInfoObjectConfigGroupComponentNodes(transformInfoInterface); _ = allCustomizedViews
+        var allCustomizedViews IBasicArrayList = customizerUtil.GetTransformInfoObjectConfigGroupComponentNodes(transformInfoInterface); _ = allCustomizedViews
         var size int = allCustomizedViews.Size(); _ = size
         for index := int(0); index < size; index++ {
-            var nextTransformInfoInterface *TransformInfo = any(allCustomizedViews.Get(index)).(*TransformInfo); _ = nextTransformInfoInterface
-            var allViewsToBeModified *BasicArrayList = customizerUtil.GetTransformInfoObjectConfigComponentNodesToCustomize(transformInfoInterface, nextTransformInfoInterface); _ = allViewsToBeModified
+            var nextTransformInfoInterface ITransformInfo = any(allCustomizedViews.Get(index)).(ITransformInfo); _ = nextTransformInfoInterface
+            var allViewsToBeModified IBasicArrayList = customizerUtil.GetTransformInfoObjectConfigComponentNodesToCustomize(transformInfoInterface, nextTransformInfoInterface); _ = allViewsToBeModified
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF("View or component that was modified by a Customizer: " + nextTransformInfoInterface.GetName(), this, "generateModifiedViews()")
             }
@@ -84,14 +84,26 @@ func (this *StoreCustomizerComponentUtil) Generate(abeClientInformation AbeClien
         return StringUtil_GetInstance().EMPTY_STRING
 }
 
+// Java overloads of StoreCustomizerComponentUtil.generate
+func (this *StoreCustomizerComponentUtil) Generate(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) {
+            return this.Generate_1(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) && Java_IsArg[IBasicArrayList](args[2], pass) {
+            return this.Generate_2(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]), Java_Arg[IBasicArrayList](args[2]))
+        }
+    }
+    panic("No Java overload of StoreCustomizerComponentUtil.generate for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *StoreCustomizerComponentUtil) Generate(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, allViewsToBeModifiedVector *BasicArrayList) {
+func (this *StoreCustomizerComponentUtil) Generate_2(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, allViewsToBeModifiedVector IBasicArrayList) {
         var customizerUtil *CustomizerUtil = CustomizerUtil_GetInstance(); _ = customizerUtil
         var size int = allViewsToBeModifiedVector.Size(); _ = size
         for index := int(0); index < size; index++ {
-            var nextTransformInfoInterface *TransformInfo = any(allViewsToBeModifiedVector.Get(index)).(*TransformInfo); _ = nextTransformInfoInterface
+            var nextTransformInfoInterface ITransformInfo = any(allViewsToBeModifiedVector.Get(index)).(ITransformInfo); _ = nextTransformInfoInterface
             var specifiedTransformInfoInterface TransformInfoInterface = customizerUtil.GetTransformInfoInterfaceToCustomize(transformInfoInterface, nextTransformInfoInterface); _ = specifiedTransformInfoInterface
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF("Retrieved: " + specifiedTransformInfoInterface.GetName(), this, "generateModifiedViews()")

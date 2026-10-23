@@ -53,7 +53,7 @@ func NewClassUtil() *ClassUtil {
 }
 
 
-func ClassUtil_ViewAll(anyType any, lineBreak string) string {
+func ClassUtil_ViewAll_1(anyType any, lineBreak string) string {
         if anyType != nil {
             return ClassUtil_ViewAll(reflect.TypeOf(anyType), lineBreak)
         } else {
@@ -61,9 +61,21 @@ func ClassUtil_ViewAll(anyType any, lineBreak string) string {
         }
 }
 
+// Java overloads of ClassUtil.viewAll
+func ClassUtil_ViewAll(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[any](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return ClassUtil_ViewAll_1(Java_Arg[any](args[0]), Java_Arg[string](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[reflect.Type](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return ClassUtil_ViewAll_2(Java_Arg[reflect.Type](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of ClassUtil.viewAll for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func ClassUtil_ViewAll(myClass reflect.Type, lineBreak string) string {
+
+func ClassUtil_ViewAll_2(myClass reflect.Type, lineBreak string) string {
         if myClass != nil {
             var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
             var classes []reflect.Type = myClass.GetClasses(); _ = classes

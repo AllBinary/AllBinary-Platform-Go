@@ -78,7 +78,7 @@ func (this *IdGeneratorEntity) Get(name string) int64 {
         var keysAndValues *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keysAndValues
         keysAndValues.Put(this.NAME, name)
         var hashMap *HashMap = this.AbSqlBean.GetRow(keysAndValues); _ = hashMap
-        if (any(hashMap.Get(this.NAME)).(string)).CompareTo(name) != 0 {
+        if strings.Compare((any(hashMap.Get(this.NAME)).(string)), name) != 0 {
             panic(errors.New(fmt.Sprint("results do not match")))
         }
         var value string = any(hashMap.Get(this.VALUE)).(string); _ = value
@@ -86,7 +86,7 @@ func (this *IdGeneratorEntity) Get(name string) int64 {
 }
 
 
-func (this *IdGeneratorEntity) Insert(values *BasicArrayList) {
+func (this *IdGeneratorEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -122,16 +122,30 @@ func (this *IdGeneratorEntity) Delete(value string) {
 }
 
 
-func (this *IdGeneratorEntity) Update(name string, value int64) {
+func (this *IdGeneratorEntity) Update_1(name string, value int64) {
         var map_ *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = map_
         map_.Put(this.NAME, name)
         map_.Put(this.VALUE, value)
         this.Update(map_)
 }
 
+// Java overloads of IdGeneratorEntity.update
+func (this *IdGeneratorEntity) Update(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[int64](args[1], pass) {
+            this.Update_1(Java_Arg[string](args[0]), Java_Arg[int64](args[1]))
+            return
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            this.Update_2(Java_Arg[*HashMap](args[0]))
+            return
+        }
+    }
+    panic("No Java overload of IdGeneratorEntity.update for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *IdGeneratorEntity) Update(hashMap *HashMap) {
+
+func (this *IdGeneratorEntity) Update_2(hashMap *HashMap) {
         this.AbSqlBean.UpdateWhere(this.NAME, any(hashMap.Get(this.NAME)).(string), hashMap)
 }
 

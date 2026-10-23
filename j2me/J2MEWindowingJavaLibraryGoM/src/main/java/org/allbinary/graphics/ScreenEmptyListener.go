@@ -60,3 +60,4 @@ func (this *ScreenEmptyListener) OnFullScreen(isFullScreen bool) {
 
 func (this *ScreenEmptyListener) OnFullScreenDisplay() {
 }
+

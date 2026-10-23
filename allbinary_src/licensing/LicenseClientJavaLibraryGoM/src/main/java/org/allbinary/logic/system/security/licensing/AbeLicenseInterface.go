@@ -46,7 +46,7 @@ type AbeLicenseInterface interface {
     HasKey() bool
     GetKey(keyName string) string
     GetLicenseId() string
-    GetServers() *BasicArrayList
+    GetServers() IBasicArrayList
     GetSpecial() string
     GetLicenseType() *LicenseType
     IsValid() bool

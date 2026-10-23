@@ -44,10 +44,10 @@ var _ = unicode.IsDigit
 
 type BasicTransformerInterface interface {
     CompositeTransformInfoInterface
-    SetInputStream(inputStream *InputStream)
+    SetInputStream(inputStream IInputStream)
     SetURIResolver(uriResolver *URIResolver)
     GetStreamSource() *StreamSource
-    GetInputStream() *InputStream
+    GetInputStream() IInputStream
     GetURIResolver() *URIResolver
     Translate(xmlDocumentStr string) string
 }

@@ -48,6 +48,17 @@ type PageView struct {
     LogUtil *LogUtil
 }
 
+// The Java class PageView has subclasses so its variables are this interface
+type IPageView interface {
+    IHttpStoreComponentView
+    PageView_() *PageView
+    View() string
+}
+
+func (this *PageView) PageView_() *PageView {
+    return this
+}
+
 
 func (this *PageView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

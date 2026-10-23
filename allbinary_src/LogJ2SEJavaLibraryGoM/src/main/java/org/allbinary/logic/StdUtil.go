@@ -87,3 +87,4 @@ func (this *StdUtil) CreateHashtable() *ABHashtable[any, any] {
 func (this *StdUtil) CreateHashMap() *ABHashMap[any, any] {
         return NewABHashMap[any, any]()
 }
+

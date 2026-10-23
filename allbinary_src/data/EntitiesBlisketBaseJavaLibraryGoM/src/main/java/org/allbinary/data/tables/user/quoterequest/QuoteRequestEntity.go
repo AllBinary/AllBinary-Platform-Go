@@ -66,7 +66,7 @@ func NewQuoteRequestEntity() *QuoteRequestEntity {
 }
 
 
-func (this *QuoteRequestEntity) Insert(values *BasicArrayList) {
+func (this *QuoteRequestEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -102,7 +102,7 @@ func (this *QuoteRequestEntity) Get(userName string, id int) *QuoteRequest {
 }
 
 
-func (this *QuoteRequestEntity) GetIds(userName string) *BasicArrayList {
+func (this *QuoteRequestEntity) GetIds(userName string) IBasicArrayList {
         return this.AbSqlBean.GetColumnWhere(QuoteRequestData_GetInstance().ID, UserData_USERNAME, userName)
 }
 

@@ -140,3 +140,4 @@ func AngleFactory_Main(args []string) {
         }
         LogUtil_GetInstance().PutF(fmt.Sprint(stringMaker), "main", "main")
 }
+

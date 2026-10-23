@@ -66,7 +66,7 @@ func NewAbCryptUtil() *AbCryptUtil {
 
 
 // throws Exception
-func (this *AbCryptUtil) Decrypt(inputStream *InputStream, key string) []int8 {
+func (this *AbCryptUtil) Decrypt(inputStream IInputStream, key string) []int8 {
         var outputStream *strings.Builder = nil; _ = outputStream
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 []int8) {
             defer func() {

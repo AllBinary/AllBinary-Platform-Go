@@ -59,15 +59,26 @@ func FileFactory_GetInstance() *FileFactory {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileFactory) GetInstance(filePath string) *AbFile {
+func (this *FileFactory) GetInstance_1(filePath string) *AbFile {
         return AbFile_CreateAbFileFromRawPath(filePath)
+}
+
+// Java overloads of FileFactory.getInstance
+func (this *FileFactory) GetInstance(args ...any) *AbFile {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetInstance_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.GetInstance_2(Java_Arg[*AbFile](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of FileFactory.getInstance for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileFactory) GetInstance(file *AbFile, childFilePath string) *AbFile {
+func (this *FileFactory) GetInstance_2(file *AbFile, childFilePath string) *AbFile {
         return AbFile_CreateAbFileWithChild(file, childFilePath)
 }
 

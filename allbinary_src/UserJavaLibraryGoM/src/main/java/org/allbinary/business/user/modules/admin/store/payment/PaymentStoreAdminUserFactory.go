@@ -56,14 +56,26 @@ func NewPaymentStoreAdminUserFactory() *PaymentStoreAdminUserFactory {
 
 
 // throws Exception
-func (this *PaymentStoreAdminUserFactory) GetInstance() UserInterface {
+func (this *PaymentStoreAdminUserFactory) GetInstance_1() UserInterface {
         return NewPaymentStoreAdminUser()
+}
+
+// Java overloads of PaymentStoreAdminUserFactory.getInstance
+func (this *PaymentStoreAdminUserFactory) GetInstance(args ...any) UserInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.GetInstance_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return this.GetInstance_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of PaymentStoreAdminUserFactory.getInstance for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *PaymentStoreAdminUserFactory) GetInstance(hashMap *HashMap) UserInterface {
+func (this *PaymentStoreAdminUserFactory) GetInstance_2(hashMap *HashMap) UserInterface {
         return NewPaymentStoreAdminUser(hashMap)
 }
 

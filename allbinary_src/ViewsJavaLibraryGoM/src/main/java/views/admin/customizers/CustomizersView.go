@@ -46,10 +46,23 @@ type CustomizersView struct {
     HttpStoreComponentView
     LogUtil *LogUtil
     CommonStrings *CommonStrings
-    CustomizersVector *BasicArrayList
+    CustomizersVector IBasicArrayList
 }
 
 // Implements DomNodeInterface
+
+// The Java class CustomizersView has subclasses so its variables are this interface
+type ICustomizersView interface {
+    IHttpStoreComponentView
+    CustomizersView_() *CustomizersView
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *CustomizersView) CustomizersView_() *CustomizersView {
+    return this
+}
 
 
 func (this *CustomizersView) initFields() {
@@ -81,7 +94,7 @@ func (this *CustomizersView) ToXmlNode(document *Document) *Node {
                 }
             }()
             var node *Node = document.CreateElement(TransformTemplateCustomizersData_NAME); _ = node
-            var unsortedCustomizerViewVector *BasicArrayList = NewBasicArrayListD(); _ = unsortedCustomizerViewVector
+            var unsortedCustomizerViewVector IBasicArrayList = NewBasicArrayListD(); _ = unsortedCustomizerViewVector
             var size int = this.CustomizersVector.Size(); _ = size
             for index := int(0); index < size; index++ {
                 var viewName string = any(this.CustomizersVector.Get(index)).(string); _ = viewName

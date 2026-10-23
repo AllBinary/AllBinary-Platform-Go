@@ -47,13 +47,41 @@ type NoTemplateTransformInfoObjectConfig struct {
     LogUtil *LogUtil
 }
 
+// The Java class NoTemplateTransformInfoObjectConfig has subclasses so its variables are this interface
+type INoTemplateTransformInfoObjectConfig interface {
+    ITransformInfoObjectConfig
+    NoTemplateTransformInfoObjectConfig_() *NoTemplateTransformInfoObjectConfig
+    Generate(objectConfigDocument *Document) *Document
+}
+
+func (this *NoTemplateTransformInfoObjectConfig) NoTemplateTransformInfoObjectConfig_() *NoTemplateTransformInfoObjectConfig {
+    return this
+}
+
 
 func (this *NoTemplateTransformInfoObjectConfig) initFields() {
     this.LogUtil = LogUtil_GetInstance()
 }
 
 
-func NewNoTemplateTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface) *NoTemplateTransformInfoObjectConfig {
+
+
+// Java overloads of new NoTemplateTransformInfoObjectConfig
+func NewNoTemplateTransformInfoObjectConfig(args ...any) *NoTemplateTransformInfoObjectConfig {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[TransformInfoInterface](args[0], pass) {
+            return NewNoTemplateTransformInfoObjectConfig_1(Java_Arg[TransformInfoInterface](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[*Document](args[1], pass) {
+            return NewNoTemplateTransformInfoObjectConfig_2(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[*Document](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return NewNoTemplateTransformInfoObjectConfig_3(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+    }
+    panic("No Java overload of new NoTemplateTransformInfoObjectConfig for the arguments")
+}
+func NewNoTemplateTransformInfoObjectConfig_1(transformInfoInterface TransformInfoInterface) *NoTemplateTransformInfoObjectConfig {
     this := &NoTemplateTransformInfoObjectConfig{}
         this.TransformInfoObjectConfig = *NewTransformInfoObjectConfig(transformInfoInterface)
         this.initFields()
@@ -61,8 +89,7 @@ func NewNoTemplateTransformInfoObjectConfig(transformInfoInterface TransformInfo
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewNoTemplateTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface, document *Document) *NoTemplateTransformInfoObjectConfig {
+func NewNoTemplateTransformInfoObjectConfig_2(transformInfoInterface TransformInfoInterface, document *Document) *NoTemplateTransformInfoObjectConfig {
     this := &NoTemplateTransformInfoObjectConfig{}
         this.TransformInfoObjectConfig = *NewTransformInfoObjectConfig(transformInfoInterface, document)
         this.initFields()
@@ -71,8 +98,7 @@ func NewNoTemplateTransformInfoObjectConfig(transformInfoInterface TransformInfo
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewNoTemplateTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface, name string, type_ string) *NoTemplateTransformInfoObjectConfig {
+func NewNoTemplateTransformInfoObjectConfig_3(transformInfoInterface TransformInfoInterface, name string, type_ string) *NoTemplateTransformInfoObjectConfig {
     this := &NoTemplateTransformInfoObjectConfig{}
         this.TransformInfoObjectConfig = *NewTransformInfoObjectConfig(transformInfoInterface, name, type_)
         this.initFields()

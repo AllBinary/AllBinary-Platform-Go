@@ -48,7 +48,7 @@ type LogConfigType struct {
     Description string
 }
 
-var LogConfigType_AvailableLogConfigTypes *BasicArrayList = NewBasicArrayListD()
+var LogConfigType_AvailableLogConfigTypes IBasicArrayList = NewBasicArrayListD()
 
 func (this *LogConfigType) initFields() {
     this.LogUtil = LogUtil_GetInstance()

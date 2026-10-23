@@ -48,15 +48,28 @@ type ViewEditorWebStoreAdminUser struct {
 
 
 
-func NewViewEditorWebStoreAdminUser() *ViewEditorWebStoreAdminUser {
+
+
+// Java overloads of new ViewEditorWebStoreAdminUser
+func NewViewEditorWebStoreAdminUser(args ...any) *ViewEditorWebStoreAdminUser {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewViewEditorWebStoreAdminUser_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewViewEditorWebStoreAdminUser_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new ViewEditorWebStoreAdminUser for the arguments")
+}
+func NewViewEditorWebStoreAdminUser_1() *ViewEditorWebStoreAdminUser {
     this := &ViewEditorWebStoreAdminUser{}
         this.User = *NewUser()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewViewEditorWebStoreAdminUser(userHashMap *HashMap) *ViewEditorWebStoreAdminUser {
+func NewViewEditorWebStoreAdminUser_2(userHashMap *HashMap) *ViewEditorWebStoreAdminUser {
     this := &ViewEditorWebStoreAdminUser{}
         this.User = *NewUser(userHashMap)
     return this

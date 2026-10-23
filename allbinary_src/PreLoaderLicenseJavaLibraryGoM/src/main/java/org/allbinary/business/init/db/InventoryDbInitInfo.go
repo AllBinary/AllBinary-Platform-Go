@@ -49,15 +49,28 @@ type InventoryDbInitInfo struct {
 var InventoryDbInitInfo_INITFILE string = "inventorydbinitdata.dat"
 
 
-func NewInventoryDbInitInfo() *InventoryDbInitInfo {
+
+
+// Java overloads of new InventoryDbInitInfo
+func NewInventoryDbInitInfo(args ...any) *InventoryDbInitInfo {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewInventoryDbInitInfo_1()
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return NewInventoryDbInitInfo_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of new InventoryDbInitInfo for the arguments")
+}
+func NewInventoryDbInitInfo_1() *InventoryDbInitInfo {
     this := &InventoryDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(InventoryDbInitInfo_INITFILE, true)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewInventoryDbInitInfo(read bool) *InventoryDbInitInfo {
+func NewInventoryDbInitInfo_2(read bool) *InventoryDbInitInfo {
     this := &InventoryDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(InventoryDbInitInfo_INITFILE, read)
     return this

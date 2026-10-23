@@ -44,7 +44,7 @@ var _ = unicode.IsDigit
 
 type OperatingSystemFactory struct {
     LogUtil *LogUtil
-    GenericOperatingSystem *GenericOperatingSystem
+    GenericOperatingSystem IGenericOperatingSystem
     HasDetected bool
 }
 
@@ -70,9 +70,9 @@ func NewOperatingSystemFactory() *OperatingSystemFactory {
 
 
 // synchronized
-func (this *OperatingSystemFactory) GetOperatingSystemInstance() *GenericOperatingSystem {
+func (this *OperatingSystemFactory) GetOperatingSystemInstance() IGenericOperatingSystem {
         var commonStrings *CommonStrings = CommonStrings_GetInstance(); _ = commonStrings
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *GenericOperatingSystem) {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IGenericOperatingSystem) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)

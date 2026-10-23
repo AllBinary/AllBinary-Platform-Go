@@ -62,7 +62,7 @@ func NewOpenGLESGL11ExtImage(image IImage, bitmapFactory IPlatformBitmapBaseFact
     this := &OpenGLESGL11ExtImage{}
         this.OpenGLESImage = *NewOpenGLESImage(image, bitmapFactory, textureFactory)
         this.initFields()
-        this.OnDisplayChangeEvent(nil)
+        this.OnDisplayChangeEvent(DisplayInfoSingleton_GetInstance().DisplayChangeEvent)
         this.Rectangle = []int{0, this.GetHeight(), this.GetWidth(), -this.GetHeight()}
     return this
 }
@@ -87,7 +87,7 @@ func (this *OpenGLESGL11ExtImage) OnDisplayChangeEvent(displayChangeEvent *Displ
 
 
 func (this *OpenGLESGL11ExtImage) Set(gl GL) {
-        this.OnDisplayChangeEvent(nil)
+        this.OnDisplayChangeEvent(DisplayInfoSingleton_GetInstance().DisplayChangeEvent)
         var gl11 GL11 = any(gl).(GL11); _ = gl11
         if this.OpenGLESImage.InitTexture(gl11) {
             this.TextureFactory.Load(gl11, OpenGLESImage_GL10.GL_TEXTURE_2D, 0, this, 0, true)
@@ -101,7 +101,8 @@ func (this *OpenGLESGL11ExtImage) Set(gl GL) {
 func (this *OpenGLESGL11ExtImage) Draw(gl GL10, x int, y int, z int) {
         gl.GlEnable(OpenGLESImage_GL10.GL_TEXTURE_2D)
         gl.GlBindTexture(OpenGLESImage_GL10.GL_TEXTURE_2D, this.OpenGLESImageProperties.TextureID)
-        (any(gl).(GL11Ext)).GlDrawTexfOES(x, this.A - y, z, this.GetWidth(), this.GetHeight())
+        var gl11Ext GL11Ext = any(gl).(GL11Ext); _ = gl11Ext
+        gl11Ext.GlDrawTexfOES(float32(x), float32((this.A - y)), float32(z), float32(this.GetWidth()), float32(this.GetHeight()))
         gl.GlDisable(OpenGLESImage_GL10.GL_TEXTURE_2D)
 }
 

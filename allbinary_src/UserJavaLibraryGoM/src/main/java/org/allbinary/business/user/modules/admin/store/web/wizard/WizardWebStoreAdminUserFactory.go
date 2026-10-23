@@ -56,14 +56,26 @@ func NewWizardWebStoreAdminUserFactory() *WizardWebStoreAdminUserFactory {
 
 
 // throws Exception
-func (this *WizardWebStoreAdminUserFactory) GetInstance() UserInterface {
+func (this *WizardWebStoreAdminUserFactory) GetInstance_1() UserInterface {
         return NewWizardWebStoreAdminUser()
+}
+
+// Java overloads of WizardWebStoreAdminUserFactory.getInstance
+func (this *WizardWebStoreAdminUserFactory) GetInstance(args ...any) UserInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.GetInstance_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return this.GetInstance_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of WizardWebStoreAdminUserFactory.getInstance for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *WizardWebStoreAdminUserFactory) GetInstance(hashMap *HashMap) UserInterface {
+func (this *WizardWebStoreAdminUserFactory) GetInstance_2(hashMap *HashMap) UserInterface {
         return NewWizardWebStoreAdminUser(hashMap)
 }
 

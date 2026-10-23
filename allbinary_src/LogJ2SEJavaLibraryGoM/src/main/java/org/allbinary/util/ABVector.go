@@ -52,3 +52,4 @@ func NewABVector[E any]() *ABVector[E] {
     this.Vector = *NewVector()
     return this
 }
+

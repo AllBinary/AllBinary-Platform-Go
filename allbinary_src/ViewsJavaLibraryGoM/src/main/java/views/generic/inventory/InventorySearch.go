@@ -51,6 +51,19 @@ type InventorySearch struct {
 
 // Implements InventoryViewSearchInterface
 
+// The Java class InventorySearch has subclasses so its variables are this interface
+type IInventorySearch interface {
+    InventorySearch_() *InventorySearch
+    SearchSingleStaticPage() string
+    SearchSingleDynamicPage() string
+    Search() []string
+    GetProduct(product string) string
+}
+
+func (this *InventorySearch) InventorySearch_() *InventorySearch {
+    return this
+}
+
 
 func (this *InventorySearch) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -135,7 +148,7 @@ func (this *InventorySearch) SearchSingleDynamicPage() string {
 func (this *InventorySearch) Search() []string {
         var abeClientInformation AbeClientInformationInterface = ServiceClientInformationInterfaceFactory_GetInstance(); _ = abeClientInformation
         var inventorySearchUtil *InventorySearchUtil = InventorySearchUtil_GetInstance(); _ = inventorySearchUtil
-        var vector *BasicArrayList = inventorySearchUtil.GetBasicItemIdColumn(this.SearchRequest); _ = vector
+        var vector IBasicArrayList = inventorySearchUtil.GetBasicItemIdColumn(this.SearchRequest); _ = vector
         return inventorySearchUtil.Search(abeClientInformation, this.SearchRequest, vector)
 }
 

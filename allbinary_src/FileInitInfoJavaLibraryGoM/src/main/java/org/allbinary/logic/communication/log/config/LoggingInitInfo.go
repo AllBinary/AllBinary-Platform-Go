@@ -47,7 +47,7 @@ type LoggingInitInfo struct {
 
 var LoggingInitInfo_INITFILENAME string = "logConfig.xml"
 var LoggingInitInfo_PACKAGE string = PATH_GLOBALS.GetInstance().INIT_PATH
-var LoggingInitInfo_LogConfigInfoList *BasicArrayList = nil
+var LoggingInitInfo_LogConfigInfoList IBasicArrayList = nil
 var LoggingInitInfo_HasRead bool = false
 
 
@@ -61,7 +61,7 @@ func NewLoggingInitInfo() *LoggingInitInfo {
 // synchronized
 func LoggingInitInfo_GetDoc() *Document {
         var path string = URLGLOBALS.GetWebappPath() + LoggingInitInfo_PACKAGE; _ = path
-        var FILEABPATH *AbPath = NewAbPath(path, LoggingInitInfo_INITFILENAME); _ = FILEABPATH
+        var FILEABPATH IAbPath = NewAbPath(path, LoggingInitInfo_INITFILENAME); _ = FILEABPATH
         var file *AbFile = AbFile_CreateAbFileFromAbPath(FILEABPATH); _ = file
         var document *Document = DomDocumentHelper_Create(NewAbFileLocalInputStream(file)); _ = document
         return document
@@ -101,7 +101,7 @@ func LoggingInitInfo_Read() {
             var document *Document = LoggingInitInfo_GetDoc(); _ = document
             var logConfigsNodeList *NodeList = document.GetElementsByTagName(LogConfigsData_GetInstance().NAME); _ = logConfigsNodeList
             var logConfigsNode *Node = logConfigsNodeList.Item(0); _ = logConfigsNode
-            var logConfigNodeVector *BasicArrayList = DomSearchHelper_GetAllNodes(LogConfigData_GetInstance().NAME, logConfigsNode.GetChildNodes()); _ = logConfigNodeVector
+            var logConfigNodeVector IBasicArrayList = DomSearchHelper_GetAllNodes(LogConfigData_GetInstance().NAME, logConfigsNode.GetChildNodes()); _ = logConfigNodeVector
             LoggingInitInfo_LogConfigInfoList = NewBasicArrayListD()
             var size int = logConfigNodeVector.Size(); _ = size
             for i := int(0); i < size; i++ {
@@ -154,26 +154,26 @@ func (this *LoggingInitInfo) IsValid() bool {
 
 
 // synchronized
-func LoggingInitInfo_Set(logConfigInfoVector *BasicArrayList) {
+func LoggingInitInfo_Set(logConfigInfoVector IBasicArrayList) {
         LoggingInitInfo_LogConfigInfoList = logConfigInfoVector
 }
 
 
 // throws Exception
-func LoggingInitInfo_Get() *BasicArrayList {
+func LoggingInitInfo_Get() IBasicArrayList {
         LoggingInitInfo_UpdateIfNeeded()
         return LoggingInitInfo_LogConfigInfoList
 }
 
 
 // throws Exception
-func LoggingInitInfo_GetTypeNameList() *BasicArrayList {
+func LoggingInitInfo_GetTypeNameList() IBasicArrayList {
         LoggingInitInfo_UpdateIfNeeded()
-        var allLogTypeVector *BasicArrayList = NewBasicArrayListD(); _ = allLogTypeVector
+        var allLogTypeVector IBasicArrayList = NewBasicArrayListD(); _ = allLogTypeVector
         var size int = LoggingInitInfo_LogConfigInfoList.Size(); _ = size
         for index := int(0); index < size; index++ {
-            var logConfigInfo *LogConfig = any(LoggingInitInfo_LogConfigInfoList.ObjectArray[index]).(*LogConfig); _ = logConfigInfo
-            var logTypeVector *BasicArrayList = logConfigInfo.GetTypeVector(); _ = logTypeVector
+            var logConfigInfo *LogConfig = any(LoggingInitInfo_LogConfigInfoList.BasicArrayList_().ObjectArray[index]).(*LogConfig); _ = logConfigInfo
+            var logTypeVector IBasicArrayList = logConfigInfo.GetTypeVector(); _ = logTypeVector
             if logConfigInfo.IsEnabled() {
                 allLogTypeVector.AddAllList(logTypeVector)
             }
@@ -183,13 +183,13 @@ func LoggingInitInfo_GetTypeNameList() *BasicArrayList {
 
 
 // throws Exception
-func LoggingInitInfo_GetTypeList() *BasicArrayList {
+func LoggingInitInfo_GetTypeList() IBasicArrayList {
         LoggingInitInfo_UpdateIfNeeded()
-        var allLogTypeVector *BasicArrayList = NewBasicArrayListD(); _ = allLogTypeVector
+        var allLogTypeVector IBasicArrayList = NewBasicArrayListD(); _ = allLogTypeVector
         var size int = LoggingInitInfo_LogConfigInfoList.Size(); _ = size
         for index := int(0); index < size; index++ {
-            var logConfigInfo *LogConfig = any(LoggingInitInfo_LogConfigInfoList.ObjectArray[index]).(*LogConfig); _ = logConfigInfo
-            var logTypeVector *BasicArrayList = logConfigInfo.GetTypeVector(); _ = logTypeVector
+            var logConfigInfo *LogConfig = any(LoggingInitInfo_LogConfigInfoList.BasicArrayList_().ObjectArray[index]).(*LogConfig); _ = logConfigInfo
+            var logTypeVector IBasicArrayList = logConfigInfo.GetTypeVector(); _ = logTypeVector
             if logConfigInfo.IsEnabled() {
                 allLogTypeVector.AddAllList(logTypeVector)
             }

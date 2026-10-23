@@ -80,15 +80,27 @@ func (this *AbeClassLoader) FindLoadedClass1(name string) reflect.Type {
 
 // throws ClassNotFoundException
 // synchronized
-func (this *AbeClassLoader) LoadClass(name string) reflect.Type {
+func (this *AbeClassLoader) LoadClass_1(name string) reflect.Type {
         return this.LoadClass(name, false)
+}
+
+// Java overloads of AbeClassLoader.loadClass
+func (this *AbeClassLoader) LoadClass(args ...any) reflect.Type {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.LoadClass_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[bool](args[1], pass) {
+            return this.LoadClass_2(Java_Arg[string](args[0]), Java_Arg[bool](args[1]))
+        }
+    }
+    panic("No Java overload of AbeClassLoader.loadClass for the arguments")
 }
 
 
 // throws ClassNotFoundException
-// Java overloaded method: Go needs a different name
 // synchronized
-func (this *AbeClassLoader) LoadClass(name string, resolve bool) reflect.Type {
+func (this *AbeClassLoader) LoadClass_2(name string, resolve bool) reflect.Type {
         var loadedWith string = "findLoadedClass1"; _ = loadedWith
         var logBuffer *LogBuffer = NewLogBuffer(); _ = logBuffer
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 reflect.Type) {

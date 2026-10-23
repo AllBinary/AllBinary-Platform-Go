@@ -43,7 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type UniqueTokens struct {
-    SpecialCharacters *BasicArrayList
+    SpecialCharacters IBasicArrayList
 }
 
 
@@ -84,7 +84,7 @@ func NewUniqueTokens() *UniqueTokens {
 
 
 // throws Exception
-func (this *UniqueTokens) GetWhithoutDashesAndSkipNumberOnlyTokens(stringVector *BasicArrayList) *HashSet {
+func (this *UniqueTokens) GetWhithoutDashesAndSkipNumberOnlyTokens(stringVector IBasicArrayList) *HashSet {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *HashSet) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -99,7 +99,7 @@ func (this *UniqueTokens) GetWhithoutDashesAndSkipNumberOnlyTokens(stringVector 
             for index < stringVector.Size() {
                 var keywords string = any(stringVector.Get(index)).(string); _ = keywords
                 var tokenizer *Tokenizer = NewTokenizer(commonSeps.COMMA); _ = tokenizer
-                var keywordVector *BasicArrayList = tokenizer.GetTokensFromString(keywords, NewBasicArrayListD()); _ = keywordVector
+                var keywordVector IBasicArrayList = tokenizer.GetTokensFromString(keywords, NewBasicArrayListD()); _ = keywordVector
                 for forIndex := int(0); forIndex < keywordVector.Size(); forIndex++ {
                     var cleanString string = any(keywordVector.Get(forIndex)).(string); _ = cleanString
                     cleanString = strings.TrimSpace(cleanString)
@@ -109,7 +109,7 @@ func (this *UniqueTokens) GetWhithoutDashesAndSkipNumberOnlyTokens(stringVector 
                     hashSet.Add(cleanString)
                     if strings.Index(cleanString, string(' ')) != -1 {
                         var spaceTokenizer *Tokenizer = NewTokenizer(commonSeps.SPACE); _ = spaceTokenizer
-                        var subKeywordVector *BasicArrayList = spaceTokenizer.GetTokensFromString(cleanString, NewBasicArrayListD()); _ = subKeywordVector
+                        var subKeywordVector IBasicArrayList = spaceTokenizer.GetTokensFromString(cleanString, NewBasicArrayListD()); _ = subKeywordVector
                         for spaceIndex := int(0); spaceIndex < subKeywordVector.Size(); spaceIndex++ {
                             var subCleanString string = any(subKeywordVector.Get(spaceIndex)).(string); _ = subCleanString
                             if !this.IsSpecialCharacter(subCleanString) && !this.NumberOnly(subCleanString) {

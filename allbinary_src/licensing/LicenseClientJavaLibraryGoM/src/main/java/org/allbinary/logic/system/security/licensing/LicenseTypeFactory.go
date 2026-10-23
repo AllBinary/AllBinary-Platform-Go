@@ -68,7 +68,6 @@ func LicenseTypeFactory_GetInstance() *LicenseTypeFactory {
 }
 
 
-// Java overloaded method: Go needs a different name
 func (this *LicenseTypeFactory) GetInstance(name string) *LicenseType {
         if strings.Compare(this.DEMO.GetName(), name) == 0 {
             return this.DEMO

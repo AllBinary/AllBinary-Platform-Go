@@ -57,7 +57,7 @@ func (this *BasicEmail) initFields() {
 func NewBasicEmail(emailInfo *EmailInfo, to string) *BasicEmail {
     this := &BasicEmail{}
     this.initFields()
-        var basicEmailInfo *BasicEmailInfo = emailInfo.GetBasicEmailInfo(); _ = basicEmailInfo
+        var basicEmailInfo IBasicEmailInfo = emailInfo.GetBasicEmailInfo(); _ = basicEmailInfo
         this.Email = NewAbEmail(basicEmailInfo.GetEmailServerConfigurationInterface().GetSmtpServer(), basicEmailInfo.GetEmailServerConfigurationInterface().GetAccountName(), to, basicEmailInfo.GetSubject(), basicEmailInfo.GetTextBody(), emailInfo.GetHtmlAttachment(), emailInfo.GetContentBase())
     return this
 }

@@ -48,6 +48,18 @@ type CssCustomizerView struct {
     StyleValidationInterface ValidationInterface
 }
 
+// The Java class CssCustomizerView has subclasses so its variables are this interface
+type ICssCustomizerView interface {
+    IHttpStoreComponentView
+    CssCustomizerView_() *CssCustomizerView
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *CssCustomizerView) CssCustomizerView_() *CssCustomizerView {
+    return this
+}
+
 
 func (this *CssCustomizerView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

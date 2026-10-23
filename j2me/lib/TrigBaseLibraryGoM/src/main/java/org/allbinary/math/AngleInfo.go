@@ -103,3 +103,4 @@ func (this *AngleInfo) ToString() string {
 func (this *AngleInfo) String() string {
     return this.ToString()
 }
+

@@ -128,3 +128,4 @@ func BasicArrayListUtil_Main(args []string) {
         BasicArrayListUtil_GetInstance().Reverse(list)
         fmt.Println(fmt.Sprint(list))
 }
+

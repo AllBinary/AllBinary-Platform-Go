@@ -46,3 +46,4 @@ type AllBinaryEventObjectFactoryInterface interface {
     GetInstance() IAllBinaryEventObject
 }
 
+

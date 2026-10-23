@@ -59,7 +59,7 @@ func NewTaxValidationView(transformInfoInterface TransformInfoInterface) *TaxVal
 
 func (this *TaxValidationView) IsValid() bool {
         var billingAddressesEntity *ShippingAddressesEntity = NewShippingAddressesEntity(this.GetWeblisketSession().GetUserName()); _ = billingAddressesEntity
-        var streetAddressList *BasicArrayList = billingAddressesEntity.Get(); _ = streetAddressList
+        var streetAddressList IBasicArrayList = billingAddressesEntity.Get().(IBasicArrayList); _ = streetAddressList
         if streetAddressList == nil {
             return false
         }

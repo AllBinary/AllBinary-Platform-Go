@@ -239,3 +239,4 @@ func (this *ThreadPool) StartTask(task Runnable) {
 
 func (this *ThreadPool) CompletedTask(task Runnable) {
 }
+

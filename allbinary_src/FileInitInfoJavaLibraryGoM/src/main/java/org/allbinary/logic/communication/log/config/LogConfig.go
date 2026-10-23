@@ -60,7 +60,21 @@ func (this *LogConfig) initFields() {
 }
 
 
-func NewLogConfig(aName string, aDescription string, aPath string, aFileName string) *LogConfig {
+
+
+// Java overloads of new LogConfig
+func NewLogConfig(args ...any) *LogConfig {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 4 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) {
+            return NewLogConfig_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]))
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewLogConfig_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new LogConfig for the arguments")
+}
+func NewLogConfig_1(aName string, aDescription string, aPath string, aFileName string) *LogConfig {
     this := &LogConfig{}
     this.initFields()
         this.IsEnabled = false
@@ -72,8 +86,7 @@ func NewLogConfig(aName string, aDescription string, aPath string, aFileName str
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewLogConfig(node *Node) *LogConfig {
+func NewLogConfig_2(node *Node) *LogConfig {
     this := &LogConfig{}
     this.initFields()
         var enabledValueNode *Node = DomSearchHelper_GetNode(EntryData_GetInstance().ENABLE, node.GetChildNodes()); _ = enabledValueNode
@@ -153,12 +166,12 @@ func (this *LogConfig) GetDoc() *Document {
 
 
 // throws Exception
-func (this *LogConfig) GetTypeVector() *BasicArrayList {
-        var logKeyVector *BasicArrayList = NewBasicArrayListD(); _ = logKeyVector
+func (this *LogConfig) GetTypeVector() IBasicArrayList {
+        var logKeyVector IBasicArrayList = NewBasicArrayListD(); _ = logKeyVector
         var document *Document = this.GetDoc(); _ = document
         var logConfigTypesNodeList *NodeList = document.GetElementsByTagName(LogConfigTypesData_GetInstance().NAME); _ = logConfigTypesNodeList
         var logConfigTypesNode *Node = logConfigTypesNodeList.Item(0); _ = logConfigTypesNode
-        var logConfigTypeNodeVector *BasicArrayList = DomSearchHelper_GetAllNodes(LogConfigTypeData_GetInstance().NAME, logConfigTypesNode.GetChildNodes()); _ = logConfigTypeNodeVector
+        var logConfigTypeNodeVector IBasicArrayList = DomSearchHelper_GetAllNodes(LogConfigTypeData_GetInstance().NAME, logConfigTypesNode.GetChildNodes()); _ = logConfigTypeNodeVector
         var size int = logConfigTypeNodeVector.Size(); _ = size
         for i := int(0); i < size; i++ {
             var node *Node = any(logConfigTypeNodeVector.Get(i)).(*Node); _ = node

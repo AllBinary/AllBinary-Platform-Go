@@ -91,7 +91,7 @@ func NewSqlConnectionPool() *SqlConnectionPool {
 
 // throws SQLException
 // synchronized
-func (this *SqlConnectionPool) Get(url string) *Connection {
+func (this *SqlConnectionPool) Get(url string) IConnection {
         if this.ConnectionHashMap == nil {
             this.ConnectionHashMap = this.StdUtil.CreateHashMap()
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().SQLLOGGINGPOOL) {
@@ -99,7 +99,7 @@ func (this *SqlConnectionPool) Get(url string) *Connection {
             }
             return DriverManager_GetConnection(url)
         } else {
-            var connectionVector *BasicArrayList = any(this.ConnectionHashMap.Get(url)).(*BasicArrayList); _ = connectionVector
+            var connectionVector IBasicArrayList = any(this.ConnectionHashMap.Get(url)).(IBasicArrayList); _ = connectionVector
             if connectionVector == nil {
                 connectionVector = NewBasicArrayListD()
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().SQLLOGGINGPOOL) {
@@ -120,7 +120,7 @@ func (this *SqlConnectionPool) Get(url string) *Connection {
                 var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
                 var size int = connectionVector.Size(); _ = size
                 for i := int(0); i < size; i++ {
-                    var sqlConnection *Connection = any(connectionVector.Get(i)).(*Connection); _ = sqlConnection
+                    var sqlConnection IConnection = any(connectionVector.Get(i)).(IConnection); _ = sqlConnection
                     if !sqlConnection.IsClosed() {
                         connectionVector.Remove(sqlConnection)
                         this.ConnectionHashMap.Put(url, connectionVector)
@@ -133,7 +133,7 @@ func (this *SqlConnectionPool) Get(url string) *Connection {
                             this.LogUtil.PutF(this.NUMBER_OF_SQL_CONNECTION_VECTORS + fmt.Sprint(this.ConnectionHashMap.Size()), this, this.METHOD_GET)
                             this.LogUtil.PutF(fmt.Sprint(stringBuffer), this, this.METHOD_GET)
                         }
-                        return any(sqlConnection).(*Connection)
+                        return any(sqlConnection).(IConnection)
                     }
                 }
             }
@@ -151,15 +151,15 @@ func (this *SqlConnectionPool) Get(url string) *Connection {
 
 // throws SQLException
 // synchronized
-func (this *SqlConnectionPool) Add(url string, sqlConnection *Connection) {
+func (this *SqlConnectionPool) Add(url string, sqlConnection IConnection) {
         if !sqlConnection.IsClosed() {
-            var connectionVector *BasicArrayList; _ = connectionVector
+            var connectionVector IBasicArrayList; _ = connectionVector
             if this.ConnectionHashMap == nil {
                 this.ConnectionHashMap = this.StdUtil.CreateHashMap()
                 connectionVector = NewBasicArrayListD()
                 connectionVector.Add(sqlConnection)
             } else {
-                connectionVector = any(this.ConnectionHashMap.Get(url)).(*BasicArrayList)
+                connectionVector = any(this.ConnectionHashMap.Get(url)).(IBasicArrayList)
                 if connectionVector == nil {
                     connectionVector = NewBasicArrayListD()
                 }

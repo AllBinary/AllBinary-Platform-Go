@@ -45,7 +45,7 @@ var _ = unicode.IsDigit
 type AndroidHardware struct {
     LogUtil *LogUtil
     CommonStrings *CommonStrings
-    ComponentInterfaceVector *BasicArrayList
+    ComponentInterfaceVector IBasicArrayList
     PROC_BUS_INPUT_DIRECTORY string
     DEVICES string
     MINHARDWARE int

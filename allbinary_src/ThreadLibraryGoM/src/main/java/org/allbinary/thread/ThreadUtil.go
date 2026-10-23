@@ -82,3 +82,4 @@ func (this *ThreadUtil) Join(thread IThread) {
             thread.Join()
         }
 }
+

@@ -48,8 +48,8 @@ type LineReader struct {
     FileName string
     String string
     Index int
-    IdFile *AbFileInputStream
-    IdData *DataInputStream
+    IdFile IAbFileInputStream
+    IdData IDataInputStream
 }
 
 

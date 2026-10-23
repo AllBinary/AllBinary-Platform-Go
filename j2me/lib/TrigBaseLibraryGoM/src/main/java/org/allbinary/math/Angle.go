@@ -73,3 +73,4 @@ func NewAngle(angle int16) *Angle {
 func (this *Angle) GetValue() int16 {
         return this.Value
 }
+

@@ -58,7 +58,21 @@ func (this *BasicPaymentType) initFields() {
 }
 
 
-func NewBasicPaymentType(paymentMethod string) *BasicPaymentType {
+
+
+// Java overloads of new BasicPaymentType
+func NewBasicPaymentType(args ...any) *BasicPaymentType {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewBasicPaymentType_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[PaymentGatewayInterfaceFactoryInterface](args[1], pass) && Java_IsArg[PaymentGatewayDomNodeFactoryInterface](args[2], pass) {
+            return NewBasicPaymentType_2(Java_Arg[string](args[0]), Java_Arg[PaymentGatewayInterfaceFactoryInterface](args[1]), Java_Arg[PaymentGatewayDomNodeFactoryInterface](args[2]))
+        }
+    }
+    panic("No Java overload of new BasicPaymentType for the arguments")
+}
+func NewBasicPaymentType_1(paymentMethod string) *BasicPaymentType {
     this := &BasicPaymentType{}
     this.initFields()
         this.Init(paymentMethod)
@@ -66,8 +80,7 @@ func NewBasicPaymentType(paymentMethod string) *BasicPaymentType {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewBasicPaymentType(paymentMethod string, paymentGatewayInterfaceFactoryInterface PaymentGatewayInterfaceFactoryInterface, paymentGatewayDomNodeFactoryInterface PaymentGatewayDomNodeFactoryInterface) *BasicPaymentType {
+func NewBasicPaymentType_2(paymentMethod string, paymentGatewayInterfaceFactoryInterface PaymentGatewayInterfaceFactoryInterface, paymentGatewayDomNodeFactoryInterface PaymentGatewayDomNodeFactoryInterface) *BasicPaymentType {
     this := &BasicPaymentType{}
     this.initFields()
         this.Init(paymentMethod)
@@ -123,8 +136,8 @@ func (this *BasicPaymentType) GetKey() any {
 }
 
 
-func (this *BasicPaymentType) ToVector() *BasicArrayList {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+func (this *BasicPaymentType) ToVector() IBasicArrayList {
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         vector.Add(this.Name)
         vector.Add(this.Value)
         return vector

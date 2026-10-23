@@ -69,9 +69,9 @@ func NewFileUtil2() *FileUtil2 {
 }
 
 
-func (this *FileUtil2) LoadFileAsList(file *AbFile, max_ int, byteArray1 []int8) *BasicArrayList {
-        var inputStream *AbFileInputStream = nil; _ = inputStream
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *FileUtil2) LoadFileAsList(file *AbFile, max_ int, byteArray1 []int8) IBasicArrayList {
+        var inputStream IAbFileInputStream = nil; _ = inputStream
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)

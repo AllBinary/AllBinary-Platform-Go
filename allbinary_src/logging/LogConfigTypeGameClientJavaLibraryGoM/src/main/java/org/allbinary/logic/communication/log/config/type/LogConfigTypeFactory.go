@@ -69,3 +69,4 @@ func NewLogConfigTypeFactory() *LogConfigTypeFactory {
         LogConfigTypes_LOGGING.Add(this.FACTORYERROR)
     return this
 }
+

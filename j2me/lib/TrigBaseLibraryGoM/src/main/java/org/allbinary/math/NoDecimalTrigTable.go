@@ -1266,3 +1266,4 @@ func (this *NoDecimalTrigTable) AntiTanDebug(screenX int, screenY int, targetX i
         angleOfTarget = this.AntiTan(dx[0], dy[0])
         return angleOfTarget
 }
+

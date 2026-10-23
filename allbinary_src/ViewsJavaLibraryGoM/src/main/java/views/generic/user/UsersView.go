@@ -45,10 +45,23 @@ var _ = unicode.IsDigit
 type UsersView struct {
     HttpStoreComponentView
     LogUtil *LogUtil
-    UserVector *BasicArrayList
+    UserVector IBasicArrayList
 }
 
 // Implements DomNodeInterface
+
+// The Java class UsersView has subclasses so its variables are this interface
+type IUsersView interface {
+    IHttpStoreComponentView
+    UsersView_() *UsersView
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *UsersView) UsersView_() *UsersView {
+    return this
+}
 
 
 func (this *UsersView) initFields() {
@@ -80,7 +93,7 @@ func (this *UsersView) ToXmlNode(document *Document) *Node {
             var usersNode *Node = document.CreateElement(UsersData_NAME); _ = usersNode
             var size int = this.UserVector.Size(); _ = size
             for index := int(0); index < size; index++ {
-                var userInterface *User = any(this.UserVector.Get(index)).(*User); _ = userInterface
+                var userInterface IUser = any(this.UserVector.Get(index)).(IUser); _ = userInterface
                 if userInterface != nil {
                     var node *Node = NewUserDomNode(userInterface).ToXmlNode(document); _ = node
                     usersNode.AppendChild(node)

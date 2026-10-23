@@ -70,3 +70,4 @@ func (this *ResizableListenerHandler) Fire(isFullScreen bool) {
 // synchronized
 func (this *ResizableListenerHandler) FireEvent(value bool) {
 }
+

@@ -52,7 +52,7 @@ func NewClientInformationFactory() *ClientInformationFactory {
 }
 
 
-func (this *ClientInformationFactory) GetInstance() *ClientInformation {
+func (this *ClientInformationFactory) GetInstance() IClientInformation {
         var logUtil *LogUtil = LogUtil_GetInstance(); _ = logUtil
         var commonStrings *CommonStrings = CommonStrings_GetInstance(); _ = commonStrings
         logUtil.PutF(commonStrings.NOT_IMPLEMENTED, this, commonStrings.GET_INSTANCE)

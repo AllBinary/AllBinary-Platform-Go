@@ -50,6 +50,19 @@ type TopBarView struct {
 
 // Implements DomNodeInterface
 
+// The Java class TopBarView has subclasses so its variables are this interface
+type ITopBarView interface {
+    IHttpStoreComponentView
+    TopBarView_() *TopBarView
+    AddDomNodeInterfaces()
+    ToXmlNode(document *Document) *Node
+    View() string
+}
+
+func (this *TopBarView) TopBarView_() *TopBarView {
+    return this
+}
+
 
 func (this *TopBarView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

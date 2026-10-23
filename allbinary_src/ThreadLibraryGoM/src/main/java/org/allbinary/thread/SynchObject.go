@@ -50,3 +50,4 @@ func NewSynchObject() *SynchObject {
     this := &SynchObject{}
     return this
 }
+

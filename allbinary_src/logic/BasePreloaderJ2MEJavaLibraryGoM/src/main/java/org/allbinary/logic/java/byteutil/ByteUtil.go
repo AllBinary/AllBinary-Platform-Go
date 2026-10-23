@@ -149,3 +149,4 @@ func (this *ByteUtil) CompareWithStats(newByteArray []int8, newSize int, oldByte
         }
         return true
 }
+

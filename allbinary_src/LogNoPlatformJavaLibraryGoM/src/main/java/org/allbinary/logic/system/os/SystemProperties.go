@@ -78,3 +78,4 @@ func (this *SystemProperties) GetVersion() string {
 func (this *SystemProperties) GetUserHomePath() string {
         panic(errors.New(fmt.Sprint()))
 }
+

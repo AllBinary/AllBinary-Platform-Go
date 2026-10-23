@@ -70,3 +70,4 @@ func (this *NullPriorityRunnable) Reset() {
 
 func (this *NullPriorityRunnable) Run() {
 }
+

@@ -67,3 +67,4 @@ func NewBasicArrayListS(size int) *BasicArrayListS {
         this.ObjectArray = make([]any, size)
     return this
 }
+

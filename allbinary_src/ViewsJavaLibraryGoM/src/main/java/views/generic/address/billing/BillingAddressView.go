@@ -51,6 +51,20 @@ type BillingAddressView struct {
 
 // Implements DomNodeInterface
 
+// The Java class BillingAddressView has subclasses so its variables are this interface
+type IBillingAddressView interface {
+    IHttpStoreComponentView
+    BillingAddressView_() *BillingAddressView
+    GetRequest() *HttpServletRequest
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *BillingAddressView) BillingAddressView_() *BillingAddressView {
+    return this
+}
+
 
 func (this *BillingAddressView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

@@ -47,3 +47,4 @@ type ColorCompositeInterface interface {
     GetBasicColorP() *BasicColor
 }
 
+

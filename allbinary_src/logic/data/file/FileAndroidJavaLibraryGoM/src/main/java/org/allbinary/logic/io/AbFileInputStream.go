@@ -47,6 +47,24 @@ type AbFileInputStream struct {
     FileInputStream *FileInputStream
 }
 
+// The Java class AbFileInputStream has subclasses so its variables are this interface
+type IAbFileInputStream interface {
+    IInputStream
+    AbFileInputStream_() *AbFileInputStream
+    Mark(readlimit int)
+    MarkSupported() bool
+    Reset()
+    Available() int
+    Close()
+    GetChannel() *FileChannel
+    Read(args ...any) int
+    Skip(n int64) int64
+}
+
+func (this *AbFileInputStream) AbFileInputStream_() *AbFileInputStream {
+    return this
+}
+
 
 func (this *AbFileInputStream) initFields() {
     
@@ -97,21 +115,35 @@ func (this *AbFileInputStream) GetChannel() *FileChannel {
 
 
 // throws IOException
-func (this *AbFileInputStream) Read() int {
+func (this *AbFileInputStream) Read_1() int {
         return this.FileInputStream.Read()
+}
+
+// Java overloads of AbFileInputStream.read
+func (this *AbFileInputStream) Read(args ...any) int {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.Read_1()
+        }
+        if len(args) == 1 && Java_IsArg[[]int8](args[0], pass) {
+            return this.Read_2(Java_Arg[[]int8](args[0]))
+        }
+        if len(args) == 3 && Java_IsArg[[]int8](args[0], pass) && Java_IsArg[int](args[1], pass) && Java_IsArg[int](args[2], pass) {
+            return this.Read_3(Java_Arg[[]int8](args[0]), Java_Arg[int](args[1]), Java_Arg[int](args[2]))
+        }
+    }
+    panic("No Java overload of AbFileInputStream.read for the arguments")
 }
 
 
 // throws IOException
-// Java overloaded method: Go needs a different name
-func (this *AbFileInputStream) Read(b []int8) int {
+func (this *AbFileInputStream) Read_2(b []int8) int {
         return this.FileInputStream.Read(b)
 }
 
 
 // throws IOException
-// Java overloaded method: Go needs a different name
-func (this *AbFileInputStream) Read(buffer []int8, offset int, count int) int {
+func (this *AbFileInputStream) Read_3(buffer []int8, offset int, count int) int {
         return this.FileInputStream.Read(buffer, offset, count)
 }
 

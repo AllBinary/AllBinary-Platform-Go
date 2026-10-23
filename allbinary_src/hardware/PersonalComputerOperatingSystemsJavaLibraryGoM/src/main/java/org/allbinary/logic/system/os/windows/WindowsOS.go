@@ -59,3 +59,4 @@ func NewWindowsOS() *WindowsOS {
 func (this *WindowsOS) IsAutoHide() bool {
         return true
 }
+

@@ -81,41 +81,73 @@ func ModDomHelper_CreateIndexNode(document *Document, index int) *Node {
 
 
 // throws Exception
-func ModDomHelper_CreateNameValueNodes(document *Document, elementName string, nameText string, valueText string) *Node {
+func ModDomHelper_CreateNameValueNodes_1(document *Document, elementName string, nameText string, valueText string) *Node {
         var newNode *Node = document.CreateElement(elementName); _ = newNode
         newNode.AppendChild(ModDomHelper_CreateNameNode(document, nameText))
         newNode.AppendChild(ModDomHelper_CreateValueNode(document, valueText))
         return newNode
 }
 
+// Java overloads of ModDomHelper.createNameValueNodes
+func ModDomHelper_CreateNameValueNodes(args ...any) *Node {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 4 && Java_IsArg[*Document](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) {
+            return ModDomHelper_CreateNameValueNodes_1(Java_Arg[*Document](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]))
+        }
+        if len(args) == 3 && Java_IsArg[*Document](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return ModDomHelper_CreateNameValueNodes_2(Java_Arg[*Document](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+        if len(args) == 3 && Java_IsArg[*Document](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[*HashMap](args[2], pass) {
+            return ModDomHelper_CreateNameValueNodes_3(Java_Arg[*Document](args[0]), Java_Arg[string](args[1]), Java_Arg[*HashMap](args[2]))
+        }
+        if len(args) == 3 && Java_IsArg[*Document](args[0], pass) && Java_IsArg[*Node](args[1], pass) && Java_IsArg[*HashMap](args[2], pass) {
+            return ModDomHelper_CreateNameValueNodes_4(Java_Arg[*Document](args[0]), Java_Arg[*Node](args[1]), Java_Arg[*HashMap](args[2]))
+        }
+        if len(args) == 4 && Java_IsArg[*Document](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[IBasicArrayList](args[3], pass) {
+            return ModDomHelper_CreateNameValueNodes_5(Java_Arg[*Document](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[IBasicArrayList](args[3]))
+        }
+    }
+    panic("No Java overload of ModDomHelper.createNameValueNodes for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func ModDomHelper_CreateNameValueNodes(document *Document, elementNameAndNameText string, valueText string) *Node {
+func ModDomHelper_CreateNameValueNodes_2(document *Document, elementNameAndNameText string, valueText string) *Node {
         var newNode *Node = ModDomHelper_CreateNameValueNodes(document, elementNameAndNameText, elementNameAndNameText, valueText); _ = newNode
         return newNode
 }
 
 
 // throws Exception
-func ModDomHelper_CreateNameValueIndexNodes(document *Document, elementNameAndNameText string, index int, valueText string) *Node {
+func ModDomHelper_CreateNameValueIndexNodes_1(document *Document, elementNameAndNameText string, index int, valueText string) *Node {
         var newNode *Node = ModDomHelper_CreateNameValueNodes(document, elementNameAndNameText, valueText); _ = newNode
         newNode.AppendChild(ModDomHelper_CreateIndexNode(document, index))
         return newNode
 }
 
+// Java overloads of ModDomHelper.createNameValueIndexNodes
+func ModDomHelper_CreateNameValueIndexNodes(args ...any) *Node {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 4 && Java_IsArg[*Document](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[int](args[2], pass) && Java_IsArg[string](args[3], pass) {
+            return ModDomHelper_CreateNameValueIndexNodes_1(Java_Arg[*Document](args[0]), Java_Arg[string](args[1]), Java_Arg[int](args[2]), Java_Arg[string](args[3]))
+        }
+        if len(args) == 4 && Java_IsArg[*Document](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[IBasicArrayList](args[3], pass) {
+            return ModDomHelper_CreateNameValueIndexNodes_2(Java_Arg[*Document](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[IBasicArrayList](args[3]))
+        }
+    }
+    panic("No Java overload of ModDomHelper.createNameValueIndexNodes for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func ModDomHelper_CreateNameValueNodes(document *Document, rootNode string, hashMap *HashMap) *Node {
+func ModDomHelper_CreateNameValueNodes_3(document *Document, rootNode string, hashMap *HashMap) *Node {
         var node *Node = document.CreateElement(rootNode); _ = node
         return ModDomHelper_CreateNameValueNodes(document, node, hashMap)
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func ModDomHelper_CreateNameValueNodes(document *Document, node *Node, hashMap *HashMap) *Node {
+func ModDomHelper_CreateNameValueNodes_4(document *Document, node *Node, hashMap *HashMap) *Node {
         var stringUtil *StringUtil = StringUtil_GetInstance(); _ = stringUtil
         var keySet Set = hashMap.KeySet(); _ = keySet
         var keyArray []any = keySet.ToArray(); _ = keyArray
@@ -141,8 +173,7 @@ func ModDomHelper_CreateNameValueNodes(document *Document, node *Node, hashMap *
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func ModDomHelper_CreateNameValueNodes(document *Document, rootNodeName string, duplicateNodeName string, valueVector *BasicArrayList) *Node {
+func ModDomHelper_CreateNameValueNodes_5(document *Document, rootNodeName string, duplicateNodeName string, valueVector IBasicArrayList) *Node {
         var stringUtil *StringUtil = StringUtil_GetInstance(); _ = stringUtil
         var node *Node = document.CreateElement(rootNodeName); _ = node
         var size int = valueVector.Size(); _ = size
@@ -155,8 +186,7 @@ func ModDomHelper_CreateNameValueNodes(document *Document, rootNodeName string, 
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func ModDomHelper_CreateNameValueIndexNodes(document *Document, rootNodeName string, duplicateNodeName string, valueVector *BasicArrayList) *Node {
+func ModDomHelper_CreateNameValueIndexNodes_2(document *Document, rootNodeName string, duplicateNodeName string, valueVector IBasicArrayList) *Node {
         var stringUtil *StringUtil = StringUtil_GetInstance(); _ = stringUtil
         var node *Node = document.CreateElement(rootNodeName); _ = node
         var size int = valueVector.Size(); _ = size
@@ -169,15 +199,27 @@ func ModDomHelper_CreateNameValueIndexNodes(document *Document, rootNodeName str
 
 
 // throws Exception
-func ModDomHelper_CreateNodeWithValueNodes(document *Document, rootNode string, hashMap *HashMap) *Node {
+func ModDomHelper_CreateNodeWithValueNodes_1(document *Document, rootNode string, hashMap *HashMap) *Node {
         var node *Node = document.CreateElement(rootNode); _ = node
         return ModDomHelper_CreateNodeWithValueNodes(document, node, hashMap)
 }
 
+// Java overloads of ModDomHelper.createNodeWithValueNodes
+func ModDomHelper_CreateNodeWithValueNodes(args ...any) *Node {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[*Document](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[*HashMap](args[2], pass) {
+            return ModDomHelper_CreateNodeWithValueNodes_1(Java_Arg[*Document](args[0]), Java_Arg[string](args[1]), Java_Arg[*HashMap](args[2]))
+        }
+        if len(args) == 3 && Java_IsArg[*Document](args[0], pass) && Java_IsArg[*Node](args[1], pass) && Java_IsArg[*HashMap](args[2], pass) {
+            return ModDomHelper_CreateNodeWithValueNodes_2(Java_Arg[*Document](args[0]), Java_Arg[*Node](args[1]), Java_Arg[*HashMap](args[2]))
+        }
+    }
+    panic("No Java overload of ModDomHelper.createNodeWithValueNodes for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func ModDomHelper_CreateNodeWithValueNodes(document *Document, node *Node, hashMap *HashMap) *Node {
+func ModDomHelper_CreateNodeWithValueNodes_2(document *Document, node *Node, hashMap *HashMap) *Node {
         var stringUtil *StringUtil = StringUtil_GetInstance(); _ = stringUtil
         var keySet Set = hashMap.KeySet(); _ = keySet
         var keyArray []any = keySet.ToArray(); _ = keyArray

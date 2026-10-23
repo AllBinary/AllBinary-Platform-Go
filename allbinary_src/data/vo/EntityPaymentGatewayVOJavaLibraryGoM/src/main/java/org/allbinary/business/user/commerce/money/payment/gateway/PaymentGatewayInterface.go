@@ -113,7 +113,7 @@ type PaymentGatewayInterface interface {
     SetLastModified(value string)
     SetTimeEntered(value string)
     ToHashMap(isEncrypted bool) *HashMap
-    ToVector(isEncrypted bool) *BasicArrayList
+    ToVector(isEncrypted bool) IBasicArrayList
 }
 
 

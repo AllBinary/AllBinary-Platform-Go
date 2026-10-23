@@ -53,6 +53,27 @@ type DbInitInfo struct {
     HasRead bool
 }
 
+// The Java class DbInitInfo has subclasses so its variables are this interface
+type IDbInitInfo interface {
+    IDbConnectionInfo
+    DbInitInfo_() *DbInitInfo
+    GetUrl() string
+    Write()
+    Load()
+    SetHasRead(value bool)
+    UpdateIfNeeded()
+    GetName() string
+    GetUserName() string
+    GetPassword() string
+    GetSchema() string
+    GetServer() string
+    GetPort() string
+}
+
+func (this *DbInitInfo) DbInitInfo_() *DbInitInfo {
+    return this
+}
+
 
 func (this *DbInitInfo) initFields() {
     this.CommonStrings = CommonStrings_GetInstance()
@@ -90,9 +111,9 @@ func (this *DbInitInfo) GetUrl() string {
 
 // throws Exception
 func (this *DbInitInfo) Write() {
-        var PATH *AbPath = NewAbPath(fmt.Sprint(DbConnectionInfo_URLGLOBALS.GetWebappPath()) + this.PACKAGE, StringUtil_GetInstance().EMPTY_STRING); _ = PATH
+        var PATH IAbPath = NewAbPath(fmt.Sprint(DbConnectionInfo_URLGLOBALS.GetWebappPath()) + this.PACKAGE, StringUtil_GetInstance().EMPTY_STRING); _ = PATH
         this.Directory.Create(PATH)
-        var FILEABPATH *AbPath = NewAbPath(fmt.Sprint(DbConnectionInfo_URLGLOBALS.GetWebappPath()) + this.PACKAGE, this.InitFileName); _ = FILEABPATH
+        var FILEABPATH IAbPath = NewAbPath(fmt.Sprint(DbConnectionInfo_URLGLOBALS.GetWebappPath()) + this.PACKAGE, this.InitFileName); _ = FILEABPATH
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -110,13 +131,13 @@ func (this *DbInitInfo) Write() {
                 defer func() {
                 StreamUtil_GetInstance().Close(dataOutputStream)
                 }()
-                var cryptedJdbcDriver []int8 = NewWeakCrypt(1).Encrypt(this.GetJdbcDriver()).GetBytes(); _ = cryptedJdbcDriver
-                var cryptedName []int8 = NewWeakCrypt(2).Encrypt(this.GetName()).GetBytes(); _ = cryptedName
-                var cryptedUserName []int8 = NewWeakCrypt(3).Encrypt(this.GetUserName()).GetBytes(); _ = cryptedUserName
-                var cryptedPassword []int8 = NewWeakCrypt(4).Encrypt(this.GetPassword()).GetBytes(); _ = cryptedPassword
-                var cryptedSchema []int8 = NewWeakCrypt(5).Encrypt(this.GetSchema()).GetBytes(); _ = cryptedSchema
-                var cryptedServer []int8 = NewWeakCrypt(6).Encrypt(this.GetServer()).GetBytes(); _ = cryptedServer
-                var cryptedPort []int8 = NewWeakCrypt(7).Encrypt(this.GetPort()).GetBytes(); _ = cryptedPort
+                var cryptedJdbcDriver []int8 = Java_GetBytes(NewWeakCrypt(1).Encrypt(this.GetJdbcDriver())); _ = cryptedJdbcDriver
+                var cryptedName []int8 = Java_GetBytes(NewWeakCrypt(2).Encrypt(this.GetName())); _ = cryptedName
+                var cryptedUserName []int8 = Java_GetBytes(NewWeakCrypt(3).Encrypt(this.GetUserName())); _ = cryptedUserName
+                var cryptedPassword []int8 = Java_GetBytes(NewWeakCrypt(4).Encrypt(this.GetPassword())); _ = cryptedPassword
+                var cryptedSchema []int8 = Java_GetBytes(NewWeakCrypt(5).Encrypt(this.GetSchema())); _ = cryptedSchema
+                var cryptedServer []int8 = Java_GetBytes(NewWeakCrypt(6).Encrypt(this.GetServer())); _ = cryptedServer
+                var cryptedPort []int8 = Java_GetBytes(NewWeakCrypt(7).Encrypt(this.GetPort())); _ = cryptedPort
                 dataOutputStream.WriteUTF(DatabaseEncoder_Encode(cryptedJdbcDriver))
                 dataOutputStream.WriteUTF(DatabaseEncoder_Encode(cryptedName))
                 dataOutputStream.WriteUTF(DatabaseEncoder_Encode(cryptedUserName))
@@ -138,7 +159,7 @@ func (this *DbInitInfo) Write() {
 
 // throws Exception
 func (this *DbInitInfo) Load() {
-        var FILEABPATH *AbPath = NewAbPath(fmt.Sprint(DbConnectionInfo_URLGLOBALS.GetWebappPath()) + this.PACKAGE, this.InitFileName); _ = FILEABPATH
+        var FILEABPATH IAbPath = NewAbPath(fmt.Sprint(DbConnectionInfo_URLGLOBALS.GetWebappPath()) + this.PACKAGE, this.InitFileName); _ = FILEABPATH
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -151,7 +172,7 @@ func (this *DbInitInfo) Load() {
             }()
             var file *AbFile = AbFile_CreateAbFileFromAbPath(FILEABPATH); _ = file
             if file.IsFile() {
-                var iFile *AbFileInputStream = NewAbFileInputStream(file); _ = iFile
+                var iFile IAbFileInputStream = NewAbFileInputStream(file); _ = iFile
                 var iData *AbDataInputStream = NewAbDataInputStream(iFile); _ = iData
                 if tryControl2 := func() (tryControl2 int) {
                     defer func() {

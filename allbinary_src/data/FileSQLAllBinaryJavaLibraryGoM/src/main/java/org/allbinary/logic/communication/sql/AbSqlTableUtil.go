@@ -115,8 +115,8 @@ func AbSqlTableUtil_GetInstance() *AbSqlTableUtil {
 
 
 // synchronized
-func (this *AbSqlTableUtil) GetOutputStream(backupPath string, tableName string) *OutputStream {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *OutputStream) {
+func (this *AbSqlTableUtil) GetOutputStream(backupPath string, tableName string) IOutputStream {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IOutputStream) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -131,14 +131,14 @@ func (this *AbSqlTableUtil) GetOutputStream(backupPath string, tableName string)
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().SQLLOGGING) {
                 this.LogUtil.PutF(this.SAVING + tableName, this, this.METHOD_GET_OUTPUT_STREAM)
             }
-            var backupFilePath *AbPath = NewAbPath(backupPath, fileName); _ = backupFilePath
+            var backupFilePath IAbPath = NewAbPath(backupPath, fileName); _ = backupFilePath
             var backupFile *AbFile = AbFile_CreateAbFile(backupFilePath); _ = backupFile
             if backupFile.Exists() {
                 this.BackupFile(backupFilePath, backupPath, tableName)
                 backupFile.Delete()
             }
             backupFile.CreateNewFile()
-            var outputStream *OutputStream = NewAbFileOutputStream(backupFile); _ = outputStream
+            var outputStream IOutputStream = NewAbFileOutputStream(backupFile); _ = outputStream
             tryControl1, tryResult1 = 1, outputStream; return
             return
         }(); tryControl1 == 1 {
@@ -149,7 +149,7 @@ func (this *AbSqlTableUtil) GetOutputStream(backupPath string, tableName string)
 
 
 // synchronized
-func (this *AbSqlTableUtil) BackupFile(path *AbPath, backupPath string, tableName string) bool {
+func (this *AbSqlTableUtil) BackupFile(path IAbPath, backupPath string, tableName string) bool {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 bool) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -169,7 +169,7 @@ func (this *AbSqlTableUtil) BackupFile(path *AbPath, backupPath string, tableNam
             stringBuffer.Append(backupPath)
             stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
             stringBuffer.Append(time)
-            var backupAbPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer)); _ = backupAbPath
+            var backupAbPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer)); _ = backupAbPath
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().SQLLOGGING) {
                 stringBuffer.Delete(0, stringBuffer.Length())
                 stringBuffer.Append(this.SAVING_BACKUP_PATH)
@@ -214,7 +214,7 @@ func (this *AbSqlTableUtil) ConvertNewLines(value string) string {
 
 
 // synchronized
-func (this *AbSqlTableUtil) BackupTable(abSqlTable *AbSqlTable) string {
+func (this *AbSqlTableUtil) BackupTable(abSqlTable IAbSqlTable) string {
         var tableName string = abSqlTable.GetTableName(); _ = tableName
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
@@ -240,7 +240,7 @@ func (this *AbSqlTableUtil) BackupTable(abSqlTable *AbSqlTable) string {
             var colNum int = rsmd.GetColumnCount(); _ = colNum
             var QUERY_START string = fmt.Sprint(&strings.Builder{}.Append(this.SqlStrings.INSERT_INTO).Append(tableName).Append(this.SqlStrings.VALUES)); _ = QUERY_START
             var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
-            var outputStream *OutputStream = this.GetOutputStream(path, tableName); _ = outputStream
+            var outputStream IOutputStream = this.GetOutputStream(path, tableName); _ = outputStream
             for rset.Next() {
                 stringBuffer.Delete(0, stringBuffer.Length())
                 stringBuffer.Append(QUERY_START)
@@ -268,7 +268,7 @@ func (this *AbSqlTableUtil) BackupTable(abSqlTable *AbSqlTable) string {
 
 
 // synchronized
-func (this *AbSqlTableUtil) RestoreTable(abSqlTable *AbSqlTable, portion *Portion) string {
+func (this *AbSqlTableUtil) RestoreTable(abSqlTable IAbSqlTable, portion *Portion) string {
         var tableName string = abSqlTable.GetTableName(); _ = tableName
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
@@ -315,7 +315,7 @@ func (this *AbSqlTableUtil) RestoreTable(abSqlTable *AbSqlTable, portion *Portio
             }
             bufferedLineReader.ReadUpToLines(start)
             var line string = this.StringUtil.EMPTY_STRING; _ = line
-            for bufferedLineReader.GetCurrent() < end && (func() any { line = bufferedLineReader.ReadLine(); return line }()) != nil {
+            for int64(bufferedLineReader.GetCurrent()) < end && (func() any { line = bufferedLineReader.ReadLine(); return line }()) != nil {
                 if len(line) > 1 {
                     abSqlTable.ExecuteSQLStatement(line)
                 }

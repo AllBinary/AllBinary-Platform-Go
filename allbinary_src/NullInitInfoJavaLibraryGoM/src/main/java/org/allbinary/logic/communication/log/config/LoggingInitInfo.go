@@ -45,7 +45,7 @@ var _ = unicode.IsDigit
 type LoggingInitInfo struct {
 }
 
-var LoggingInitInfo_LogConfigInfoList *BasicArrayList = nil
+var LoggingInitInfo_LogConfigInfoList IBasicArrayList = nil
 var LoggingInitInfo_HasRead bool = false
 
 
@@ -130,26 +130,26 @@ func (this *LoggingInitInfo) IsValid() bool {
 
 
 // synchronized
-func LoggingInitInfo_Set(logConfigInfoList *BasicArrayList) {
+func LoggingInitInfo_Set(logConfigInfoList IBasicArrayList) {
         LoggingInitInfo_LogConfigInfoList = logConfigInfoList
 }
 
 
 // throws Exception
-func LoggingInitInfo_Get() *BasicArrayList {
+func LoggingInitInfo_Get() IBasicArrayList {
         LoggingInitInfo_UpdateIfNeeded()
         return LoggingInitInfo_LogConfigInfoList
 }
 
 
 // throws Exception
-func LoggingInitInfo_GetTypeList() *BasicArrayList {
+func LoggingInitInfo_GetTypeList() IBasicArrayList {
         LoggingInitInfo_UpdateIfNeeded()
-        var allLogTypeVector *BasicArrayList = NewBasicArrayListD(); _ = allLogTypeVector
+        var allLogTypeVector IBasicArrayList = NewBasicArrayListD(); _ = allLogTypeVector
         var size int = LoggingInitInfo_LogConfigInfoList.Size(); _ = size
         for index := int(0); index < size; index++ {
-            var logConfigInfo *LogConfig = any(LoggingInitInfo_LogConfigInfoList.ObjectArray[index]).(*LogConfig); _ = logConfigInfo
-            var logTypeVector *BasicArrayList = logConfigInfo.GetTypeVector(); _ = logTypeVector
+            var logConfigInfo *LogConfig = any(LoggingInitInfo_LogConfigInfoList.BasicArrayList_().ObjectArray[index]).(*LogConfig); _ = logConfigInfo
+            var logTypeVector IBasicArrayList = logConfigInfo.GetTypeVector(); _ = logTypeVector
             if logConfigInfo.IsEnabled() {
                 allLogTypeVector.AddAllList(logTypeVector)
             }

@@ -48,15 +48,28 @@ type AdjustOrderStoreAdminUser struct {
 
 
 
-func NewAdjustOrderStoreAdminUser() *AdjustOrderStoreAdminUser {
+
+
+// Java overloads of new AdjustOrderStoreAdminUser
+func NewAdjustOrderStoreAdminUser(args ...any) *AdjustOrderStoreAdminUser {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewAdjustOrderStoreAdminUser_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewAdjustOrderStoreAdminUser_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new AdjustOrderStoreAdminUser for the arguments")
+}
+func NewAdjustOrderStoreAdminUser_1() *AdjustOrderStoreAdminUser {
     this := &AdjustOrderStoreAdminUser{}
         this.User = *NewUser()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewAdjustOrderStoreAdminUser(userHashMap *HashMap) *AdjustOrderStoreAdminUser {
+func NewAdjustOrderStoreAdminUser_2(userHashMap *HashMap) *AdjustOrderStoreAdminUser {
     this := &AdjustOrderStoreAdminUser{}
         this.User = *NewUser(userHashMap)
     return this

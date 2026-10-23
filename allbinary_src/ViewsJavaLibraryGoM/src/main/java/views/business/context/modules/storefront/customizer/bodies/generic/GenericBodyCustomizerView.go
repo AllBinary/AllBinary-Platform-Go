@@ -50,6 +50,19 @@ type GenericBodyCustomizerView struct {
 
 // Implements DomNodeInterface
 
+// The Java class GenericBodyCustomizerView has subclasses so its variables are this interface
+type IGenericBodyCustomizerView interface {
+    IHttpStoreComponentView
+    GenericBodyCustomizerView_() *GenericBodyCustomizerView
+    AddDomNodeInterfaces()
+    ToXmlNode(document *Document) *Node
+    View() string
+}
+
+func (this *GenericBodyCustomizerView) GenericBodyCustomizerView_() *GenericBodyCustomizerView {
+    return this
+}
+
 var GenericBodyCustomizerView_NAME string = "None"
 
 func (this *GenericBodyCustomizerView) initFields() {

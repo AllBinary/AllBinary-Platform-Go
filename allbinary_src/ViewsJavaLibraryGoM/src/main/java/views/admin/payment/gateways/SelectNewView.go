@@ -75,8 +75,8 @@ func (this *SelectNewView) View() string {
                 }
             }()
             var paymentGatewayEntityInterface PaymentGatewayEntityInterface = PaymentGatewayEntityFactory_GetInstance(); _ = paymentGatewayEntityInterface
-            var existingGateways *BasicArrayList = paymentGatewayEntityInterface.FindPaymentTypeVectorByStore(this.GetPaymentGatewayPrimaryKey().GetStoreName()); _ = existingGateways
-            var allGatewaysLessExisting *BasicArrayList = BasicPaymentTypeUtil_GetInstance().Difference(existingGateways); _ = allGatewaysLessExisting
+            var existingGateways IBasicArrayList = paymentGatewayEntityInterface.FindPaymentTypeVectorByStore(this.GetPaymentGatewayPrimaryKey().GetStoreName()); _ = existingGateways
+            var allGatewaysLessExisting IBasicArrayList = BasicPaymentTypeUtil_GetInstance().Difference(existingGateways); _ = allGatewaysLessExisting
             tryControl1, tryResult1 = 1, NewPaymentGatewaysView(this.GetTransformInfoInterface(), allGatewaysLessExisting).View(); return
             return
         }(); tryControl1 == 1 {

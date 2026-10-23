@@ -64,8 +64,8 @@ func FileListFetcher_GetInstance() *FileListFetcher {
 }
 
 
-func (this *FileListFetcher) GetFiles(path string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *FileListFetcher) GetFiles_1(path string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -74,7 +74,7 @@ func (this *FileListFetcher) GetFiles(path string) *BasicArrayList {
             fmt.Println("Error: " + fmt.Sprint(e) + "\nMsg: " + e.Error())
                 }
             }()
-            var files *BasicArrayList = this.SubDirectory.Search(AbFile_CreateAbFile(path)); _ = files
+            var files IBasicArrayList = this.SubDirectory.Search(AbFile_CreateAbFile(path)); _ = files
             tryControl1, tryResult1 = 1, files; return
             return
         }(); tryControl1 == 1 {
@@ -83,10 +83,28 @@ func (this *FileListFetcher) GetFiles(path string) *BasicArrayList {
         return nil
 }
 
+// Java overloads of FileListFetcher.getFiles
+func (this *FileListFetcher) GetFiles(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetFiles_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[[]string](args[1], pass) {
+            return this.GetFiles_2(Java_Arg[string](args[0]), Java_Arg[[]string](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.GetFiles_3(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return this.GetFiles_4(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+    }
+    panic("No Java overload of FileListFetcher.getFiles for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *FileListFetcher) GetFiles(path string, includeExtensions []string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+
+func (this *FileListFetcher) GetFiles_2(path string, includeExtensions []string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -95,13 +113,13 @@ func (this *FileListFetcher) GetFiles(path string, includeExtensions []string) *
             fmt.Println("Error: " + fmt.Sprint(e) + "\nMsg: " + e.Error())
                 }
             }()
-            var includeExtensionBasicArrayList *BasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
+            var includeExtensionBasicArrayList IBasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
             var size int = len(includeExtensions); _ = size
             for index := int(0); index < size; index++ {
                 includeExtensionBasicArrayList.Add(includeExtensions[index])
             }
             var visitorFileFilter *VisitorFileFilter = NewVisitorFileFilter(NewDirectoryOrIncludeFileExtensionBooleanFileVisitor(includeExtensionBasicArrayList)); _ = visitorFileFilter
-            var files *BasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
+            var files IBasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
             tryControl1, tryResult1 = 1, files; return
             return
         }(); tryControl1 == 1 {
@@ -111,9 +129,8 @@ func (this *FileListFetcher) GetFiles(path string, includeExtensions []string) *
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *FileListFetcher) GetFiles(path string, includeExtension string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *FileListFetcher) GetFiles_3(path string, includeExtension string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -122,10 +139,10 @@ func (this *FileListFetcher) GetFiles(path string, includeExtension string) *Bas
             fmt.Println("Error: " + fmt.Sprint(e) + "\nMsg: " + e.Error())
                 }
             }()
-            var includeExtensionBasicArrayList *BasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
+            var includeExtensionBasicArrayList IBasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
             includeExtensionBasicArrayList.Add(includeExtension)
             var visitorFileFilter *VisitorFileFilter = NewVisitorFileFilter(NewDirectoryOrIncludeFileExtensionBooleanFileVisitor(includeExtensionBasicArrayList)); _ = visitorFileFilter
-            var files *BasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
+            var files IBasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
             tryControl1, tryResult1 = 1, files; return
             return
         }(); tryControl1 == 1 {
@@ -135,9 +152,8 @@ func (this *FileListFetcher) GetFiles(path string, includeExtension string) *Bas
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *FileListFetcher) GetFiles(path string, pathIncludes string, includeExtension string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *FileListFetcher) GetFiles_4(path string, pathIncludes string, includeExtension string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -146,10 +162,10 @@ func (this *FileListFetcher) GetFiles(path string, pathIncludes string, includeE
             fmt.Println("Error: " + fmt.Sprint(e) + "\nMsg: " + e.Error())
                 }
             }()
-            var includeExtensionBasicArrayList *BasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
+            var includeExtensionBasicArrayList IBasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
             includeExtensionBasicArrayList.Add(includeExtension)
             var visitorFileFilter *VisitorFileFilter = NewVisitorFileFilter(NewDirectoryOrIncludeFileExtensionBooleanFileVisitor(includeExtensionBasicArrayList, pathIncludes)); _ = visitorFileFilter
-            var files *BasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
+            var files IBasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
             tryControl1, tryResult1 = 1, files; return
             return
         }(); tryControl1 == 1 {
@@ -159,8 +175,8 @@ func (this *FileListFetcher) GetFiles(path string, pathIncludes string, includeE
 }
 
 
-func (this *FileListFetcher) GetTrackedFiles(path string, includeExtensions []string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *FileListFetcher) GetTrackedFiles_1(path string, includeExtensions []string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -169,13 +185,13 @@ func (this *FileListFetcher) GetTrackedFiles(path string, includeExtensions []st
             fmt.Println("Error: " + fmt.Sprint(e) + "\nMsg: " + e.Error())
                 }
             }()
-            var includeExtensionBasicArrayList *BasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
+            var includeExtensionBasicArrayList IBasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
             var size int = len(includeExtensions); _ = size
             for index := int(0); index < size; index++ {
                 includeExtensionBasicArrayList.Add(includeExtensions[index])
             }
             var visitorFileFilter *VisitorFileFilter = NewVisitorFileFilter(NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor(includeExtensionBasicArrayList)); _ = visitorFileFilter
-            var files *BasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
+            var files IBasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
             tryControl1, tryResult1 = 1, files; return
             return
         }(); tryControl1 == 1 {
@@ -184,10 +200,22 @@ func (this *FileListFetcher) GetTrackedFiles(path string, includeExtensions []st
         return nil
 }
 
+// Java overloads of FileListFetcher.getTrackedFiles
+func (this *FileListFetcher) GetTrackedFiles(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[[]string](args[1], pass) {
+            return this.GetTrackedFiles_1(Java_Arg[string](args[0]), Java_Arg[[]string](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.GetTrackedFiles_2(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of FileListFetcher.getTrackedFiles for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *FileListFetcher) GetTrackedFiles(path string, includeExtension string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+
+func (this *FileListFetcher) GetTrackedFiles_2(path string, includeExtension string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -196,10 +224,10 @@ func (this *FileListFetcher) GetTrackedFiles(path string, includeExtension strin
             fmt.Println("Error: " + fmt.Sprint(e) + "\nMsg: " + e.Error())
                 }
             }()
-            var includeExtensionBasicArrayList *BasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
+            var includeExtensionBasicArrayList IBasicArrayList = NewBasicArrayListD(); _ = includeExtensionBasicArrayList
             includeExtensionBasicArrayList.Add(includeExtension)
             var visitorFileFilter *VisitorFileFilter = NewVisitorFileFilter(NewDirectoryOrIncludeFileExtensionAndTrackedBooleanFileVisitor(includeExtensionBasicArrayList)); _ = visitorFileFilter
-            var files *BasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
+            var files IBasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
             tryControl1, tryResult1 = 1, files; return
             return
         }(); tryControl1 == 1 {
@@ -209,8 +237,8 @@ func (this *FileListFetcher) GetTrackedFiles(path string, includeExtension strin
 }
 
 
-func (this *FileListFetcher) GetDirectories(path string) *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *FileListFetcher) GetDirectories(path string) IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -220,7 +248,7 @@ func (this *FileListFetcher) GetDirectories(path string) *BasicArrayList {
                 }
             }()
             var visitorFileFilter *VisitorFileFilter = NewVisitorFileFilter(NewDirectoryBooleanFileVisitor()); _ = visitorFileFilter
-            var files *BasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
+            var files IBasicArrayList = this.SubDirectory.Search(visitorFileFilter, AbFile_CreateAbFile(path)); _ = files
             tryControl1, tryResult1 = 1, files; return
             return
         }(); tryControl1 == 1 {

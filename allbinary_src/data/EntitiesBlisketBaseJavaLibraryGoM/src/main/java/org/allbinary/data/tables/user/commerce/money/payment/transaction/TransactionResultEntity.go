@@ -102,7 +102,7 @@ func (this *TransactionResultEntity) Add(userName string, orderNumber string, tr
             }
                 }
             }()
-            var values *BasicArrayList = NewBasicArrayListD(); _ = values
+            var values IBasicArrayList = NewBasicArrayListD(); _ = values
             values.Add(orderNumber)
             values.Add(userName)
             values.AddAllList(transactionResultInterface.GetValues())

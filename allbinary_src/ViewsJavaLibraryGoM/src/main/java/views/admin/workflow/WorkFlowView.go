@@ -50,6 +50,19 @@ type WorkFlowView struct {
 
 // Implements DomNodeInterface
 
+// The Java class WorkFlowView has subclasses so its variables are this interface
+type IWorkFlowView interface {
+    IHttpStoreComponentView
+    WorkFlowView_() *WorkFlowView
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *WorkFlowView) WorkFlowView_() *WorkFlowView {
+    return this
+}
+
 
 func (this *WorkFlowView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

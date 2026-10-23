@@ -55,13 +55,25 @@ func NewDirectoryBooleanFileVisitor() *DirectoryBooleanFileVisitor {
 }
 
 
-func (this *DirectoryBooleanFileVisitor) Visit(anyType any) any {
-        return any(this.Visit(any(anyType).(*AbFile))).(any)
+func (this *DirectoryBooleanFileVisitor) Visit_1(anyType any) any {
+        return any(this.Visit(any(anyType).(*AbFile)).(any)).(any)
+}
+
+// Java overloads of DirectoryBooleanFileVisitor.visit
+func (this *DirectoryBooleanFileVisitor) Visit(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[any](args[0], pass) {
+            return this.Visit_1(Java_Arg[any](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*AbFile](args[0], pass) {
+            return this.Visit_2(Java_Arg[*AbFile](args[0]))
+        }
+    }
+    panic("No Java overload of DirectoryBooleanFileVisitor.visit for the arguments")
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *DirectoryBooleanFileVisitor) Visit(file *AbFile) bool {
+func (this *DirectoryBooleanFileVisitor) Visit_2(file *AbFile) bool {
         if file.IsDirectory() {
             return true
         }

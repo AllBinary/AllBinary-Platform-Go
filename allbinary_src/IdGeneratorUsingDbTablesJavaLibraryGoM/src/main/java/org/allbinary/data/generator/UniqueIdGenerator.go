@@ -50,6 +50,18 @@ type UniqueIdGenerator struct {
 
 // Implements IdGeneratorInterface
 
+// The Java class UniqueIdGenerator has subclasses so its variables are this interface
+type IUniqueIdGenerator interface {
+    UniqueIdGenerator_() *UniqueIdGenerator
+    Initialize(value int)
+    SetFile(filePathName string, name string)
+    GetNext() string
+}
+
+func (this *UniqueIdGenerator) UniqueIdGenerator_() *UniqueIdGenerator {
+    return this
+}
+
 var UniqueIdGenerator_EXT string = ".unq"
 
 func (this *UniqueIdGenerator) initFields() {
@@ -79,7 +91,7 @@ func (this *UniqueIdGenerator) Initialize(value int) {
             }
                 }
             }()
-            var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+            var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
             vector.Add(this.Name)
             vector.Add(fmt.Sprint(fmt.Sprint(value)))
             this.IdGeneratorEntity.Insert(vector)

@@ -54,7 +54,21 @@ func (this *TimeCreatedView) initFields() {
 }
 
 
-func NewTimeCreatedView(timeCreated *TimeCreated) *TimeCreatedView {
+
+
+// Java overloads of new TimeCreatedView
+func NewTimeCreatedView(args ...any) *TimeCreatedView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*TimeCreated](args[0], pass) {
+            return NewTimeCreatedView_1(Java_Arg[*TimeCreated](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewTimeCreatedView_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new TimeCreatedView for the arguments")
+}
+func NewTimeCreatedView_1(timeCreated *TimeCreated) *TimeCreatedView {
     this := &TimeCreatedView{}
     this.initFields()
         this.SetTimeCreated(timeCreated)
@@ -62,8 +76,7 @@ func NewTimeCreatedView(timeCreated *TimeCreated) *TimeCreatedView {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTimeCreatedView(node *Node) *TimeCreatedView {
+func NewTimeCreatedView_2(node *Node) *TimeCreatedView {
     this := &TimeCreatedView{}
     this.initFields()
         this.SetTimeCreated(NewTimeCreated(DomNodeHelper_GetTextNodeValue(node)))

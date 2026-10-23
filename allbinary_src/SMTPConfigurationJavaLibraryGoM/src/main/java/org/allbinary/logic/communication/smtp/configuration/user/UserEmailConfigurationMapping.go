@@ -75,8 +75,8 @@ func (this *UserEmailConfigurationMapping) GetKey() any {
 
 
 // throws Exception
-func (this *UserEmailConfigurationMapping) ToVector() *BasicArrayList {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+func (this *UserEmailConfigurationMapping) ToVector() IBasicArrayList {
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         return vector
 }
 

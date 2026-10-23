@@ -90,8 +90,8 @@ func (this *InsertCustomizerValidationView) IsValid() bool {
             if StringValidationUtil_GetInstance().IsEmpty(this.ViewName) {
                 isValid = false
             } else {
-                var objectConfig *NoTemplateTransformInfoObjectConfig = NewNoTemplateTransformInfoObjectConfig(this.GetTransformInfoInterface(), this.GetTransformInfoInterface().GetObjectConfigInterface().ToXmlDoc()); _ = objectConfig
-                var componentVector *BasicArrayList = objectConfig.GetGroupTransforms(); _ = componentVector
+                var objectConfig INoTemplateTransformInfoObjectConfig = NewNoTemplateTransformInfoObjectConfig(this.GetTransformInfoInterface(), this.GetTransformInfoInterface().GetObjectConfigInterface().ToXmlDoc()); _ = objectConfig
+                var componentVector IBasicArrayList = objectConfig.GetGroupTransforms(); _ = componentVector
                 var size int = componentVector.Size(); _ = size
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
@@ -101,7 +101,7 @@ func (this *InsertCustomizerValidationView) IsValid() bool {
                     this.LogUtil.PutF(fmt.Sprint(stringBuffer), this, this.CommonStrings.IS_VALID)
                 }
                 for index := int(0); index < size; index++ {
-                    var transformInfo *TransformInfo = any(componentVector.Get(index)).(*TransformInfo); _ = transformInfo
+                    var transformInfo ITransformInfo = any(componentVector.Get(index)).(ITransformInfo); _ = transformInfo
                     var transformInfoName string = transformInfo.GetName(); _ = transformInfoName
                     if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                         this.LogUtil.PutF("Setting Template Component with ViewName: " + transformInfoName, this, this.CommonStrings.IS_VALID)

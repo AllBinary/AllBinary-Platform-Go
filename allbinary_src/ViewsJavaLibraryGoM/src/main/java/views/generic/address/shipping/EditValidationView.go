@@ -70,7 +70,7 @@ func (this *EditValidationView) IsValid() bool {
             return false
         }
         var billingAddressesEntity *ShippingAddressesEntity = NewShippingAddressesEntity(this.GetWeblisketSession().GetUserName()); _ = billingAddressesEntity
-        this.StreetAddress = billingAddressesEntity.Get(int(this.Value))
+        this.StreetAddress = billingAddressesEntity.Get(int(this.Value)).(*StreetAddress)
         if this.StreetAddress == nil {
             return false
         }

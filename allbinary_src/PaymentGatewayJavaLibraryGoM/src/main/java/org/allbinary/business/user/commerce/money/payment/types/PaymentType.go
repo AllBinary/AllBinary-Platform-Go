@@ -56,7 +56,21 @@ func (this *PaymentType) initFields() {
 }
 
 
-func NewPaymentType(basicPaymentType *BasicPaymentType) *PaymentType {
+
+
+// Java overloads of new PaymentType
+func NewPaymentType(args ...any) *PaymentType {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*BasicPaymentType](args[0], pass) {
+            return NewPaymentType_1(Java_Arg[*BasicPaymentType](args[0]))
+        }
+        if len(args) == 3 && Java_IsArg[*BasicPaymentType](args[0], pass) && Java_IsArg[PaymentTransactionInterfaceFactoryInterface](args[1], pass) && Java_IsArg[PaymentProcessorInterfaceFactoryInterface](args[2], pass) {
+            return NewPaymentType_2(Java_Arg[*BasicPaymentType](args[0]), Java_Arg[PaymentTransactionInterfaceFactoryInterface](args[1]), Java_Arg[PaymentProcessorInterfaceFactoryInterface](args[2]))
+        }
+    }
+    panic("No Java overload of new PaymentType for the arguments")
+}
+func NewPaymentType_1(basicPaymentType *BasicPaymentType) *PaymentType {
     this := &PaymentType{}
     this.initFields()
         this.BasicPaymentType = basicPaymentType
@@ -67,8 +81,7 @@ func NewPaymentType(basicPaymentType *BasicPaymentType) *PaymentType {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewPaymentType(basicPaymentType *BasicPaymentType, paymentTransactionInterfaceFactoryInterface PaymentTransactionInterfaceFactoryInterface, paymentProcessorInterfaceFactoryInterface PaymentProcessorInterfaceFactoryInterface) *PaymentType {
+func NewPaymentType_2(basicPaymentType *BasicPaymentType, paymentTransactionInterfaceFactoryInterface PaymentTransactionInterfaceFactoryInterface, paymentProcessorInterfaceFactoryInterface PaymentProcessorInterfaceFactoryInterface) *PaymentType {
     this := &PaymentType{}
     this.initFields()
         this.BasicPaymentType = basicPaymentType
@@ -97,8 +110,8 @@ func (this *PaymentType) GetPaymentProcessorInterfaceFactoryInterface() PaymentP
 }
 
 
-func (this *PaymentType) ToVector() *BasicArrayList {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+func (this *PaymentType) ToVector() IBasicArrayList {
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         vector.AddAllList(this.GetBasicPaymentType().ToVector())
         if this.PaymentTransactionInterfaceFactoryInterface != nil {
             vector.Add(reflect.TypeOf(this.PaymentTransactionInterfaceFactoryInterface).String())

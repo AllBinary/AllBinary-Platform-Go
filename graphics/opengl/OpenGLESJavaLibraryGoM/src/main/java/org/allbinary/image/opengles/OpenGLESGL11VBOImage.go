@@ -57,7 +57,7 @@ type OpenGLESGL11VBOImage struct {
 func (this *OpenGLESGL11VBOImage) initFields() {
     this.GlUtil = GLUtil_GetInstance()
     this.TextureVertexFloatBuffer = ByteBuffer_AllocateDirect(4 * 4 * 2).Order(ByteOrder_NativeOrder()).AsFloatBuffer()
-    this.RegionRectangleFloatArray = []float32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+    this.RegionRectangleFloatArray = []float32{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
     this.RegionRectangleVertexFloatBuffer = ByteBuffer_AllocateDirect(4 * 4 * 3).Order(ByteOrder_NativeOrder()).AsFloatBuffer()
     this.RegionTextureRectangleFloatArray = make([]float32, 8)
     this.RegionTextureVertexFloatBuffer = ByteBuffer_AllocateDirect(4 * 4 * 2).Order(ByteOrder_NativeOrder()).AsFloatBuffer()
@@ -108,8 +108,8 @@ func (this *OpenGLESGL11VBOImage) DrawRegion(gl GL10, viewHeight int, x_src floa
         this.RegionRectangleFloatArray[9] = this.RegionRectangleFloatArray[3]
         this.RegionRectangleFloatArray[10] = this.RegionRectangleFloatArray[7]
         this.RegionTextureRectangleFloatArray[0] = x_src / this.GetWidth()
-        this.RegionTextureRectangleFloatArray[1] = ((y_src + height)) / this.GetHeight()
-        this.RegionTextureRectangleFloatArray[2] = ((x_src + width)) / this.GetWidth()
+        this.RegionTextureRectangleFloatArray[1] = (y_src + height) / this.GetHeight()
+        this.RegionTextureRectangleFloatArray[2] = (x_src + width) / this.GetWidth()
         this.RegionTextureRectangleFloatArray[3] = this.RegionTextureRectangleFloatArray[1]
         this.RegionTextureRectangleFloatArray[4] = this.RegionTextureRectangleFloatArray[0]
         this.RegionTextureRectangleFloatArray[5] = y_src / this.GetHeight()
@@ -132,9 +132,9 @@ func (this *OpenGLESGL11VBOImage) DrawRegion(gl GL10, viewHeight int, x_src floa
 
 func (this *OpenGLESGL11VBOImage) Draw(gl GL10, x int, y int, z int) {
         this.RegionRectangleFloatArray[0] = float32(x)
-        this.RegionRectangleFloatArray[7] = float32(DisplayInfoSingleton_GetInstance().GetLastHeight() - y)
+        this.RegionRectangleFloatArray[7] = float32((DisplayInfoSingleton_GetInstance().GetLastHeight() - y))
         this.RegionRectangleFloatArray[1] = this.RegionRectangleFloatArray[7] - this.GetHeight()
-        this.RegionRectangleFloatArray[3] = x + this.GetWidth()
+        this.RegionRectangleFloatArray[3] = float32((x + this.GetWidth()))
         this.RegionRectangleFloatArray[4] = this.RegionRectangleFloatArray[1]
         this.RegionRectangleFloatArray[6] = float32(x)
         this.RegionRectangleFloatArray[9] = this.RegionRectangleFloatArray[3]

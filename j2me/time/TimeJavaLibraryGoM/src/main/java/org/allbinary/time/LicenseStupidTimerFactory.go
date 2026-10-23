@@ -56,3 +56,4 @@ func NewLicenseStupidTimerFactory() *LicenseStupidTimerFactory {
 func LicenseStupidTimerFactory_GetInstance() *StupidTimer {
         return LicenseStupidTimerFactory_Instance
 }
+

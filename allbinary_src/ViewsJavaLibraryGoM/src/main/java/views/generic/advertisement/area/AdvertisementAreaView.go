@@ -80,7 +80,7 @@ func (this *AdvertisementAreaView) ToXmlNode(document *Document) *Node {
                 }
             }()
             var advertisementAreasEntityInterface AdvertisementAreasEntityInterface = AdvertisementAreasEntityFactory_GetInstance(); _ = advertisementAreasEntityInterface
-            var advertisementAreaInterface AdvertisementAreaInterface = advertisementAreasEntityInterface.Get(this.GetTransformInfoInterface().GetStoreName(), this.AdvertisementAreaName); _ = advertisementAreaInterface
+            var advertisementAreaInterface AdvertisementAreaInterface = advertisementAreasEntityInterface.Get(this.GetTransformInfoInterface().GetStoreName(), this.AdvertisementAreaName).(AdvertisementAreaInterface); _ = advertisementAreaInterface
             tryControl1, tryResult1 = 1, nil; return
             return
         }(); tryControl1 == 1 {

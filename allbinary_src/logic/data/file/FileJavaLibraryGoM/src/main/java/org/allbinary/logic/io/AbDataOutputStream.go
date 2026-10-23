@@ -48,7 +48,7 @@ type AbDataOutputStream struct {
 
 
 
-func NewAbDataOutputStream(out *OutputStream) *AbDataOutputStream {
+func NewAbDataOutputStream(out IOutputStream) *AbDataOutputStream {
     this := &AbDataOutputStream{}
         this.DataOutputStream = *NewDataOutputStream(out)
     return this

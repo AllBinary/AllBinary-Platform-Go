@@ -87,7 +87,7 @@ func (this *EditValidationView) IsValid() bool {
         var downloadable int = func() int { value, _ := strconv.Atoi(this.ItemInterface.GetDownloads()); return value }(); _ = downloadable
         if downloadable != 0 {
             var downloadItemsEntity *DownloadItemsEntity = DownloadItemsEntityFactory_GetInstance().GetDownloadItemsEntityInstance(); _ = downloadItemsEntity
-            var vector *BasicArrayList = downloadItemsEntity.GetForItem(this.Id, this.DownloadItemId); _ = vector
+            var vector IBasicArrayList = downloadItemsEntity.GetForItem(this.Id, this.DownloadItemId); _ = vector
             if vector.Size() != 1 {
                 return false
             }

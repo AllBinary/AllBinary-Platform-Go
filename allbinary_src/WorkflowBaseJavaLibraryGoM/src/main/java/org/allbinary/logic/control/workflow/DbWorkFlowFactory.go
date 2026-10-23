@@ -66,7 +66,6 @@ func NewDbWorkFlowFactory() *DbWorkFlowFactory {
 
 
 // throws Exception, LicensingException
-// Java overloaded method: Go needs a different name
 func (this *DbWorkFlowFactory) GetInstance(abeClientInformation AbeClientInformationInterface, hashMap *HashMap) WorkFlowInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 WorkFlowInterface) {
             defer func() {

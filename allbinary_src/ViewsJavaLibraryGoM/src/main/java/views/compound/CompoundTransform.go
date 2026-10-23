@@ -64,7 +64,7 @@ func NewCompoundTransform(transformInfoInterface TransformInfoInterface) *Compou
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             this.LogUtil.PutF("\nObjectConfig: \n" + fmt.Sprint(objectConfig), this, this.CommonStrings.CONSTRUCTOR)
         }
-        var templateInputStream *InputStream = objectConfig.CreateInputStream(); _ = templateInputStream
+        var templateInputStream IInputStream = objectConfig.CreateInputStream(); _ = templateInputStream
         this.SetInputStream(templateInputStream)
     return this
 }

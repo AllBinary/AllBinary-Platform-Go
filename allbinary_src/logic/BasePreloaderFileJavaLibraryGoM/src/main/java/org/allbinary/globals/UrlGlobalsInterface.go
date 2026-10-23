@@ -45,6 +45,19 @@ var _ = unicode.IsDigit
 type UrlGlobalsInterface struct {
 }
 
+// The Java class UrlGlobalsInterface has subclasses so its variables are this interface
+type IUrlGlobalsInterface interface {
+    UrlGlobalsInterface_() *UrlGlobalsInterface
+    GetMainPath() string
+    GetTestHtmlPath() string
+    GetWebappPath() string
+    IsTestingMode() bool
+}
+
+func (this *UrlGlobalsInterface) UrlGlobalsInterface_() *UrlGlobalsInterface {
+    return this
+}
+
 
 func NewUrlGlobalsInterface() *UrlGlobalsInterface {
     this := &UrlGlobalsInterface{}

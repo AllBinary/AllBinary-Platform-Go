@@ -250,3 +250,4 @@ func (this *ThreadPool) CompletedTask(task Runnable) {
 func (this *ThreadPool) CreateName() string {
         return fmt.Sprint(NewStringMaker().Append(this.PoolName).Append(ThreadPool_ROOT_NAME).Appendint(Java_PostIncrement(&this.ThreadID)))
 }
+

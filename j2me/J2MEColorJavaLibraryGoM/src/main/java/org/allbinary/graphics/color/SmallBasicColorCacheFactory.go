@@ -90,3 +90,4 @@ func (this *SmallBasicColorCacheFactory) GetAndOrCreate(colorAsInt int) *BasicCo
         this.Add(basicColor)
         return basicColor
 }
+

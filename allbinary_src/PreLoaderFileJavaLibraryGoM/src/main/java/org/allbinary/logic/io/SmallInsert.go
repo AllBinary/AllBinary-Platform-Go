@@ -80,7 +80,7 @@ func (this *SmallInsert) AtBeginning(text string) bool {
                 }
             }()
             var idFile *FileOutputStream = NewFileOutputStream(this.FileName); _ = idFile
-            var idOutData *DataOutputStream = NewDataOutputStream(idFile); _ = idOutData
+            var idOutData IDataOutputStream = NewDataOutputStream(idFile); _ = idOutData
             idOutData.WriteBytes(text + this.String)
             tryControl1, tryResult1 = 1, true; return
             return
@@ -112,7 +112,7 @@ func (this *SmallInsert) After(text string, after string) bool {
             var start string = this.String[0:index]; _ = start
             var end string = this.String[index + 1:len(this.String)]; _ = end
             var idFile *FileOutputStream = NewFileOutputStream(this.FileName); _ = idFile
-            var idOutData *DataOutputStream = NewDataOutputStream(idFile); _ = idOutData
+            var idOutData IDataOutputStream = NewDataOutputStream(idFile); _ = idOutData
             idOutData.WriteBytes(start + text + end)
             idOutData.Close()
             idFile.Close()
@@ -138,7 +138,7 @@ func (this *SmallInsert) AtEnd(text string) bool {
                 }
             }()
             var idFile *FileOutputStream = NewFileOutputStream(this.FileName); _ = idFile
-            var idOutData *DataOutputStream = NewDataOutputStream(idFile); _ = idOutData
+            var idOutData IDataOutputStream = NewDataOutputStream(idFile); _ = idOutData
             idOutData.WriteBytes(this.String + text)
             tryControl1, tryResult1 = 1, true; return
             return

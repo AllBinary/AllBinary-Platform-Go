@@ -53,6 +53,23 @@ type InitDb struct {
     METHOD_CALL_MAIN_PATH string
 }
 
+// The Java class InitDb has subclasses so its variables are this interface
+type IInitDb interface {
+    InitDb_() *InitDb
+    SetHelper(anyType any)
+    GetHelper() any
+    GetHostName() string
+    AddUsers() bool
+    AddDatabases() bool
+    AddTables() bool
+    UseTemporaryMainPath() bool
+    UseNormalMainPath() bool
+}
+
+func (this *InitDb) InitDb_() *InitDb {
+    return this
+}
+
 
 func (this *InitDb) initFields() {
     
@@ -65,15 +82,28 @@ func (this *InitDb) initFields() {
 }
 
 
-func NewInitDb() *InitDb {
+
+
+// Java overloads of new InitDb
+func NewInitDb(args ...any) *InitDb {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewInitDb_1()
+        }
+        if len(args) == 1 && Java_IsArg[IDbConnectionInfo](args[0], pass) {
+            return NewInitDb_2(Java_Arg[IDbConnectionInfo](args[0]))
+        }
+    }
+    panic("No Java overload of new InitDb for the arguments")
+}
+func NewInitDb_1() *InitDb {
     this := &InitDb{}
     this.initFields()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewInitDb(dbConnectionInfo *DbConnectionInfo) *InitDb {
+func NewInitDb_2(dbConnectionInfo IDbConnectionInfo) *InitDb {
     this := &InitDb{}
     this.initFields()
     return this

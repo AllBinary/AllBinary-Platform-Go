@@ -46,7 +46,7 @@ type Email struct {
     LogUtil *LogUtil
     CommonStrings *CommonStrings
     Msg *MimeMessage
-    Properties *Properties
+    Properties IProperties
     Bs *strings.Builder
     IsDebug bool
 }
@@ -70,7 +70,21 @@ func (this *Email) initFields() {
 }
 
 
-func NewEmail(from string, to string, subject string, server string, textBody string, htmlAttachment string, contentBase string) *Email {
+
+
+// Java overloads of new Email
+func NewEmail(args ...any) *Email {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 7 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) && Java_IsArg[string](args[4], pass) && Java_IsArg[string](args[5], pass) && Java_IsArg[string](args[6], pass) {
+            return NewEmail_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]), Java_Arg[string](args[4]), Java_Arg[string](args[5]), Java_Arg[string](args[6]))
+        }
+        if len(args) == 8 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) && Java_IsArg[string](args[4], pass) && Java_IsArg[string](args[5], pass) && Java_IsArg[string](args[6], pass) && Java_IsArg[bool](args[7], pass) {
+            return NewEmail_2(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]), Java_Arg[string](args[4]), Java_Arg[string](args[5]), Java_Arg[string](args[6]), Java_Arg[bool](args[7]))
+        }
+    }
+    panic("No Java overload of new Email for the arguments")
+}
+func NewEmail_1(from string, to string, subject string, server string, textBody string, htmlAttachment string, contentBase string) *Email {
     this := &Email{}
     this.initFields()
         this.IsDebug = false
@@ -79,8 +93,7 @@ func NewEmail(from string, to string, subject string, server string, textBody st
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewEmail(from string, to string, subject string, server string, textBody string, htmlAttachment string, contentBase string, isDebug bool) *Email {
+func NewEmail_2(from string, to string, subject string, server string, textBody string, htmlAttachment string, contentBase string, isDebug bool) *Email {
     this := &Email{}
     this.initFields()
         this.IsDebug = isDebug
@@ -90,7 +103,7 @@ func NewEmail(from string, to string, subject string, server string, textBody st
 
 
 // throws Exception
-func (this *Email) Init(from string, to string, subject string, server string, textBody string, htmlAttachment string, contentBase string) {
+func (this *Email) Init_1(from string, to string, subject string, server string, textBody string, htmlAttachment string, contentBase string) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -115,17 +128,31 @@ func (this *Email) Init(from string, to string, subject string, server string, t
                 }
                 mimeBodyParts[1] = NewMimeBodyPart(internetHeaders, Java_GetBytes(htmlAttachment))
             }
-            this.Init(server, any(nil).(*Authenticator), []*InternetAddress{NewInternetAddress(from)}, []*InternetAddress{NewInternetAddress(to)}, any(nil).([]*InternetAddress), any(nil).([]*InternetAddress), subject, mimeBodyParts)
+            this.Init(server, any(nil).(Authenticator), []*InternetAddress{NewInternetAddress(from)}, []*InternetAddress{NewInternetAddress(to)}, any(nil).([]*InternetAddress), any(nil).([]*InternetAddress), subject, mimeBodyParts)
             return
         }(); tryControl1 == 1 {
             return
         }
 }
 
+// Java overloads of Email.init
+func (this *Email) Init(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 7 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) && Java_IsArg[string](args[4], pass) && Java_IsArg[string](args[5], pass) && Java_IsArg[string](args[6], pass) {
+            this.Init_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]), Java_Arg[string](args[4]), Java_Arg[string](args[5]), Java_Arg[string](args[6]))
+            return
+        }
+        if len(args) == 8 && Java_IsArg[string](args[0], pass) && Java_IsArg[Authenticator](args[1], pass) && Java_IsArg[[]*InternetAddress](args[2], pass) && Java_IsArg[[]*InternetAddress](args[3], pass) && Java_IsArg[[]*InternetAddress](args[4], pass) && Java_IsArg[[]*InternetAddress](args[5], pass) && Java_IsArg[string](args[6], pass) && Java_IsArg[[]*MimeBodyPart](args[7], pass) {
+            this.Init_2(Java_Arg[string](args[0]), Java_Arg[Authenticator](args[1]), Java_Arg[[]*InternetAddress](args[2]), Java_Arg[[]*InternetAddress](args[3]), Java_Arg[[]*InternetAddress](args[4]), Java_Arg[[]*InternetAddress](args[5]), Java_Arg[string](args[6]), Java_Arg[[]*MimeBodyPart](args[7]))
+            return
+        }
+    }
+    panic("No Java overload of Email.init for the arguments")
+}
+
 
 // throws MessagingException
-// Java overloaded method: Go needs a different name
-func (this *Email) Init(server string, authenticator *Authenticator, addresses_from []*InternetAddress, addresses_to []*InternetAddress, addresses_cc []*InternetAddress, addresses_bcc []*InternetAddress, subject string, mimeBodyParts []*MimeBodyPart) {
+func (this *Email) Init_2(server string, authenticator Authenticator, addresses_from []*InternetAddress, addresses_to []*InternetAddress, addresses_cc []*InternetAddress, addresses_bcc []*InternetAddress, subject string, mimeBodyParts []*MimeBodyPart) {
         this.Properties = NewProperties()
         this.Properties.Put(Email_SMTP_HOST, server)
         if tryControl1 := func() (tryControl1 int) {

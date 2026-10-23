@@ -98,7 +98,7 @@ func (this *XmlDocumentHelper) Init(indent int, ignoreDeclaration bool) {
 func (this *XmlDocumentHelper) Format(xmlString string) string {
         var src *InputSource = NewInputSource(NewStringReader(xmlString)); _ = src
         var document *Document = DocumentBuilderFactory_NewInstance().NewDocumentBuilder().Parse(src); _ = document
-        var out *Writer = NewStringWriter(); _ = out
+        var out IWriter = NewStringWriter(); _ = out
         this.Transformer.Transform(NewDOMSource(document), NewStreamResult(out))
         return fmt.Sprint(out)
 }

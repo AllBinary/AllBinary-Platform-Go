@@ -95,3 +95,4 @@ func HardwareFactory_GetInstance_2(os IGenericOperatingSystem) HardwareInterface
         }
         panic("unreachable")
 }
+

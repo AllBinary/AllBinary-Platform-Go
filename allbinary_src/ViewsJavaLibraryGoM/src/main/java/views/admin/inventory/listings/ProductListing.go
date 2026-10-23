@@ -82,12 +82,12 @@ func NewProductListing(searchRequest *SearchRequest) *ProductListing {
 // throws Exception
 func (this *ProductListing) GetHashSet(storeFront StoreFrontInterface) *HashSet {
         var inventoryColumnUtil *InventoryColumnUtil = InventoryColumnUtil_GetInstance(); _ = inventoryColumnUtil
-        var keywords *BasicArrayList = inventoryColumnUtil.GetColumnWhereLike(this.Inventory, storeFront.GetCategoryPath(), this.BasicItemData.KEYWORDS); _ = keywords
-        var subStoreVector *BasicArrayList = storeFront.GetSubStores(); _ = subStoreVector
+        var keywords IBasicArrayList = inventoryColumnUtil.GetColumnWhereLike(this.Inventory, storeFront.GetCategoryPath(), this.BasicItemData.KEYWORDS); _ = keywords
+        var subStoreVector IBasicArrayList = storeFront.GetSubStores(); _ = subStoreVector
         var size int = subStoreVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var subStore string = any(subStoreVector.Get(index)).(string); _ = subStore
-            var substoreKeywords *BasicArrayList = inventoryColumnUtil.GetColumnWhereLike(this.Inventory, fmt.Sprint(AbPathData_GetInstance().SEPARATOR) + subStore, this.BasicItemData.CATEGORY); _ = substoreKeywords
+            var substoreKeywords IBasicArrayList = inventoryColumnUtil.GetColumnWhereLike(this.Inventory, fmt.Sprint(AbPathData_GetInstance().SEPARATOR) + subStore, this.BasicItemData.CATEGORY); _ = substoreKeywords
             keywords.AddAllList(substoreKeywords)
         }
         var uniqueTokens *UniqueTokens = NewUniqueTokens(); _ = uniqueTokens
@@ -121,7 +121,7 @@ func (this *ProductListing) SavePage(file string, data string) {
 
 
 // throws Exception
-func (this *ProductListing) Create(keywordData string, keywordFilenameHashMap *HashMap, vector *BasicArrayList, staticPath *AbPath) {
+func (this *ProductListing) Create(keywordData string, keywordFilenameHashMap *HashMap, vector IBasicArrayList, staticPath IAbPath) {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         var hashMap *HashMap = SpecialCharacterUtil_GetHashMap(); _ = hashMap
         hashMap.Put(CommonSeps_GetInstance().SPACE, StringUtil_GetInstance().EMPTY_STRING)
@@ -166,7 +166,7 @@ func (this *ProductListing) AddStaticPageInfoToDatabase(storeFront StoreFrontInt
         var keywordArray []any = keywordHashSet.ToArray(); _ = keywordArray
         var size int = len(keywordArray); _ = size
         for index := int(0); index < size; index++ {
-            var insertVector *BasicArrayList = NewBasicArrayListD(); _ = insertVector
+            var insertVector IBasicArrayList = NewBasicArrayListD(); _ = insertVector
             var keywordData string = any(keywordArray[index]).(string); _ = keywordData
             var fileName string = any(keywordFilenameHashMap.Get(keywordData)).(string); _ = fileName
             insertVector.Add(storeFront.GetName())
@@ -178,7 +178,7 @@ func (this *ProductListing) AddStaticPageInfoToDatabase(storeFront StoreFrontInt
 
 
 // throws Exception
-func (this *ProductListing) GenerateAll() string {
+func (this *ProductListing) GenerateAll_1() string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -193,7 +193,7 @@ func (this *ProductListing) GenerateAll() string {
             stringBuffer.Append(storeFront.GetName())
             stringBuffer.Append(AbPathData_GetInstance().SEPARATOR)
             stringBuffer.Append(storeFront.GetStaticPath())
-            var staticPath *AbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = staticPath
+            var staticPath IAbPath = NewAbPath(fmt.Sprint(stringBuffer), StringUtil_GetInstance().EMPTY_STRING); _ = staticPath
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().STATICPAGEGENERATIONLOGGING) {
                 this.LogUtil.PutF("Store Static Pages Path: " + fmt.Sprint(staticPath), this, "generateAll()")
             }
@@ -209,7 +209,7 @@ func (this *ProductListing) GenerateAll() string {
                 tryControl1, tryResult1 = 1, fmt.Sprint(stringBuffer); return
             }
             var inventorySearchUtil *InventorySearchUtil = InventorySearchUtil_GetInstance(); _ = inventorySearchUtil
-            var vector *BasicArrayList = inventorySearchUtil.GetBasicItemIdColumn(this.SearchRequest); _ = vector
+            var vector IBasicArrayList = inventorySearchUtil.GetBasicItemIdColumn(this.SearchRequest); _ = vector
             for index := int(0); index < size; index++ {
                 var keywordData string = any(keywordArray[index]).(string); _ = keywordData
                 if len(keywordData) > 1 {
@@ -231,10 +231,22 @@ func (this *ProductListing) GenerateAll() string {
         panic("unreachable")
 }
 
+// Java overloads of ProductListing.generateAll
+func (this *ProductListing) GenerateAll(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.GenerateAll_1()
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GenerateAll_2(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of ProductListing.generateAll for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *ProductListing) GenerateAll(storeName string) string {
+func (this *ProductListing) GenerateAll_2(storeName string) string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -250,7 +262,7 @@ func (this *ProductListing) GenerateAll(storeName string) string {
                     stringBuffer.Append(this.GenerateAll())
                     stringBuffer.Append("<br />")
                 } else {
-                    var storeFrontVector *BasicArrayList = this.StoreFronts.GetStoreFrontNames(); _ = storeFrontVector
+                    var storeFrontVector IBasicArrayList = this.StoreFronts.GetStoreFrontNames(); _ = storeFrontVector
                     var size int = storeFrontVector.Size(); _ = size
                     for index := int(0); index < size; index++ {
                         storeName = any(storeFrontVector.Get(index)).(string)

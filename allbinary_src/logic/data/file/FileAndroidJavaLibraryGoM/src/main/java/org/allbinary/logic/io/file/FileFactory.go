@@ -98,7 +98,6 @@ func (this *FileFactory) GetFile(filePath string) *AbFile {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 func (this *FileFactory) GetInstance(file *AbFile, childFilePath string) *AbFile {
         return AbFile_CreateAbFileWithChild(file, childFilePath)
 }

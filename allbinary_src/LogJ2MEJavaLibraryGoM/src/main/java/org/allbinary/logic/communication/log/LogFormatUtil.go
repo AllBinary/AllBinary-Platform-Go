@@ -145,3 +145,4 @@ func (this *LogFormatUtil) GetO(exception any) string {
             return StringUtil_GetInstance().EMPTY_STRING
         }
 }
+

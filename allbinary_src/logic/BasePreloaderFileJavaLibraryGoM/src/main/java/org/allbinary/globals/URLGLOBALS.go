@@ -45,7 +45,7 @@ var _ = unicode.IsDigit
 type URLGLOBALS struct {
 }
 
-var URLGLOBALS_UrlGlobalsInterface UrlGlobalsInterface = AppUrlGlobals_NULL_APP_URL_GLOBALS
+var URLGLOBALS_UrlGlobalsInterface IUrlGlobalsInterface = AppUrlGlobals_NULL_APP_URL_GLOBALS
 
 func NewURLGLOBALS() *URLGLOBALS {
     this := &URLGLOBALS{}
@@ -53,7 +53,7 @@ func NewURLGLOBALS() *URLGLOBALS {
 }
 
 
-func URLGLOBALS_Init(urlGlobalsInterface UrlGlobalsInterface) {
+func URLGLOBALS_Init(urlGlobalsInterface IUrlGlobalsInterface) {
         URLGLOBALS_UrlGlobalsInterface = urlGlobalsInterface
 }
 

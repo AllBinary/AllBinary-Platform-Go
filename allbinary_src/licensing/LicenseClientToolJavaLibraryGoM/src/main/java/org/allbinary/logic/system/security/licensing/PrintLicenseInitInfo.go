@@ -79,7 +79,7 @@ func (this *PrintLicenseInitInfo) PrintInitInfo() {
             }()
             var licenseInitInfo *LicenseInitInfo = this.GetLicenseInitInfo(); _ = licenseInitInfo
             fmt.Println("License ID: " + fmt.Sprint(licenseInitInfo.GetLicenseId()))
-            var list *BasicArrayList = licenseInitInfo.GetServerList(); _ = list
+            var list IBasicArrayList = licenseInitInfo.GetServerList(); _ = list
             var size int = list.Size(); _ = size
             for index := int(0); index < size; index++ {
                 fmt.Println("Lic Serv: " + fmt.Sprint(list.Get(index)))

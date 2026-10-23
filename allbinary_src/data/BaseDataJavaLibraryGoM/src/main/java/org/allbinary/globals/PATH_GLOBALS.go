@@ -96,3 +96,4 @@ func NewPATH_GLOBALS() *PATH_GLOBALS {
         this.VIEWS_PATH = fmt.Sprint(stringBuffer)
     return this
 }
+

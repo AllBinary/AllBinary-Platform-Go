@@ -93,7 +93,7 @@ func (this *DeleteFileValidationView) IsValid() bool {
                 tryControl1, tryResult1 = 1, false; return
             }
             var downloadItemsEntity *DownloadItemsEntity = DownloadItemsEntityFactory_GetInstance().GetDownloadItemsEntityInstance(); _ = downloadItemsEntity
-            var vector *BasicArrayList = downloadItemsEntity.GetForItem(this.Id, this.DownloadItemId); _ = vector
+            var vector IBasicArrayList = downloadItemsEntity.GetForItem(this.Id, this.DownloadItemId); _ = vector
             if vector.Size() != 1 {
                 tryControl1, tryResult1 = 1, false; return
             }
@@ -133,7 +133,7 @@ func (this *DeleteFileValidationView) ValidationInfo() string {
                 stringBuffer.Append("Item does not exist.<br />")
             }
             var downloadItemsEntity *DownloadItemsEntity = DownloadItemsEntityFactory_GetInstance().GetDownloadItemsEntityInstance(); _ = downloadItemsEntity
-            var vector *BasicArrayList = downloadItemsEntity.GetForItem(this.Id, this.DownloadItemId); _ = vector
+            var vector IBasicArrayList = downloadItemsEntity.GetForItem(this.Id, this.DownloadItemId); _ = vector
             if vector.Size() == 0 {
                 stringBuffer.Append("DownloadItem does not exist.<br />")
             }

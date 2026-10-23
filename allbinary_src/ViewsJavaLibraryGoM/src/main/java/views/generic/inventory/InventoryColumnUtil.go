@@ -66,10 +66,10 @@ func InventoryColumnUtil_GetInstance() *InventoryColumnUtil {
 }
 
 
-func (this *InventoryColumnUtil) GetColumnWhereLike(inventoryEntity *InventoryEntity, category string, column string) *BasicArrayList {
+func (this *InventoryColumnUtil) GetColumnWhereLike(inventoryEntity *InventoryEntity, category string, column string) IBasicArrayList {
         this.LogUtil.PutF("Start Category: " + category, this, "getKeywords")
-        var keywords *BasicArrayList = NewBasicArrayListD(); _ = keywords
-        var vectorOfHashMaps *BasicArrayList = inventoryEntity.GetAllRows(); _ = vectorOfHashMaps
+        var keywords IBasicArrayList = NewBasicArrayListD(); _ = keywords
+        var vectorOfHashMaps IBasicArrayList = inventoryEntity.GetAllRows(); _ = vectorOfHashMaps
         var size int = vectorOfHashMaps.Size(); _ = size
         for index := int(0); index < size; index++ {
             var hashMap *HashMap = any(vectorOfHashMaps.Get(index)).(*HashMap); _ = hashMap

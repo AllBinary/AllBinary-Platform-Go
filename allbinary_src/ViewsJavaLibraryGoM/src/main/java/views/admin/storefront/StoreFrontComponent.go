@@ -48,6 +48,17 @@ type StoreFrontComponent struct {
     NewStoreFrontInterface StoreFrontInterface
 }
 
+// The Java class StoreFrontComponent has subclasses so its variables are this interface
+type IStoreFrontComponent interface {
+    IHttpStoreComponentView
+    StoreFrontComponent_() *StoreFrontComponent
+    View() string
+}
+
+func (this *StoreFrontComponent) StoreFrontComponent_() *StoreFrontComponent {
+    return this
+}
+
 
 func (this *StoreFrontComponent) initFields() {
     this.LogUtil = LogUtil_GetInstance()

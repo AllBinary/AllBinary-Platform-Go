@@ -106,15 +106,15 @@ func (this *RootContextView) GetName() string {
             panic(e)
                 }
             }()
-            var objectConfig *NoTemplateTransformInfoObjectConfig = NewNoTemplateTransformInfoObjectConfig(this.GetTransformInfoInterface(), this.GetTransformInfoInterface().GetObjectConfigInterface().ToXmlDoc()); _ = objectConfig
-            var componentsVector *BasicArrayList = objectConfig.GetTransforms(); _ = componentsVector
+            var objectConfig INoTemplateTransformInfoObjectConfig = NewNoTemplateTransformInfoObjectConfig(this.GetTransformInfoInterface(), this.GetTransformInfoInterface().GetObjectConfigInterface().ToXmlDoc()); _ = objectConfig
+            var componentsVector IBasicArrayList = objectConfig.GetTransforms(); _ = componentsVector
             if componentsVector.Size() == 0 {
                 panic(errors.New(fmt.Sprint("Template View Not Set - No Components")))
             }
             if componentsVector.Size() > 1 {
                 panic(errors.New(fmt.Sprint("To Many Root Template Views: " + fmt.Sprint(componentsVector.Size()))))
             }
-            var transformInfoInterface *TransformInfo = any(componentsVector.Get(0)).(*TransformInfo); _ = transformInfoInterface
+            var transformInfoInterface ITransformInfo = any(componentsVector.Get(0)).(ITransformInfo); _ = transformInfoInterface
             var viewName string = transformInfoInterface.GetName(); _ = viewName
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF("Root Template With View Name: " + viewName, this, "getName()")

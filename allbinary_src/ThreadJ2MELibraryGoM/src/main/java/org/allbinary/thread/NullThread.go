@@ -51,3 +51,4 @@ func NewNullThread() *NullThread {
     this := &NullThread{}
     return this
 }
+

@@ -83,3 +83,4 @@ func (this *GameTickTimeDelayHelper) Loop() {
 func (this *GameTickTimeDelayHelper) GetTimeFromStart() int64 {
         return this.StartTime - this.LastStartTime
 }
+

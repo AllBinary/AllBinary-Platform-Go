@@ -71,3 +71,4 @@ func (this *ExceptionUtil) GetStackTrace(e error) string {
         fmt.Println(e)
         return this.NONE
 }
+

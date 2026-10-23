@@ -68,7 +68,7 @@ func NewXmlOptionItemsEntity() *XmlOptionItemsEntity {
 }
 
 
-func (this *XmlOptionItemsEntity) Insert(values *BasicArrayList) {
+func (this *XmlOptionItemsEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {

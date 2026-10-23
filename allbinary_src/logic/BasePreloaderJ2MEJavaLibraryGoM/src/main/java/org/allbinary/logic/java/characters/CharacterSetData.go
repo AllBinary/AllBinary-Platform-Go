@@ -73,3 +73,4 @@ func NewCharacterSetData() *CharacterSetData {
     this.initFields()
     return this
 }
+

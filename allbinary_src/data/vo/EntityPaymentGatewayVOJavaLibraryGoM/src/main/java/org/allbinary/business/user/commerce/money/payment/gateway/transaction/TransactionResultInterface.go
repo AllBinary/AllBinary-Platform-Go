@@ -44,7 +44,7 @@ var _ = unicode.IsDigit
 
 type TransactionResultInterface interface {
     ToString() string
-    GetValues() *BasicArrayList
+    GetValues() IBasicArrayList
     GetResult() string
     GetPnRef() string
     GetRespMsg() string

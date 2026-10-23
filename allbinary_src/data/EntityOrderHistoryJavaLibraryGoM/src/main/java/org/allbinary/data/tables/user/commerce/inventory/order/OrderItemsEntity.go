@@ -69,7 +69,7 @@ func NewOrderItemsEntity() *OrderItemsEntity {
 
 
 func (this *OrderItemsEntity) Insert(userName string, order OrderInterface) {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -182,7 +182,7 @@ func (this *OrderItemsEntity) IsEverythingShipped(orderId string) bool {
             tryControl1, tryResult1 = 1, false; return
                 }
             }()
-            var itemStatusVector *BasicArrayList = this.AbSqlBean.GetColumnWhere(OrderHistoryData_STATUS, OrderData_ID, orderId); _ = itemStatusVector
+            var itemStatusVector IBasicArrayList = this.AbSqlBean.GetColumnWhere(OrderHistoryData_STATUS, OrderData_ID, orderId); _ = itemStatusVector
             var size int = itemStatusVector.Size(); _ = size
             for index := int(0); index < size; index++ {
                 var status string = any(itemStatusVector.Get(index)).(string); _ = status
@@ -214,7 +214,7 @@ func (this *OrderItemsEntity) GetBasketReview(orderId string) *BasketReview {
             var basketReview *BasketReview = NewBasketReview(); _ = basketReview
             var keyValues *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keyValues
             keyValues.Put(OrderData_ID, orderId)
-            var items *BasicArrayList = this.AbSqlBean.GetRows(keyValues); _ = items
+            var items IBasicArrayList = this.AbSqlBean.GetRows(keyValues); _ = items
             var entryData *EntryData = EntryData_GetInstance(); _ = entryData
             if items != nil && items.Size() > 0 {
                 var EMPTY_STRING string = StringUtil_GetInstance().EMPTY_STRING; _ = EMPTY_STRING
@@ -230,7 +230,7 @@ func (this *OrderItemsEntity) GetBasketReview(orderId string) *BasketReview {
                     itemHashMap.Put(this.BasicItemData.OPTIONS, EMPTY_STRING)
                     itemHashMap.Put(this.BasicItemData.PERMISSIONS, EMPTY_STRING)
                     itemHashMap.Put(this.BasicItemData.SPECIALS, EMPTY_STRING)
-                    var item *Item = NewItem(itemHashMap); _ = item
+                    var item IItem = NewItem(itemHashMap); _ = item
                     basketReview.AddItem(item)
                 }
                 tryControl1, tryResult1 = 1, basketReview; return

@@ -46,17 +46,40 @@ type FontFamilyView struct {
     CssPropertyView
 }
 
+// The Java class FontFamilyView has subclasses so its variables are this interface
+type IFontFamilyView interface {
+    ICssPropertyView
+    FontFamilyView_() *FontFamilyView
+}
+
+func (this *FontFamilyView) FontFamilyView_() *FontFamilyView {
+    return this
+}
 
 
-func NewFontFamilyView() *FontFamilyView {
+
+
+
+// Java overloads of new FontFamilyView
+func NewFontFamilyView(args ...any) *FontFamilyView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewFontFamilyView_1()
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewFontFamilyView_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new FontFamilyView for the arguments")
+}
+func NewFontFamilyView_1() *FontFamilyView {
     this := &FontFamilyView{}
         this.CssPropertyView = *NewCssPropertyView(FontFamilyData_GetInstance().VALUE)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewFontFamilyView(node *Node) *FontFamilyView {
+func NewFontFamilyView_2(node *Node) *FontFamilyView {
     this := &FontFamilyView{}
         this.CssPropertyView = *NewCssPropertyView(node)
     return this

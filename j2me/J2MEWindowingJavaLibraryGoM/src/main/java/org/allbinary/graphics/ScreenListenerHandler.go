@@ -77,3 +77,4 @@ func (this *ScreenListenerHandler) FireWithState(isFullScreen bool) {
 func (this *ScreenListenerHandler) Fire() {
         this.ScreenListenerInterface.OnFullScreenDisplay()
 }
+

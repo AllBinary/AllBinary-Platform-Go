@@ -48,7 +48,7 @@ type AbSqlTablePresentation struct {
 
 
 
-func NewAbSqlTablePresentation(databaseConnectionInfoInterface *DbConnectionInfo) *AbSqlTablePresentation {
+func NewAbSqlTablePresentation(databaseConnectionInfoInterface IDbConnectionInfo) *AbSqlTablePresentation {
     this := &AbSqlTablePresentation{}
         this.AbSqlBasic = *NewAbSqlBasic(databaseConnectionInfoInterface)
     return this

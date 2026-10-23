@@ -69,7 +69,6 @@ func NewKeySpecFactory() *KeySpecFactory {
 }
 
 
-// Java overloaded method: Go needs a different name
 func (this *KeySpecFactory) GetInstance(algorithm string, keyData []int8) *KeySpec {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *KeySpec) {
             defer func() {

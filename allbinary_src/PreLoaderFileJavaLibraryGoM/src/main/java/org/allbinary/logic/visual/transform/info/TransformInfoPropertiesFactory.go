@@ -66,7 +66,6 @@ func NewTransformInfoPropertiesFactory() *TransformInfoPropertiesFactory {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 func (this *TransformInfoPropertiesFactory) GetInstance(node *Node) *TransformInfoProperties {
         var transformInfoChildNodeList *NodeList = node.GetChildNodes(); _ = transformInfoChildNodeList
         var transformInfoData *TransformInfoData = TransformInfoData_GetInstance(); _ = transformInfoData

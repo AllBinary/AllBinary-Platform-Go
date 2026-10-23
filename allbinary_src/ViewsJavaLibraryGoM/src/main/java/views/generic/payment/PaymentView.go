@@ -49,6 +49,19 @@ type PaymentView struct {
 
 // Implements DomNodeInterface
 
+// The Java class PaymentView has subclasses so its variables are this interface
+type IPaymentView interface {
+    IHttpStoreComponentView
+    PaymentView_() *PaymentView
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *PaymentView) PaymentView_() *PaymentView {
+    return this
+}
+
 
 func (this *PaymentView) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -78,7 +91,7 @@ func (this *PaymentView) ToXmlNode(document *Document) *Node {
             }()
             var paymentNode *Node = document.CreateElement(PaymentData_PAYMENT); _ = paymentNode
             document.AppendChild(paymentNode)
-            var paymentVector *BasicArrayList = PaymentEntityFactory_GetInstance().GetPaymentEntityInstance().Get(this.GetWeblisketSession().GetUserName()); _ = paymentVector
+            var paymentVector IBasicArrayList = PaymentEntityFactory_GetInstance().GetPaymentEntityInstance().Get(this.GetWeblisketSession().GetUserName()); _ = paymentVector
             var size int = paymentVector.Size(); _ = size
             for index := int(0); index < size; index++ {
                 var payment *Payment = any(paymentVector.Get(index)).(*Payment); _ = payment

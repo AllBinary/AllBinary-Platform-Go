@@ -48,6 +48,15 @@ type CustomTagSupport struct {
     TagStrings *TagStrings
 }
 
+// The Java class CustomTagSupport has subclasses so its variables are this interface
+type ICustomTagSupport interface {
+    CustomTagSupport_() *CustomTagSupport
+}
+
+func (this *CustomTagSupport) CustomTagSupport_() *CustomTagSupport {
+    return this
+}
+
 
 func (this *CustomTagSupport) initFields() {
     this.CommonStrings = CommonStrings_GetInstance()

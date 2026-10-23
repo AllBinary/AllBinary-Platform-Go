@@ -54,6 +54,25 @@ type AbPath struct {
     NumberOfSeps int
 }
 
+// The Java class AbPath has subclasses so its variables are this interface
+type IAbPath interface {
+    AbPath_() *AbPath
+    Init()
+    GetSchema(aPath string) string
+    HasSchema() bool
+    GetPathFromPath(aPath string) string
+    SetName(name string)
+    GetName() string
+    ToString() string
+    ToFileSystemString() string
+    GetPath() string
+    SetPath(path string)
+}
+
+func (this *AbPath) AbPath_() *AbPath {
+    return this
+}
+
 var AbPath_NETWORK_SEP string = ":/"
 
 func (this *AbPath) initFields() {
@@ -69,8 +88,8 @@ func (this *AbPath) initFields() {
 }
 
 
-func AbPath_CreateAbPath() *AbPath {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *AbPath) {
+func AbPath_CreateAbPath() IAbPath {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IAbPath) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     ex := Java_ToError(recovered)

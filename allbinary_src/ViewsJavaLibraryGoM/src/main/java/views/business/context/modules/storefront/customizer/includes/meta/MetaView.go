@@ -50,6 +50,19 @@ type MetaView struct {
 
 // Implements DomNodeInterface
 
+// The Java class MetaView has subclasses so its variables are this interface
+type IMetaView interface {
+    IHttpStoreComponentView
+    MetaView_() *MetaView
+    AddDomNodeInterfaces()
+    ToXmlNode(document *Document) *Node
+    View() string
+}
+
+func (this *MetaView) MetaView_() *MetaView {
+    return this
+}
+
 
 func (this *MetaView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

@@ -76,3 +76,4 @@ func (this *SecondaryThreadPool) StartTask(task Runnable) {
 func (this *SecondaryThreadPool) CompletedTask(task Runnable) {
         this.LogUtil.PutF(fmt.Sprint(NewStringMaker().Append(this.ThreadPoolStrings.COMPLETE_TASK).Append(StringUtil_GetInstance().ToString(task)).Appendlong(time.Now().UnixMilli())), this, this.CommonStrings.RUN)
 }
+

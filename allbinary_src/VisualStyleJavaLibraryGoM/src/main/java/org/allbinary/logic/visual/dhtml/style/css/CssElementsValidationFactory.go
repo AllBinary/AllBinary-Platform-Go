@@ -54,8 +54,8 @@ func NewCssElementsValidationFactory() *CssElementsValidationFactory {
 
 
 // throws Exception
-func CssElementsValidationFactory_GetInstance(cssElementStyleNodeList *BasicArrayList) *BasicArrayList {
-        var styles *BasicArrayList = NewBasicArrayListD(); _ = styles
+func CssElementsValidationFactory_GetInstance_1(cssElementStyleNodeList IBasicArrayList) IBasicArrayList {
+        var styles IBasicArrayList = NewBasicArrayListD(); _ = styles
         var size int = cssElementStyleNodeList.Size(); _ = size
         var cssElementStyleNode *Node; _ = cssElementStyleNode
         var cssValidationInterface ValidationInterface; _ = cssValidationInterface
@@ -67,10 +67,22 @@ func CssElementsValidationFactory_GetInstance(cssElementStyleNodeList *BasicArra
         return styles
 }
 
+// Java overloads of CssElementsValidationFactory.getInstance
+func CssElementsValidationFactory_GetInstance(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[IBasicArrayList](args[0], pass) {
+            return CssElementsValidationFactory_GetInstance_1(Java_Arg[IBasicArrayList](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return CssElementsValidationFactory_GetInstance_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of CssElementsValidationFactory.getInstance for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func CssElementsValidationFactory_GetInstance(hashMap *HashMap) *BasicArrayList {
-        var styles *BasicArrayList = NewBasicArrayListD(); _ = styles
+
+func CssElementsValidationFactory_GetInstance_2(hashMap *HashMap) IBasicArrayList {
+        var styles IBasicArrayList = NewBasicArrayListD(); _ = styles
         return styles
 }
 

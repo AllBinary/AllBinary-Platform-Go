@@ -48,15 +48,28 @@ type PaymentStoreAdminUser struct {
 
 
 
-func NewPaymentStoreAdminUser() *PaymentStoreAdminUser {
+
+
+// Java overloads of new PaymentStoreAdminUser
+func NewPaymentStoreAdminUser(args ...any) *PaymentStoreAdminUser {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewPaymentStoreAdminUser_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewPaymentStoreAdminUser_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new PaymentStoreAdminUser for the arguments")
+}
+func NewPaymentStoreAdminUser_1() *PaymentStoreAdminUser {
     this := &PaymentStoreAdminUser{}
         this.User = *NewUser()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewPaymentStoreAdminUser(userHashMap *HashMap) *PaymentStoreAdminUser {
+func NewPaymentStoreAdminUser_2(userHashMap *HashMap) *PaymentStoreAdminUser {
     this := &PaymentStoreAdminUser{}
         this.User = *NewUser(userHashMap)
     return this

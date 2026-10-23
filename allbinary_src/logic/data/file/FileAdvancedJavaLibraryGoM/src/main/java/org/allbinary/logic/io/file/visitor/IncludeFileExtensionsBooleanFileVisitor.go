@@ -46,25 +46,48 @@ type IncludeFileExtensionsBooleanFileVisitor struct {
     BooleanFileVisitor
 }
 
+// The Java class IncludeFileExtensionsBooleanFileVisitor has subclasses so its variables are this interface
+type IIncludeFileExtensionsBooleanFileVisitor interface {
+    IBooleanFileVisitor
+    IncludeFileExtensionsBooleanFileVisitor_() *IncludeFileExtensionsBooleanFileVisitor
+    Visit(args ...any) bool
+}
+
+func (this *IncludeFileExtensionsBooleanFileVisitor) IncludeFileExtensionsBooleanFileVisitor_() *IncludeFileExtensionsBooleanFileVisitor {
+    return this
+}
 
 
-func NewIncludeFileExtensionsBooleanFileVisitor(filterStringBasicArrayList *BasicArrayList) *IncludeFileExtensionsBooleanFileVisitor {
+
+func NewIncludeFileExtensionsBooleanFileVisitor(filterStringBasicArrayList IBasicArrayList) *IncludeFileExtensionsBooleanFileVisitor {
     this := &IncludeFileExtensionsBooleanFileVisitor{}
         this.BooleanFileVisitor = *NewBooleanFileVisitor(filterStringBasicArrayList)
     return this
 }
 
 
-func (this *IncludeFileExtensionsBooleanFileVisitor) Visit(file *AbFile) bool {
+func (this *IncludeFileExtensionsBooleanFileVisitor) Visit_1(file *AbFile) bool {
         if this.GetFilterStringBasicArrayList().Size() == 0 {
             return false
         }
-        return this.BooleanFileVisitor.Visit(file)
+        return this.BooleanFileVisitor.Visit(file).(any)
+}
+
+// Java overloads of IncludeFileExtensionsBooleanFileVisitor.visit
+func (this *IncludeFileExtensionsBooleanFileVisitor) Visit(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*AbFile](args[0], pass) {
+            return this.Visit_1(Java_Arg[*AbFile](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[*AbFile](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.Visit_2(Java_Arg[*AbFile](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of IncludeFileExtensionsBooleanFileVisitor.visit for the arguments")
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *IncludeFileExtensionsBooleanFileVisitor) Visit(file *AbFile, fileNameString string) bool {
+func (this *IncludeFileExtensionsBooleanFileVisitor) Visit_2(file *AbFile, fileNameString string) bool {
         var fileNameAndExtension string = file.GetPath(); _ = fileNameAndExtension
         if len(fileNameAndExtension) > len(fileNameString) {
             var startIndex int = len(fileNameAndExtension) - len(fileNameString); _ = startIndex

@@ -43,7 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type BasicPaymentTypeUtil struct {
-    PaymentTypeVector *BasicArrayList
+    PaymentTypeVector IBasicArrayList
 }
 
 var BasicPaymentTypeUtil_Instance *BasicPaymentTypeUtil = NewBasicPaymentTypeUtil()
@@ -92,8 +92,8 @@ func (this *BasicPaymentTypeUtil) IsContain(paymentType *BasicPaymentType) bool 
 }
 
 
-func (this *BasicPaymentTypeUtil) Difference(a_PaymentTypeVector *BasicArrayList) *BasicArrayList {
-        var diff *BasicArrayList = NewBasicArrayListD(); _ = diff
+func (this *BasicPaymentTypeUtil) Difference(a_PaymentTypeVector IBasicArrayList) IBasicArrayList {
+        var diff IBasicArrayList = NewBasicArrayListD(); _ = diff
         var size int = this.PaymentTypeVector.Size(); _ = size
         for i := int(0); i < size; i++ {
             var paymentType *BasicPaymentType = any(this.PaymentTypeVector.Get(i)).(*BasicPaymentType); _ = paymentType

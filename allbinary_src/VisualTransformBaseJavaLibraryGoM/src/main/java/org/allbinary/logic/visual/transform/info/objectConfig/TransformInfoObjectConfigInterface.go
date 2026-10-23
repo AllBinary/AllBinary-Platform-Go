@@ -46,10 +46,10 @@ type TransformInfoObjectConfigInterface interface {
     DomDocumentMappingInterface
     ContainsView(transformInfoInterface TransformInfoInterface) bool
     GetName() string
-    GetTransformsGroup(group string) *BasicArrayList
-    GetTransforms() *BasicArrayList
-    GetParentTransforms() *BasicArrayList
-    GetGroupTransforms() *BasicArrayList
+    GetTransformsGroup(group string) IBasicArrayList
+    GetTransforms() IBasicArrayList
+    GetParentTransforms() IBasicArrayList
+    GetGroupTransforms() IBasicArrayList
     GetOutputTypeName() string
     SetOutputTypeName(value string)
     GetInputOutputTypeName() string

@@ -66,8 +66,8 @@ func NewFileLockUtil() *FileLockUtil {
 
 
 // throws Exception
-func (this *FileLockUtil) GetAll(vector *BasicArrayList, isReturnOnFailure bool) *BasicArrayList {
-        var fileLockVector *BasicArrayList = NewBasicArrayListD(); _ = fileLockVector
+func (this *FileLockUtil) GetAll(vector IBasicArrayList, isReturnOnFailure bool) IBasicArrayList {
+        var fileLockVector IBasicArrayList = NewBasicArrayListD(); _ = fileLockVector
         var size int = vector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var file *AbFile = any(vector.Get(index)).(*AbFile); _ = file
@@ -86,14 +86,14 @@ func (this *FileLockUtil) GetAll(vector *BasicArrayList, isReturnOnFailure bool)
 
 
 // throws Exception
-func (this *FileLockUtil) GetAllPossible(vector *BasicArrayList) *BasicArrayList {
+func (this *FileLockUtil) GetAllPossible(vector IBasicArrayList) IBasicArrayList {
         return this.GetAll(vector, false)
 }
 
 
 // throws Exception
-func (this *FileLockUtil) GetAllOrNone(vector *BasicArrayList) *BasicArrayList {
-        var fileLockVector *BasicArrayList = this.GetAll(vector, true); _ = fileLockVector
+func (this *FileLockUtil) GetAllOrNone(vector IBasicArrayList) IBasicArrayList {
+        var fileLockVector IBasicArrayList = this.GetAll(vector, true); _ = fileLockVector
         if vector.Size() != fileLockVector.Size() {
             return NewBasicArrayListD()
         } else {
@@ -103,7 +103,7 @@ func (this *FileLockUtil) GetAllOrNone(vector *BasicArrayList) *BasicArrayList {
 
 
 // throws Exception
-func (this *FileLockUtil) GetLock(file *AbFile) *FileLock {
+func (this *FileLockUtil) GetLock_1(file *AbFile) *FileLock {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *FileLock) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -121,10 +121,25 @@ func (this *FileLockUtil) GetLock(file *AbFile) *FileLock {
         panic("unreachable")
 }
 
+// Java overloads of FileLockUtil.getLock
+func (this *FileLockUtil) GetLock(args ...any) *FileLock {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*AbFile](args[0], pass) {
+            return this.GetLock_1(Java_Arg[*AbFile](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*AbFileOutputStream](args[0], pass) {
+            return this.GetLock_2(Java_Arg[*AbFileOutputStream](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*FileChannel](args[0], pass) {
+            return this.GetLock_3(Java_Arg[*FileChannel](args[0]))
+        }
+    }
+    panic("No Java overload of FileLockUtil.getLock for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileLockUtil) GetLock(fileOutputStream *AbFileOutputStream) *FileLock {
+func (this *FileLockUtil) GetLock_2(fileOutputStream *AbFileOutputStream) *FileLock {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *FileLock) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -147,8 +162,7 @@ func (this *FileLockUtil) GetLock(fileOutputStream *AbFileOutputStream) *FileLoc
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *FileLockUtil) GetLock(fileChannel *FileChannel) *FileLock {
+func (this *FileLockUtil) GetLock_3(fileChannel *FileChannel) *FileLock {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *FileLock) {
             defer func() {
                 if recovered := recover(); recovered != nil {

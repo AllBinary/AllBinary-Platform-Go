@@ -97,3 +97,4 @@ func (this *SolarisOperatingSystemFactory) GetOperatingSystemInstance() IGeneric
         }
         panic("unreachable")
 }
+

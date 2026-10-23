@@ -68,7 +68,7 @@ func NewBasicOptionItemsEntity() *BasicOptionItemsEntity {
 }
 
 
-func (this *BasicOptionItemsEntity) Insert(values *BasicArrayList) {
+func (this *BasicOptionItemsEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {

@@ -68,7 +68,7 @@ func NewDownloadItemsEntity() *DownloadItemsEntity {
 }
 
 
-func (this *DownloadItemsEntity) Insert(values *BasicArrayList) {
+func (this *DownloadItemsEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -117,11 +117,11 @@ func (this *DownloadItemsEntity) Update(updatedValues *HashMap) {
 }
 
 
-func (this *DownloadItemsEntity) GetForItem(id string) *BasicArrayList {
-        var returnVector *BasicArrayList = NewBasicArrayListD(); _ = returnVector
+func (this *DownloadItemsEntity) GetForItem_1(id string) IBasicArrayList {
+        var returnVector IBasicArrayList = NewBasicArrayListD(); _ = returnVector
         var keysAndValues *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keysAndValues
         keysAndValues.Put(this.BasicItemData.ID, id)
-        var vector *BasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = vector
+        var vector IBasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = vector
         var size int = vector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var hashMap *HashMap = any(vector.Get(index)).(*HashMap); _ = hashMap
@@ -133,14 +133,26 @@ func (this *DownloadItemsEntity) GetForItem(id string) *BasicArrayList {
         return returnVector
 }
 
+// Java overloads of DownloadItemsEntity.getForItem
+func (this *DownloadItemsEntity) GetForItem(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetForItem_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.GetForItem_2(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of DownloadItemsEntity.getForItem for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *DownloadItemsEntity) GetForItem(id string, downloadItemId string) *BasicArrayList {
-        var returnVector *BasicArrayList = NewBasicArrayListD(); _ = returnVector
+
+func (this *DownloadItemsEntity) GetForItem_2(id string, downloadItemId string) IBasicArrayList {
+        var returnVector IBasicArrayList = NewBasicArrayListD(); _ = returnVector
         var keysAndValues *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keysAndValues
         keysAndValues.Put(this.BasicItemData.ID, id)
         keysAndValues.Put(DownloadItemData_ID, downloadItemId)
-        var vector *BasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = vector
+        var vector IBasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = vector
         var size int = vector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var hashMap *HashMap = any(vector.Get(index)).(*HashMap); _ = hashMap

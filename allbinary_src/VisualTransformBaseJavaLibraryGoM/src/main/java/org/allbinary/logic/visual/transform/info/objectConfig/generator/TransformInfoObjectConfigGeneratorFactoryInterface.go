@@ -43,7 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type TransformInfoObjectConfigGeneratorFactoryInterface interface {
-    GetInstance(transformInfoInterface TransformInfoInterface) *TransformInfoObjectConfigGenerator
+    GetInstance(transformInfoInterface TransformInfoInterface) ITransformInfoObjectConfigGenerator
 }
 
 

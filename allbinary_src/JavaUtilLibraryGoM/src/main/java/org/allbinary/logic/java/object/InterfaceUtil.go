@@ -80,7 +80,7 @@ func InterfaceUtil_GetClass(interfaceName string, interfaces []reflect.Type) ref
 }
 
 
-func InterfaceUtil_IsImplemented(clazz reflect.Type, anyType any) bool {
+func InterfaceUtil_IsImplemented_1(clazz reflect.Type, anyType any) bool {
         var classes []reflect.Type = reflect.TypeOf(anyType).GetInterfaces(); _ = classes
         for index := int(0); index < len(classes); index++ {
             if strings.Compare(clazz.String(), classes[index].GetName()) == 0 {
@@ -90,9 +90,21 @@ func InterfaceUtil_IsImplemented(clazz reflect.Type, anyType any) bool {
         return false
 }
 
+// Java overloads of InterfaceUtil.isImplemented
+func InterfaceUtil_IsImplemented(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[reflect.Type](args[0], pass) && Java_IsArg[any](args[1], pass) {
+            return InterfaceUtil_IsImplemented_1(Java_Arg[reflect.Type](args[0]), Java_Arg[any](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[any](args[1], pass) {
+            return InterfaceUtil_IsImplemented_2(Java_Arg[string](args[0]), Java_Arg[any](args[1]))
+        }
+    }
+    panic("No Java overload of InterfaceUtil.isImplemented for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func InterfaceUtil_IsImplemented(className string, anyType any) bool {
+
+func InterfaceUtil_IsImplemented_2(className string, anyType any) bool {
         var classes []reflect.Type = reflect.TypeOf(anyType).GetInterfaces(); _ = classes
         for index := int(0); index < len(classes); index++ {
             if strings.Index(classes[index].GetName(), string(className)) == 0 {

@@ -50,6 +50,19 @@ type TitleBodyCustomizerView struct {
 
 // Implements DomNodeInterface
 
+// The Java class TitleBodyCustomizerView has subclasses so its variables are this interface
+type ITitleBodyCustomizerView interface {
+    IHttpStoreComponentView
+    TitleBodyCustomizerView_() *TitleBodyCustomizerView
+    AddDomNodeInterfaces()
+    ToXmlNode(document *Document) *Node
+    View() string
+}
+
+func (this *TitleBodyCustomizerView) TitleBodyCustomizerView_() *TitleBodyCustomizerView {
+    return this
+}
+
 var TitleBodyCustomizerView_NAME string = "None"
 
 func (this *TitleBodyCustomizerView) initFields() {

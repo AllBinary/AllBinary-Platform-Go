@@ -83,7 +83,7 @@ func NewApplicationConfiguration() *ApplicationConfiguration {
 // throws Exception
 func (this *ApplicationConfiguration) Read() {
         var fileInputStreamFactory *FileStreamFactory = FileStreamFactory_GetInstance(); _ = fileInputStreamFactory
-        var fileInputStream *InputStream = fileInputStreamFactory.GetFileInputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, this.FILE); _ = fileInputStream
+        var fileInputStream IInputStream = fileInputStreamFactory.GetFileInputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, this.FILE); _ = fileInputStream
         var dataInputStream *AbDataInputStream = NewAbDataInputStream(fileInputStream); _ = dataInputStream
         var fullScreen int = dataInputStream.ReadInt(); _ = fullScreen
         if fullScreen == 0 {
@@ -127,7 +127,7 @@ func (this *ApplicationConfiguration) Write() {
             }()
             this.LogUtil.PutF("Write Configuration: " + this.ToString(), this, "write")
             var fileInputStreamFactory *FileStreamFactory = FileStreamFactory_GetInstance(); _ = fileInputStreamFactory
-            var fileOutputStream *OutputStream = fileInputStreamFactory.GetFileOutputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, this.FILE); _ = fileOutputStream
+            var fileOutputStream IOutputStream = fileInputStreamFactory.GetFileOutputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, this.FILE); _ = fileOutputStream
             var dataOutputStream *AbDataOutputStream = NewAbDataOutputStream(fileOutputStream); _ = dataOutputStream
             closeable = dataOutputStream
             if this.IsFullscreen() {
@@ -154,7 +154,7 @@ func (this *ApplicationConfiguration) Write() {
 
 
 // throws Exception
-func (this *ApplicationConfiguration) Update(gameFeature *Feature) {
+func (this *ApplicationConfiguration) Update(gameFeature IFeature) {
         if gameFeature == MainFeatureFactory_GetInstance().FULL_SCREEN {
             var features *Features = Features_GetInstance(); _ = features
             if features.IsFeature(gameFeature) {

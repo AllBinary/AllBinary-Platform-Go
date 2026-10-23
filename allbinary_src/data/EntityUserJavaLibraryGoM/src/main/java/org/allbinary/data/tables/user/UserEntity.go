@@ -80,7 +80,7 @@ func NewUserEntity() *UserEntity {
 }
 
 
-func (this *UserEntity) Insert(values *BasicArrayList) {
+func (this *UserEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -103,18 +103,18 @@ func (this *UserEntity) Insert(values *BasicArrayList) {
 
 
 // throws Exception
-func (this *UserEntity) GetAdministrators() *BasicArrayList {
+func (this *UserEntity) GetAdministrators() IBasicArrayList {
         return this.GetUsersWithRole(UserRoleFactory_GetInstance().ADMINISTRATOR)
 }
 
 
 // throws Exception
-func (this *UserEntity) GetStoreManagers(storeFrontInterface StoreFrontInterface) *BasicArrayList {
+func (this *UserEntity) GetStoreManagers(storeFrontInterface StoreFrontInterface) IBasicArrayList {
         var keysAndValues *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keysAndValues
-        var usersVector *BasicArrayList = NewBasicArrayListD(); _ = usersVector
-        keysAndValues.Put(fmt.Sprint(UserRoleData_NAME), fmt.Sprint(UserRoleFactory_GetInstance().STOREMANAGER))
+        var usersVector IBasicArrayList = NewBasicArrayListD(); _ = usersVector
+        keysAndValues.Put(UserRoleData_NAME, fmt.Sprint(UserRoleFactory_GetInstance().STOREMANAGER))
         keysAndValues.Put(UserData_PERMISSIONS, storeFrontInterface.GetName())
-        var usersHashMapVector *BasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = usersHashMapVector
+        var usersHashMapVector IBasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = usersHashMapVector
         var size int = usersHashMapVector.Size(); _ = size
         for i := int(0); i < size; i++ {
             var userHashMap *HashMap = any(usersHashMapVector.Get(i)).(*HashMap); _ = userHashMap
@@ -127,17 +127,17 @@ func (this *UserEntity) GetStoreManagers(storeFrontInterface StoreFrontInterface
 
 
 // throws Exception
-func (this *UserEntity) GetCustomers() *BasicArrayList {
+func (this *UserEntity) GetCustomers() IBasicArrayList {
         return this.GetUsersWithRole(UserRoleFactory_GetInstance().CUSTOMER)
 }
 
 
 // throws Exception
-func (this *UserEntity) GetUsersWithRole(userRole *UserRole) *BasicArrayList {
+func (this *UserEntity) GetUsersWithRole(userRole IUserRole) IBasicArrayList {
         var keysAndValues *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keysAndValues
-        var usersVector *BasicArrayList = NewBasicArrayListD(); _ = usersVector
-        keysAndValues.Put(fmt.Sprint(UserRoleData_NAME), fmt.Sprint(userRole))
-        var usersHashMapVector *BasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = usersHashMapVector
+        var usersVector IBasicArrayList = NewBasicArrayListD(); _ = usersVector
+        keysAndValues.Put(UserRoleData_NAME, fmt.Sprint(userRole))
+        var usersHashMapVector IBasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = usersHashMapVector
         var size int = usersHashMapVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var userHashMap *HashMap = any(usersHashMapVector.Get(index)).(*HashMap); _ = userHashMap
@@ -150,11 +150,11 @@ func (this *UserEntity) GetUsersWithRole(userRole *UserRole) *BasicArrayList {
 
 
 // throws Exception
-func (this *UserEntity) GetUsers(storeFrontInterface StoreFrontInterface) *BasicArrayList {
+func (this *UserEntity) GetUsers(storeFrontInterface StoreFrontInterface) IBasicArrayList {
         var keysAndValues *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keysAndValues
-        var usersVector *BasicArrayList = NewBasicArrayListD(); _ = usersVector
+        var usersVector IBasicArrayList = NewBasicArrayListD(); _ = usersVector
         keysAndValues.Put(StoreFrontData_GetInstance().NAME, storeFrontInterface.GetName())
-        var usersHashMapVector *BasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = usersHashMapVector
+        var usersHashMapVector IBasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = usersHashMapVector
         var size int = usersHashMapVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var userHashMap *HashMap = any(usersHashMapVector.Get(index)).(*HashMap); _ = userHashMap
@@ -271,7 +271,7 @@ func (this *UserEntity) DropTables() string {
 func (this *UserEntity) CreateTableStatement() string {
         var entryData *EntryData = EntryData_GetInstance(); _ = entryData
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
-        stringBuffer.Append(this.SqlStrings.CREATE_TABLE).Append(this.TableName).Append(this.SqlStrings.START).Append(UserData_USERNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN_NOT_NULL).Append(UserData_PREFIXNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_FIRSTNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_LASTNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_MIDDLENAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_SUFFIXNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_COMPANY).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_POSITIONATCOMPANY).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_MAINEMAIL).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN_NOT_NULL).Append(UserData_SECONDARYEMAIL).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_HOMEPHONE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_CELLPHONE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_WORKPHONE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_OTHERCONTACT).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_ELECTRONICDEVICE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_FAX).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(fmt.Sprint(UserRoleData_NAME)).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN_NOT_NULL).Append(UserData_CONFIGURATION).Append(this.SqlTypeStrings.BLOB_NOT_NULL).Append(UserData_PERMISSIONS).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(entryData.ENCRYPTION).Append(this.SqlTypeStrings.MAX_BIG_INT_UNSIGNED_NOT_NULL).Append(UserData_SECRET).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_PASSWORD).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN_NOT_NULL).Append(entryData.ENABLE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(entryData.TIMECREATED).Append(this.SqlTypeStrings.MAX_BIG_INT_UNSIGNED_NOT_NULL).Append(entryData.LASTMODIFIED).Append(this.SqlTypeStrings.MAX_BIG_INT_UNSIGNED_NOT_NULL).Append(this.SqlStrings.PRIMARY_KEY).Append(UserData_USERNAME).Append(this.SqlStrings.END)
+        stringBuffer.Append(this.SqlStrings.CREATE_TABLE).Append(this.TableName).Append(this.SqlStrings.START).Append(UserData_USERNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN_NOT_NULL).Append(UserData_PREFIXNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_FIRSTNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_LASTNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_MIDDLENAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_SUFFIXNAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_COMPANY).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_POSITIONATCOMPANY).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_MAINEMAIL).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN_NOT_NULL).Append(UserData_SECONDARYEMAIL).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_HOMEPHONE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_CELLPHONE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_WORKPHONE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_OTHERCONTACT).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_ELECTRONICDEVICE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_FAX).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserRoleData_NAME).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN_NOT_NULL).Append(UserData_CONFIGURATION).Append(this.SqlTypeStrings.BLOB_NOT_NULL).Append(UserData_PERMISSIONS).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(entryData.ENCRYPTION).Append(this.SqlTypeStrings.MAX_BIG_INT_UNSIGNED_NOT_NULL).Append(UserData_SECRET).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(UserData_PASSWORD).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN_NOT_NULL).Append(entryData.ENABLE).Append(this.SqlTypeStrings.MAX_CHAR_COLUMN).Append(entryData.TIMECREATED).Append(this.SqlTypeStrings.MAX_BIG_INT_UNSIGNED_NOT_NULL).Append(entryData.LASTMODIFIED).Append(this.SqlTypeStrings.MAX_BIG_INT_UNSIGNED_NOT_NULL).Append(this.SqlStrings.PRIMARY_KEY).Append(UserData_USERNAME).Append(this.SqlStrings.END)
         return fmt.Sprint(stringBuffer)
 }
 

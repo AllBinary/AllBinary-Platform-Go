@@ -64,7 +64,7 @@ func (this *ABHashMap[K, V]) IsEmpty() bool {
 }
 
 
-func (this *ABHashMap[K, V]) Get(key any) V {
+func (this *ABHashMap[K, V]) Get(key any) IV {
         return this.HashMap.Get(key)
 }
 
@@ -74,7 +74,7 @@ func (this *ABHashMap[K, V]) ContainsKey(key any) bool {
 }
 
 
-func (this *ABHashMap[K, V]) Put(key K, value V) V {
+func (this *ABHashMap[K, V]) Put(key K, value IV) IV {
         return this.HashMap.Put(key, value)
 }
 
@@ -84,7 +84,7 @@ func (this *ABHashMap[K, V]) PutAll(map_ Map[any, any]) {
 }
 
 
-func (this *ABHashMap[K, V]) Remove(key any) V {
+func (this *ABHashMap[K, V]) Remove(key any) IV {
         return this.HashMap.Remove(key)
 }
 
@@ -104,17 +104,17 @@ func (this *ABHashMap[K, V]) KeySet() Set[K] {
 }
 
 
-func (this *ABHashMap[K, V]) EntrySet() Set[*Entry[K, V]] {
+func (this *ABHashMap[K, V]) EntrySet() Set[*Entry[K, IV]] {
         return this.HashMap.EntrySet()
 }
 
 
-func (this *ABHashMap[K, V]) GetOrDefault(key any, defaultValue V) V {
+func (this *ABHashMap[K, V]) GetOrDefault(key any, defaultValue IV) IV {
         return this.HashMap.GetOrDefault(key, defaultValue)
 }
 
 
-func (this *ABHashMap[K, V]) PutIfAbsent(key K, value V) V {
+func (this *ABHashMap[K, V]) PutIfAbsent(key K, value IV) IV {
         return this.HashMap.PutIfAbsent(key, value)
 }
 

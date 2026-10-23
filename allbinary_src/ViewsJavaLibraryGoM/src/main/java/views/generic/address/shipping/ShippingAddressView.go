@@ -51,6 +51,20 @@ type ShippingAddressView struct {
 
 // Implements DomNodeInterface
 
+// The Java class ShippingAddressView has subclasses so its variables are this interface
+type IShippingAddressView interface {
+    IHttpStoreComponentView
+    ShippingAddressView_() *ShippingAddressView
+    GetRequest() *HttpServletRequest
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *ShippingAddressView) ShippingAddressView_() *ShippingAddressView {
+    return this
+}
+
 
 func (this *ShippingAddressView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

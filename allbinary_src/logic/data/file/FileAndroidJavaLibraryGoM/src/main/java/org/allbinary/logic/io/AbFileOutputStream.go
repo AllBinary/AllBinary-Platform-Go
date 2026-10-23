@@ -98,21 +98,38 @@ func (this *AbFileOutputStream) GetChannel() *FileChannel {
 
 
 // throws IOException
-func (this *AbFileOutputStream) Write(buffer []int8) {
+func (this *AbFileOutputStream) Write_1(buffer []int8) {
         this.FileOutputStream.Write(buffer)
+}
+
+// Java overloads of AbFileOutputStream.write
+func (this *AbFileOutputStream) Write(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[[]int8](args[0], pass) {
+            this.Write_1(Java_Arg[[]int8](args[0]))
+            return
+        }
+        if len(args) == 3 && Java_IsArg[[]int8](args[0], pass) && Java_IsArg[int](args[1], pass) && Java_IsArg[int](args[2], pass) {
+            this.Write_2(Java_Arg[[]int8](args[0]), Java_Arg[int](args[1]), Java_Arg[int](args[2]))
+            return
+        }
+        if len(args) == 1 && Java_IsArg[int](args[0], pass) {
+            this.Write_3(Java_Arg[int](args[0]))
+            return
+        }
+    }
+    panic("No Java overload of AbFileOutputStream.write for the arguments")
 }
 
 
 // throws IOException
-// Java overloaded method: Go needs a different name
-func (this *AbFileOutputStream) Write(buffer []int8, offset int, count int) {
+func (this *AbFileOutputStream) Write_2(buffer []int8, offset int, count int) {
         this.FileOutputStream.Write(buffer, offset, count)
 }
 
 
 // throws IOException
-// Java overloaded method: Go needs a different name
-func (this *AbFileOutputStream) Write(b int) {
+func (this *AbFileOutputStream) Write_3(b int) {
         this.FileOutputStream.Write(b)
 }
 

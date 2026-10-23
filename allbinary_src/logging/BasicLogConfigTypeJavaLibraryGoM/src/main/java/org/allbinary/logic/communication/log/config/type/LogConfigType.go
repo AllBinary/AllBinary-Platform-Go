@@ -81,3 +81,4 @@ func (this *LogConfigType) SetName(value string) {
 func (this *LogConfigType) SetDescription(value string) {
         this.Description = value
 }
+

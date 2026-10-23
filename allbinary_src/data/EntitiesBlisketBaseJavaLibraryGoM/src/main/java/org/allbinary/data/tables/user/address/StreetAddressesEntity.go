@@ -50,6 +50,27 @@ type StreetAddressesEntity struct {
 
 // Implements StreetAddressesEntityInterface
 
+// The Java class StreetAddressesEntity has subclasses so its variables are this interface
+type IStreetAddressesEntity interface {
+    IAbSqlBean
+    StreetAddressesEntity_() *StreetAddressesEntity
+    Remove(index int)
+    Add(args ...any)
+    Update(address *StreetAddress)
+    GetLastId() string
+    Get(args ...any) any
+    GetDefault() *StreetAddress
+    SetDefault(value string)
+    GetUserName() string
+    CreateTableStatement() string
+    CreateTable() string
+    Drop() string
+}
+
+func (this *StreetAddressesEntity) StreetAddressesEntity_() *StreetAddressesEntity {
+    return this
+}
+
 
 func (this *StreetAddressesEntity) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -57,7 +78,21 @@ func (this *StreetAddressesEntity) initFields() {
 }
 
 
-func NewStreetAddressesEntity() *StreetAddressesEntity {
+
+
+// Java overloads of new StreetAddressesEntity
+func NewStreetAddressesEntity(args ...any) *StreetAddressesEntity {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewStreetAddressesEntity_1()
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewStreetAddressesEntity_2(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of new StreetAddressesEntity for the arguments")
+}
+func NewStreetAddressesEntity_1() *StreetAddressesEntity {
     this := &StreetAddressesEntity{}
         this.AbSqlBean = *NewAbSqlBean(NewUserDbInitInfo())
         this.initFields()
@@ -65,8 +100,7 @@ func NewStreetAddressesEntity() *StreetAddressesEntity {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewStreetAddressesEntity(userName string) *StreetAddressesEntity {
+func NewStreetAddressesEntity_2(userName string) *StreetAddressesEntity {
     this := &StreetAddressesEntity{}
         this.AbSqlBean = *NewAbSqlBean(NewUserDbInitInfo())
         this.initFields()
@@ -100,13 +134,27 @@ func (this *StreetAddressesEntity) Remove(index int) {
 }
 
 
-func (this *StreetAddressesEntity) Add(address *StreetAddress) {
+func (this *StreetAddressesEntity) Add_1(address *StreetAddress) {
         this.Add(address, TableDataFactory_GetInstance().INTEGER_MAX_VALUE_STRING)
 }
 
+// Java overloads of StreetAddressesEntity.add
+func (this *StreetAddressesEntity) Add(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*StreetAddress](args[0], pass) {
+            this.Add_1(Java_Arg[*StreetAddress](args[0]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[*StreetAddress](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            this.Add_2(Java_Arg[*StreetAddress](args[0]), Java_Arg[string](args[1]))
+            return
+        }
+    }
+    panic("No Java overload of StreetAddressesEntity.add for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *StreetAddressesEntity) Add(address *StreetAddress, index string) {
+
+func (this *StreetAddressesEntity) Add_2(address *StreetAddress, index string) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -117,7 +165,7 @@ func (this *StreetAddressesEntity) Add(address *StreetAddress, index string) {
             }
                 }
             }()
-            var values *BasicArrayList = NewBasicArrayListD(); _ = values
+            var values IBasicArrayList = NewBasicArrayListD(); _ = values
             values.Add(index)
             values.Add(this.UserName)
             values.Add(StringUtil_GetInstance().EMPTY_STRING)
@@ -174,8 +222,8 @@ func (this *StreetAddressesEntity) GetLastId() string {
 }
 
 
-func (this *StreetAddressesEntity) Get() *BasicArrayList {
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+func (this *StreetAddressesEntity) Get_1() IBasicArrayList {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -186,10 +234,10 @@ func (this *StreetAddressesEntity) Get() *BasicArrayList {
             tryControl1, tryResult1 = 1, nil; return
                 }
             }()
-            var streetAddressVector *BasicArrayList = NewBasicArrayListD(); _ = streetAddressVector
+            var streetAddressVector IBasicArrayList = NewBasicArrayListD(); _ = streetAddressVector
             var keyAndValue *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keyAndValue
             keyAndValue.Put(UserData_USERNAME, this.UserName)
-            var addressList *BasicArrayList = this.AbSqlBean.GetRows(keyAndValue); _ = addressList
+            var addressList IBasicArrayList = this.AbSqlBean.GetRows(keyAndValue); _ = addressList
             var size int = addressList.Size(); _ = size
             for index := int(0); index < size; index++ {
                 var addressHashMap *HashMap = any(addressList.Get(index)).(*HashMap); _ = addressHashMap
@@ -206,9 +254,21 @@ func (this *StreetAddressesEntity) Get() *BasicArrayList {
         panic("unreachable")
 }
 
+// Java overloads of StreetAddressesEntity.get
+func (this *StreetAddressesEntity) Get(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.Get_1()
+        }
+        if len(args) == 1 && Java_IsArg[int](args[0], pass) {
+            return this.Get_2(Java_Arg[int](args[0]))
+        }
+    }
+    panic("No Java overload of StreetAddressesEntity.get for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *StreetAddressesEntity) Get(index int) *StreetAddress {
+
+func (this *StreetAddressesEntity) Get_2(index int) *StreetAddress {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *StreetAddress) {
             defer func() {
                 if recovered := recover(); recovered != nil {

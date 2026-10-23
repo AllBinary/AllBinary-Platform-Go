@@ -54,7 +54,21 @@ func (this *UserEmailEventConfigurationView) initFields() {
 }
 
 
-func NewUserEmailEventConfigurationView(node *Node) *UserEmailEventConfigurationView {
+
+
+// Java overloads of new UserEmailEventConfigurationView
+func NewUserEmailEventConfigurationView(args ...any) *UserEmailEventConfigurationView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewUserEmailEventConfigurationView_1(Java_Arg[*Node](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[UserEmailEventConfigurationInterface](args[0], pass) {
+            return NewUserEmailEventConfigurationView_2(Java_Arg[UserEmailEventConfigurationInterface](args[0]))
+        }
+    }
+    panic("No Java overload of new UserEmailEventConfigurationView for the arguments")
+}
+func NewUserEmailEventConfigurationView_1(node *Node) *UserEmailEventConfigurationView {
     this := &UserEmailEventConfigurationView{}
     this.initFields()
         var childNodeList *NodeList = node.GetChildNodes(); _ = childNodeList
@@ -68,8 +82,7 @@ func NewUserEmailEventConfigurationView(node *Node) *UserEmailEventConfiguration
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUserEmailEventConfigurationView(userEmailEventConfigurationInterface UserEmailEventConfigurationInterface) *UserEmailEventConfigurationView {
+func NewUserEmailEventConfigurationView_2(userEmailEventConfigurationInterface UserEmailEventConfigurationInterface) *UserEmailEventConfigurationView {
     this := &UserEmailEventConfigurationView{}
     this.initFields()
         this.SetUserEmailEventConfigurationInterface(userEmailEventConfigurationInterface)

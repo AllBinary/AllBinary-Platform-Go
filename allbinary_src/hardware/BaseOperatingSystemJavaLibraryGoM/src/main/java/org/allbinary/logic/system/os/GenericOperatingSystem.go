@@ -169,3 +169,4 @@ func (this *GenericOperatingSystem) ToString() string {
 func (this *GenericOperatingSystem) String() string {
     return this.ToString()
 }
+

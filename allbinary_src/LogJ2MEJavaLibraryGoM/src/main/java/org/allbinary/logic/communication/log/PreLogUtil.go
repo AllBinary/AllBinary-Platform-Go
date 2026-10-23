@@ -86,3 +86,4 @@ func PreLogUtil_PutSE(specialMessage string, className string, functionName stri
 func PreLogUtil_GetClassName(anyType any) string {
         return reflect.TypeOf(anyType).String()
 }
+

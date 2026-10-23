@@ -48,15 +48,28 @@ type WholesaleUser struct {
 
 
 
-func NewWholesaleUser() *WholesaleUser {
+
+
+// Java overloads of new WholesaleUser
+func NewWholesaleUser(args ...any) *WholesaleUser {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewWholesaleUser_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewWholesaleUser_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new WholesaleUser for the arguments")
+}
+func NewWholesaleUser_1() *WholesaleUser {
     this := &WholesaleUser{}
         this.User = *NewUser()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewWholesaleUser(userHashMap *HashMap) *WholesaleUser {
+func NewWholesaleUser_2(userHashMap *HashMap) *WholesaleUser {
     this := &WholesaleUser{}
         this.User = *NewUser(userHashMap)
     return this

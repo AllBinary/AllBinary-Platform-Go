@@ -67,7 +67,7 @@ func NewAddFileValidationView(transformInfoInterface TransformInfoInterface) *Ad
 }
 
 
-func (this *AddFileValidationView) IsValid() bool {
+func (this *AddFileValidationView) IsValid_1() bool {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 bool) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -134,6 +134,19 @@ func (this *AddFileValidationView) IsValid() bool {
         panic("unreachable")
 }
 
+// Java overloads of AddFileValidationView.isValid
+func (this *AddFileValidationView) IsValid(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.IsValid_1()
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[int64](args[1], pass) {
+            return this.IsValid_2(Java_Arg[string](args[0]), Java_Arg[int64](args[1]))
+        }
+    }
+    panic("No Java overload of AddFileValidationView.isValid for the arguments")
+}
+
 
 func (this *AddFileValidationView) ToValidationInfoDoc() *Document {
         return nil
@@ -145,7 +158,7 @@ func (this *AddFileValidationView) ToValidationInfoNode(document *Document) *Nod
 }
 
 
-func (this *AddFileValidationView) ValidationInfo() string {
+func (this *AddFileValidationView) ValidationInfo_1() string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -211,13 +224,25 @@ func (this *AddFileValidationView) ValidationInfo() string {
         panic("unreachable")
 }
 
+// Java overloads of AddFileValidationView.validationInfo
+func (this *AddFileValidationView) ValidationInfo(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.ValidationInfo_1()
+        }
+        if len(args) == 4 && Java_IsArg[*StringMaker](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[int64](args[3], pass) {
+            return this.ValidationInfo_2(Java_Arg[*StringMaker](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[int64](args[3]))
+        }
+    }
+    panic("No Java overload of AddFileValidationView.validationInfo for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *AddFileValidationView) IsValid(fileName string, size int64) bool {
+func (this *AddFileValidationView) IsValid_2(fileName string, size int64) bool {
         var fileData *FileData = FileData_GetInstance(); _ = fileData
-        if size > fileData.MINIMAGEFILESIZE {
-            if size < fileData.MAXIMAGEFILESIZE {
+        if size > int64(fileData.MINIMAGEFILESIZE) {
+            if size < int64(fileData.MAXIMAGEFILESIZE) {
                 if !StringValidationUtil_GetInstance().IsValidRequired(fileName, fileData.MINLEN, fileData.MAXLEN) {
                     return false
                 } else {
@@ -234,7 +259,7 @@ func (this *AddFileValidationView) IsValid(fileName string, size int64) bool {
                     stringBuffer.Append("File Size To Large: ")
                     stringBuffer.Appendlong(size)
                     stringBuffer.Append(">")
-                    stringBuffer.Appendint(int(fileData.MAXIMAGEFILESIZE))
+                    stringBuffer.Appendint(fileData.MAXIMAGEFILESIZE)
                     this.LogUtil.PutF(fmt.Sprint(stringBuffer), this, this.CommonStrings.IS_VALID)
                 }
                 return false
@@ -246,7 +271,7 @@ func (this *AddFileValidationView) IsValid(fileName string, size int64) bool {
                 stringBuffer.Append("File Size To Small: ")
                 stringBuffer.Appendlong(size)
                 stringBuffer.Append(">")
-                stringBuffer.Appendint(int(fileData.MINIMAGEFILESIZE))
+                stringBuffer.Appendint(fileData.MINIMAGEFILESIZE)
                 this.LogUtil.PutF(fmt.Sprint(stringBuffer), this, this.CommonStrings.IS_VALID)
             }
             return false
@@ -255,17 +280,16 @@ func (this *AddFileValidationView) IsValid(fileName string, size int64) bool {
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *AddFileValidationView) ValidationInfo(stringBuffer *StringMaker, fileName string, fileItemFieldName string, size int64) {
+func (this *AddFileValidationView) ValidationInfo_2(stringBuffer *StringMaker, fileName string, fileItemFieldName string, size int64) {
         var fileData *FileData = FileData_GetInstance(); _ = fileData
-        if size > fileData.MINIMAGEFILESIZE {
+        if size > int64(fileData.MINIMAGEFILESIZE) {
             if strings.Compare(fileItemFieldName, this.BasicItemData.IMAGE) == 0 {
-                if size < fileData.MAXIMAGEFILESIZE {
+                if size < int64(fileData.MAXIMAGEFILESIZE) {
                     if !StringValidationUtil_GetInstance().IsValidRequired(fileName, fileData.MINLEN, fileData.MAXLEN) {
                         stringBuffer.Append("FileName must be >")
-                        stringBuffer.Appendint(int(fileData.MINLEN))
+                        stringBuffer.Appendint(fileData.MINLEN)
                         stringBuffer.Append(" and <")
-                        stringBuffer.Appendint(int(fileData.MAXLEN))
+                        stringBuffer.Appendint(fileData.MAXLEN)
                         stringBuffer.Append("<br/>")
                     } else {
                         var pathData *AbPathData = AbPathData_GetInstance(); _ = pathData
@@ -279,17 +303,17 @@ func (this *AddFileValidationView) ValidationInfo(stringBuffer *StringMaker, fil
                     }
                 } else {
                     stringBuffer.Append("Image File Is To Large. ")
-                    stringBuffer.Appendint(int(fileData.MINIMAGEFILESIZE))
+                    stringBuffer.Appendint(fileData.MINIMAGEFILESIZE)
                     stringBuffer.Append(" < > ")
-                    stringBuffer.Appendint(int(fileData.MAXIMAGEFILESIZE))
+                    stringBuffer.Appendint(fileData.MAXIMAGEFILESIZE)
                     stringBuffer.Append("<br/>")
                 }
             }
         } else {
             stringBuffer.Append("Image File Is To Small. ")
-            stringBuffer.Appendint(int(fileData.MINIMAGEFILESIZE))
+            stringBuffer.Appendint(fileData.MINIMAGEFILESIZE)
             stringBuffer.Append(" < > ")
-            stringBuffer.Appendint(int(fileData.MAXIMAGEFILESIZE))
+            stringBuffer.Appendint(fileData.MAXIMAGEFILESIZE)
             stringBuffer.Append("<br/>")
         }
 }

@@ -126,7 +126,21 @@ func (this *Initializer) initFields() {
 }
 
 
-func NewInitializer(map_ Map) *Initializer {
+
+
+// Java overloads of new Initializer
+func NewInitializer(args ...any) *Initializer {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[Map](args[0], pass) {
+            return NewInitializer_1(Java_Arg[Map](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewInitializer_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new Initializer for the arguments")
+}
+func NewInitializer_1(map_ Map) *Initializer {
     this := &Initializer{}
     this.initFields()
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
@@ -150,8 +164,7 @@ func NewInitializer(map_ Map) *Initializer {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewInitializer(initHashMap *HashMap) *Initializer {
+func NewInitializer_2(initHashMap *HashMap) *Initializer {
     this := &Initializer{}
     this.initFields()
         this.GetFormData(initHashMap)

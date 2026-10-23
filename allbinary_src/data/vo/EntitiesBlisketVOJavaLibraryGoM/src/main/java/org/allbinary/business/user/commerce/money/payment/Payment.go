@@ -86,7 +86,24 @@ func (this *Payment) initFields() {
 }
 
 
-func NewPayment(payment *HashMap) *Payment {
+
+
+// Java overloads of new Payment
+func NewPayment(args ...any) *Payment {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewPayment_1(Java_Arg[*HashMap](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*ServletRequest](args[0], pass) {
+            return NewPayment_2(Java_Arg[*ServletRequest](args[0]))
+        }
+        if len(args) == 0 {
+            return NewPayment_3()
+        }
+    }
+    panic("No Java overload of new Payment for the arguments")
+}
+func NewPayment_1(payment *HashMap) *Payment {
     this := &Payment{}
     this.initFields()
         this.Name = any(payment.Get(PaymentData_NAME)).(string)
@@ -115,8 +132,7 @@ func NewPayment(payment *HashMap) *Payment {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewPayment(request *ServletRequest) *Payment {
+func NewPayment_2(request *ServletRequest) *Payment {
     this := &Payment{}
     this.initFields()
         this.Name = request.GetParameter(PaymentData_NAME)
@@ -137,8 +153,7 @@ func NewPayment(request *ServletRequest) *Payment {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewPayment() *Payment {
+func NewPayment_3() *Payment {
     this := &Payment{}
     this.initFields()
     return this

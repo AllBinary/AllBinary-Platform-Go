@@ -49,6 +49,19 @@ type HelperTag struct {
     AnyType any
 }
 
+// The Java class HelperTag has subclasses so its variables are this interface
+type IHelperTag interface {
+    IPropertiesTag
+    HelperTag_() *HelperTag
+    SetHelper()
+    GetHelper() any
+    DoEndTag() int
+}
+
+func (this *HelperTag) HelperTag_() *HelperTag {
+    return this
+}
+
 
 func (this *HelperTag) initFields() {
     this.LogUtil = LogUtil_GetInstance()

@@ -53,7 +53,24 @@ func (this *InsertTemplateCustomizerTransformInfoObjectConfig) initFields() {
 }
 
 
-func NewInsertTemplateCustomizerTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface) *InsertTemplateCustomizerTransformInfoObjectConfig {
+
+
+// Java overloads of new InsertTemplateCustomizerTransformInfoObjectConfig
+func NewInsertTemplateCustomizerTransformInfoObjectConfig(args ...any) *InsertTemplateCustomizerTransformInfoObjectConfig {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[TransformInfoInterface](args[0], pass) {
+            return NewInsertTemplateCustomizerTransformInfoObjectConfig_1(Java_Arg[TransformInfoInterface](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[*Document](args[1], pass) {
+            return NewInsertTemplateCustomizerTransformInfoObjectConfig_2(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[*Document](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return NewInsertTemplateCustomizerTransformInfoObjectConfig_3(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+    }
+    panic("No Java overload of new InsertTemplateCustomizerTransformInfoObjectConfig for the arguments")
+}
+func NewInsertTemplateCustomizerTransformInfoObjectConfig_1(transformInfoInterface TransformInfoInterface) *InsertTemplateCustomizerTransformInfoObjectConfig {
     this := &InsertTemplateCustomizerTransformInfoObjectConfig{}
         this.NoTemplateTransformInfoObjectConfig = *NewNoTemplateTransformInfoObjectConfig(transformInfoInterface)
         this.initFields()
@@ -61,8 +78,7 @@ func NewInsertTemplateCustomizerTransformInfoObjectConfig(transformInfoInterface
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewInsertTemplateCustomizerTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface, document *Document) *InsertTemplateCustomizerTransformInfoObjectConfig {
+func NewInsertTemplateCustomizerTransformInfoObjectConfig_2(transformInfoInterface TransformInfoInterface, document *Document) *InsertTemplateCustomizerTransformInfoObjectConfig {
     this := &InsertTemplateCustomizerTransformInfoObjectConfig{}
         this.NoTemplateTransformInfoObjectConfig = *NewNoTemplateTransformInfoObjectConfig(transformInfoInterface, document)
         this.initFields()
@@ -71,8 +87,7 @@ func NewInsertTemplateCustomizerTransformInfoObjectConfig(transformInfoInterface
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewInsertTemplateCustomizerTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface, name string, type_ string) *InsertTemplateCustomizerTransformInfoObjectConfig {
+func NewInsertTemplateCustomizerTransformInfoObjectConfig_3(transformInfoInterface TransformInfoInterface, name string, type_ string) *InsertTemplateCustomizerTransformInfoObjectConfig {
     this := &InsertTemplateCustomizerTransformInfoObjectConfig{}
         this.NoTemplateTransformInfoObjectConfig = *NewNoTemplateTransformInfoObjectConfig(transformInfoInterface, name, type_)
         this.initFields()

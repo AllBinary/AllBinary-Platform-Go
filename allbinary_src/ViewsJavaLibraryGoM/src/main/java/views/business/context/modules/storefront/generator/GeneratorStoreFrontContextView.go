@@ -47,6 +47,17 @@ type GeneratorStoreFrontContextView struct {
     LogUtil *LogUtil
 }
 
+// The Java class GeneratorStoreFrontContextView has subclasses so its variables are this interface
+type IGeneratorStoreFrontContextView interface {
+    IHttpStoreComponentView
+    GeneratorStoreFrontContextView_() *GeneratorStoreFrontContextView
+    View(args ...any) string
+}
+
+func (this *GeneratorStoreFrontContextView) GeneratorStoreFrontContextView_() *GeneratorStoreFrontContextView {
+    return this
+}
+
 
 func (this *GeneratorStoreFrontContextView) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -65,7 +76,7 @@ func NewGeneratorStoreFrontContextView(transformInfoInterface TransformInfoInter
 
 
 // throws Exception
-func (this *GeneratorStoreFrontContextView) View(group string) string {
+func (this *GeneratorStoreFrontContextView) View_1(group string) string {
         var result string = TransformsGeneratorUtil_GetInstance().GenerateComponentsFromObjectConfig(this.AbeClientInformation, this.GetTransformInfoInterface(), group); _ = result
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().JSPEXTRAOUTPUT) {
             return result
@@ -74,10 +85,22 @@ func (this *GeneratorStoreFrontContextView) View(group string) string {
         }
 }
 
+// Java overloads of GeneratorStoreFrontContextView.view
+func (this *GeneratorStoreFrontContextView) View(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.View_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 0 {
+            return this.View_2()
+        }
+    }
+    panic("No Java overload of GeneratorStoreFrontContextView.view for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *GeneratorStoreFrontContextView) View() string {
+func (this *GeneratorStoreFrontContextView) View_2() string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
                 if recovered := recover(); recovered != nil {

@@ -102,3 +102,4 @@ func (this *BooleanUtil) ToStringFromBooleanArray(booleanArray []bool) string {
         }
         return fmt.Sprint(stringMaker)
 }
+

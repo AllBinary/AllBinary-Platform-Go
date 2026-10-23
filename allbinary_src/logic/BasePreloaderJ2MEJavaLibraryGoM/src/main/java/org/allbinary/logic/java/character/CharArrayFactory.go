@@ -67,3 +67,4 @@ func CharArrayFactory_GetInstance() *CharArrayFactory {
 func (this *CharArrayFactory) GetZeroCharArray() []rune {
         return this.ZeroCharArray
 }
+

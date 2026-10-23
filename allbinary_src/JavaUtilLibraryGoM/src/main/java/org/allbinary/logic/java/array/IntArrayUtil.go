@@ -53,7 +53,7 @@ func NewIntArrayUtil() *IntArrayUtil {
 }
 
 
-func IntArrayUtil_ToString(array []int) string {
+func IntArrayUtil_ToString_1(array []int) string {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         for index := int(0); index < len(array); index++ {
             stringBuffer.Appendint(array[index])
@@ -64,9 +64,24 @@ func IntArrayUtil_ToString(array []int) string {
         return fmt.Sprint(stringBuffer)
 }
 
+// Java overloads of IntArrayUtil.toString
+func IntArrayUtil_ToString(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[[]int](args[0], pass) {
+            return IntArrayUtil_ToString_1(Java_Arg[[]int](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[[][]int](args[0], pass) {
+            return IntArrayUtil_ToString_2(Java_Arg[[][]int](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[[][][]int](args[0], pass) {
+            return IntArrayUtil_ToString_3(Java_Arg[[][][]int](args[0]))
+        }
+    }
+    panic("No Java overload of IntArrayUtil.toString for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func IntArrayUtil_ToString(array [][]int) string {
+
+func IntArrayUtil_ToString_2(array [][]int) string {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         for index := int(0); index < len(array); index++ {
             stringBuffer.Append("{")
@@ -85,8 +100,7 @@ func IntArrayUtil_ToString(array [][]int) string {
 }
 
 
-// Java overloaded method: Go needs a different name
-func IntArrayUtil_ToString(array [][][]int) string {
+func IntArrayUtil_ToString_3(array [][][]int) string {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         for index := int(0); index < len(array); index++ {
             stringBuffer.Append("{")

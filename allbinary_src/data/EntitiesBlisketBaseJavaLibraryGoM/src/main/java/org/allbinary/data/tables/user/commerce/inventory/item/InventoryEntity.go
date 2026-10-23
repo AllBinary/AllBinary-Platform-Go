@@ -68,7 +68,7 @@ func NewInventoryEntity() *InventoryEntity {
 }
 
 
-func (this *InventoryEntity) Insert(values *BasicArrayList) {
+func (this *InventoryEntity) Insert(values IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -113,13 +113,13 @@ func (this *InventoryEntity) Delete(value string) {
 
 
 // throws Exception
-func (this *InventoryEntity) GetItems(storeFrontInterface StoreFrontInterface) *BasicArrayList {
+func (this *InventoryEntity) GetItems(storeFrontInterface StoreFrontInterface) IBasicArrayList {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().SQLLOGGING) {
             this.LogUtil.PutF("Getting Items For: " + storeFrontInterface.GetName(), this, "getItems")
         }
-        var itemVector *BasicArrayList = NewBasicArrayListD(); _ = itemVector
+        var itemVector IBasicArrayList = NewBasicArrayListD(); _ = itemVector
         var keysAndValues *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = keysAndValues
-        var itemHashMapVector *BasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = itemHashMapVector
+        var itemHashMapVector IBasicArrayList = this.AbSqlBean.GetRows(keysAndValues); _ = itemHashMapVector
         var size int = itemHashMapVector.Size(); _ = size
         for i := int(0); i < size; i++ {
             var itemHashMap *HashMap = any(itemHashMapVector.Get(i)).(*HashMap); _ = itemHashMap

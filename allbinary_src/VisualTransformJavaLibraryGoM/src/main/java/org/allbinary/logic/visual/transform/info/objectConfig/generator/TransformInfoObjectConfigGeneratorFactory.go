@@ -68,8 +68,7 @@ func NewTransformInfoObjectConfigGeneratorFactory() *TransformInfoObjectConfigGe
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *TransformInfoObjectConfigGeneratorFactory) GetInstance(transformInfoInterface TransformInfoInterface) *TransformInfoObjectConfigGenerator {
+func (this *TransformInfoObjectConfigGeneratorFactory) GetInstance(transformInfoInterface TransformInfoInterface) ITransformInfoObjectConfigGenerator {
         var type_ string = any(transformInfoInterface.GetObjectConfigInterface().GetOutputTypeName()).(string); _ = type_
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             var commonStrings *CommonStrings = CommonStrings_GetInstance(); _ = commonStrings

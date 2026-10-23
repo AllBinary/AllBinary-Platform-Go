@@ -56,3 +56,4 @@ func NewSoundThreadPool() *SoundThreadPool {
 func SoundThreadPool_GetInstance() IThreadPool {
         return SoundThreadPool_Instance
 }
+

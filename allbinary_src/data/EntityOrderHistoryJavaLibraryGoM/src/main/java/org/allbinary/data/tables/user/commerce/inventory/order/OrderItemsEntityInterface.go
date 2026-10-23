@@ -47,8 +47,7 @@ type OrderItemsEntityInterface interface {
     SetStatus(orderId string, groupId string, status string)
     IsEverythingShipped(orderId string) bool
     GetBasketReview(orderId string) *BasketReview
-    Insert(userName string, order OrderInterface)
-    Insert(values *BasicArrayList)
+    Insert(args ...any)
 }
 
 

@@ -82,3 +82,4 @@ func (this *NoHardware) CompareTo(hardwareInterface HardwareInterface) bool {
 func (this *NoHardware) Difference(hardwareInterface HardwareInterface) *ABHashtable[any, any] {
         return StdUtil_GetInstance().NULL_TABLE
 }
+

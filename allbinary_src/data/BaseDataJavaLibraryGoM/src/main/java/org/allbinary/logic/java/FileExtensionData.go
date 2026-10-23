@@ -65,3 +65,4 @@ func NewFileExtensionData() *FileExtensionData {
     this.initFields()
     return this
 }
+

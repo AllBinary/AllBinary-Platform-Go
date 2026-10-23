@@ -53,7 +53,21 @@ func (this *DirectoryOrIncludeFileExtensionBooleanFileVisitor) initFields() {
 }
 
 
-func NewDirectoryOrIncludeFileExtensionBooleanFileVisitor(filterStringBasicArrayList *BasicArrayList) *DirectoryOrIncludeFileExtensionBooleanFileVisitor {
+
+
+// Java overloads of new DirectoryOrIncludeFileExtensionBooleanFileVisitor
+func NewDirectoryOrIncludeFileExtensionBooleanFileVisitor(args ...any) *DirectoryOrIncludeFileExtensionBooleanFileVisitor {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[IBasicArrayList](args[0], pass) {
+            return NewDirectoryOrIncludeFileExtensionBooleanFileVisitor_1(Java_Arg[IBasicArrayList](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[IBasicArrayList](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return NewDirectoryOrIncludeFileExtensionBooleanFileVisitor_2(Java_Arg[IBasicArrayList](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of new DirectoryOrIncludeFileExtensionBooleanFileVisitor for the arguments")
+}
+func NewDirectoryOrIncludeFileExtensionBooleanFileVisitor_1(filterStringBasicArrayList IBasicArrayList) *DirectoryOrIncludeFileExtensionBooleanFileVisitor {
     this := &DirectoryOrIncludeFileExtensionBooleanFileVisitor{}
         this.IncludeFileExtensionsBooleanFileVisitor = *NewIncludeFileExtensionsBooleanFileVisitor(filterStringBasicArrayList)
         this.initFields()
@@ -62,8 +76,7 @@ func NewDirectoryOrIncludeFileExtensionBooleanFileVisitor(filterStringBasicArray
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewDirectoryOrIncludeFileExtensionBooleanFileVisitor(filterStringBasicArrayList *BasicArrayList, includesString string) *DirectoryOrIncludeFileExtensionBooleanFileVisitor {
+func NewDirectoryOrIncludeFileExtensionBooleanFileVisitor_2(filterStringBasicArrayList IBasicArrayList, includesString string) *DirectoryOrIncludeFileExtensionBooleanFileVisitor {
     this := &DirectoryOrIncludeFileExtensionBooleanFileVisitor{}
         this.IncludeFileExtensionsBooleanFileVisitor = *NewIncludeFileExtensionsBooleanFileVisitor(filterStringBasicArrayList)
         this.initFields()
@@ -76,7 +89,7 @@ func (this *DirectoryOrIncludeFileExtensionBooleanFileVisitor) Visit(file *AbFil
         if file.IsDirectory() {
             return true
         }
-        if this.IncludesString == "" || file.GetAbsolutePath().IndexOf(this.IncludesString) >= 0 {
+        if this.IncludesString == "" || strings.Index(file.GetAbsolutePath(), string(this.IncludesString)) >= 0 {
             return this.IncludeFileExtensionsBooleanFileVisitor.Visit(file)
         } else {
             return false

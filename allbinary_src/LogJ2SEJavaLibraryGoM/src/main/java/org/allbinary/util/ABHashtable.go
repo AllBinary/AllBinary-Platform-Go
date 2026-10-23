@@ -74,3 +74,4 @@ func NewABHashtable_2[K any, V any]() *ABHashtable[K, V] {
         this.Hashtable = *NewHashtable()
     return this
 }
+

@@ -58,12 +58,26 @@ func (this *UserEmailEventsConfigurationView) initFields() {
 }
 
 
-func NewUserEmailEventsConfigurationView(node *Node) *UserEmailEventsConfigurationView {
+
+
+// Java overloads of new UserEmailEventsConfigurationView
+func NewUserEmailEventsConfigurationView(args ...any) *UserEmailEventsConfigurationView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewUserEmailEventsConfigurationView_1(Java_Arg[*Node](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[UserEmailEventsConfigurationInterface](args[0], pass) {
+            return NewUserEmailEventsConfigurationView_2(Java_Arg[UserEmailEventsConfigurationInterface](args[0]))
+        }
+    }
+    panic("No Java overload of new UserEmailEventsConfigurationView for the arguments")
+}
+func NewUserEmailEventsConfigurationView_1(node *Node) *UserEmailEventsConfigurationView {
     this := &UserEmailEventsConfigurationView{}
     this.initFields()
         this.UserEmailEventsConfigurationInterface = any(NewUserEmailEventsConfiguration()).(UserEmailEventsConfigurationInterface)
         var childNodeList *NodeList = node.GetChildNodes(); _ = childNodeList
-        var emailEventConfigurationNodeVector *BasicArrayList = DomSearchHelper_GetAllNodesNoThrow(UserEmailEventConfigurationData_NAME, childNodeList); _ = emailEventConfigurationNodeVector
+        var emailEventConfigurationNodeVector IBasicArrayList = DomSearchHelper_GetAllNodesNoThrow(UserEmailEventConfigurationData_NAME, childNodeList); _ = emailEventConfigurationNodeVector
         var size int = emailEventConfigurationNodeVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var userEmailConfigurationNode *Node = any(emailEventConfigurationNodeVector.Get(index)).(*Node); _ = userEmailConfigurationNode
@@ -74,8 +88,7 @@ func NewUserEmailEventsConfigurationView(node *Node) *UserEmailEventsConfigurati
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUserEmailEventsConfigurationView(userEmailEventsConfigurationInterface UserEmailEventsConfigurationInterface) *UserEmailEventsConfigurationView {
+func NewUserEmailEventsConfigurationView_2(userEmailEventsConfigurationInterface UserEmailEventsConfigurationInterface) *UserEmailEventsConfigurationView {
     this := &UserEmailEventsConfigurationView{}
     this.initFields()
         this.UserEmailEventsConfigurationInterface = userEmailEventsConfigurationInterface

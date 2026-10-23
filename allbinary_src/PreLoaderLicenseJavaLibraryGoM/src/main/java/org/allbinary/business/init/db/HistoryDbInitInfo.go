@@ -49,15 +49,28 @@ type HistoryDbInitInfo struct {
 var HistoryDbInitInfo_INITFILE string = "historydbinitdata.dat"
 
 
-func NewHistoryDbInitInfo() *HistoryDbInitInfo {
+
+
+// Java overloads of new HistoryDbInitInfo
+func NewHistoryDbInitInfo(args ...any) *HistoryDbInitInfo {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewHistoryDbInitInfo_1()
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return NewHistoryDbInitInfo_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of new HistoryDbInitInfo for the arguments")
+}
+func NewHistoryDbInitInfo_1() *HistoryDbInitInfo {
     this := &HistoryDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(HistoryDbInitInfo_INITFILE, true)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewHistoryDbInitInfo(read bool) *HistoryDbInitInfo {
+func NewHistoryDbInitInfo_2(read bool) *HistoryDbInitInfo {
     this := &HistoryDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(HistoryDbInitInfo_INITFILE, read)
     return this

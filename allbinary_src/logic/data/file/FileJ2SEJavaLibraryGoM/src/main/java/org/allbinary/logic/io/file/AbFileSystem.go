@@ -69,33 +69,45 @@ func AbFileSystem_GetInstance() *AbFileSystem {
 
 func (this *AbFileSystem) IsDirectoryOrFile(path string) bool {
         var file *File = NewFile(path); _ = file
-        return file.IsDirectory() || file.IsFile()
+        return File_IsDirectory() || file.IsFile()
 }
 
 
 func (this *AbFileSystem) IsDirectory(path string) bool {
-        return NewFile(path).IsDirectory()
+        return File_IsDirectory()
 }
 
 
 func (this *AbFileSystem) GetFilesAsStringArrayForPath(currentDirPath string) []string {
         var file *File = NewFile(currentDirPath); _ = file
-        if file.Exists() {
-            return file.List()
+        if File_Exists() {
+            return File_List()
         } else {
             return StringUtil_GetInstance().GetArrayInstance()
         }
 }
 
 
-func (this *AbFileSystem) ReadAsString(fileName string) string {
+func (this *AbFileSystem) ReadAsString_1(fileName string) string {
         var bytes []int8 = make([]int8, 1000000); _ = bytes
         return this.ReadAsString(fileName, bytes)
 }
 
+// Java overloads of AbFileSystem.readAsString
+func (this *AbFileSystem) ReadAsString(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.ReadAsString_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[[]int8](args[1], pass) {
+            return this.ReadAsString_2(Java_Arg[string](args[0]), Java_Arg[[]int8](args[1]))
+        }
+    }
+    panic("No Java overload of AbFileSystem.readAsString for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *AbFileSystem) ReadAsString(fileName string, bytes []int8) string {
+
+func (this *AbFileSystem) ReadAsString_2(fileName string, bytes []int8) string {
         var closeable any = NullUtil_GetInstance().NULL_OBJECT; _ = closeable
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 string) {
             defer func() {
@@ -106,7 +118,7 @@ func (this *AbFileSystem) ReadAsString(fileName string, bytes []int8) string {
                 }
             this.Close(closeable)
             }()
-            var idFile *InputStream = NewFileInputStream(fileName); _ = idFile
+            var idFile IInputStream = NewFileInputStream(fileName); _ = idFile
             closeable = idFile
             var size int = idFile.Read(bytes); _ = size
             if size > 0 {
@@ -131,7 +143,7 @@ func (this *AbFileSystem) Close(closeable any) bool {
                 }
             }()
             if closeable != nil {
-                var inputStream *InputStream = (any(closeable).(*InputStream)); _ = inputStream
+                var inputStream IInputStream = (any(closeable).(IInputStream)); _ = inputStream
                 inputStream.Close()
             }
             tryControl1, tryResult1 = 1, true; return

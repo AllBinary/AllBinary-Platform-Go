@@ -47,3 +47,4 @@ type BasicCompositeEventHandlerInterface interface {
     SetEventHandler(basicEventHandlerInterface BasicEventHandlerInterface)
 }
 
+

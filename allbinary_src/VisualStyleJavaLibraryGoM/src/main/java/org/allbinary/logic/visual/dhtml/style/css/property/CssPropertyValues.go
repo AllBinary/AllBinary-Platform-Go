@@ -44,7 +44,7 @@ var _ = unicode.IsDigit
 
 type CssPropertyValues struct {
     LogUtil *LogUtil
-    PropertyValueVector *BasicArrayList
+    PropertyValueVector IBasicArrayList
 }
 
 // Implements DomNodeInterface
@@ -56,7 +56,21 @@ func (this *CssPropertyValues) initFields() {
 }
 
 
-func NewCssPropertyValues() *CssPropertyValues {
+
+
+// Java overloads of new CssPropertyValues
+func NewCssPropertyValues(args ...any) *CssPropertyValues {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewCssPropertyValues_1()
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewCssPropertyValues_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new CssPropertyValues for the arguments")
+}
+func NewCssPropertyValues_1() *CssPropertyValues {
     this := &CssPropertyValues{}
     this.initFields()
         this.PropertyValueVector = NewBasicArrayListD()
@@ -64,13 +78,12 @@ func NewCssPropertyValues() *CssPropertyValues {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewCssPropertyValues(node *Node) *CssPropertyValues {
+func NewCssPropertyValues_2(node *Node) *CssPropertyValues {
     this := &CssPropertyValues{}
     this.initFields()
         var indexPropertyValueHashMap *HashMap = StdUtil_GetInstance().CreateHashMap(); _ = indexPropertyValueHashMap
         this.PropertyValueVector = NewBasicArrayListD()
-        var cssPropertyNodeVector *BasicArrayList = DomSearchHelper_GetAllNodes(CssPropertyValueData_GetInstance().NAME, node.GetChildNodes()); _ = cssPropertyNodeVector
+        var cssPropertyNodeVector IBasicArrayList = DomSearchHelper_GetAllNodes(CssPropertyValueData_GetInstance().NAME, node.GetChildNodes()); _ = cssPropertyNodeVector
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().STYLE) {
             this.LogUtil.PutF("Number Of Properties: " + fmt.Sprint(cssPropertyNodeVector.Size()), this, "CssProperties()")
         }

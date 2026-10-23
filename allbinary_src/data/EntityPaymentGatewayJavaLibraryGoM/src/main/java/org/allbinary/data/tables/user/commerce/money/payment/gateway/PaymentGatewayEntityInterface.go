@@ -45,7 +45,7 @@ var _ = unicode.IsDigit
 type PaymentGatewayEntityInterface interface {
     BasicDataTableInterface
     GetPaymentGatewayInterface(storeName string, paymentType *BasicPaymentType) PaymentGatewayInterface
-    FindPaymentTypeVectorByStore(storeName string) *BasicArrayList
+    FindPaymentTypeVectorByStore(storeName string) IBasicArrayList
     Remove(storeName string, paymentType *BasicPaymentType)
     Add(paymentGatewayInterface PaymentGatewayInterface)
     Update(paymentGatewayInterface PaymentGatewayInterface)

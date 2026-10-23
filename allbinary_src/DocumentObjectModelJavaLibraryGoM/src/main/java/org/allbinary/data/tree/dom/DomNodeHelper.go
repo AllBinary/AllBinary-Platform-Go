@@ -68,7 +68,7 @@ func DomNodeHelper_GetFirstChildElement(parentNode *Node) *Node {
 }
 
 
-func DomNodeHelper_GetTextNodeValue(node *Node) string {
+func DomNodeHelper_GetTextNodeValue_1(node *Node) string {
         var nodeTextNode *Node = node.GetFirstChild(); _ = nodeTextNode
         if nodeTextNode != nil {
             return nodeTextNode.GetNodeValue()
@@ -77,10 +77,22 @@ func DomNodeHelper_GetTextNodeValue(node *Node) string {
         }
 }
 
+// Java overloads of DomNodeHelper.getTextNodeValue
+func DomNodeHelper_GetTextNodeValue(args ...any) string {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return DomNodeHelper_GetTextNodeValue_1(Java_Arg[*Node](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[*NodeList](args[1], pass) {
+            return DomNodeHelper_GetTextNodeValue_2(Java_Arg[string](args[0]), Java_Arg[*NodeList](args[1]))
+        }
+    }
+    panic("No Java overload of DomNodeHelper.getTextNodeValue for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func DomNodeHelper_GetTextNodeValue(nodeName string, nodeList *NodeList) string {
+func DomNodeHelper_GetTextNodeValue_2(nodeName string, nodeList *NodeList) string {
         var node *Node = DomSearchHelper_GetNode(nodeName, nodeList); _ = node
         return DomNodeHelper_GetTextNodeValue(node)
 }

@@ -46,3 +46,4 @@ func KotlinUtil_IsKotlin() bool {
 func KotlinUtil_GetShortName() string {
         return StringUtil_GetInstance().EMPTY_STRING
 }
+

@@ -49,6 +49,19 @@ type BasicTransformer struct {
     AbeClientInformation AbeClientInformationInterface
 }
 
+// The Java class BasicTransformer has subclasses so its variables are this interface
+type IBasicTransformer interface {
+    IAbTransformer
+    BasicTransformer_() *BasicTransformer
+    SetEncryptedTemplateFileAsInputStream(file *AbFile)
+    SetEncryptedTemplateAsInputStream()
+    SetTemplateAsInputStream()
+}
+
+func (this *BasicTransformer) BasicTransformer_() *BasicTransformer {
+    return this
+}
+
 
 func (this *BasicTransformer) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -70,7 +83,7 @@ func NewBasicTransformer(abeClientInformation AbeClientInformationInterface, tra
 // throws Exception
 func (this *BasicTransformer) SetEncryptedTemplateFileAsInputStream(file *AbFile) {
         var outputStream *strings.Builder = nil; _ = outputStream
-        var inputStream *AbFileInputStream = nil; _ = inputStream
+        var inputStream IAbFileInputStream = nil; _ = inputStream
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -97,7 +110,7 @@ func (this *BasicTransformer) SetEncryptedTemplateFileAsInputStream(file *AbFile
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().TAGHELPERFACTORY) {
                 this.LogUtil.PutF("Decrypted Template: \n" + fmt.Sprint(string(decrypted)), this, "setEncryptedTemplateFileAsInputStream(file)")
             }
-            this.SetInputStream(any(NewByteArrayInputStream(decrypted)).(*InputStream))
+            this.SetInputStream(any(NewByteArrayInputStream(decrypted)).(IInputStream))
             this.SetURIResolver(any(NewBasicUriResolver(TransformInfoTemplateData_GetInstance().ENCRYPTED_EXTENSION)).(*URIResolver))
             return
         }(); tryControl1 == 1 {
@@ -124,14 +137,14 @@ func (this *BasicTransformer) SetEncryptedTemplateAsInputStream() {
             this.StreamUtil.Close(inputStream)
             }()
             outputStream = &strings.Builder{}
-            inputStream = NewByteArrayInputStream(this.GetTransformInfoInterface().GetTemplate().GetBytes())
+            inputStream = NewByteArrayInputStream(Java_GetBytes(this.GetTransformInfoInterface().GetTemplate()))
             outputStream = any(this.StreamUtil.Get(inputStream, outputStream, make([]int8, 16384))).(*strings.Builder)
             var abCrypt *AbCrypt = NewAbCrypt(KeySpecFactory_DESEDE, AbKeys_GetInstance().GetKey(this.AbeClientInformation, this.GetTransformInfoInterface().GetName())); _ = abCrypt
             var decrypted []int8 = abCrypt.Decrypt(outputStream.ToByteArray()); _ = decrypted
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().TAGHELPERFACTORY) {
                 this.LogUtil.PutF("Decrypted Template: \n" + fmt.Sprint(decrypted), this, "setEncryptedTemplateAsInputStream()")
             }
-            this.SetInputStream(any(NewByteArrayInputStream(decrypted)).(*InputStream))
+            this.SetInputStream(any(NewByteArrayInputStream(decrypted)).(IInputStream))
             this.SetURIResolver(any(NewBasicUriResolver(TransformInfoTemplateData_GetInstance().ENCRYPTED_EXTENSION)).(*URIResolver))
             return
         }(); tryControl1 == 1 {
@@ -142,7 +155,7 @@ func (this *BasicTransformer) SetEncryptedTemplateAsInputStream() {
 
 // throws Exception
 func (this *BasicTransformer) SetTemplateAsInputStream() {
-        var inputStream *AbFileInputStream = nil; _ = inputStream
+        var inputStream IAbFileInputStream = nil; _ = inputStream
         var outputStream *strings.Builder = nil; _ = outputStream
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
@@ -203,7 +216,7 @@ func (this *BasicTransformer) SetTemplateAsInputStream() {
                             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().TAGHELPERFACTORY) {
                                 this.LogUtil.PutF("Template: " + outputStream.String(), this, "getTemplateAsInputStream()")
                             }
-                            this.SetInputStream(any(NewByteArrayInputStream(outputStream.ToByteArray())).(*InputStream))
+                            this.SetInputStream(any(NewByteArrayInputStream(outputStream.ToByteArray())).(IInputStream))
                             this.SetURIResolver(any(NewBasicUriResolver(transformInfoTemplateData.UNCRYPTED_EXTENSION)).(*URIResolver))
                             tryControl1 = 1; return
                         }

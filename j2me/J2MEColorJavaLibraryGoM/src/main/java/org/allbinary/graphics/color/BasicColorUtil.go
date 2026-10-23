@@ -97,3 +97,4 @@ func (this *BasicColorUtil) Get(alphaValue int, color int) int {
 func (this *BasicColorUtil) Invert(color int) int {
         return (0xFFFFFF - color) | this.ALPHA
 }
+

@@ -48,6 +48,18 @@ type ThemeCustomizerView struct {
     ValidationInterface ValidationInterface
 }
 
+// The Java class ThemeCustomizerView has subclasses so its variables are this interface
+type IThemeCustomizerView interface {
+    IHttpStoreComponentView
+    ThemeCustomizerView_() *ThemeCustomizerView
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *ThemeCustomizerView) ThemeCustomizerView_() *ThemeCustomizerView {
+    return this
+}
+
 
 func (this *ThemeCustomizerView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

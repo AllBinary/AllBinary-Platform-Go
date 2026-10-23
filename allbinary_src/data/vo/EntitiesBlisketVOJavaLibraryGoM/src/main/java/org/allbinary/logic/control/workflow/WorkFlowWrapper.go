@@ -50,6 +50,19 @@ type WorkFlowWrapper struct {
 
 // Implements WorkFlowInterface
 
+// The Java class WorkFlowWrapper has subclasses so its variables are this interface
+type IWorkFlowWrapper interface {
+    WorkFlowWrapper_() *WorkFlowWrapper
+    GetWorkFlowObject() any
+    GetName() string
+    GetStoreName() string
+    Process() int
+}
+
+func (this *WorkFlowWrapper) WorkFlowWrapper_() *WorkFlowWrapper {
+    return this
+}
+
 
 func (this *WorkFlowWrapper) initFields() {
     this.LogUtil = LogUtil_GetInstance()

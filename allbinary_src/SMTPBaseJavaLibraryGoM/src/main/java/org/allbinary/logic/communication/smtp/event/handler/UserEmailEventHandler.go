@@ -43,7 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type UserEmailEventHandler struct {
-    EmailVector *BasicArrayList
+    EmailVector IBasicArrayList
     EmailInfo *EmailInfo
     UserEmailEventNameData *UserEmailEventNameData
 }
@@ -74,7 +74,7 @@ func (this *UserEmailEventHandler) ReceiveEmailInfo(userEmailEventNameData *User
 
 
 // synchronized
-func (this *UserEmailEventHandler) AddListener(vector *BasicArrayList) {
+func (this *UserEmailEventHandler) AddListener_1(vector IBasicArrayList) {
         var size int = vector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var userEmailEventListenerInterface UserEmailEventListenerInterface = any(vector.Get(index)).(UserEmailEventListenerInterface); _ = userEmailEventListenerInterface
@@ -82,10 +82,24 @@ func (this *UserEmailEventHandler) AddListener(vector *BasicArrayList) {
         }
 }
 
+// Java overloads of UserEmailEventHandler.addListener
+func (this *UserEmailEventHandler) AddListener(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[IBasicArrayList](args[0], pass) {
+            this.AddListener_1(Java_Arg[IBasicArrayList](args[0]))
+            return
+        }
+        if len(args) == 1 && Java_IsArg[UserEmailEventListenerInterface](args[0], pass) {
+            this.AddListener_2(Java_Arg[UserEmailEventListenerInterface](args[0]))
+            return
+        }
+    }
+    panic("No Java overload of UserEmailEventHandler.addListener for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
+
 // synchronized
-func (this *UserEmailEventHandler) AddListener(emailEventListenerInterface UserEmailEventListenerInterface) {
+func (this *UserEmailEventHandler) AddListener_2(emailEventListenerInterface UserEmailEventListenerInterface) {
         this.EmailVector.Add(emailEventListenerInterface)
 }
 

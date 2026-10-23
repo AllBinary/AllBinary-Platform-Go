@@ -185,3 +185,4 @@ func (this *ArrayUtil) ToStringFromByteArray(byteArray []int8) string {
         }
         return fmt.Sprint(stringBuffer)
 }
+

@@ -43,7 +43,19 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type BasicQueue struct {
-    QueueVector *BasicArrayList
+    QueueVector IBasicArrayList
+}
+
+// The Java class BasicQueue has subclasses so its variables are this interface
+type IBasicQueue interface {
+    BasicQueue_() *BasicQueue
+    Offer(anyType any) bool
+    Remove(anyType any)
+    RemoveLast() any
+}
+
+func (this *BasicQueue) BasicQueue_() *BasicQueue {
+    return this
 }
 
 

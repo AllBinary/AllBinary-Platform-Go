@@ -55,3 +55,4 @@ func NewABCharacter() *ABCharacter {
 func ABCharacter_ToString(ch rune) string {
         return fmt.Sprint(ch)
 }
+

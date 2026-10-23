@@ -52,6 +52,19 @@ type AbSqlColumn struct {
     INVALID_RESULT string
 }
 
+// The Java class AbSqlColumn has subclasses so its variables are this interface
+type IAbSqlColumn interface {
+    IAbSqlTable
+    AbSqlColumn_() *AbSqlColumn
+    GetLargestIntegerInColumnWhere(columnName string, key string, value string) string
+    GetColumn(columnName string) IBasicArrayList
+    GetColumnWhere(columnName string, key string, value string) IBasicArrayList
+}
+
+func (this *AbSqlColumn) AbSqlColumn_() *AbSqlColumn {
+    return this
+}
+
 
 func (this *AbSqlColumn) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -63,7 +76,7 @@ func (this *AbSqlColumn) initFields() {
 }
 
 
-func NewAbSqlColumn(databaseConnectionInfoInterface *DbConnectionInfo) *AbSqlColumn {
+func NewAbSqlColumn(databaseConnectionInfoInterface IDbConnectionInfo) *AbSqlColumn {
     this := &AbSqlColumn{}
         this.AbSqlTable = *NewAbSqlTable(databaseConnectionInfoInterface)
         this.initFields()
@@ -120,15 +133,15 @@ func (this *AbSqlColumn) GetLargestIntegerInColumnWhere(columnName string, key s
 }
 
 
-func (this *AbSqlColumn) GetColumn(columnName string) *BasicArrayList {
-        var column *BasicArrayList = NewBasicArrayListD(); _ = column
+func (this *AbSqlColumn) GetColumn(columnName string) IBasicArrayList {
+        var column IBasicArrayList = NewBasicArrayListD(); _ = column
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.SELECT)
         stringBuffer.Append(columnName)
         stringBuffer.Append(this.SqlStrings.FROM)
         stringBuffer.Append(this.GetTableName())
         var sqlStatement string = fmt.Sprint(stringBuffer); _ = sqlStatement
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)
@@ -161,7 +174,7 @@ func (this *AbSqlColumn) GetColumn(columnName string) *BasicArrayList {
 }
 
 
-func (this *AbSqlColumn) GetColumnWhere(columnName string, key string, value string) *BasicArrayList {
+func (this *AbSqlColumn) GetColumnWhere(columnName string, key string, value string) IBasicArrayList {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.SELECT)
         stringBuffer.Append(columnName)
@@ -173,10 +186,10 @@ func (this *AbSqlColumn) GetColumnWhere(columnName string, key string, value str
         stringBuffer.Append(value)
         stringBuffer.Append(this.SqlStrings.CLOSE_QUOTE)
         var sqlStatement string = fmt.Sprint(stringBuffer); _ = sqlStatement
-        var column *BasicArrayList = NewBasicArrayListD(); _ = column
+        var column IBasicArrayList = NewBasicArrayListD(); _ = column
         var rset *ResultSet; _ = rset
         var field string; _ = field
-        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *BasicArrayList) {
+        if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 IBasicArrayList) {
             defer func() {
                 if recovered := recover(); recovered != nil {
                     e := Java_ToError(recovered)

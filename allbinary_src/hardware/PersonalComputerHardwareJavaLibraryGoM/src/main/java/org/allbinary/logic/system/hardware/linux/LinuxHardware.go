@@ -45,18 +45,18 @@ var _ = unicode.IsDigit
 type LinuxHardware struct {
     LogUtil *LogUtil
     CommonStrings *CommonStrings
-    ComponentInterfaceVector *BasicArrayList
-    VideoInterfaceVector *BasicArrayList
-    HardDriveControllerInterfaceVector *BasicArrayList
-    CpuInterfaceVector *BasicArrayList
-    UsbInterfaceVector *BasicArrayList
-    EthernetInterfaceVector *BasicArrayList
-    MultimediaInterfaceVector *BasicArrayList
-    FireWireInterfaceVector *BasicArrayList
-    BridgeInterfaceVector *BasicArrayList
-    HardDriveInterfaceVector *BasicArrayList
-    MacInterfaceVector *BasicArrayList
-    MonitorInterfaceVector *BasicArrayList
+    ComponentInterfaceVector IBasicArrayList
+    VideoInterfaceVector IBasicArrayList
+    HardDriveControllerInterfaceVector IBasicArrayList
+    CpuInterfaceVector IBasicArrayList
+    UsbInterfaceVector IBasicArrayList
+    EthernetInterfaceVector IBasicArrayList
+    MultimediaInterfaceVector IBasicArrayList
+    FireWireInterfaceVector IBasicArrayList
+    BridgeInterfaceVector IBasicArrayList
+    HardDriveInterfaceVector IBasicArrayList
+    MacInterfaceVector IBasicArrayList
+    MonitorInterfaceVector IBasicArrayList
     NAME string
     MINHARDWARE int
 }
@@ -85,7 +85,21 @@ func (this *LinuxHardware) initFields() {
 }
 
 
-func NewLinuxHardware(path string) *LinuxHardware {
+
+
+// Java overloads of new LinuxHardware
+func NewLinuxHardware(args ...any) *LinuxHardware {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewLinuxHardware_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 0 {
+            return NewLinuxHardware_2()
+        }
+    }
+    panic("No Java overload of new LinuxHardware for the arguments")
+}
+func NewLinuxHardware_1(path string) *LinuxHardware {
     this := &LinuxHardware{}
     this.initFields()
         this.Init(path)
@@ -93,8 +107,7 @@ func NewLinuxHardware(path string) *LinuxHardware {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewLinuxHardware() *LinuxHardware {
+func NewLinuxHardware_2() *LinuxHardware {
     this := &LinuxHardware{}
     this.initFields()
         this.Init(LinuxHardware_PCIFILE)
@@ -114,7 +127,7 @@ func NewLinuxHardware() *LinuxHardware {
 
 
 // throws Exception
-func (this *LinuxHardware) Init(filePath string) {
+func (this *LinuxHardware) Init_1(filePath string) {
         var lineNumberReader *LineNumberReader = nil; _ = lineNumberReader
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
@@ -134,10 +147,24 @@ func (this *LinuxHardware) Init(filePath string) {
         }
 }
 
+// Java overloads of LinuxHardware.init
+func (this *LinuxHardware) Init(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            this.Init_1(Java_Arg[string](args[0]))
+            return
+        }
+        if len(args) == 2 && Java_IsArg[*LineNumberReader](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            this.Init_2(Java_Arg[*LineNumberReader](args[0]), Java_Arg[string](args[1]))
+            return
+        }
+    }
+    panic("No Java overload of LinuxHardware.init for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *LinuxHardware) Init(lineNumberReader *LineNumberReader, filePath string) {
+func (this *LinuxHardware) Init_2(lineNumberReader *LineNumberReader, filePath string) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
             if lineNumberReader != nil {
@@ -159,7 +186,7 @@ func (this *LinuxHardware) Init(lineNumberReader *LineNumberReader, filePath str
             var pciFile *FileReader = NewFileReader(filePath); _ = pciFile
             lineNumberReader = NewLineNumberReader(pciFile)
             if lineNumberReader == nil {
-                var fileVector *BasicArrayList = SubDirectory_GetInstance().Search(filePath, AbFile_CreateAbFile(FilePathData_GetInstance().PATH_START)); _ = fileVector
+                var fileVector IBasicArrayList = SubDirectory_GetInstance().Search(filePath, AbFile_CreateAbFile(FilePathData_GetInstance().PATH_START)); _ = fileVector
                 if !fileVector.IsEmpty() {
                     var file *AbFile = any(fileVector.Get(0)).(*AbFile); _ = file
                     lineNumberReader = NewLineNumberReader(NewFileReader(file.GetPath()))

@@ -78,3 +78,4 @@ func NewMathData() *MathData {
         this.MULTIPLY = CommonPhoneStrings_GetInstance().STAR
     return this
 }
+

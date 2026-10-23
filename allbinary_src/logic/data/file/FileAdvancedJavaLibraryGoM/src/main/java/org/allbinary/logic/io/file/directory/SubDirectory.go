@@ -65,30 +65,46 @@ func NewSubDirectory() *SubDirectory {
 }
 
 
-func (this *SubDirectory) Search(fileFilter *FileFilter, file *AbFile) *BasicArrayList {
+func (this *SubDirectory) Search_1(fileFilter *FileFilter, file *AbFile) IBasicArrayList {
         return this.Directory.Search(fileFilter, file, true)
 }
 
+// Java overloads of SubDirectory.search
+func (this *SubDirectory) Search(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[*FileFilter](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) {
+            return this.Search_1(Java_Arg[*FileFilter](args[0]), Java_Arg[*AbFile](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[*AbFile](args[0], pass) {
+            return this.Search_2(Java_Arg[*AbFile](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) {
+            return this.Search_3(Java_Arg[string](args[0]), Java_Arg[*AbFile](args[1]))
+        }
+        if len(args) == 2 && Java_IsArg[int](args[0], pass) && Java_IsArg[*AbFile](args[1], pass) {
+            return this.Search_4(Java_Arg[int](args[0]), Java_Arg[*AbFile](args[1]))
+        }
+    }
+    panic("No Java overload of SubDirectory.search for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *SubDirectory) Search(file *AbFile) *BasicArrayList {
+
+func (this *SubDirectory) Search_2(file *AbFile) IBasicArrayList {
         return this.Directory.Search(file, true)
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *SubDirectory) Search(searchValue string, file *AbFile) *BasicArrayList {
+func (this *SubDirectory) Search_3(searchValue string, file *AbFile) IBasicArrayList {
         return this.Directory.Search(searchValue, file, true)
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *SubDirectory) Search(level int, file *AbFile) *BasicArrayList {
+func (this *SubDirectory) Search_4(level int, file *AbFile) IBasicArrayList {
         return this.Directory.Search(level, file, true)
 }
 
 
-func SubDirectory_ToString(files *BasicArrayList) string {
+func SubDirectory_ToString(files IBasicArrayList) string {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         var NEW_LINE string = CommonSeps_GetInstance().NEW_LINE; _ = NEW_LINE
         var size int = files.Size(); _ = size

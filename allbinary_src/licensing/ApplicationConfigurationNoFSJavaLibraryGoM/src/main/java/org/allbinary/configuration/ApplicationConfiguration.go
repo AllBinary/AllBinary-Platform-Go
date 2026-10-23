@@ -89,7 +89,7 @@ func (this *ApplicationConfiguration) Write() {
 
 
 // throws Exception
-func (this *ApplicationConfiguration) Update(gameFeature *Feature) {
+func (this *ApplicationConfiguration) Update(gameFeature IFeature) {
         if gameFeature == MainFeatureFactory_GetInstance().FULL_SCREEN {
             var features *Features = Features_GetInstance(); _ = features
             if features.IsFeature(gameFeature) {

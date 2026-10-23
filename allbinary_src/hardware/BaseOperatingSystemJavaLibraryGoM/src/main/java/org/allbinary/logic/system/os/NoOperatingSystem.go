@@ -54,3 +54,4 @@ func NewNoOperatingSystem() *NoOperatingSystem {
     this.GenericOperatingSystem = *NewGenericOperatingSystem()
     return this
 }
+

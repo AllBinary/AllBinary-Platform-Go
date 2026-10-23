@@ -52,6 +52,36 @@ type TransformInfoObjectConfig struct {
 
 // Implements TransformInfoObjectConfigInterface
 
+// The Java class TransformInfoObjectConfig has subclasses so its variables are this interface
+type ITransformInfoObjectConfig interface {
+    TransformInfoObjectConfig_() *TransformInfoObjectConfig
+    CreateDocument()
+    GetTransformInfoInterface() TransformInfoInterface
+    ToXmlDoc() *Document
+    SetDocument(document *Document)
+    ContainsView(transformInfoInterface TransformInfoInterface) bool
+    GetTemplateAttributes() *NamedNodeMap
+    GetName() string
+    SetName(name string)
+    GetNodeVector(nodeName string) IBasicArrayList
+    GetTransformDomNodes(args ...any) IBasicArrayList
+    GetTransforms(args ...any) IBasicArrayList
+    GetTransformsGroup(group string) IBasicArrayList
+    GetGroupTransforms() IBasicArrayList
+    GetParentTransforms() IBasicArrayList
+    GetRootNode() *Node
+    SetOutputTypeName(outputTypeName string)
+    GetOutputTypeName() string
+    GetInputOutputTypeName() string
+    GetInputOutputTypeFile() string
+    GetImportUriPath() string
+    ToString() string
+}
+
+func (this *TransformInfoObjectConfig) TransformInfoObjectConfig_() *TransformInfoObjectConfig {
+    return this
+}
+
 
 func (this *TransformInfoObjectConfig) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -62,7 +92,24 @@ func (this *TransformInfoObjectConfig) initFields() {
 }
 
 
-func NewTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface) *TransformInfoObjectConfig {
+
+
+// Java overloads of new TransformInfoObjectConfig
+func NewTransformInfoObjectConfig(args ...any) *TransformInfoObjectConfig {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[TransformInfoInterface](args[0], pass) {
+            return NewTransformInfoObjectConfig_1(Java_Arg[TransformInfoInterface](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[*Document](args[1], pass) {
+            return NewTransformInfoObjectConfig_2(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[*Document](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return NewTransformInfoObjectConfig_3(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+    }
+    panic("No Java overload of new TransformInfoObjectConfig for the arguments")
+}
+func NewTransformInfoObjectConfig_1(transformInfoInterface TransformInfoInterface) *TransformInfoObjectConfig {
     this := &TransformInfoObjectConfig{}
     this.initFields()
         this.OwnerTransformInfoInterface = transformInfoInterface
@@ -83,8 +130,7 @@ func NewTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface)
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface, document *Document) *TransformInfoObjectConfig {
+func NewTransformInfoObjectConfig_2(transformInfoInterface TransformInfoInterface, document *Document) *TransformInfoObjectConfig {
     this := &TransformInfoObjectConfig{}
     this.initFields()
         this.OwnerTransformInfoInterface = transformInfoInterface
@@ -109,8 +155,7 @@ func NewTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface,
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoObjectConfig(transformInfoInterface TransformInfoInterface, name string, type_ string) *TransformInfoObjectConfig {
+func NewTransformInfoObjectConfig_3(transformInfoInterface TransformInfoInterface, name string, type_ string) *TransformInfoObjectConfig {
     this := &TransformInfoObjectConfig{}
     this.initFields()
         this.OwnerTransformInfoInterface = transformInfoInterface
@@ -196,10 +241,10 @@ func (this *TransformInfoObjectConfig) SetName(name string) {
 
 
 // throws Exception
-func (this *TransformInfoObjectConfig) GetNodeVector(nodeName string) *BasicArrayList {
+func (this *TransformInfoObjectConfig) GetNodeVector(nodeName string) IBasicArrayList {
         var componentsNodeList *NodeList = this.Document.GetElementsByTagName(nodeName); _ = componentsNodeList
         if componentsNodeList != nil && componentsNodeList.GetLength() > 0 {
-            var viewNodeVector *BasicArrayList = DomSearchHelper_GetAllNodes(TransformInfoData_GetInstance().NAME, componentsNodeList.Item(0).GetChildNodes()); _ = viewNodeVector
+            var viewNodeVector IBasicArrayList = DomSearchHelper_GetAllNodes(TransformInfoData_GetInstance().NAME, componentsNodeList.Item(0).GetChildNodes()); _ = viewNodeVector
             var numberOfViews int = viewNodeVector.Size(); _ = numberOfViews
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
@@ -216,9 +261,9 @@ func (this *TransformInfoObjectConfig) GetNodeVector(nodeName string) *BasicArra
 
 
 // throws Exception
-func (this *TransformInfoObjectConfig) GetTransformDomNodes(nodeName string) *BasicArrayList {
-        var viewVector *BasicArrayList = NewBasicArrayListD(); _ = viewVector
-        var viewNodeVector *BasicArrayList = this.GetNodeVector(nodeName); _ = viewNodeVector
+func (this *TransformInfoObjectConfig) GetTransformDomNodes_1(nodeName string) IBasicArrayList {
+        var viewVector IBasicArrayList = NewBasicArrayListD(); _ = viewVector
+        var viewNodeVector IBasicArrayList = this.GetNodeVector(nodeName); _ = viewNodeVector
         var size int = viewNodeVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var viewNode *Node = any(viewNodeVector.Get(index)).(*Node); _ = viewNode
@@ -227,11 +272,24 @@ func (this *TransformInfoObjectConfig) GetTransformDomNodes(nodeName string) *Ba
         return viewVector
 }
 
+// Java overloads of TransformInfoObjectConfig.getTransformDomNodes
+func (this *TransformInfoObjectConfig) GetTransformDomNodes(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetTransformDomNodes_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 0 {
+            return this.GetTransformDomNodes_2()
+        }
+    }
+    panic("No Java overload of TransformInfoObjectConfig.getTransformDomNodes for the arguments")
+}
+
 
 // throws Exception
-func (this *TransformInfoObjectConfig) GetTransforms(nodeName string) *BasicArrayList {
-        var viewVector *BasicArrayList = NewBasicArrayListD(); _ = viewVector
-        var viewNodeVector *BasicArrayList = this.GetNodeVector(nodeName); _ = viewNodeVector
+func (this *TransformInfoObjectConfig) GetTransforms_1(nodeName string) IBasicArrayList {
+        var viewVector IBasicArrayList = NewBasicArrayListD(); _ = viewVector
+        var viewNodeVector IBasicArrayList = this.GetNodeVector(nodeName); _ = viewNodeVector
         var size int = viewNodeVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var viewNode *Node = any(viewNodeVector.Get(index)).(*Node); _ = viewNode
@@ -240,13 +298,26 @@ func (this *TransformInfoObjectConfig) GetTransforms(nodeName string) *BasicArra
         return viewVector
 }
 
+// Java overloads of TransformInfoObjectConfig.getTransforms
+func (this *TransformInfoObjectConfig) GetTransforms(args ...any) IBasicArrayList {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetTransforms_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 0 {
+            return this.GetTransforms_2()
+        }
+    }
+    panic("No Java overload of TransformInfoObjectConfig.getTransforms for the arguments")
+}
+
 
 // throws Exception
-func (this *TransformInfoObjectConfig) GetTransformsGroup(group string) *BasicArrayList {
+func (this *TransformInfoObjectConfig) GetTransformsGroup(group string) IBasicArrayList {
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             this.LogUtil.PutF("Started: " + group, this, "getTransformsGroup()")
         }
-        var viewVector *BasicArrayList = NewBasicArrayListD(); _ = viewVector
+        var viewVector IBasicArrayList = NewBasicArrayListD(); _ = viewVector
         var GROUP string = TransformInfosData_GetInstance().GROUP; _ = GROUP
         var componentsNodeList *NodeList = this.Document.GetElementsByTagName(GROUP); _ = componentsNodeList
         if componentsNodeList != nil && componentsNodeList.GetLength() > 0 {
@@ -262,7 +333,7 @@ func (this *TransformInfoObjectConfig) GetTransformsGroup(group string) *BasicAr
                     break
                 }
             }
-            var viewNodeVector *BasicArrayList = DomSearchHelper_GetAllNodes(TransformInfoData_GetInstance().NAME, componentsNode.GetChildNodes()); _ = viewNodeVector
+            var viewNodeVector IBasicArrayList = DomSearchHelper_GetAllNodes(TransformInfoData_GetInstance().NAME, componentsNode.GetChildNodes()); _ = viewNodeVector
             var numberOfViews int = viewNodeVector.Size(); _ = numberOfViews
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF("Number Of Nodes: " + fmt.Sprint(numberOfViews), this, "getTransformsGroup()")
@@ -286,27 +357,25 @@ func (this *TransformInfoObjectConfig) GetTransformsGroup(group string) *BasicAr
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *TransformInfoObjectConfig) GetTransformDomNodes() *BasicArrayList {
+func (this *TransformInfoObjectConfig) GetTransformDomNodes_2() IBasicArrayList {
         return this.GetTransformDomNodes(TransformInfosData_GetInstance().GROUP)
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *TransformInfoObjectConfig) GetTransforms() *BasicArrayList {
+func (this *TransformInfoObjectConfig) GetTransforms_2() IBasicArrayList {
         return this.GetTransforms(TransformInfosData_GetInstance().NAME)
 }
 
 
 // throws Exception
-func (this *TransformInfoObjectConfig) GetGroupTransforms() *BasicArrayList {
+func (this *TransformInfoObjectConfig) GetGroupTransforms() IBasicArrayList {
         return this.GetTransforms(TransformInfosData_GetInstance().GROUP)
 }
 
 
 // throws Exception
-func (this *TransformInfoObjectConfig) GetParentTransforms() *BasicArrayList {
+func (this *TransformInfoObjectConfig) GetParentTransforms() IBasicArrayList {
         return this.GetTransforms(TransformInfoData_GetInstance().PARENT)
 }
 

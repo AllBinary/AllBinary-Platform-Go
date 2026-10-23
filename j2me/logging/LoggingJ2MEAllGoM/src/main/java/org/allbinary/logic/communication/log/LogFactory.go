@@ -74,3 +74,4 @@ func LogFactory_GetInstanceF(specialMessage string, anyType any, functionName st
         var nullUtil *NullUtil = NullUtil_GetInstance(); _ = nullUtil
         return NewLog(specialMessage, anyType, functionName, nullUtil.NULL_OBJECT)
 }
+

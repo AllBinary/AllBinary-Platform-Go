@@ -110,3 +110,4 @@ func (this *MathUtil) Min(value int, value2 int) int {
 func (this *MathUtil) Max(value int, value2 int) int {
         return func() int { if (value >= value2) { return value }; return value2 }()
 }
+

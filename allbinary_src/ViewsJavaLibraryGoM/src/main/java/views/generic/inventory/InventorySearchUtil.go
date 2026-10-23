@@ -71,19 +71,19 @@ func InventorySearchUtil_GetInstance() *InventorySearchUtil {
 
 
 // throws Exception
-func (this *InventorySearchUtil) GetBasicItemIdColumn(searchRequest *SearchRequest) *BasicArrayList {
+func (this *InventorySearchUtil) GetBasicItemIdColumn(searchRequest *SearchRequest) IBasicArrayList {
         var inventoryEntityInterface *InventoryEntity = InventoryEntityFactory_GetInstance().GetInventoryEntityInstance(); _ = inventoryEntityInterface
         var storeFrontInterface StoreFrontInterface = searchRequest.GetStoreFront(); _ = storeFrontInterface
         var inventorySearchUtil *InventoryColumnUtil = InventoryColumnUtil_GetInstance(); _ = inventorySearchUtil
-        var column *BasicArrayList = inventorySearchUtil.GetColumnWhereLike(inventoryEntityInterface, storeFrontInterface.GetCategoryPath(), this.BasicItemData.ID); _ = column
+        var column IBasicArrayList = inventorySearchUtil.GetColumnWhereLike(inventoryEntityInterface, storeFrontInterface.GetCategoryPath(), this.BasicItemData.ID); _ = column
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().PRODUCTSEARCHLOGGING) {
             this.LogUtil.PutF("Number Of Items Found: " + fmt.Sprint(column.Size()), this, "search")
         }
-        var subStoreVector *BasicArrayList = storeFrontInterface.GetSubStores(); _ = subStoreVector
+        var subStoreVector IBasicArrayList = storeFrontInterface.GetSubStores(); _ = subStoreVector
         var size int = subStoreVector.Size(); _ = size
         for index := int(0); index < size; index++ {
             var subStore string = any(subStoreVector.Get(index)).(string); _ = subStore
-            var substoreIdColumn *BasicArrayList = inventorySearchUtil.GetColumnWhereLike(inventoryEntityInterface, subStore, this.BasicItemData.ID); _ = substoreIdColumn
+            var substoreIdColumn IBasicArrayList = inventorySearchUtil.GetColumnWhereLike(inventoryEntityInterface, subStore, this.BasicItemData.ID); _ = substoreIdColumn
             column.AddAllList(substoreIdColumn)
         }
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().PRODUCTSEARCHLOGGING) {
@@ -105,7 +105,7 @@ func (this *InventorySearchUtil) GetNoResults(viewDocumentInterface TransformDoc
 }
 
 
-func (this *InventorySearchUtil) Search(abeClientInformation AbeClientInformationInterface, searchRequest *SearchRequest, column *BasicArrayList) []string {
+func (this *InventorySearchUtil) Search(abeClientInformation AbeClientInformationInterface, searchRequest *SearchRequest, column IBasicArrayList) []string {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 []string) {
             defer func() {
                 if recovered := recover(); recovered != nil {

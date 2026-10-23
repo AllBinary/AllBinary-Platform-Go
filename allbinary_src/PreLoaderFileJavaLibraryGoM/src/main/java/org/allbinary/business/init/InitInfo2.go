@@ -64,12 +64,12 @@ func InitInfo2_GetInstance() *InitInfo2 {
 }
 
 
-func (this *InitInfo2) IsTestHtmlPathValid(value *AbPath) bool {
+func (this *InitInfo2) IsTestHtmlPathValid(value IAbPath) bool {
         return this.Directory.Create(value)
 }
 
 
-func (this *InitInfo2) IsMainPathValid(value *AbPath) bool {
+func (this *InitInfo2) IsMainPathValid(value IAbPath) bool {
         return this.Directory.Create(value)
 }
 

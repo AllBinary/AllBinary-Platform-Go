@@ -54,14 +54,26 @@ func NewTransformStoreDocumentFactory() *TransformStoreDocumentFactory {
 
 
 // throws Exception
-func TransformStoreDocumentFactory_GetInstance(pageContext *PageContext, weblisketSession *WeblisketSession) TransformDocumentInterface {
+func TransformStoreDocumentFactory_GetInstance_1(pageContext *PageContext, weblisketSession *WeblisketSession) TransformDocumentInterface {
         return any(NewTransformStoreDocument(pageContext, weblisketSession)).(TransformDocumentInterface)
+}
+
+// Java overloads of TransformStoreDocumentFactory.getInstance
+func TransformStoreDocumentFactory_GetInstance(args ...any) TransformDocumentInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[*PageContext](args[0], pass) && Java_IsArg[*WeblisketSession](args[1], pass) {
+            return TransformStoreDocumentFactory_GetInstance_1(Java_Arg[*PageContext](args[0]), Java_Arg[*WeblisketSession](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[*SearchRequest](args[0], pass) {
+            return TransformStoreDocumentFactory_GetInstance_2(Java_Arg[*SearchRequest](args[0]))
+        }
+    }
+    panic("No Java overload of TransformStoreDocumentFactory.getInstance for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func TransformStoreDocumentFactory_GetInstance(searchRequest *SearchRequest) TransformDocumentInterface {
+func TransformStoreDocumentFactory_GetInstance_2(searchRequest *SearchRequest) TransformDocumentInterface {
         return any(NewTransformStoreDocument(searchRequest)).(TransformDocumentInterface)
 }
 

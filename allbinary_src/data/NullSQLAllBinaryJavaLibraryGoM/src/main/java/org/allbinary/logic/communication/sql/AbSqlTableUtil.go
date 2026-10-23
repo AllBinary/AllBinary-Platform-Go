@@ -73,14 +73,14 @@ func AbSqlTableUtil_GetInstance() *AbSqlTableUtil {
 
 
 // synchronized
-func (this *AbSqlTableUtil) BackupTable(abSqlTable *AbSqlTable) string {
+func (this *AbSqlTableUtil) BackupTable(abSqlTable IAbSqlTable) string {
         var tableName string = abSqlTable.GetTableName(); _ = tableName
         return this.TABLE_LABEL + tableName + " Backup Failed"
 }
 
 
 // synchronized
-func (this *AbSqlTableUtil) RestoreTable(abSqlTable *AbSqlTable, portion *Portion) string {
+func (this *AbSqlTableUtil) RestoreTable(abSqlTable IAbSqlTable, portion *Portion) string {
         var tableName string = abSqlTable.GetTableName(); _ = tableName
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.TABLE_LABEL)

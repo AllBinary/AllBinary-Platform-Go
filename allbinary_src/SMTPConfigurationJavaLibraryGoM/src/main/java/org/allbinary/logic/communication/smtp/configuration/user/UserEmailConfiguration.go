@@ -58,7 +58,21 @@ func (this *UserEmailConfiguration) initFields() {
 }
 
 
-func NewUserEmailConfiguration() *UserEmailConfiguration {
+
+
+// Java overloads of new UserEmailConfiguration
+func NewUserEmailConfiguration(args ...any) *UserEmailConfiguration {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewUserEmailConfiguration_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewUserEmailConfiguration_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new UserEmailConfiguration for the arguments")
+}
+func NewUserEmailConfiguration_1() *UserEmailConfiguration {
     this := &UserEmailConfiguration{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
@@ -69,8 +83,7 @@ func NewUserEmailConfiguration() *UserEmailConfiguration {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUserEmailConfiguration(hashMap *HashMap) *UserEmailConfiguration {
+func NewUserEmailConfiguration_2(hashMap *HashMap) *UserEmailConfiguration {
     this := &UserEmailConfiguration{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {

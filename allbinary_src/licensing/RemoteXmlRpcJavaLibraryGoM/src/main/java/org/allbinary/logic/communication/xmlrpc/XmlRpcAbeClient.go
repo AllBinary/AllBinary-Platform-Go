@@ -47,7 +47,7 @@ type XmlRpcAbeClient struct {
     CommonStrings *CommonStrings
     RemoteMethod string
     ClientInfo AbeClientInformationInterface
-    Client *XmlRpcHandler
+    Client XmlRpcHandler
     Server int
     Start int
     MaxServers int
@@ -65,6 +65,29 @@ type XmlRpcAbeClient struct {
     HOST_NOT_RESOLVED_MSG string
     HOST_NOT_RESOLVED string
     MyRandomFactory *MyRandomFactory
+}
+
+// The Java class XmlRpcAbeClient has subclasses so its variables are this interface
+type IXmlRpcAbeClient interface {
+    XmlRpcAbeClient_() *XmlRpcAbeClient
+    Get(anyType any) any
+    TryAnother(anyType any) any
+    GetClientInfo() AbeClientInformationInterface
+    GetClient() XmlRpcHandler
+    SetClient(client IXmlRpcClient)
+    GetServer() int
+    SetServer(server int)
+    GetStart() int
+    SetStart(start int)
+    GetMaxServers() int
+    SetMaxServers(maxServers int)
+    IsIsDone() bool
+    SetIsDone(isDone bool)
+    GetRemoteMethod() string
+}
+
+func (this *XmlRpcAbeClient) XmlRpcAbeClient_() *XmlRpcAbeClient {
+    return this
 }
 
 var XmlRpcAbeClient_IsOnline bool = true
@@ -147,12 +170,12 @@ func (this *XmlRpcAbeClient) GetClientInfo() AbeClientInformationInterface {
 }
 
 
-func (this *XmlRpcAbeClient) GetClient() *XmlRpcHandler {
+func (this *XmlRpcAbeClient) GetClient() XmlRpcHandler {
         return this.Client
 }
 
 
-func (this *XmlRpcAbeClient) SetClient(client *XmlRpcClient) {
+func (this *XmlRpcAbeClient) SetClient(client IXmlRpcClient) {
         this.Client = client
 }
 

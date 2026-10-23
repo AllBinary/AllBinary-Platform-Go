@@ -82,7 +82,7 @@ func (this *EditValidationView) IsValid() bool {
             if this.WorkFlowName == "" {
                 tryControl1, tryResult1 = 1, false; return
             }
-            if WorkFlowEntityFactory_GetInstance().Create2().Get(this.WorkFlowName, this.GetTransformInfoInterface().GetStoreName()) == nil {
+            if WorkFlowEntityFactory_GetInstance().Create2().Get(this.WorkFlowName, this.GetTransformInfoInterface().GetStoreName()).(WorkFlowInterface) == nil {
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     this.LogUtil.PutF("WorkFlow does not exist.", this, this.CommonStrings.IS_VALID)
                 }
@@ -113,7 +113,7 @@ func (this *EditValidationView) ValidationInfo() string {
             if this.WorkFlowName == "" {
                 stringBuffer.Append("WorkFlow name is invalid<br />")
             }
-            if WorkFlowEntityFactory_GetInstance().Create2().Get(this.WorkFlowName, this.GetTransformInfoInterface().GetStoreName()) == nil {
+            if WorkFlowEntityFactory_GetInstance().Create2().Get(this.WorkFlowName, this.GetTransformInfoInterface().GetStoreName()).(WorkFlowInterface) == nil {
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     this.LogUtil.PutF("WorkFlow does not exist.", this, "validationInfo()")
                 }

@@ -59,7 +59,7 @@ func TimeUtil_GetInstance() *TimeUtil {
 }
 
 
-func (this *TimeUtil) SetCalendar(calendar *Calendar, yearString string, monthString string, dayString string, hourString string) {
+func (this *TimeUtil) SetCalendar_1(calendar *Calendar, yearString string, monthString string, dayString string, hourString string) {
         var year int = int(int(yearString)); _ = year
         var month int = int(int(monthString)); _ = month
         var day int = int(int(dayString)); _ = day
@@ -67,9 +67,23 @@ func (this *TimeUtil) SetCalendar(calendar *Calendar, yearString string, monthSt
         calendar.Set(year, month, day, hour, 0)
 }
 
+// Java overloads of TimeUtil.setCalendar
+func (this *TimeUtil) SetCalendar(args ...any) {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 5 && Java_IsArg[*Calendar](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) && Java_IsArg[string](args[4], pass) {
+            this.SetCalendar_1(Java_Arg[*Calendar](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]), Java_Arg[string](args[4]))
+            return
+        }
+        if len(args) == 7 && Java_IsArg[*Calendar](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) && Java_IsArg[string](args[4], pass) && Java_IsArg[string](args[5], pass) && Java_IsArg[string](args[6], pass) {
+            this.SetCalendar_2(Java_Arg[*Calendar](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]), Java_Arg[string](args[4]), Java_Arg[string](args[5]), Java_Arg[string](args[6]))
+            return
+        }
+    }
+    panic("No Java overload of TimeUtil.setCalendar for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *TimeUtil) SetCalendar(calendar *Calendar, yearString string, monthString string, dayString string, hourString string, minuteString string, secondString string) {
+
+func (this *TimeUtil) SetCalendar_2(calendar *Calendar, yearString string, monthString string, dayString string, hourString string, minuteString string, secondString string) {
         var year int = int(int(yearString)); _ = year
         var month int = int(int(monthString)); _ = month
         var day int = int(int(dayString)); _ = day

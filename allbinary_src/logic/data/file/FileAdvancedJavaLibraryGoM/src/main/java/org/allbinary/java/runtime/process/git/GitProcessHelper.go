@@ -71,21 +71,33 @@ func NewGitProcessHelper() *GitProcessHelper {
 
 
 // throws IOException, InterruptedException
-func (this *GitProcessHelper) TrackedFiles(rootAsString string, pathspec string) List[string] {
+func (this *GitProcessHelper) TrackedFiles_1(rootAsString string, pathspec string) IList[string] {
         return this.TrackedFiles(rootAsString, pathspec, ".java")
+}
+
+// Java overloads of GitProcessHelper.trackedFiles
+func (this *GitProcessHelper) TrackedFiles(args ...any) IList[string] {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.TrackedFiles_1(Java_Arg[string](args[0]), Java_Arg[string](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return this.TrackedFiles_2(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+    }
+    panic("No Java overload of GitProcessHelper.trackedFiles for the arguments")
 }
 
 
 // throws IOException, InterruptedException
-// Java overloaded method: Go needs a different name
-func (this *GitProcessHelper) TrackedFiles(rootAsString string, pathspec string, suffix string) List[string] {
+func (this *GitProcessHelper) TrackedFiles_2(rootAsString string, pathspec string, suffix string) IList[string] {
         var process *Process = NewProcessBuilder(this.TrackedStrings.GIT_COMMAND, this.TrackedStrings.CHANGE_DIRECTORY_OPTION, rootAsString, this.TrackedStrings.LIST_FILES_COMMAND, this.TrackedStrings.SEP_BY_NULL_CHAR_INSTEAD_OF_NEW_LINE, this.TrackedStrings.PATHSPEC_SEPARATOR, pathspec).RedirectError(ProcessBuilder_Redirect.INHERIT).Start(); _ = process
         var output []int8 = process.GetInputStream().ReadAllBytes(); _ = output
         var exitCode int = process.WaitFor(); _ = exitCode
         if exitCode != 0 {
             panic(errors.New(fmt.Sprint(fmt.Sprint(NewStringMaker().Append("git ls-files failed for ").Append(rootAsString).Append(" with exit code ").Appendint(exitCode)))))
         }
-        var files List[string] = NewArrayList(); _ = files
+        var files IList[string] = NewArrayList(); _ = files
         var start int = 0; _ = start
         var relativePath string; _ = relativePath
         for index := int(0); index < len(output); index++ {

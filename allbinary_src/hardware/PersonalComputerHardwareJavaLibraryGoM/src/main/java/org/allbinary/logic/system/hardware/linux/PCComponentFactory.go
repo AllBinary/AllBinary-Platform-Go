@@ -67,7 +67,6 @@ func NewPCComponentFactory() *PCComponentFactory {
 }
 
 
-// Java overloaded method: Go needs a different name
 func (this *PCComponentFactory) GetInstance(component string, componentData string) HardwareComponentInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 HardwareComponentInterface) {
             defer func() {

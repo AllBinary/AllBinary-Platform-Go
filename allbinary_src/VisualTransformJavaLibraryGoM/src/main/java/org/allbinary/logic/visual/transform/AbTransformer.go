@@ -46,11 +46,27 @@ type AbTransformer struct {
     LogUtil *LogUtil
     CommonStrings *CommonStrings
     TransformInfoInterface TransformInfoInterface
-    InputStream *InputStream
+    InputStream IInputStream
     UriResolver *URIResolver
 }
 
 // Implements BasicTransformerInterface
+
+// The Java class AbTransformer has subclasses so its variables are this interface
+type IAbTransformer interface {
+    AbTransformer_() *AbTransformer
+    GetTransformInfoInterface() TransformInfoInterface
+    SetInputStream(inputStream IInputStream)
+    SetURIResolver(uriResolver *URIResolver)
+    GetInputStream() IInputStream
+    GetURIResolver() *URIResolver
+    GetStreamSource() *StreamSource
+    Translate(xmlDocumentStr string) string
+}
+
+func (this *AbTransformer) AbTransformer_() *AbTransformer {
+    return this
+}
 
 
 func (this *AbTransformer) initFields() {
@@ -75,7 +91,7 @@ func (this *AbTransformer) GetTransformInfoInterface() TransformInfoInterface {
 }
 
 
-func (this *AbTransformer) SetInputStream(inputStream *InputStream) {
+func (this *AbTransformer) SetInputStream(inputStream IInputStream) {
         this.InputStream = inputStream
 }
 
@@ -85,7 +101,7 @@ func (this *AbTransformer) SetURIResolver(uriResolver *URIResolver) {
 }
 
 
-func (this *AbTransformer) GetInputStream() *InputStream {
+func (this *AbTransformer) GetInputStream() IInputStream {
         return this.InputStream
 }
 
@@ -119,11 +135,11 @@ func (this *AbTransformer) Translate(xmlDocumentStr string) string {
             if this.GetURIResolver() == nil {
                 panic(errors.New(fmt.Sprint("No URIResolver")))
             }
-            var result string = XslHelper_GetInstance().Translate(this.GetURIResolver(), NewStreamSource(this.GetInputStream()), NewStreamSource(NewStringBufferInputStream(xmlDocumentStr))); _ = result
+            var result string = XslHelper_GetInstance().Translate(this.GetURIResolver(), NewStreamSource(this.GetInputStream()), NewStreamSource(NewStringBufferInputStream(xmlDocumentStr))).(IOutputStream); _ = result
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().XSLLOGGING) {
                 this.LogUtil.PutF("translated xml: " + result, this, "translate(String xmlDocumentStr)")
             }
-            var transformInfoObjectConfigGeneratorInterface *TransformInfoObjectConfigGenerator = TransformInfoObjectConfigGeneratorFactory_GetInstance().GetInstance(this.GetTransformInfoInterface()); _ = transformInfoObjectConfigGeneratorInterface
+            var transformInfoObjectConfigGeneratorInterface ITransformInfoObjectConfigGenerator = TransformInfoObjectConfigGeneratorFactory_GetInstance().GetInstance(this.GetTransformInfoInterface()); _ = transformInfoObjectConfigGeneratorInterface
             tryControl1, tryResult1 = 1, transformInfoObjectConfigGeneratorInterface.Process(result); return
             return
         }(); tryControl1 == 1 {

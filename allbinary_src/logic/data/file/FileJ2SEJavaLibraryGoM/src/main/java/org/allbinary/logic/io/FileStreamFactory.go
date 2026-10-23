@@ -63,8 +63,8 @@ func NewFileStreamFactory() *FileStreamFactory {
 
 
 // throws Exception
-func (this *FileStreamFactory) GetFileInputStreamInstance(path string, fileName string) *AbFileInputStream {
-        var FILEABPATH *AbPath = NewAbPath(path, fileName); _ = FILEABPATH
+func (this *FileStreamFactory) GetFileInputStreamInstance(path string, fileName string) IAbFileInputStream {
+        var FILEABPATH IAbPath = NewAbPath(path, fileName); _ = FILEABPATH
         var file *AbFile = AbFile_CreateAbFileFromAbPath(FILEABPATH); _ = file
         return NewAbFileInputStream(file)
 }
@@ -72,7 +72,7 @@ func (this *FileStreamFactory) GetFileInputStreamInstance(path string, fileName 
 
 // throws Exception
 func (this *FileStreamFactory) GetFileOutputStreamInstance(path string, fileName string) *AbFileOutputStream {
-        var FILEABPATH *AbPath = NewAbPath(path, fileName); _ = FILEABPATH
+        var FILEABPATH IAbPath = NewAbPath(path, fileName); _ = FILEABPATH
         var file *AbFile = AbFile_CreateAbFileFromAbPath(FILEABPATH); _ = file
         if file.Exists() {
             file.Delete()
@@ -84,7 +84,7 @@ func (this *FileStreamFactory) GetFileOutputStreamInstance(path string, fileName
 
 // throws Exception
 func (this *FileStreamFactory) Delete(path string, fileName string) {
-        var FILEABPATH *AbPath = NewAbPath(path, fileName); _ = FILEABPATH
+        var FILEABPATH IAbPath = NewAbPath(path, fileName); _ = FILEABPATH
         var file *AbFile = AbFile_CreateAbFileFromAbPath(FILEABPATH); _ = file
         file.Delete()
 }

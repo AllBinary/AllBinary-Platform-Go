@@ -106,7 +106,7 @@ func (this *OrderedIntArrayPermutationUtil) Factorial(dataLength int) int64 {
 }
 
 
-func (this *OrderedIntArrayPermutationUtil) Generate(data []int, visitor *Visitor) {
+func (this *OrderedIntArrayPermutationUtil) Generate(data []int, visitor IVisitor) {
         var iterations int64 = this.Factorial(len(data)); _ = iterations
         fmt.Print(this.TOTAL_ITERATIONS_TABLE)
         fmt.Println(iterations)
@@ -124,7 +124,7 @@ func OrderedIntArrayPermutationUtil_Main(args []string) {
         for i := int(0); i < TOTAL; i++ {
             data[i] = i
         }
-        var permutationVisitor *IntPermutationVisitor = NewIntPermutationVisitor(data); _ = permutationVisitor
+        var permutationVisitor IIntPermutationVisitor = NewIntPermutationVisitor(data); _ = permutationVisitor
         var ORIGINAL_DATA_LABEL string = "Original Data: "; _ = ORIGINAL_DATA_LABEL
         fmt.Print(ORIGINAL_DATA_LABEL)
         permutationVisitor.Print(data)

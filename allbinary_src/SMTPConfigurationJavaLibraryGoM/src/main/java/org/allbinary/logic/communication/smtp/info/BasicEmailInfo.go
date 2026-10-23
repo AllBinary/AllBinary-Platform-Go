@@ -49,6 +49,21 @@ type BasicEmailInfo struct {
     EmailServerConfigurationInterface EmailServerConfigurationInterface
 }
 
+// The Java class BasicEmailInfo has subclasses so its variables are this interface
+type IBasicEmailInfo interface {
+    BasicEmailInfo_() *BasicEmailInfo
+    GetSubject() string
+    GetTextBody() string
+    GetEmailServerConfigurationInterface() EmailServerConfigurationInterface
+    SetEmailServerConfigurationInterface(emailServerConfigurationInterface EmailServerConfigurationInterface)
+    ToString() string
+    Init()
+}
+
+func (this *BasicEmailInfo) BasicEmailInfo_() *BasicEmailInfo {
+    return this
+}
+
 
 func (this *BasicEmailInfo) initFields() {
     this.LogUtil = LogUtil_GetInstance()

@@ -56,3 +56,4 @@ func NewRendererInitializedStupidTimerFactory() *RendererInitializedStupidTimerF
 func RendererInitializedStupidTimerFactory_GetInstance() *StupidTimer {
         return RendererInitializedStupidTimerFactory_Instance
 }
+

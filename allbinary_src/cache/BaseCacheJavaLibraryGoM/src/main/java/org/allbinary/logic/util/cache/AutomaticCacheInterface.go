@@ -47,3 +47,4 @@ type AutomaticCacheInterface interface {
     Get(key any) CacheableInterface
 }
 
+

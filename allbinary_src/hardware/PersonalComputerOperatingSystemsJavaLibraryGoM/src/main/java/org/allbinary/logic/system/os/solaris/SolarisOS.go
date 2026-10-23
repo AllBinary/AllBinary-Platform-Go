@@ -59,3 +59,4 @@ func NewSolarisOS() *SolarisOS {
 func (this *SolarisOS) IsAutoHide() bool {
         return true
 }
+

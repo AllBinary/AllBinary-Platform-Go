@@ -49,15 +49,28 @@ type LogDbInitInfo struct {
 var LogDbInitInfo_INITFILE string = "logdbinitdata.dat"
 
 
-func NewLogDbInitInfo() *LogDbInitInfo {
+
+
+// Java overloads of new LogDbInitInfo
+func NewLogDbInitInfo(args ...any) *LogDbInitInfo {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewLogDbInitInfo_1()
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return NewLogDbInitInfo_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of new LogDbInitInfo for the arguments")
+}
+func NewLogDbInitInfo_1() *LogDbInitInfo {
     this := &LogDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(LogDbInitInfo_INITFILE, true)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewLogDbInitInfo(read bool) *LogDbInitInfo {
+func NewLogDbInitInfo_2(read bool) *LogDbInitInfo {
     this := &LogDbInitInfo{}
         this.DbInitInfo = *NewDbInitInfo(LogDbInitInfo_INITFILE, read)
     return this

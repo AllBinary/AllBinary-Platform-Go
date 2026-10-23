@@ -73,7 +73,7 @@ func NewJavaHelpUtil() *JavaHelpUtil {
 }
 
 
-func (this *JavaHelpUtil) GetHelpSet(filePath string) *HelpSet {
+func (this *JavaHelpUtil) GetHelpSet_1(filePath string) *HelpSet {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *HelpSet) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -93,9 +93,21 @@ func (this *JavaHelpUtil) GetHelpSet(filePath string) *HelpSet {
         panic("unreachable")
 }
 
+// Java overloads of JavaHelpUtil.getHelpSet
+func (this *JavaHelpUtil) GetHelpSet(args ...any) *HelpSet {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return this.GetHelpSet_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*URL](args[0], pass) {
+            return this.GetHelpSet_2(Java_Arg[*URL](args[0]))
+        }
+    }
+    panic("No Java overload of JavaHelpUtil.getHelpSet for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *JavaHelpUtil) GetHelpSet(url *URL) *HelpSet {
+
+func (this *JavaHelpUtil) GetHelpSet_2(url *URL) *HelpSet {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 *HelpSet) {
             defer func() {
                 if recovered := recover(); recovered != nil {

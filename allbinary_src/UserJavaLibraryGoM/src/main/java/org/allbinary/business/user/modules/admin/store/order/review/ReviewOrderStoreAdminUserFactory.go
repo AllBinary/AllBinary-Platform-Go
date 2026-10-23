@@ -56,14 +56,26 @@ func NewReviewOrderStoreAdminUserFactory() *ReviewOrderStoreAdminUserFactory {
 
 
 // throws Exception
-func (this *ReviewOrderStoreAdminUserFactory) GetInstance() UserInterface {
+func (this *ReviewOrderStoreAdminUserFactory) GetInstance_1() UserInterface {
         return NewReviewOrderStoreAdminUser()
+}
+
+// Java overloads of ReviewOrderStoreAdminUserFactory.getInstance
+func (this *ReviewOrderStoreAdminUserFactory) GetInstance(args ...any) UserInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.GetInstance_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return this.GetInstance_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of ReviewOrderStoreAdminUserFactory.getInstance for the arguments")
 }
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *ReviewOrderStoreAdminUserFactory) GetInstance(hashMap *HashMap) UserInterface {
+func (this *ReviewOrderStoreAdminUserFactory) GetInstance_2(hashMap *HashMap) UserInterface {
         return NewReviewOrderStoreAdminUser(hashMap)
 }
 

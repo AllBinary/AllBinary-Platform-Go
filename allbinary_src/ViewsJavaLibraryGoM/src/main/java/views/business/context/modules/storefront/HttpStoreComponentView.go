@@ -48,6 +48,17 @@ type HttpStoreComponentView struct {
     CommonStrings *CommonStrings
 }
 
+// The Java class HttpStoreComponentView has subclasses so its variables are this interface
+type IHttpStoreComponentView interface {
+    IHttpComponentView
+    HttpStoreComponentView_() *HttpStoreComponentView
+    View() string
+}
+
+func (this *HttpStoreComponentView) HttpStoreComponentView_() *HttpStoreComponentView {
+    return this
+}
+
 
 func (this *HttpStoreComponentView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

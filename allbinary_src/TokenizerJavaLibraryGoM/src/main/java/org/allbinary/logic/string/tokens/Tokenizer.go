@@ -75,8 +75,8 @@ func (this *Tokenizer) SetEndSep(endSep string) {
 }
 
 
-func (this *Tokenizer) GetInsideSep(string_ string) *BasicArrayList {
-        var tokenList *BasicArrayList = NewBasicArrayListD(); _ = tokenList
+func (this *Tokenizer) GetInsideSep(string_ string) IBasicArrayList {
+        var tokenList IBasicArrayList = NewBasicArrayListD(); _ = tokenList
         var index int = 0; _ = index
         var size int = len(string_); _ = size
         for index < size {
@@ -96,7 +96,7 @@ func (this *Tokenizer) GetInsideSep(string_ string) *BasicArrayList {
 }
 
 
-func (this *Tokenizer) GetTokensFromString(string_ string, tokenVector *BasicArrayList) *BasicArrayList {
+func (this *Tokenizer) GetTokensFromString(string_ string, tokenVector IBasicArrayList) IBasicArrayList {
         var index int = 0; _ = index
         var end int = 0; _ = end
         for index < len(string_) {
@@ -113,13 +113,13 @@ func (this *Tokenizer) GetTokensFromString(string_ string, tokenVector *BasicArr
 }
 
 
-func (this *Tokenizer) GetTokens(stringVector *BasicArrayList) *ABHashtable[any, any] {
+func (this *Tokenizer) GetTokens(stringVector IBasicArrayList) *ABHashtable[any, any] {
         var tokenHashtable *ABHashtable[any, any] = StdUtil_GetInstance().CreateHashtable(); _ = tokenHashtable
         var string_ string = StringUtil_GetInstance().EMPTY_STRING; _ = string_
         var end int = 0; _ = end
         var size int = stringVector.Size(); _ = size
         for index := int(0); index < size; index++ {
-            string_ = any(stringVector.ObjectArray[index]).(string)
+            string_ = any(stringVector.BasicArrayList_().ObjectArray[index]).(string)
             end = strings.Index(string_, string(this.Sep))
             if end >= 0 {
                 tokenHashtable.Put(string_[0:end], string_[end + 1:len(string_)])

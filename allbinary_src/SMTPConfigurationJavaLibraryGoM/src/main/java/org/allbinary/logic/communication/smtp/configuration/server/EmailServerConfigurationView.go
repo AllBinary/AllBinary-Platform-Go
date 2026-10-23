@@ -54,7 +54,21 @@ func (this *EmailServerConfigurationView) initFields() {
 }
 
 
-func NewEmailServerConfigurationView(node *Node) *EmailServerConfigurationView {
+
+
+// Java overloads of new EmailServerConfigurationView
+func NewEmailServerConfigurationView(args ...any) *EmailServerConfigurationView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewEmailServerConfigurationView_1(Java_Arg[*Node](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[EmailServerConfigurationInterface](args[0], pass) {
+            return NewEmailServerConfigurationView_2(Java_Arg[EmailServerConfigurationInterface](args[0]))
+        }
+    }
+    panic("No Java overload of new EmailServerConfigurationView for the arguments")
+}
+func NewEmailServerConfigurationView_1(node *Node) *EmailServerConfigurationView {
     this := &EmailServerConfigurationView{}
     this.initFields()
         var childNodeList *NodeList = node.GetChildNodes(); _ = childNodeList
@@ -66,8 +80,7 @@ func NewEmailServerConfigurationView(node *Node) *EmailServerConfigurationView {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewEmailServerConfigurationView(emailServerConfigurationInterface EmailServerConfigurationInterface) *EmailServerConfigurationView {
+func NewEmailServerConfigurationView_2(emailServerConfigurationInterface EmailServerConfigurationInterface) *EmailServerConfigurationView {
     this := &EmailServerConfigurationView{}
     this.initFields()
         this.EmailServerConfigurationInterface = emailServerConfigurationInterface

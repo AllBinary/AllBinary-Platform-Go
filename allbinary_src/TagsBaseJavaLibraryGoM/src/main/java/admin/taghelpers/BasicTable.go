@@ -48,6 +48,19 @@ type BasicTable struct {
 
 // Implements BasicTableInterface
 
+// The Java class BasicTable has subclasses so its variables are this interface
+type IBasicTable interface {
+    BasicTable_() *BasicTable
+    Drop() string
+    Create() string
+    Restore() string
+    Backup() string
+}
+
+func (this *BasicTable) BasicTable_() *BasicTable {
+    return this
+}
+
 
 func (this *BasicTable) initFields() {
     this.CommonStrings = CommonStrings_GetInstance()

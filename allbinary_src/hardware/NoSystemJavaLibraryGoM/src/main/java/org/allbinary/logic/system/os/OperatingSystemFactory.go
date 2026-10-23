@@ -87,3 +87,4 @@ func (this *OperatingSystemFactory) GetOperatingSystemInstance() IGenericOperati
         }
         return this.GenericOperatingSystem
 }
+

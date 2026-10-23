@@ -48,6 +48,17 @@ type HttpContextView struct {
     CommonStrings *CommonStrings
 }
 
+// The Java class HttpContextView has subclasses so its variables are this interface
+type IHttpContextView interface {
+    IHttpComponentView
+    HttpContextView_() *HttpContextView
+    View() string
+}
+
+func (this *HttpContextView) HttpContextView_() *HttpContextView {
+    return this
+}
+
 
 func (this *HttpContextView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

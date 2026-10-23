@@ -48,6 +48,18 @@ type UserView struct {
     User UserInterface
 }
 
+// The Java class UserView has subclasses so its variables are this interface
+type IUserView interface {
+    IHttpContextView
+    UserView_() *UserView
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *UserView) UserView_() *UserView {
+    return this
+}
+
 
 func (this *UserView) initFields() {
     this.LogUtil = LogUtil_GetInstance()

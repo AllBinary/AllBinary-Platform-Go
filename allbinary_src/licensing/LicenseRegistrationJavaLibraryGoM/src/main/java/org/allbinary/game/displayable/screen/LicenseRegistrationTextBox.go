@@ -45,12 +45,12 @@ var _ = unicode.IsDigit
 type LicenseRegistrationTextBox struct {
     CustomTextBox
     LogUtil *LogUtil
-    PleaseWaitPaintable *Paintable
-    Paintable *Paintable
+    PleaseWaitPaintable IPaintable
+    Paintable IPaintable
 }
 
-var LicenseRegistrationTextBox_DISPLAY_COMMAND *Command = NewCommand("Register", StringUtil_GetInstance().EMPTY_STRING, Command_SCREEN, 3)
-var LicenseRegistrationTextBox_SUBMIT_COMMAND *Command = NewCommand("Submit", StringUtil_GetInstance().EMPTY_STRING, Command_SCREEN, 3)
+var LicenseRegistrationTextBox_DISPLAY_COMMAND ICommand = NewCommand("Register", StringUtil_GetInstance().EMPTY_STRING, Command_SCREEN, 3)
+var LicenseRegistrationTextBox_SUBMIT_COMMAND ICommand = NewCommand("Submit", StringUtil_GetInstance().EMPTY_STRING, Command_SCREEN, 3)
 
 func (this *LicenseRegistrationTextBox) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -59,7 +59,7 @@ func (this *LicenseRegistrationTextBox) initFields() {
 }
 
 
-func NewLicenseRegistrationTextBox(cmdListener *CommandListener, backgrounBasicColor *BasicColor, foregroundBasicColor *BasicColor) *LicenseRegistrationTextBox {
+func NewLicenseRegistrationTextBox(cmdListener CommandListener, backgrounBasicColor *BasicColor, foregroundBasicColor *BasicColor) *LicenseRegistrationTextBox {
     this := &LicenseRegistrationTextBox{}
         this.CustomTextBox = *NewCustomTextBox(cmdListener, "Enter Registration Code:", StringUtil_GetInstance().EMPTY_STRING, 60, TextField_ANY, Font_GetDefaultFont(), backgrounBasicColor, foregroundBasicColor)
         this.initFields()
@@ -67,7 +67,7 @@ func NewLicenseRegistrationTextBox(cmdListener *CommandListener, backgrounBasicC
 }
 
 
-func (this *LicenseRegistrationTextBox) InitCommands(cmdListener *CommandListener) {
+func (this *LicenseRegistrationTextBox) InitCommands(cmdListener CommandListener) {
         this.RemoveAllCommands()
         this.AddCommand(GameCommandsFactory_GetInstance().CLOSE_AND_SHOW_GAME_CANVAS)
         this.AddCommand(GameCommandsFactory_GetInstance().TOGGLE_KEYBOARD)
@@ -119,14 +119,14 @@ func (this *LicenseRegistrationTextBox) Close() {
 }
 
 
-func (this *LicenseRegistrationTextBox) Paint(graphics *Graphics) {
+func (this *LicenseRegistrationTextBox) Paint(graphics IGraphics) {
         this.CustomTextBox.Paint(graphics)
         this.Paintable.Paint(graphics)
 }
 
 
 func (this *LicenseRegistrationTextBox) Submit() {
-        var commandListener *CommandListener = this.GetCustomCommandListener(); _ = commandListener
+        var commandListener CommandListener = this.GetCustomCommandListener(); _ = commandListener
         commandListener.CommandAction(LicenseRegistrationTextBox_SUBMIT_COMMAND, this)
 }
 

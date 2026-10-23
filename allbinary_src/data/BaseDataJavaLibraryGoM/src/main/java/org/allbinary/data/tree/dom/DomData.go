@@ -56,3 +56,4 @@ func NewDomData() *DomData {
     this := &DomData{}
     return this
 }
+

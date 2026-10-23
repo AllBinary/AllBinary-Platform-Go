@@ -66,7 +66,6 @@ func NewPaymentProcessorInterfaceFactory() *PaymentProcessorInterfaceFactory {
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 // synchronized
 func (this *PaymentProcessorInterfaceFactory) GetInstance(transformInfoInterface TransformInfoInterface) PaymentProcessorInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 PaymentProcessorInterface) {

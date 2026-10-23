@@ -48,6 +48,18 @@ type CommandTag struct {
     Command string
 }
 
+// The Java class CommandTag has subclasses so its variables are this interface
+type ICommandTag interface {
+    ICustomTagSupport
+    CommandTag_() *CommandTag
+    SetCommand(command string)
+    GetCommand() string
+}
+
+func (this *CommandTag) CommandTag_() *CommandTag {
+    return this
+}
+
 
 func (this *CommandTag) initFields() {
     this.TagStrings = TagStrings_GetInstance()

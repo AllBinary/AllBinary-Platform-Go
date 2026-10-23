@@ -46,10 +46,24 @@ type ShippingAddressesView struct {
     HttpStoreComponentView
     LogUtil *LogUtil
     Request *HttpServletRequest
-    StreetAddressList *BasicArrayList
+    StreetAddressList IBasicArrayList
 }
 
 // Implements DomNodeInterface
+
+// The Java class ShippingAddressesView has subclasses so its variables are this interface
+type IShippingAddressesView interface {
+    IHttpStoreComponentView
+    ShippingAddressesView_() *ShippingAddressesView
+    GetRequest() *HttpServletRequest
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *ShippingAddressesView) ShippingAddressesView_() *ShippingAddressesView {
+    return this
+}
 
 
 func (this *ShippingAddressesView) initFields() {

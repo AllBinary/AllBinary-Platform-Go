@@ -68,3 +68,4 @@ func NewEventStrings() *EventStrings {
 func EventStrings_GetInstance() *EventStrings {
         return EventStrings_Instance
 }
+

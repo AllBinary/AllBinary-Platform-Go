@@ -48,15 +48,28 @@ type WizardWebStoreAdminUser struct {
 
 
 
-func NewWizardWebStoreAdminUser() *WizardWebStoreAdminUser {
+
+
+// Java overloads of new WizardWebStoreAdminUser
+func NewWizardWebStoreAdminUser(args ...any) *WizardWebStoreAdminUser {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewWizardWebStoreAdminUser_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewWizardWebStoreAdminUser_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new WizardWebStoreAdminUser for the arguments")
+}
+func NewWizardWebStoreAdminUser_1() *WizardWebStoreAdminUser {
     this := &WizardWebStoreAdminUser{}
         this.User = *NewUser()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewWizardWebStoreAdminUser(userHashMap *HashMap) *WizardWebStoreAdminUser {
+func NewWizardWebStoreAdminUser_2(userHashMap *HashMap) *WizardWebStoreAdminUser {
     this := &WizardWebStoreAdminUser{}
         this.User = *NewUser(userHashMap)
     return this

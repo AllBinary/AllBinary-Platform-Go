@@ -74,3 +74,4 @@ func (this *NoTimeDelayHelper) IsTime(currentTime int64) bool {
 func (this *NoTimeDelayHelper) IsTimeSince(delay int, currentTime int64) bool {
         return true
 }
+

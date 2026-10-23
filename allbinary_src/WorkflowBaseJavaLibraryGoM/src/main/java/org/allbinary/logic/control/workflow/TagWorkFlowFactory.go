@@ -66,7 +66,6 @@ func NewTagWorkFlowFactory() *TagWorkFlowFactory {
 
 
 // throws Exception, LicensingException
-// Java overloaded method: Go needs a different name
 func (this *TagWorkFlowFactory) GetInstance(abeClientInformation AbeClientInformationInterface, propertiesHashMap *HashMap, pageContext *PageContext) WorkFlowInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 WorkFlowInterface) {
             defer func() {

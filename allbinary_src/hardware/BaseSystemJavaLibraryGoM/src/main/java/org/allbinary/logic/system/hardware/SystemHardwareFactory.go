@@ -101,3 +101,4 @@ func SystemHardwareFactory_Static_toString() string {
         }
         return fmt.Sprint(osBuffer)
 }
+

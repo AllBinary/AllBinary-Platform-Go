@@ -125,3 +125,4 @@ func (this *SmallLongFactory) GetString(index int) string {
         }
         return this.STRING_ARRAY[i]
 }
+

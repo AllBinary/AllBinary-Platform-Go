@@ -57,6 +57,42 @@ type Order struct {
 
 // Implements OrderInterface, *Serializable
 
+// The Java class Order has subclasses so its variables are this interface
+type IOrder interface {
+    Order_() *Order
+    IsIdValid() bool
+    IsValid() bool
+    GetIdValidationInfo() string
+    SetShippingMethod(shippingType string)
+    SetPaymentMethod(value string)
+    SetSpecial(special string)
+    SetId(value string)
+    SetStoreName(value string)
+    SetUserComments(value string)
+    SetUserCancelComments(value string)
+    SetStoreComments(value string)
+    SetStoreCancelComments(value string)
+    GetBasket() BasketInterface
+    GetShippingMethod() string
+    GetPaymentMethod() string
+    GetSpecial() string
+    GetId() string
+    GetStoreName() string
+    GetUserComments() string
+    GetUserCancelComments() string
+    GetStoreComments() string
+    GetStoreCancelComments() string
+    ReviewOrder(paymentMethod string) string
+    ViewOrder(paymentMethod string) string
+    EmailOrder(userName string, paymentMethod string, storeFrontInterface StoreFrontInterface) string
+    ToHashMapOrder() *HashMap
+    ToXmlNode(document *Document) *Node
+}
+
+func (this *Order) Order_() *Order {
+    return this
+}
+
 
 func (this *Order) initFields() {
     
@@ -72,7 +108,21 @@ func (this *Order) initFields() {
 }
 
 
-func NewOrder(basket BasketInterface) *Order {
+
+
+// Java overloads of new Order
+func NewOrder(args ...any) *Order {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[BasketInterface](args[0], pass) {
+            return NewOrder_1(Java_Arg[BasketInterface](args[0]))
+        }
+        if len(args) == 6 && Java_IsArg[string](args[0], pass) && Java_IsArg[BasketInterface](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) && Java_IsArg[string](args[4], pass) && Java_IsArg[string](args[5], pass) {
+            return NewOrder_2(Java_Arg[string](args[0]), Java_Arg[BasketInterface](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]), Java_Arg[string](args[4]), Java_Arg[string](args[5]))
+        }
+    }
+    panic("No Java overload of new Order for the arguments")
+}
+func NewOrder_1(basket BasketInterface) *Order {
     this := &Order{}
     this.initFields()
         this.Basket = basket
@@ -82,8 +132,7 @@ func NewOrder(basket BasketInterface) *Order {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewOrder(storeName string, basket BasketInterface, id string, shippingType string, special string, paymentMethod string) *Order {
+func NewOrder_2(storeName string, basket BasketInterface, id string, shippingType string, special string, paymentMethod string) *Order {
     this := &Order{}
     this.initFields()
         this.StoreName = storeName
@@ -97,7 +146,7 @@ func NewOrder(storeName string, basket BasketInterface, id string, shippingType 
 
 
 func (this *Order) IsIdValid() bool {
-        if this.GetId() == nil || this.GetId().CompareTo(StringUtil_GetInstance().EMPTY_STRING) == 0 || this.GetId().Length() > OrderHistoryData_MAXIDLEN || !StringValidationUtil_GetInstance().IsNumber(this.GetId()) {
+        if this.GetId() == nil || strings.Compare(this.GetId(), StringUtil_GetInstance().EMPTY_STRING) == 0 || len(this.GetId()) > OrderHistoryData_MAXIDLEN || !StringValidationUtil_GetInstance().IsNumber(this.GetId()) {
             return false
         }
         return true
@@ -111,7 +160,7 @@ func (this *Order) IsValid() bool {
 
 func (this *Order) GetIdValidationInfo() string {
         var EMPTY_STRING string = StringUtil_GetInstance().EMPTY_STRING; _ = EMPTY_STRING
-        if this.GetId() == nil || this.GetId().CompareTo(EMPTY_STRING) == 0 || this.GetId().Length() > OrderHistoryData_MAXIDLEN || !StringValidationUtil_GetInstance().IsNumber(this.GetId()) {
+        if this.GetId() == nil || strings.Compare(this.GetId(), EMPTY_STRING) == 0 || len(this.GetId()) > OrderHistoryData_MAXIDLEN || !StringValidationUtil_GetInstance().IsNumber(this.GetId()) {
             return "Please enter a valid order Id < " + fmt.Sprint(OrderHistoryData_MAXIDLEN) + " digits in length.<br>"
         }
         return EMPTY_STRING

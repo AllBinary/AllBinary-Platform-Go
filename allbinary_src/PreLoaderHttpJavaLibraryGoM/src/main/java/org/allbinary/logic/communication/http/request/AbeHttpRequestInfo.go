@@ -68,7 +68,21 @@ func (this *AbeHttpRequestInfo) initFields() {
 }
 
 
-func NewAbeHttpRequestInfo(hashMap *HashMap) *AbeHttpRequestInfo {
+
+
+// Java overloads of new AbeHttpRequestInfo
+func NewAbeHttpRequestInfo(args ...any) *AbeHttpRequestInfo {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewAbeHttpRequestInfo_1(Java_Arg[*HashMap](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HttpServletRequest](args[0], pass) {
+            return NewAbeHttpRequestInfo_2(Java_Arg[*HttpServletRequest](args[0]))
+        }
+    }
+    panic("No Java overload of new AbeHttpRequestInfo for the arguments")
+}
+func NewAbeHttpRequestInfo_1(hashMap *HashMap) *AbeHttpRequestInfo {
     this := &AbeHttpRequestInfo{}
     this.initFields()
         var stringUtil *StringUtil = StringUtil_GetInstance(); _ = stringUtil
@@ -82,8 +96,7 @@ func NewAbeHttpRequestInfo(hashMap *HashMap) *AbeHttpRequestInfo {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewAbeHttpRequestInfo(httpServletRequest *HttpServletRequest) *AbeHttpRequestInfo {
+func NewAbeHttpRequestInfo_2(httpServletRequest *HttpServletRequest) *AbeHttpRequestInfo {
     this := &AbeHttpRequestInfo{}
     this.initFields()
         var stringUtil *StringUtil = StringUtil_GetInstance(); _ = stringUtil
@@ -117,8 +130,8 @@ func (this *AbeHttpRequestInfo) ToHashMap() *HashMap {
 }
 
 
-func (this *AbeHttpRequestInfo) ToVector() *BasicArrayList {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+func (this *AbeHttpRequestInfo) ToVector() IBasicArrayList {
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         vector.Add(this.HttpUserAgent)
         vector.Add(this.RemoteAddress)
         vector.Add(this.RemoteHost)

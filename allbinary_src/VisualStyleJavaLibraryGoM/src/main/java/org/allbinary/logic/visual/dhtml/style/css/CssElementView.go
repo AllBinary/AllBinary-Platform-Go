@@ -50,11 +50,23 @@ type CssElementView struct {
     Value string
     Title string
     Description string
-    CssElementVector *BasicArrayList
-    CssPropertyVector *BasicArrayList
+    CssElementVector IBasicArrayList
+    CssPropertyVector IBasicArrayList
 }
 
 // Implements DomNodeInterface
+
+// The Java class CssElementView has subclasses so its variables are this interface
+type ICssElementView interface {
+    CssElementView_() *CssElementView
+    GetValue() string
+    ToHashMap() *HashMap
+    ToXmlNode(document *Document) *Node
+}
+
+func (this *CssElementView) CssElementView_() *CssElementView {
+    return this
+}
 
 
 func (this *CssElementView) initFields() {
@@ -70,7 +82,21 @@ func (this *CssElementView) initFields() {
 }
 
 
-func NewCssElementView() *CssElementView {
+
+
+// Java overloads of new CssElementView
+func NewCssElementView(args ...any) *CssElementView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewCssElementView_1()
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewCssElementView_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new CssElementView for the arguments")
+}
+func NewCssElementView_1() *CssElementView {
     this := &CssElementView{}
     this.initFields()
         this.CssPropertyVector = NewBasicArrayListD()
@@ -82,8 +108,7 @@ func NewCssElementView() *CssElementView {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewCssElementView(node *Node) *CssElementView {
+func NewCssElementView_2(node *Node) *CssElementView {
     this := &CssElementView{}
     this.initFields()
         if tryControl1 := func() (tryControl1 int) {
@@ -115,7 +140,7 @@ func NewCssElementView(node *Node) *CssElementView {
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF(fmt.Sprint(NewStringMaker().Append("Value: ").Append(this.Value).Append("\nTitle: ").Append(this.Title).Append("\nDescription: ").Append(this.Description)), this, this.CommonStrings.CONSTRUCTOR)
             }
-            var cssElementStyleNodeVector *BasicArrayList = DomSearchHelper_GetAllNodes(CssElementData_GetInstance().NAME, node.GetChildNodes()); _ = cssElementStyleNodeVector
+            var cssElementStyleNodeVector IBasicArrayList = DomSearchHelper_GetAllNodes(CssElementData_GetInstance().NAME, node.GetChildNodes()); _ = cssElementStyleNodeVector
             if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                 this.LogUtil.PutF("Child Css Elements: " + fmt.Sprint(cssElementStyleNodeVector.Size()), this, "CssElementView()")
             }

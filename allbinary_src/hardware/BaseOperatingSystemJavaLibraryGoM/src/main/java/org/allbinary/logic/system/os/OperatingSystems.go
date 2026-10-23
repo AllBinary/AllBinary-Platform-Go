@@ -95,3 +95,4 @@ func (this *OperatingSystems) SetUnknownSpecificOSAllowed(aUnknownSpecificOSAllo
 func OperatingSystems_GetInstance() *OperatingSystems {
         return OperatingSystems_Instance
 }
+

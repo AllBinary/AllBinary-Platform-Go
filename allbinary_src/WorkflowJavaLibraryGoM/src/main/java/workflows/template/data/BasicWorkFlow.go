@@ -53,6 +53,19 @@ type BasicWorkFlow struct {
 
 // Implements WorkFlowInterface
 
+// The Java class BasicWorkFlow has subclasses so its variables are this interface
+type IBasicWorkFlow interface {
+    BasicWorkFlow_() *BasicWorkFlow
+    GetName() string
+    GetPropertiesHashMap() *HashMap
+    GetPageContext() *PageContext
+    Process() int
+}
+
+func (this *BasicWorkFlow) BasicWorkFlow_() *BasicWorkFlow {
+    return this
+}
+
 
 func (this *BasicWorkFlow) initFields() {
     this.LogUtil = LogUtil_GetInstance()

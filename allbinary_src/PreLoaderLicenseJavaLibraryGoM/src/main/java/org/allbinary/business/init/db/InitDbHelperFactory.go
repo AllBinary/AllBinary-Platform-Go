@@ -55,7 +55,7 @@ func NewInitDbHelperFactory() *InitDbHelperFactory {
 
 
 // throws LicensingException
-func InitDbHelperFactory_GetInstance(abeClientInformation AbeClientInformationInterface, databaseConnectionInfoInterface DatabaseConnectionInfoInterface) any {
+func InitDbHelperFactory_GetInstance_1(abeClientInformation AbeClientInformationInterface, databaseConnectionInfoInterface DatabaseConnectionInfoInterface) any {
         var params []any = make([]any, 1); _ = params
         var classes []reflect.Type = make([]reflect.Type, 1); _ = classes
         classes[0] = reflect.TypeOf((*DatabaseConnectionInfoInterface)(nil)).Elem()
@@ -64,10 +64,22 @@ func InitDbHelperFactory_GetInstance(abeClientInformation AbeClientInformationIn
         return anyType
 }
 
+// Java overloads of InitDbHelperFactory.getInstance
+func InitDbHelperFactory_GetInstance(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[DatabaseConnectionInfoInterface](args[1], pass) {
+            return InitDbHelperFactory_GetInstance_1(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[DatabaseConnectionInfoInterface](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[AbeClientInformationInterface](args[0], pass) {
+            return InitDbHelperFactory_GetInstance_2(Java_Arg[AbeClientInformationInterface](args[0]))
+        }
+    }
+    panic("No Java overload of InitDbHelperFactory.getInstance for the arguments")
+}
+
 
 // throws LicensingException
-// Java overloaded method: Go needs a different name
-func InitDbHelperFactory_GetInstance(abeClientInformation AbeClientInformationInterface) any {
+func InitDbHelperFactory_GetInstance_2(abeClientInformation AbeClientInformationInterface) any {
         var anyType any = AbeFactory_GetInstance().GetInstance(abeClientInformation, InitDbHelperFactory_CLASSNAME, nil, nil); _ = anyType
         return anyType
 }

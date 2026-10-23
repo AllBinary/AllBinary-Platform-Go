@@ -60,7 +60,24 @@ func (this *EmailServerConfiguration) initFields() {
 }
 
 
-func NewEmailServerConfiguration() *EmailServerConfiguration {
+
+
+// Java overloads of new EmailServerConfiguration
+func NewEmailServerConfiguration(args ...any) *EmailServerConfiguration {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewEmailServerConfiguration_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewEmailServerConfiguration_2(Java_Arg[*HashMap](args[0]))
+        }
+        if len(args) == 3 && Java_IsArg[string](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return NewEmailServerConfiguration_3(Java_Arg[string](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+    }
+    panic("No Java overload of new EmailServerConfiguration for the arguments")
+}
+func NewEmailServerConfiguration_1() *EmailServerConfiguration {
     this := &EmailServerConfiguration{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
@@ -72,8 +89,7 @@ func NewEmailServerConfiguration() *EmailServerConfiguration {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewEmailServerConfiguration(hashMap *HashMap) *EmailServerConfiguration {
+func NewEmailServerConfiguration_2(hashMap *HashMap) *EmailServerConfiguration {
     this := &EmailServerConfiguration{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
@@ -88,8 +104,7 @@ func NewEmailServerConfiguration(hashMap *HashMap) *EmailServerConfiguration {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewEmailServerConfiguration(account string, password string, server string) *EmailServerConfiguration {
+func NewEmailServerConfiguration_3(account string, password string, server string) *EmailServerConfiguration {
     this := &EmailServerConfiguration{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {

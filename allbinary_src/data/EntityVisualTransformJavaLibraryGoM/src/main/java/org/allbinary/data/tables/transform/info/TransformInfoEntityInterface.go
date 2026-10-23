@@ -45,10 +45,10 @@ var _ = unicode.IsDigit
 type TransformInfoEntityInterface interface {
     BasicDataTableInterface
     Get(name string, propertiesHashMap *HashMap, pageContext *PageContext) TransformInfoInterface
-    GetObjectConfigs(storeName string) *BasicArrayList
-    GetNames(storeName string) *BasicArrayList
+    GetObjectConfigs(storeName string) IBasicArrayList
+    GetNames(storeName string) IBasicArrayList
     Delete(name string)
-    Insert(values *BasicArrayList)
+    Insert(values IBasicArrayList)
     Update(updatedValues *HashMap)
 }
 

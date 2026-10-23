@@ -58,7 +58,21 @@ func (this *UserEmailEventsConfiguration) initFields() {
 }
 
 
-func NewUserEmailEventsConfiguration() *UserEmailEventsConfiguration {
+
+
+// Java overloads of new UserEmailEventsConfiguration
+func NewUserEmailEventsConfiguration(args ...any) *UserEmailEventsConfiguration {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewUserEmailEventsConfiguration_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewUserEmailEventsConfiguration_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new UserEmailEventsConfiguration for the arguments")
+}
+func NewUserEmailEventsConfiguration_1() *UserEmailEventsConfiguration {
     this := &UserEmailEventsConfiguration{}
     this.initFields()
         this.Init()
@@ -66,8 +80,7 @@ func NewUserEmailEventsConfiguration() *UserEmailEventsConfiguration {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUserEmailEventsConfiguration(hashMap *HashMap) *UserEmailEventsConfiguration {
+func NewUserEmailEventsConfiguration_2(hashMap *HashMap) *UserEmailEventsConfiguration {
     this := &UserEmailEventsConfiguration{}
     this.initFields()
         this.Init()

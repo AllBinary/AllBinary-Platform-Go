@@ -59,13 +59,13 @@ func VectorUtil_GetInstance() *VectorUtil {
 
 
 func (this *VectorUtil) GetSize(anyType any) int {
-        var vector *Vector = any(anyType).(*Vector); _ = vector
+        var vector IVector = any(anyType).(IVector); _ = vector
         return vector.Size()
 }
 
 
 func (this *VectorUtil) ElementAt(anyType any, index int) any {
-        var vector *Vector = any(anyType).(*Vector); _ = vector
+        var vector IVector = any(anyType).(IVector); _ = vector
         return vector.ElementAt(index)
 }
 

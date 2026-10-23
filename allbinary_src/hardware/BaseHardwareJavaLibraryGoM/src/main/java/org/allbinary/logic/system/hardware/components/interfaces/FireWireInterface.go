@@ -45,3 +45,4 @@ var _ = unicode.IsDigit
 type FireWireInterface interface {
 }
 
+

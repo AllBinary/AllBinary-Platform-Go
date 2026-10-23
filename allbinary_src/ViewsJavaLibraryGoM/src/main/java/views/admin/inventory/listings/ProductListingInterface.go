@@ -43,8 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type ProductListingInterface interface {
-    GenerateAll() string
-    GenerateAll(storeName string) string
+    GenerateAll(args ...any) string
 }
 
 

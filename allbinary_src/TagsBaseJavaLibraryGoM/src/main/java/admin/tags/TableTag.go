@@ -53,6 +53,34 @@ type TableTag struct {
     Total int
 }
 
+// The Java class TableTag has subclasses so its variables are this interface
+type ITableTag interface {
+    IPropertiesTag
+    TableTag_() *TableTag
+    SetIsSelected(enabled string)
+    IsEnabled() bool
+    SetTagHelperFactory(tagHelperFactoryInterface TagHelperFactoryInterface)
+    GetTagHelperFactoryInterface() TagHelperFactoryInterface
+    SetTagRequestHelperFactory(tagHelperFactoryInterface TagHelperFactoryInterface)
+    GetTagRequestHelperFactoryInterface() TagHelperFactoryInterface
+    SetCurrent(current int)
+    GetCurrent() int
+    SetTotal(total int)
+    GetTotal() int
+    Drop() string
+    Create() string
+    Restore() string
+    Backup() string
+    Insert() string
+    Delete() string
+    Update() string
+    DoStartTag() int
+}
+
+func (this *TableTag) TableTag_() *TableTag {
+    return this
+}
+
 
 func (this *TableTag) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -352,23 +380,23 @@ func (this *TableTag) DoStartTag() int {
             }
             if this.IsEnabled() {
                 if this.GetCommand() != nil {
-                    if this.GetCommand().CompareTo(this.CommonStrings.INSERT) == 0 || this.GetCommand().CompareTo(SqlStrings_GetInstance().INSERT_INTO) == 0 || this.GetCommand().CompareTo(this.CommonStrings.DELETE) == 0 || this.GetCommand().CompareTo(this.CommonStrings.UPDATE) == 0 || this.GetCommand().CompareTo(SqlStrings_GetInstance().UPDATE) == 0 {
+                    if strings.Compare(this.GetCommand(), this.CommonStrings.INSERT) == 0 || strings.Compare(this.GetCommand(), SqlStrings_GetInstance().INSERT_INTO) == 0 || strings.Compare(this.GetCommand(), this.CommonStrings.DELETE) == 0 || strings.Compare(this.GetCommand(), this.CommonStrings.UPDATE) == 0 || strings.Compare(this.GetCommand(), SqlStrings_GetInstance().UPDATE) == 0 {
                         this.RequestObject = this.GetTagRequestHelperFactoryInterface().GetInstance(this.GetPropertiesHashMap(), this.PageContext)
                     }
-                    if this.GetCommand().CompareTo(this.CommonStrings.INSERT) == 0 || this.GetCommand().CompareTo(SqlStrings_GetInstance().INSERT_INTO) == 0 {
+                    if strings.Compare(this.GetCommand(), this.CommonStrings.INSERT) == 0 || strings.Compare(this.GetCommand(), SqlStrings_GetInstance().INSERT_INTO) == 0 {
                         this.Insert()
-                    } else if this.GetCommand().CompareTo(this.CommonStrings.DELETE) == 0 {
+                    } else if strings.Compare(this.GetCommand(), this.CommonStrings.DELETE) == 0 {
                         this.Delete()
-                    } else if this.GetCommand().CompareTo(this.CommonStrings.UPDATE) == 0 || this.GetCommand().CompareTo(SqlStrings_GetInstance().UPDATE) == 0 {
+                    } else if strings.Compare(this.GetCommand(), this.CommonStrings.UPDATE) == 0 || strings.Compare(this.GetCommand(), SqlStrings_GetInstance().UPDATE) == 0 {
                         this.Update()
                     }
-                    if this.GetCommand().CompareTo(org_Allbinary.Globals.GLOBALS2.BACKUP) == 0 {
+                    if strings.Compare(this.GetCommand(), org_Allbinary.Globals.GLOBALS2.BACKUP) == 0 {
                         var output string = this.Backup(); _ = output
                         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().JSPTAGEXTRAOUTPUT) {
                             this.PageContext.GetOut().Print(output + "<br />")
                         }
                         tryControl1, tryResult1 = 1, PropertiesTag_SKIP_BODY; return
-                    } else if this.GetCommand().CompareTo(org_Allbinary.Globals.GLOBALS2.RESTORE) == 0 {
+                    } else if strings.Compare(this.GetCommand(), org_Allbinary.Globals.GLOBALS2.RESTORE) == 0 {
                         this.GetPropertiesHashMap().Put("current", this.GetCurrent())
                         this.GetPropertiesHashMap().Put("total", this.GetTotal())
                         var output string = this.Restore(); _ = output
@@ -376,29 +404,29 @@ func (this *TableTag) DoStartTag() int {
                             this.PageContext.GetOut().Print(output + "<br />")
                         }
                         tryControl1, tryResult1 = 1, PropertiesTag_SKIP_BODY; return
-                    } else if this.GetCommand().CompareTo(this.CommonStrings.DROP) == 0 {
+                    } else if strings.Compare(this.GetCommand(), this.CommonStrings.DROP) == 0 {
                         var output string = this.Drop(); _ = output
                         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().JSPTAGEXTRAOUTPUT) {
                             this.PageContext.GetOut().Print(output + "<br />")
                         }
                         tryControl1, tryResult1 = 1, PropertiesTag_SKIP_BODY; return
-                    } else if this.GetCommand().CompareTo(this.CommonStrings.CREATE) == 0 {
+                    } else if strings.Compare(this.GetCommand(), this.CommonStrings.CREATE) == 0 {
                         var output string = this.Create(); _ = output
                         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().JSPTAGEXTRAOUTPUT) {
                             this.PageContext.GetOut().Print(output + "<br />")
                         }
                         tryControl1, tryResult1 = 1, PropertiesTag_SKIP_BODY; return
-                    } else if this.GetCommand().CompareTo(this.CommonStrings.INSERT) == 0 {
+                    } else if strings.Compare(this.GetCommand(), this.CommonStrings.INSERT) == 0 {
                         var output string = this.Insert(); _ = output
                         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().JSPTAGEXTRAOUTPUT) {
                             this.PageContext.GetOut().Print(output + "<br />")
                         }
-                    } else if this.GetCommand().CompareTo(this.CommonStrings.DELETE) == 0 {
+                    } else if strings.Compare(this.GetCommand(), this.CommonStrings.DELETE) == 0 {
                         var output string = this.Delete(); _ = output
                         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().JSPTAGEXTRAOUTPUT) {
                             this.PageContext.GetOut().Print(output + "<br />")
                         }
-                    } else if this.GetCommand().CompareTo(this.CommonStrings.UPDATE) == 0 {
+                    } else if strings.Compare(this.GetCommand(), this.CommonStrings.UPDATE) == 0 {
                         var output string = this.Update(); _ = output
                         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().JSPTAGEXTRAOUTPUT) {
                             this.PageContext.GetOut().Print(output + "<br />")

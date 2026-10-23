@@ -81,3 +81,4 @@ func (this *BooleanFactory) ToStringb(bool_ bool) string {
             return this.FALSE_STRING
         }
 }
+

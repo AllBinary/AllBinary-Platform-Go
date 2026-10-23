@@ -66,8 +66,7 @@ func NewNewWorkFlowFactory() *NewWorkFlowFactory {
 
 
 // throws Exception, LicensingException
-// Java overloaded method: Go needs a different name
-func (this *NewWorkFlowFactory) GetInstance(abeClientInformation AbeClientInformationInterface, hashMap *HashMap, pageContext *PageContext) WorkFlowInterface {
+func (this *NewWorkFlowFactory) GetInstance_1(abeClientInformation AbeClientInformationInterface, hashMap *HashMap, pageContext *PageContext) WorkFlowInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 WorkFlowInterface) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -96,10 +95,22 @@ func (this *NewWorkFlowFactory) GetInstance(abeClientInformation AbeClientInform
         panic("unreachable")
 }
 
+// Java overloads of NewWorkFlowFactory.getInstance
+func (this *NewWorkFlowFactory) GetInstance(args ...any) WorkFlowInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) && Java_IsArg[*PageContext](args[2], pass) {
+            return this.GetInstance_1(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[*HashMap](args[1]), Java_Arg[*PageContext](args[2]))
+        }
+        if len(args) == 2 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.GetInstance_2(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of NewWorkFlowFactory.getInstance for the arguments")
+}
+
 
 // throws Exception, LicensingException
-// Java overloaded method: Go needs a different name
-func (this *NewWorkFlowFactory) GetInstance(abeClientInformation AbeClientInformationInterface, className string) WorkFlowInterface {
+func (this *NewWorkFlowFactory) GetInstance_2(abeClientInformation AbeClientInformationInterface, className string) WorkFlowInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 WorkFlowInterface) {
             defer func() {
                 if recovered := recover(); recovered != nil {

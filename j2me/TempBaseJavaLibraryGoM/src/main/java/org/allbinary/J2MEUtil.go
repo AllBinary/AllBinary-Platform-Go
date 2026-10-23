@@ -66,3 +66,4 @@ func J2MEUtil_IsJ2SE() bool {
 func J2MEUtil_IsHTML() bool {
         return false
 }
+

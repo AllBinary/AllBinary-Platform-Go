@@ -96,3 +96,4 @@ func (this *SoftwareInformation) ToString() string {
 func (this *SoftwareInformation) String() string {
     return this.ToString()
 }
+

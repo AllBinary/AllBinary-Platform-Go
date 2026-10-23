@@ -45,10 +45,27 @@ var _ = unicode.IsDigit
 type TransformInfoHttp struct {
     TransformInfo
     LogUtil *LogUtil
-    AbContext *AbContext
+    AbContext IAbContext
 }
 
 // Implements TransformInfoHttpInterface
+
+// The Java class TransformInfoHttp has subclasses so its variables are this interface
+type ITransformInfoHttp interface {
+    ITransformInfo
+    TransformInfoHttp_() *TransformInfoHttp
+    Set(hashMap *HashMap)
+    GetWeblisketSession() WeblisketSessionInterface
+    GetPageContext() *PageContext
+    GetPropertiesHashMap() *HashMap
+    GetTemplateFilePath() IAbPath
+    GetObjectConfigFilePath() IAbPath
+    GetDataFilePath() IAbPath
+}
+
+func (this *TransformInfoHttp) TransformInfoHttp_() *TransformInfoHttp {
+    return this
+}
 
 
 func (this *TransformInfoHttp) initFields() {
@@ -57,7 +74,30 @@ func (this *TransformInfoHttp) initFields() {
 }
 
 
-func NewTransformInfoHttp(propertiesHashMap *HashMap, pageContext *PageContext, crud bool) *TransformInfoHttp {
+
+
+// Java overloads of new TransformInfoHttp
+func NewTransformInfoHttp(args ...any) *TransformInfoHttp {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[*PageContext](args[1], pass) && Java_IsArg[bool](args[2], pass) {
+            return NewTransformInfoHttp_1(Java_Arg[*HashMap](args[0]), Java_Arg[*PageContext](args[1]), Java_Arg[bool](args[2]))
+        }
+        if len(args) == 3 && Java_IsArg[*HttpServletRequest](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) && Java_IsArg[*PageContext](args[2], pass) {
+            return NewTransformInfoHttp_2(Java_Arg[*HttpServletRequest](args[0]), Java_Arg[*HashMap](args[1]), Java_Arg[*PageContext](args[2]))
+        }
+        if len(args) == 3 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[*HashMap](args[1], pass) && Java_IsArg[*PageContext](args[2], pass) {
+            return NewTransformInfoHttp_3(Java_Arg[*HashMap](args[0]), Java_Arg[*HashMap](args[1]), Java_Arg[*PageContext](args[2]))
+        }
+        if len(args) == 2 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[*PageContext](args[1], pass) {
+            return NewTransformInfoHttp_4(Java_Arg[*HashMap](args[0]), Java_Arg[*PageContext](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[ITransformInfoHttp](args[0], pass) {
+            return NewTransformInfoHttp_5(Java_Arg[ITransformInfoHttp](args[0]))
+        }
+    }
+    panic("No Java overload of new TransformInfoHttp for the arguments")
+}
+func NewTransformInfoHttp_1(propertiesHashMap *HashMap, pageContext *PageContext, crud bool) *TransformInfoHttp {
     this := &TransformInfoHttp{}
         this.TransformInfo = *NewTransformInfo()
         this.initFields()
@@ -70,8 +110,7 @@ func NewTransformInfoHttp(propertiesHashMap *HashMap, pageContext *PageContext, 
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoHttp(request *HttpServletRequest, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttp {
+func NewTransformInfoHttp_2(request *HttpServletRequest, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttp {
     this := &TransformInfoHttp{}
         this.TransformInfo = *NewTransformInfo()
         this.initFields()
@@ -85,8 +124,7 @@ func NewTransformInfoHttp(request *HttpServletRequest, propertiesHashMap *HashMa
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoHttp(databaseHashMap *HashMap, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttp {
+func NewTransformInfoHttp_3(databaseHashMap *HashMap, propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttp {
     this := &TransformInfoHttp{}
         this.TransformInfo = *NewTransformInfo()
         this.initFields()
@@ -99,8 +137,7 @@ func NewTransformInfoHttp(databaseHashMap *HashMap, propertiesHashMap *HashMap, 
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoHttp(propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttp {
+func NewTransformInfoHttp_4(propertiesHashMap *HashMap, pageContext *PageContext) *TransformInfoHttp {
     this := &TransformInfoHttp{}
         this.TransformInfo = *NewTransformInfo()
         this.initFields()
@@ -113,8 +150,7 @@ func NewTransformInfoHttp(propertiesHashMap *HashMap, pageContext *PageContext) 
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTransformInfoHttp(parentViewOfThisTransformInfoInterface *TransformInfoHttp) *TransformInfoHttp {
+func NewTransformInfoHttp_5(parentViewOfThisTransformInfoInterface ITransformInfoHttp) *TransformInfoHttp {
     this := &TransformInfoHttp{}
         this.TransformInfo = *NewTransformInfo()
         this.initFields()
@@ -169,19 +205,19 @@ func (this *TransformInfoHttp) GetPropertiesHashMap() *HashMap {
 
 
 // throws Exception
-func (this *TransformInfoHttp) GetTemplateFilePath() *AbPath {
+func (this *TransformInfoHttp) GetTemplateFilePath() IAbPath {
         return NewAbPath(TransformInfo_URLGLOBALS.GetMainPath() + TransformInfo_FREEBLISKET_PATH_GLOBALS.GetInstance().XSLPATH, this.GetTemplateFile())
 }
 
 
 // throws Exception
-func (this *TransformInfoHttp) GetObjectConfigFilePath() *AbPath {
+func (this *TransformInfoHttp) GetObjectConfigFilePath() IAbPath {
         return NewAbPath(TransformInfo_URLGLOBALS.GetMainPath() + TransformInfo_FREEBLISKET_PATH_GLOBALS.GetInstance().XSLPATH, this.GetObjectConfigFile())
 }
 
 
 // throws Exception
-func (this *TransformInfoHttp) GetDataFilePath() *AbPath {
+func (this *TransformInfoHttp) GetDataFilePath() IAbPath {
         return NewAbPath(TransformInfo_URLGLOBALS.GetMainPath() + TransformInfo_FREEBLISKET_PATH_GLOBALS.GetInstance().XSLPATH, this.GetDataFile())
 }
 

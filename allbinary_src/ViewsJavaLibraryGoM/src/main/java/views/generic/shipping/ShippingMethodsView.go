@@ -51,6 +51,19 @@ type ShippingMethodsView struct {
 
 // Implements DomNodeInterface
 
+// The Java class ShippingMethodsView has subclasses so its variables are this interface
+type IShippingMethodsView interface {
+    IHttpStoreComponentView
+    ShippingMethodsView_() *ShippingMethodsView
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *ShippingMethodsView) ShippingMethodsView_() *ShippingMethodsView {
+    return this
+}
+
 
 func (this *ShippingMethodsView) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -87,7 +100,7 @@ func (this *ShippingMethodsView) ToXmlNode(document *Document) *Node {
             var basket BasketInterface = this.GetWeblisketSession().GetOrder().GetBasket(); _ = basket
             var shippingAddressesEntityInterface StreetAddressesEntityInterface = ShippingAddressesEntityFactory_GetInstance().GetInstance(this.GetWeblisketSession().GetUserName()); _ = shippingAddressesEntityInterface
             var streetAddress *StreetAddress = shippingAddressesEntityInterface.GetDefault(); _ = streetAddress
-            var shippingVector *BasicArrayList = this.ShippingMethods.Get(); _ = shippingVector
+            var shippingVector IBasicArrayList = this.ShippingMethods.Get(); _ = shippingVector
             var size int = shippingVector.Size(); _ = size
             for index := int(0); index < size; index++ {
                 var shippingMethodNode *Node = document.CreateElement(ShippingMethodsData_SHIPPINGMETHODORDERSUMMARY); _ = shippingMethodNode

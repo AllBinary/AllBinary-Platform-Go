@@ -46,13 +46,39 @@ type Time struct {
     TimeLong int64
 }
 
+// The Java class Time has subclasses so its variables are this interface
+type ITime interface {
+    Time_() *Time
+    GetLong() int64
+    Getlong() int64
+    ToString() string
+}
+
+func (this *Time) Time_() *Time {
+    return this
+}
+
 
 func (this *Time) initFields() {
     
 }
 
 
-func NewTime(time string) *Time {
+
+
+// Java overloads of new Time
+func NewTime(args ...any) *Time {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewTime_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[int64](args[0], pass) {
+            return NewTime_2(Java_Arg[int64](args[0]))
+        }
+    }
+    panic("No Java overload of new Time for the arguments")
+}
+func NewTime_1(time string) *Time {
     this := &Time{}
     this.initFields()
         this.TimeLong = int64(time)
@@ -60,8 +86,7 @@ func NewTime(time string) *Time {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTime(time int64) *Time {
+func NewTime_2(time int64) *Time {
     this := &Time{}
     this.initFields()
         this.TimeLong = int64(time)

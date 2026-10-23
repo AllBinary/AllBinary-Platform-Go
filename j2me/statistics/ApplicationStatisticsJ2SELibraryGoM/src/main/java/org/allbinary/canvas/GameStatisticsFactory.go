@@ -83,3 +83,4 @@ func (this *GameStatisticsFactory) ToString() string {
 func (this *GameStatisticsFactory) String() string {
     return this.ToString()
 }
+

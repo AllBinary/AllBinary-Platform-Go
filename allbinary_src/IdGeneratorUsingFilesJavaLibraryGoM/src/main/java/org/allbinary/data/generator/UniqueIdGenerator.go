@@ -50,6 +50,18 @@ type UniqueIdGenerator struct {
 
 // Implements IdGeneratorInterface
 
+// The Java class UniqueIdGenerator has subclasses so its variables are this interface
+type IUniqueIdGenerator interface {
+    UniqueIdGenerator_() *UniqueIdGenerator
+    Initialize(value int)
+    SetFile(filePathName string, name string)
+    GetNext() string
+}
+
+func (this *UniqueIdGenerator) UniqueIdGenerator_() *UniqueIdGenerator {
+    return this
+}
+
 var UniqueIdGenerator_EXT string = ".unq"
 
 func (this *UniqueIdGenerator) initFields() {
@@ -114,7 +126,7 @@ func (this *UniqueIdGenerator) GetNext() string {
             StreamUtil_GetInstance().Close(idData)
             StreamUtil_GetInstance().Close(idOutData)
             }()
-            var idFile *AbFileInputStream = NewAbFileInputStream(this.NewFile); _ = idFile
+            var idFile IAbFileInputStream = NewAbFileInputStream(this.NewFile); _ = idFile
             idData = NewAbDataInputStream(idFile)
             this.Id = idData.ReadLong()
             var idOutFile *AbFileOutputStream = AbFileOutputStream_CreateFromAbFile(this.NewFile); _ = idOutFile

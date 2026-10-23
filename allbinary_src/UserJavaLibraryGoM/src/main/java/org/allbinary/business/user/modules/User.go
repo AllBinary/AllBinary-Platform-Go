@@ -60,7 +60,7 @@ type User struct {
     OtherContact string
     ElectronicDevice string
     Fax string
-    Role *UserRole
+    Role IUserRole
     Encryption string
     Secret string
     Password *Password
@@ -70,6 +70,74 @@ type User struct {
 }
 
 // Implements UserInterface
+
+// The Java class User has subclasses so its variables are this interface
+type IUser interface {
+    User_() *User
+    GetFormData(userHashMap *HashMap)
+    IsValid() bool
+    ValidationInfo() string
+    SetUserName(value string)
+    SetPrefixName(value string)
+    SetFirstName(value string)
+    SetLastName(value string)
+    SetMiddleName(value string)
+    SetSuffixName(value string)
+    SetCompany(value string)
+    SetPositionAtCompany(value string)
+    SetMainEmail(value string)
+    SetSecondaryEmail(value string)
+    SetHomePhone(value string)
+    SetCellPhone(value string)
+    SetWorkPhone(value string)
+    SetOtherContact(value string)
+    SetElectronicContact(value string)
+    SetFax(value string)
+    SetRole(role IUserRole)
+    SetPermissions(value string)
+    SetEncryption(value string)
+    SetSecret(value string)
+    SetPassword(value string)
+    Enable()
+    Disable()
+    SetEnable(enable string)
+    GetUserName() string
+    GetPrefixName() string
+    GetFirstName() string
+    GetLastName() string
+    GetMiddleName() string
+    GetSuffixName() string
+    GetCompany() string
+    GetPositionAtCompany() string
+    GetMainEmail() string
+    GetSecondaryEmail() string
+    GetHomePhone() string
+    GetCellPhone() string
+    GetWorkPhone() string
+    GetOtherContact() string
+    GetElectronicContact() string
+    GetFax() string
+    GetRole() IUserRole
+    GetPermissions() string
+    GetEncryption() string
+    GetSecret() string
+    GetPassword() string
+    ToVector() IBasicArrayList
+    ToHashMap() *HashMap
+    ToPasswordHashMap() *HashMap
+    ValidateSession(weblisketSession WeblisketSessionInterface)
+    UpdateSession(weblisketSession WeblisketSessionInterface)
+    IsSessionValid() bool
+    GetKey() any
+    ToValidationInfoDoc() *Document
+    ToValidationInfoNode(document *Document) *Node
+    GetUserConfigurationInterface() UserConfigurationInterface
+    SetUserConfigurationInterface(userConfigurationInterface UserConfigurationInterface)
+}
+
+func (this *User) User_() *User {
+    return this
+}
 
 
 func (this *User) initFields() {
@@ -100,7 +168,24 @@ func (this *User) initFields() {
 }
 
 
-func NewUser() *User {
+
+
+// Java overloads of new User
+func NewUser(args ...any) *User {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewUser_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HttpServletRequest](args[0], pass) {
+            return NewUser_2(Java_Arg[*HttpServletRequest](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewUser_3(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new User for the arguments")
+}
+func NewUser_1() *User {
     this := &User{}
     this.initFields()
         this.UserConfigurationInterface = UserConfigurationInterfaceFactory_GetInstance()
@@ -109,8 +194,7 @@ func NewUser() *User {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUser(request *HttpServletRequest) *User {
+func NewUser_2(request *HttpServletRequest) *User {
     this := &User{}
     this.initFields()
         this.GetFormData(NewRequestParams(request).ToHashMap())
@@ -119,8 +203,7 @@ func NewUser(request *HttpServletRequest) *User {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewUser(userHashMap *HashMap) *User {
+func NewUser_3(userHashMap *HashMap) *User {
     this := &User{}
     this.initFields()
         this.GetFormData(userHashMap)
@@ -157,7 +240,7 @@ func (this *User) GetFormData(userHashMap *HashMap) {
         this.OtherContact = stringUtil.GetNonNull(any(userHashMap.Get(UserData_OTHERCONTACT)).(string))
         this.ElectronicDevice = stringUtil.GetNonNull(any(userHashMap.Get(UserData_ELECTRONICDEVICE)).(string))
         this.Fax = stringUtil.GetNonNull(any(userHashMap.Get(UserData_FAX)).(string))
-        this.Role = UserRoleB_GetRole(any(userHashMap.Get(fmt.Sprint(UserRoleData_NAME))).(string))
+        this.Role = UserRoleB_GetRole(any(userHashMap.Get(UserRoleData_NAME)).(string))
         this.Permissions = stringUtil.GetNonNull(any(userHashMap.Get(UserData_PERMISSIONS)).(string))
         if !stringValidationUtil.IsEmpty(this.Permissions) && strings.Compare(this.Permissions, StoreFrontData_GetInstance().NAME) == 0 {
             this.Permissions = stringUtil.GetNonNull(any(userHashMap.Get(StoreFrontData_GetInstance().NAME)).(string))
@@ -321,7 +404,7 @@ func (this *User) SetFax(value string) {
 }
 
 
-func (this *User) SetRole(role *UserRole) {
+func (this *User) SetRole(role IUserRole) {
         this.Role = role
 }
 
@@ -441,7 +524,7 @@ func (this *User) GetFax() string {
 }
 
 
-func (this *User) GetRole() *UserRole {
+func (this *User) GetRole() IUserRole {
         return this.Role
 }
 
@@ -467,8 +550,8 @@ func (this *User) GetPassword() string {
 
 
 // throws Exception
-func (this *User) ToVector() *BasicArrayList {
-        var values *BasicArrayList = NewBasicArrayListD(); _ = values
+func (this *User) ToVector() IBasicArrayList {
+        var values IBasicArrayList = NewBasicArrayListD(); _ = values
         values.Add(this.UserName)
         values.Add(this.PrefixName)
         values.Add(this.FirstName)
@@ -519,7 +602,7 @@ func (this *User) ToHashMap() *HashMap {
         values.Put(UserData_ELECTRONICDEVICE, this.ElectronicDevice)
         values.Put(UserData_FAX, this.Fax)
         if this.GetRole() != nil {
-            values.Put(fmt.Sprint(UserRoleData_NAME), fmt.Sprint(this.GetRole()))
+            values.Put(UserRoleData_NAME, fmt.Sprint(this.GetRole()))
         }
         var userConfigurationDomDocumentMapping *UserConfigurationDomDocumentMapping = NewUserConfigurationDomDocumentMapping(this.GetUserConfigurationInterface()); _ = userConfigurationDomDocumentMapping
         values.Put(UserData_CONFIGURATION, userConfigurationDomDocumentMapping.ToDomDocumentString())

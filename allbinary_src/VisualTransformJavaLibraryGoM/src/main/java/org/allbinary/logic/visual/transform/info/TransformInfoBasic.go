@@ -103,7 +103,7 @@ func (this *TransformInfoBasic) SetObjectConfigInterface(transformInfoObjectConf
 }
 
 
-func (this *TransformInfoBasic) GetTemplateFilePath() *AbPath {
+func (this *TransformInfoBasic) GetTemplateFilePath() IAbPath {
         return nil
 }
 
@@ -118,7 +118,7 @@ func (this *TransformInfoBasic) GetTemplate() string {
 }
 
 
-func (this *TransformInfoBasic) GetDataFilePath() *AbPath {
+func (this *TransformInfoBasic) GetDataFilePath() IAbPath {
         return nil
 }
 
@@ -195,7 +195,7 @@ func (this *TransformInfoBasic) GetKey() any {
 
 
 // throws Exception
-func (this *TransformInfoBasic) ToVector() *BasicArrayList {
+func (this *TransformInfoBasic) ToVector() IBasicArrayList {
         return nil
 }
 

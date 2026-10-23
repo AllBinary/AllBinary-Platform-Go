@@ -52,6 +52,20 @@ type AbSqlTable struct {
     DROPPED_SUCCESS string
 }
 
+// The Java class AbSqlTable has subclasses so its variables are this interface
+type IAbSqlTable interface {
+    IAbSqlBasic
+    AbSqlTable_() *AbSqlTable
+    SetTableName(tableName string)
+    GetTableName() string
+    CreateTable(data string) string
+    DropTable() string
+}
+
+func (this *AbSqlTable) AbSqlTable_() *AbSqlTable {
+    return this
+}
+
 
 func (this *AbSqlTable) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -63,7 +77,7 @@ func (this *AbSqlTable) initFields() {
 }
 
 
-func NewAbSqlTable(databaseConnectionInfoInterface *DbConnectionInfo) *AbSqlTable {
+func NewAbSqlTable(databaseConnectionInfoInterface IDbConnectionInfo) *AbSqlTable {
     this := &AbSqlTable{}
         this.AbSqlBasic = *NewAbSqlBasic(databaseConnectionInfoInterface)
         this.initFields()

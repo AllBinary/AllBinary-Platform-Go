@@ -118,3 +118,4 @@ func (this *TsUtil) PrintAvailableMethods(anyType any) {
 func (this *TsUtil) Gc() {
         runtime.GC()
 }
+

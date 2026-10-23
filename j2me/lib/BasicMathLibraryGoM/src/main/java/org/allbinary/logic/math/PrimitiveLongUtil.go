@@ -127,3 +127,4 @@ func (this *PrimitiveLongUtil) GetCurrentTotalDigits() int {
 func (this *PrimitiveLongUtil) GetMaxDigits() int {
         return this.MaxDigits
 }
+

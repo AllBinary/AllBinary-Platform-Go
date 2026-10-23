@@ -65,3 +65,4 @@ func (this *TimeStampUtil) GetAsString() string {
         var date *Date = calendar.GetTime(); _ = date
         return fmt.Sprint(date)
 }
+

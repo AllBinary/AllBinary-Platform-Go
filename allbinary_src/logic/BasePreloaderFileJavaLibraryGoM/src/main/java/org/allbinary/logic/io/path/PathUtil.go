@@ -73,7 +73,7 @@ func (this *PathUtil) GetExtensionWithAbFilePath(abFilePath *AbFilePath) string 
 }
 
 
-func (this *PathUtil) GetExtensionWithAbPath(abPath *AbPath) string {
+func (this *PathUtil) GetExtensionWithAbPath(abPath IAbPath) string {
         return this.AbPathData.GetExtension(fmt.Sprint(abPath))
 }
 
@@ -85,7 +85,7 @@ func (this *PathUtil) GetWithoutExtensionWithAbFilePath(abFilePath *AbFilePath) 
 
 
 // throws Exception
-func (this *PathUtil) GetWithoutExtensionWithAbPath(abPath *AbPath) string {
+func (this *PathUtil) GetWithoutExtensionWithAbPath(abPath IAbPath) string {
         return this.GetWithoutExtension(fmt.Sprint(abPath))
 }
 
@@ -162,7 +162,7 @@ func (this *PathUtil) Adjust(path string) string {
 
 
 // throws Exception
-func (this *PathUtil) RemoveNameFromPath(path string) *AbPath {
+func (this *PathUtil) RemoveNameFromPath(path string) IAbPath {
         var endIndex int = strings.LastIndex(path, string(this.AbPathData.SEPARATOR)); _ = endIndex
         if endIndex < 0 {
             endIndex = strings.LastIndex(path, string(this.FilePathData.SEPARATORCHAR))

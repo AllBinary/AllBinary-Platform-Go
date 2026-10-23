@@ -48,15 +48,28 @@ type InitException struct {
 
 
 
-func NewInitException() *InitException {
+
+
+// Java overloads of new InitException
+func NewInitException(args ...any) *InitException {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewInitException_1()
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewInitException_2(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of new InitException for the arguments")
+}
+func NewInitException_1() *InitException {
     this := &InitException{}
     this.Exception = *NewException()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewInitException(msg string) *InitException {
+func NewInitException_2(msg string) *InitException {
     this := &InitException{}
         this.Exception = *NewException(msg)
     return this

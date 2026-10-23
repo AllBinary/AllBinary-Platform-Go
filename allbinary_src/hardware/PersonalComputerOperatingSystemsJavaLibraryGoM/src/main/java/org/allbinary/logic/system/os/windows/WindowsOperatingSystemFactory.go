@@ -107,3 +107,4 @@ func (this *WindowsOperatingSystemFactory) GetOperatingSystemInstance() IGeneric
         }
         panic("unreachable")
 }
+

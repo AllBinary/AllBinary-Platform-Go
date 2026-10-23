@@ -44,7 +44,7 @@ var _ = unicode.IsDigit
 
 type EmailInfo struct {
     LogUtil *LogUtil
-    BasicEmailInfo *BasicEmailInfo
+    BasicEmailInfo IBasicEmailInfo
     HtmlAttachment string
     ContentBase string
 }
@@ -58,7 +58,21 @@ func (this *EmailInfo) initFields() {
 }
 
 
-func NewEmailInfo(basicEmailInfo *BasicEmailInfo) *EmailInfo {
+
+
+// Java overloads of new EmailInfo
+func NewEmailInfo(args ...any) *EmailInfo {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[IBasicEmailInfo](args[0], pass) {
+            return NewEmailInfo_1(Java_Arg[IBasicEmailInfo](args[0]))
+        }
+        if len(args) == 3 && Java_IsArg[IBasicEmailInfo](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) {
+            return NewEmailInfo_2(Java_Arg[IBasicEmailInfo](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]))
+        }
+    }
+    panic("No Java overload of new EmailInfo for the arguments")
+}
+func NewEmailInfo_1(basicEmailInfo IBasicEmailInfo) *EmailInfo {
     this := &EmailInfo{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
@@ -70,8 +84,7 @@ func NewEmailInfo(basicEmailInfo *BasicEmailInfo) *EmailInfo {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewEmailInfo(basicEmailInfo *BasicEmailInfo, htmlAttachment string, contentBase string) *EmailInfo {
+func NewEmailInfo_2(basicEmailInfo IBasicEmailInfo, htmlAttachment string, contentBase string) *EmailInfo {
     this := &EmailInfo{}
     this.initFields()
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().EMAILLOGGING) {
@@ -83,14 +96,14 @@ func NewEmailInfo(basicEmailInfo *BasicEmailInfo, htmlAttachment string, content
 }
 
 
-func (this *EmailInfo) Init(basicEmailInfo *BasicEmailInfo, htmlAttachment string, contentBase string) {
+func (this *EmailInfo) Init(basicEmailInfo IBasicEmailInfo, htmlAttachment string, contentBase string) {
         this.BasicEmailInfo = basicEmailInfo
         this.HtmlAttachment = htmlAttachment
         this.ContentBase = contentBase
 }
 
 
-func (this *EmailInfo) GetBasicEmailInfo() *BasicEmailInfo {
+func (this *EmailInfo) GetBasicEmailInfo() IBasicEmailInfo {
         return this.BasicEmailInfo
 }
 

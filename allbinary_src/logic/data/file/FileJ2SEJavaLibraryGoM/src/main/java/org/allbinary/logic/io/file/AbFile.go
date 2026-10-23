@@ -73,7 +73,7 @@ func AbFile_CreateAbFilePathAndName(filePath string, fileName string) *AbFile {
 }
 
 
-func AbFile_CreateAbFileFromAbPath(abPath *AbPath) *AbFile {
+func AbFile_CreateAbFileFromAbPath(abPath IAbPath) *AbFile {
         return NewAbFile(NewFile(abPath.ToFileSystemString()))
 }
 
@@ -159,12 +159,12 @@ func (this *AbFile) CanWrite() bool {
 
 
 func (this *AbFile) Exists() bool {
-        return this.File.Exists()
+        return File_Exists()
 }
 
 
 func (this *AbFile) IsDirectory() bool {
-        return this.File.IsDirectory()
+        return File_IsDirectory()
 }
 
 
@@ -196,7 +196,7 @@ func (this *AbFile) CreateNewFile() bool {
 
 // throws IOException
 func (this *AbFile) Delete() bool {
-        return this.File.Delete()
+        return File_Delete()
 }
 
 
@@ -206,12 +206,12 @@ func (this *AbFile) DeleteOnExit() {
 
 
 func (this *AbFile) List() []string {
-        return this.File.List()
+        return File_List()
 }
 
 
 func (this *AbFile) ListWithFilter(filter *FilenameFilter) []string {
-        return this.File.List(filter)
+        return File_List(filter)
 }
 
 
@@ -255,35 +255,71 @@ func (this *AbFile) SetReadOnly() bool {
 }
 
 
-func (this *AbFile) SetWritable(writable bool, ownerOnly bool) bool {
+func (this *AbFile) SetWritable_1(writable bool, ownerOnly bool) bool {
         return this.File.SetExecutable(writable, ownerOnly)
 }
 
+// Java overloads of AbFile.setWritable
+func (this *AbFile) SetWritable(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[bool](args[0], pass) && Java_IsArg[bool](args[1], pass) {
+            return this.SetWritable_1(Java_Arg[bool](args[0]), Java_Arg[bool](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return this.SetWritable_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of AbFile.setWritable for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *AbFile) SetWritable(writable bool) bool {
+
+func (this *AbFile) SetWritable_2(writable bool) bool {
         return this.File.SetWritable(writable)
 }
 
 
-func (this *AbFile) SetReadable(readable bool, ownerOnly bool) bool {
+func (this *AbFile) SetReadable_1(readable bool, ownerOnly bool) bool {
         return this.File.SetReadable(readable, ownerOnly)
 }
 
+// Java overloads of AbFile.setReadable
+func (this *AbFile) SetReadable(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[bool](args[0], pass) && Java_IsArg[bool](args[1], pass) {
+            return this.SetReadable_1(Java_Arg[bool](args[0]), Java_Arg[bool](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return this.SetReadable_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of AbFile.setReadable for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *AbFile) SetReadable(readable bool) bool {
+
+func (this *AbFile) SetReadable_2(readable bool) bool {
         return this.File.SetReadable(readable)
 }
 
 
-func (this *AbFile) SetExecutable(executable bool, ownerOnly bool) bool {
+func (this *AbFile) SetExecutable_1(executable bool, ownerOnly bool) bool {
         return this.File.SetExecutable(executable, ownerOnly)
 }
 
+// Java overloads of AbFile.setExecutable
+func (this *AbFile) SetExecutable(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[bool](args[0], pass) && Java_IsArg[bool](args[1], pass) {
+            return this.SetExecutable_1(Java_Arg[bool](args[0]), Java_Arg[bool](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[bool](args[0], pass) {
+            return this.SetExecutable_2(Java_Arg[bool](args[0]))
+        }
+    }
+    panic("No Java overload of AbFile.setExecutable for the arguments")
+}
 
-// Java overloaded method: Go needs a different name
-func (this *AbFile) SetExecutable(executable bool) bool {
+
+func (this *AbFile) SetExecutable_2(executable bool) bool {
         return this.File.SetExecutable(executable)
 }
 

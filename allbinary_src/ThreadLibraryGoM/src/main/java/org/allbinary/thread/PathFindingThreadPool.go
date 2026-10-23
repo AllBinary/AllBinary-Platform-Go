@@ -78,3 +78,4 @@ func (this *PathFindingThreadPool) StartTask(task Runnable) {
 
 func (this *PathFindingThreadPool) CompletedTask(task Runnable) {
 }
+

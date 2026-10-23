@@ -81,3 +81,4 @@ func PreLogUtil_PutSE(specialMessage string, className string, functionName stri
         fmt.Print(PreLogUtil_LOG_SUCCESS)
         fmt.Println(message)
 }
+

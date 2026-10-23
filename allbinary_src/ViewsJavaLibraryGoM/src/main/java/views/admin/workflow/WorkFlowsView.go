@@ -45,10 +45,23 @@ var _ = unicode.IsDigit
 type WorkFlowsView struct {
     HttpStoreComponentView
     LogUtil *LogUtil
-    WorkFlowsVector *BasicArrayList
+    WorkFlowsVector IBasicArrayList
 }
 
 // Implements DomNodeInterface
+
+// The Java class WorkFlowsView has subclasses so its variables are this interface
+type IWorkFlowsView interface {
+    IHttpStoreComponentView
+    WorkFlowsView_() *WorkFlowsView
+    AddDomNodeInterfaces()
+    View() string
+    ToXmlNode(document *Document) *Node
+}
+
+func (this *WorkFlowsView) WorkFlowsView_() *WorkFlowsView {
+    return this
+}
 
 
 func (this *WorkFlowsView) initFields() {
@@ -61,7 +74,7 @@ func NewWorkFlowsView(transformInfoInterface TransformInfoInterface) *WorkFlowsV
     this := &WorkFlowsView{}
         this.HttpStoreComponentView = *NewHttpStoreComponentView(transformInfoInterface)
         this.initFields()
-        this.WorkFlowsVector = WorkFlowEntityFactory_GetInstance().Create2().Get(this.GetWeblisketSession().GetStoreName())
+        this.WorkFlowsVector = WorkFlowEntityFactory_GetInstance().Create2().Get(this.GetWeblisketSession().GetStoreName()).(IBasicArrayList)
     return this
 }
 

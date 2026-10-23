@@ -46,3 +46,4 @@ type AllBinaryObjectFactoryInterface interface {
     GetInstance() any
 }
 
+

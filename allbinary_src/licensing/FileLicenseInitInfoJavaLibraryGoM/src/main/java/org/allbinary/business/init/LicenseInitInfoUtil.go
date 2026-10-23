@@ -151,7 +151,7 @@ func (this *LicenseInitInfoUtil) ReadAgain(initializeCounter int) *LicenseInitIn
             }()
             this.LogUtil.PutF("LicenseInitInfo File: " + this.INITFILENAME, this, METHOD_NAME)
             var fileStreamFactory *FileStreamFactory = FileStreamFactory_GetInstance(); _ = fileStreamFactory
-            var iFile *AbFileInputStream = fileStreamFactory.GetFileInputStreamInstance(this.FilePath, this.INITFILENAME); _ = iFile
+            var iFile IAbFileInputStream = fileStreamFactory.GetFileInputStreamInstance(this.FilePath, this.INITFILENAME); _ = iFile
             if iFile != nil {
                 var iData *AbDataInputStream = NewAbDataInputStream(iFile); _ = iData
                 var initInfo *LicenseInitInfo = NewLicenseInitInfo(); _ = initInfo

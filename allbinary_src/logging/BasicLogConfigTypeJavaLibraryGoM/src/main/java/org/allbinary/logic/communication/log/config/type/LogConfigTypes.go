@@ -52,3 +52,4 @@ func NewLogConfigTypes() *LogConfigTypes {
     this := &LogConfigTypes{}
     return this
 }
+

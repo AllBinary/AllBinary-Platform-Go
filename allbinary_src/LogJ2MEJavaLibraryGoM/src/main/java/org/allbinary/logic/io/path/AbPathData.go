@@ -67,3 +67,4 @@ func NewAbPathData() *AbPathData {
     this.initFields()
     return this
 }
+

@@ -59,6 +59,16 @@ func TsUtil_GetInstance() *TsUtil {
 }
 
 
+func (this *TsUtil) LongBitsToDouble(bits int64) float64 {
+        return math.Float64frombits(uint64(bits))
+}
+
+
+func (this *TsUtil) IntBitsToFloat(bits int) float32 {
+        return math.Float32frombits(uint32(bits))
+}
+
+
 func (this *TsUtil) HashCode(anyType any) int {
         return Java_HashCode(anyType)
 }

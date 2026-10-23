@@ -54,9 +54,9 @@ func NewBasicFileFilterUtil() *BasicFileFilterUtil {
 
 
 func BasicFileFilterUtil_GetInstance(extension string) *FileFilter {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         vector.Add(extension)
-        var includeFileExtensionsBooleanFileVisitor *IncludeFileExtensionsBooleanFileVisitor = NewIncludeFileExtensionsBooleanFileVisitor(vector); _ = includeFileExtensionsBooleanFileVisitor
+        var includeFileExtensionsBooleanFileVisitor IIncludeFileExtensionsBooleanFileVisitor = NewIncludeFileExtensionsBooleanFileVisitor(vector); _ = includeFileExtensionsBooleanFileVisitor
         return any(NewVisitorFileFilter(includeFileExtensionsBooleanFileVisitor)).(*FileFilter)
 }
 

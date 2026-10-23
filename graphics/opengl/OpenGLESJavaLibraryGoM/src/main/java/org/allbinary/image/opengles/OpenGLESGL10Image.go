@@ -58,7 +58,7 @@ func (this *OpenGLESGL10Image) initFields() {
         this.TextureVertexFloatBuffer = this.TextureVertexFloatBuffer
         this.RegionTextureRectangleFloatArray = make([]float32, 8)
         this.RegionTextureVertexFloatBuffer = ByteBuffer_AllocateDirect(4 * 4 * 2).Order(ByteOrder_NativeOrder()).AsFloatBuffer()
-        this.RegionRectangleFloatArray = []float32{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+        this.RegionRectangleFloatArray = []float32{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
         this.RegionRectangleVertexFloatBuffer = ByteBuffer_AllocateDirect(4 * 4 * 3).Order(ByteOrder_NativeOrder()).AsFloatBuffer()
         this.OpenGLESImageProperties = this.OpenGLESImageProperties
         
@@ -66,15 +66,15 @@ func (this *OpenGLESGL10Image) initFields() {
     func (this *OpenGLESGL10Image) DrawRegion(gl GL10, viewHeight int, x_src float32, y_src float32, width float32, height float32, x int, y int, z int) {
             var imageWidth int = this.GetWidth(); _ = imageWidth
             var imageHeight int = this.GetHeight(); _ = imageHeight
-            this.RegionRectangleFloatArray[7] = viewHeight
+            this.RegionRectangleFloatArray[7] = float32(viewHeight)
             this.RegionRectangleFloatArray[1] = this.RegionRectangleFloatArray[7] - height
             this.RegionRectangleFloatArray[3] = width
             this.RegionRectangleFloatArray[4] = this.RegionRectangleFloatArray[1]
             this.RegionRectangleFloatArray[9] = this.RegionRectangleFloatArray[3]
             this.RegionRectangleFloatArray[10] = this.RegionRectangleFloatArray[7]
             this.RegionTextureRectangleFloatArray[0] = x_src / imageWidth
-            this.RegionTextureRectangleFloatArray[1] = ((y_src + height)) / imageHeight
-            this.RegionTextureRectangleFloatArray[2] = ((x_src + width)) / imageWidth
+            this.RegionTextureRectangleFloatArray[1] = (y_src + height) / imageHeight
+            this.RegionTextureRectangleFloatArray[2] = (x_src + width) / imageWidth
             this.RegionTextureRectangleFloatArray[3] = this.RegionTextureRectangleFloatArray[1]
             this.RegionTextureRectangleFloatArray[4] = this.RegionTextureRectangleFloatArray[0]
             this.RegionTextureRectangleFloatArray[5] = y_src / imageHeight
@@ -82,10 +82,10 @@ func (this *OpenGLESGL10Image) initFields() {
             this.RegionTextureRectangleFloatArray[7] = this.RegionTextureRectangleFloatArray[5]
             var u_center float32 = (this.RegionTextureRectangleFloatArray[0] + this.RegionTextureRectangleFloatArray[2]) / 2.0; _ = u_center
             var v_center float32 = (this.RegionTextureRectangleFloatArray[5] + this.RegionTextureRectangleFloatArray[1]) / 2.0; _ = v_center
-            this.GlUtil.RotateUVs(this.RegionTextureRectangleFloatArray, -this.OpenGLESImageProperties.Angle, u_center, v_center)
+            this.GlUtil.RotateUVs(this.RegionTextureRectangleFloatArray, float32(-this.OpenGLESImageProperties.Angle), u_center, v_center)
             gl.GlPushMatrix()
             var imageProcessor IOpenGLESImageProcessor = this.ImageProcessor; _ = imageProcessor
-            this.OpenGLESImageTranslate.Translate(gl, this, x, -y)
+            this.OpenGLESImageTranslate.Translate(gl, this, float32(x), float32(-y))
             imageProcessor.Scale(gl, this.OpenGLESImageProperties.ScaleX, this.OpenGLESImageProperties.ScaleY)
             imageProcessor.ColorMask(gl, this.OpenGLESImageProperties.Redf, this.OpenGLESImageProperties.Greenf, this.OpenGLESImageProperties.Bluef, this.OpenGLESImageProperties.Alphaf)
             this.OpenGLESImageTranslate.Translate2(gl, this)
@@ -110,9 +110,9 @@ func (this *OpenGLESGL10Image) initFields() {
     func (this *OpenGLESGL10Image) Draw(gl GL10, x int, y int, z int) {
             var width int = this.GetWidth(); _ = width
             var height int = this.GetHeight(); _ = height
-            this.RegionRectangleFloatArray[7] = this.DisplayInfoSingleton.GetLastHeight()
+            this.RegionRectangleFloatArray[7] = float32(this.DisplayInfoSingleton.GetLastHeight())
             this.RegionRectangleFloatArray[1] = this.RegionRectangleFloatArray[7] - height
-            this.RegionRectangleFloatArray[3] = width
+            this.RegionRectangleFloatArray[3] = float32(width)
             this.RegionRectangleFloatArray[4] = this.RegionRectangleFloatArray[1]
             this.RegionRectangleFloatArray[9] = this.RegionRectangleFloatArray[3]
             this.RegionRectangleFloatArray[10] = this.RegionRectangleFloatArray[7]
@@ -125,7 +125,7 @@ func (this *OpenGLESGL10Image) initFields() {
             this.RegionTextureRectangleFloatArray[6] = 1
             this.RegionTextureRectangleFloatArray[7] = 0
             gl.GlPushMatrix()
-            this.OpenGLESImageTranslate.Translate(gl, this, x, -y)
+            this.OpenGLESImageTranslate.Translate(gl, this, float32(x), float32(-y))
             var imageProcessor IOpenGLESImageProcessor = this.ImageProcessor; _ = imageProcessor
             imageProcessor.Scale(gl, this.OpenGLESImageProperties.ScaleX, this.OpenGLESImageProperties.ScaleY)
             imageProcessor.ColorMask(gl, this.OpenGLESImageProperties.Redf, this.OpenGLESImageProperties.Greenf, this.OpenGLESImageProperties.Bluef, this.OpenGLESImageProperties.Alphaf)
@@ -137,7 +137,7 @@ func (this *OpenGLESGL10Image) initFields() {
             gl.GlEnable(OpenGLESImage_GL10.GL_TEXTURE_2D)
             gl.GlBindTexture(OpenGLESImage_GL10.GL_TEXTURE_2D, this.OpenGLESImageProperties.TextureID)
             gl.GlEnableClientState(OpenGLESImage_GL10.GL_TEXTURE_COORD_ARRAY)
-            this.GlUtil.RotateUVs(this.RegionTextureRectangleFloatArray, -this.OpenGLESImageProperties.Angle, 0.5, 0.5)
+            this.GlUtil.RotateUVs(this.RegionTextureRectangleFloatArray, float32(-this.OpenGLESImageProperties.Angle), 0.5, 0.5)
             this.GlUtil.Position(this.TextureVertexFloatBuffer, 0)
             this.TextureVertexFloatBuffer.Put(this.RegionTextureRectangleFloatArray)
             this.GlUtil.Position(this.TextureVertexFloatBuffer, 0)

@@ -185,10 +185,10 @@ func (this *OpenGLUtil) ProcessRunnables() {
 // throws Exception
 func (this *OpenGLUtil) Set(gl GL10) {
         var size int = this.List.Size(); _ = size
-        var image any; _ = image
+        var image IOpenGLESImage; _ = image
         for index2 := int(0); index2 < size; index2++ {
-            image = this.List.Get(index2)
-            (any(image).(IOpenGLESImage)).Set(gl)
+            image = any(this.List.Get(index2)).(IOpenGLESImage)
+            image.Set(gl)
         }
 }
 

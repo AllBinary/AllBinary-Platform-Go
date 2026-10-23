@@ -69,3 +69,4 @@ func (this *ColorChangeEvent) SetBasicColorP(basicColor *BasicColor) {
 func (this *ColorChangeEvent) GetBasicColorP() *BasicColor {
         return this.BasicColor
 }
+

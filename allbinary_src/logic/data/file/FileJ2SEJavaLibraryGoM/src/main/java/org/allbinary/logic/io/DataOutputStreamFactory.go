@@ -67,7 +67,6 @@ func (this *DataOutputStreamFactory) GetInstanceForAbFile(file *AbFile) *AbDataO
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
 func (this *DataOutputStreamFactory) GetInstance(filePath string, fileName string) *AbDataOutputStream {
         var fileStreamFactory *FileStreamFactory = FileStreamFactory_GetInstance(); _ = fileStreamFactory
         var fileOutputStream *AbFileOutputStream = fileStreamFactory.GetFileOutputStreamInstance(filePath, fileName); _ = fileOutputStream

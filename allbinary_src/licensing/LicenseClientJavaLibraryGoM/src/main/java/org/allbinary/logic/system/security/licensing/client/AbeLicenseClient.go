@@ -75,10 +75,10 @@ func (this *AbeLicenseClient) Get(abeClientInformation AbeClientInformationInter
                 }
             }()
             this.LogUtil.PutF(this.CommonStrings.START, this, this.CommonStrings.GET)
-            var xmlRpcAbeLicenseClient *XmlRpcAbeClient = NewXmlRpcAbeLicenseRetrievalClient(abeClientInformation); _ = xmlRpcAbeLicenseClient
+            var xmlRpcAbeLicenseClient IXmlRpcAbeClient = NewXmlRpcAbeLicenseRetrievalClient(abeClientInformation); _ = xmlRpcAbeLicenseClient
             var abeLicenseInterface AbeLicenseInterface = any(xmlRpcAbeLicenseClient.Get(nil)).(AbeLicenseInterface); _ = abeLicenseInterface
             var licenseId string = abeLicenseInterface.GetLicenseId(); _ = licenseId
-            var servers *BasicArrayList = abeLicenseInterface.GetServers(); _ = servers
+            var servers IBasicArrayList = abeLicenseInterface.GetServers(); _ = servers
             var isNewLicenseId bool = false; _ = isNewLicenseId
             var isBetterServerList bool = false; _ = isBetterServerList
             var stringValidationUtil *StringValidationUtil = StringValidationUtil_GetInstance(); _ = stringValidationUtil

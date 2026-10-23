@@ -50,11 +50,29 @@ type InventoryItemView struct {
     ImageFileName string
     MediaData *MediaData
     ItemInterface ItemInterface
-    DownloadableItemVector *BasicArrayList
+    DownloadableItemVector IBasicArrayList
     RequestHashMap *HashMap
 }
 
 // Implements RequestMapInterface
+
+// The Java class InventoryItemView has subclasses so its variables are this interface
+type IInventoryItemView interface {
+    IHttpStoreComponentView
+    InventoryItemView_() *InventoryItemView
+    GetTypeId() int
+    GetFormData()
+    AddDomNodeInterfaces()
+    GetItemInterface() ItemInterface
+    View() string
+    ProcessImageFiles()
+    SetRequestHashMap(requestHashMap *HashMap)
+    GetRequestHashMap() *HashMap
+}
+
+func (this *InventoryItemView) InventoryItemView_() *InventoryItemView {
+    return this
+}
 
 var InventoryItemView_TYPE_ID int = 10
 
@@ -70,7 +88,21 @@ func (this *InventoryItemView) initFields() {
 }
 
 
-func NewInventoryItemView(transformInfoInterface TransformInfoInterface) *InventoryItemView {
+
+
+// Java overloads of new InventoryItemView
+func NewInventoryItemView(args ...any) *InventoryItemView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[TransformInfoInterface](args[0], pass) {
+            return NewInventoryItemView_1(Java_Arg[TransformInfoInterface](args[0]))
+        }
+        if len(args) == 2 && Java_IsArg[TransformInfoInterface](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return NewInventoryItemView_2(Java_Arg[TransformInfoInterface](args[0]), Java_Arg[string](args[1]))
+        }
+    }
+    panic("No Java overload of new InventoryItemView for the arguments")
+}
+func NewInventoryItemView_1(transformInfoInterface TransformInfoInterface) *InventoryItemView {
     this := &InventoryItemView{}
         this.HttpStoreComponentView = *NewHttpStoreComponentView(transformInfoInterface)
         this.initFields()
@@ -80,8 +112,7 @@ func NewInventoryItemView(transformInfoInterface TransformInfoInterface) *Invent
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewInventoryItemView(transformInfoInterface TransformInfoInterface, empty string) *InventoryItemView {
+func NewInventoryItemView_2(transformInfoInterface TransformInfoInterface, empty string) *InventoryItemView {
     this := &InventoryItemView{}
         this.HttpStoreComponentView = *NewHttpStoreComponentView(transformInfoInterface)
         this.initFields()
@@ -122,7 +153,7 @@ func (this *InventoryItemView) GetFormData() {
 
 
 func (this *InventoryItemView) AddDomNodeInterfaces() {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         var downloadableItem *DownloadableItem; _ = downloadableItem
         var size int = this.DownloadableItemVector.Size(); _ = size
         for index := int(0); index < size; index++ {

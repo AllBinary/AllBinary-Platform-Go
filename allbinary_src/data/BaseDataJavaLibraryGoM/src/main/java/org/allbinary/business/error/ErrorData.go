@@ -65,3 +65,4 @@ func NewErrorData() *ErrorData {
     this.initFields()
     return this
 }
+

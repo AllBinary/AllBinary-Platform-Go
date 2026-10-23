@@ -71,3 +71,4 @@ func (this *TimeStampUtil) GetAsString() string {
         var date *Date = calendar.GetTime(); _ = date
         return this.SimpleDataFormat.Format(date)
 }
+

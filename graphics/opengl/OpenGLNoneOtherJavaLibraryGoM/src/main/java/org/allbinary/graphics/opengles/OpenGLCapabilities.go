@@ -43,6 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type OpenGLCapabilities struct {
+    CUSTOM_GL_SURFACE_VIEW bool
     VERSION_1_0 string
     VERSION_1_1 string
     VERSION_2_0 string
@@ -59,6 +60,7 @@ type OpenGLCapabilities struct {
 var OpenGLCapabilities_Instance *OpenGLCapabilities = NewOpenGLCapabilities()
 
 func (this *OpenGLCapabilities) initFields() {
+    this.CUSTOM_GL_SURFACE_VIEW = true
     this.VERSION_1_0 = "1.0"
     this.VERSION_1_1 = "1.1"
     this.VERSION_2_0 = "2.0"
@@ -82,6 +84,11 @@ func NewOpenGLCapabilities() *OpenGLCapabilities {
     this := &OpenGLCapabilities{}
     this.initFields()
     return this
+}
+
+
+func (this *OpenGLCapabilities) IsInitialized() bool {
+        return true
 }
 
 

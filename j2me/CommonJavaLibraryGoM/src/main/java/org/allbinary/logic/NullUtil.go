@@ -81,3 +81,4 @@ func NewNullUtil() *NullUtil {
 func NullUtil_GetInstance() *NullUtil {
         return NullUtil_Instance
 }
+

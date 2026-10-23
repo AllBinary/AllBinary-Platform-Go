@@ -50,6 +50,26 @@ type BasicWorkFlow struct {
     StoreName string
 }
 
+// The Java class BasicWorkFlow has subclasses so its variables are this interface
+type IBasicWorkFlow interface {
+    BasicWorkFlow_() *BasicWorkFlow
+    GetName() string
+    GetStoreName() string
+    GetKey() any
+    ToVector() IBasicArrayList
+    ToHashMap() *HashMap
+    ToXmlNode(document *Document) *Node
+    ToXmlDoc() *Document
+    IsValid() bool
+    ValidationInfo() string
+    ToValidationInfoDoc() *Document
+    ToValidationInfoNode(document *Document) *Node
+}
+
+func (this *BasicWorkFlow) BasicWorkFlow_() *BasicWorkFlow {
+    return this
+}
+
 
 func (this *BasicWorkFlow) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -60,7 +80,24 @@ func (this *BasicWorkFlow) initFields() {
 }
 
 
-func NewBasicWorkFlow() *BasicWorkFlow {
+
+
+// Java overloads of new BasicWorkFlow
+func NewBasicWorkFlow(args ...any) *BasicWorkFlow {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewBasicWorkFlow_1()
+        }
+        if len(args) == 2 && Java_IsArg[*HashMap](args[0], pass) && Java_IsArg[*PageContext](args[1], pass) {
+            return NewBasicWorkFlow_2(Java_Arg[*HashMap](args[0]), Java_Arg[*PageContext](args[1]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewBasicWorkFlow_3(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new BasicWorkFlow for the arguments")
+}
+func NewBasicWorkFlow_1() *BasicWorkFlow {
     this := &BasicWorkFlow{}
     this.initFields()
         this.WorkFlowName = StringUtil_GetInstance().EMPTY_STRING
@@ -71,8 +108,7 @@ func NewBasicWorkFlow() *BasicWorkFlow {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewBasicWorkFlow(hashMap *HashMap, pageContext *PageContext) *BasicWorkFlow {
+func NewBasicWorkFlow_2(hashMap *HashMap, pageContext *PageContext) *BasicWorkFlow {
     this := &BasicWorkFlow{}
     this.initFields()
         var weblisketSession *WeblisketSession = NewWeblisketSession(hashMap, pageContext); _ = weblisketSession
@@ -84,8 +120,7 @@ func NewBasicWorkFlow(hashMap *HashMap, pageContext *PageContext) *BasicWorkFlow
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewBasicWorkFlow(hashMap *HashMap) *BasicWorkFlow {
+func NewBasicWorkFlow_3(hashMap *HashMap) *BasicWorkFlow {
     this := &BasicWorkFlow{}
     this.initFields()
         this.WorkFlowName = any(hashMap.Get(WorkFlowData_GetInstance().NAME)).(string)
@@ -111,8 +146,8 @@ func (this *BasicWorkFlow) GetKey() any {
 
 
 // throws Exception
-func (this *BasicWorkFlow) ToVector() *BasicArrayList {
-        var values *BasicArrayList = NewBasicArrayListD(); _ = values
+func (this *BasicWorkFlow) ToVector() IBasicArrayList {
+        var values IBasicArrayList = NewBasicArrayListD(); _ = values
         values.Add(this.WorkFlowName)
         values.Add(this.StoreName)
         values.Add(XmlDocumentHelper_ToString(this.WorkFlowDoc))

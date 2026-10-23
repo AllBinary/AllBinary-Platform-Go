@@ -76,7 +76,21 @@ func (this *DownloadableItem) initFields() {
 }
 
 
-func NewDownloadableItem(id string) *DownloadableItem {
+
+
+// Java overloads of new DownloadableItem
+func NewDownloadableItem(args ...any) *DownloadableItem {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewDownloadableItem_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewDownloadableItem_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new DownloadableItem for the arguments")
+}
+func NewDownloadableItem_1(id string) *DownloadableItem {
     this := &DownloadableItem{}
     this.initFields()
         var EMPTY_STRING string = StringUtil_GetInstance().EMPTY_STRING; _ = EMPTY_STRING
@@ -97,8 +111,7 @@ func NewDownloadableItem(id string) *DownloadableItem {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewDownloadableItem(hashMap *HashMap) *DownloadableItem {
+func NewDownloadableItem_2(hashMap *HashMap) *DownloadableItem {
     this := &DownloadableItem{}
     this.initFields()
         this.Id = any(hashMap.Get(DownloadItemData_ID)).(string)
@@ -135,10 +148,10 @@ func NewDownloadableItem(hashMap *HashMap) *DownloadableItem {
 }
 
 
-func (this *DownloadableItem) ToVector() *BasicArrayList {
+func (this *DownloadableItem) ToVector() IBasicArrayList {
         var calendar *Calendar = Calendar_GetInstance(); _ = calendar
         var time string = fmt.Sprint(int64(calendar.GetTimeInMillis())); _ = time
-        var values *BasicArrayList = NewBasicArrayListD(); _ = values
+        var values IBasicArrayList = NewBasicArrayListD(); _ = values
         values.Add(this.GetId())
         values.Add(this.BasicItemId)
         values.Add(this.Enabled)

@@ -60,8 +60,8 @@ func NewUsersValidationView(transformInfoInterface TransformInfoInterface) *User
         this.UsersView = *NewUsersView(transformInfoInterface)
         this.initFields()
         var httpTransformInfoInterface TransformInfoHttpInterface = any(this.GetTransformInfoInterface()).(TransformInfoHttpInterface); _ = httpTransformInfoInterface
-        var role string = any(httpTransformInfoInterface.GetPropertiesHashMap().Get(fmt.Sprint(UserRoleData_NAME))).(string); _ = role
-        var userRole *UserRole = UserRoleB_GetRole(role); _ = userRole
+        var role string = any(httpTransformInfoInterface.GetPropertiesHashMap().Get(UserRoleData_NAME)).(string); _ = role
+        var userRole IUserRole = UserRoleB_GetRole(role); _ = userRole
         this.UserVector = UserEntityFactory_GetInstance().GetUsersWithRole(userRole)
     return this
 }

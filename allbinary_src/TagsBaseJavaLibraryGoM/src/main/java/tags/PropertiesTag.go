@@ -48,6 +48,18 @@ type PropertiesTag struct {
     PropertiesHashMap *HashMap
 }
 
+// The Java class PropertiesTag has subclasses so its variables are this interface
+type IPropertiesTag interface {
+    ICommandTag
+    PropertiesTag_() *PropertiesTag
+    GetPropertiesHashMap() *HashMap
+    DoEndTag() int
+}
+
+func (this *PropertiesTag) PropertiesTag_() *PropertiesTag {
+    return this
+}
+
 
 func (this *PropertiesTag) initFields() {
     this.LogUtil = LogUtil_GetInstance()

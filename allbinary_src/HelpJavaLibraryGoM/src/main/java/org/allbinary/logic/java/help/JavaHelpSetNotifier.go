@@ -45,7 +45,7 @@ var _ = unicode.IsDigit
 type JavaHelpSetNotifier struct {
 }
 
-var JavaHelpSetNotifier_Vector *BasicArrayList = NewBasicArrayListD()
+var JavaHelpSetNotifier_Vector IBasicArrayList = NewBasicArrayListD()
 
 
 func NewJavaHelpSetNotifier() *JavaHelpSetNotifier {
@@ -54,7 +54,7 @@ func NewJavaHelpSetNotifier() *JavaHelpSetNotifier {
 }
 
 
-func JavaHelpSetNotifier_Get() *BasicArrayList {
+func JavaHelpSetNotifier_Get() IBasicArrayList {
         return JavaHelpSetNotifier_Vector
 }
 

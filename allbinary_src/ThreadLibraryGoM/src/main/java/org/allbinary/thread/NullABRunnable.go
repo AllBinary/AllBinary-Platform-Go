@@ -64,3 +64,4 @@ func NullABRunnable_GetInstance() *NullABRunnable {
 func (this *NullABRunnable) IsRunning() bool {
         return false
 }
+

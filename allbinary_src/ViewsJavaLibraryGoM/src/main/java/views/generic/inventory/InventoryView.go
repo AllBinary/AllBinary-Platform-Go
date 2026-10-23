@@ -49,6 +49,19 @@ type InventoryView struct {
 
 // Implements DomNodeInterface
 
+// The Java class InventoryView has subclasses so its variables are this interface
+type IInventoryView interface {
+    IHttpStoreComponentView
+    InventoryView_() *InventoryView
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *InventoryView) InventoryView_() *InventoryView {
+    return this
+}
+
 
 func (this *InventoryView) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -81,7 +94,7 @@ func (this *InventoryView) ToXmlNode(document *Document) *Node {
             }
             var inventoryEntityInterface *InventoryEntity = InventoryEntityFactory_GetInstance().GetInventoryEntityInstance(); _ = inventoryEntityInterface
             var inventoryNode *Node = document.CreateElement(InventoryData_INVENTORY); _ = inventoryNode
-            var itemVector *BasicArrayList = inventoryEntityInterface.GetItems(StoreFrontFactory_GetInstance(this.GetTransformInfoInterface().GetStoreName())); _ = itemVector
+            var itemVector IBasicArrayList = inventoryEntityInterface.GetItems(StoreFrontFactory_GetInstance(this.GetTransformInfoInterface().GetStoreName())); _ = itemVector
             inventoryNode.AppendChild(ModDomHelper_CreateNameValueNodes(document, SearchData_TOTAL_NUMBER_ITEMS_ON_THIS_PAGE, fmt.Sprint(int(itemVector.Size()))))
             var size int = itemVector.Size(); _ = size
             for index := int(0); index < size; index++ {

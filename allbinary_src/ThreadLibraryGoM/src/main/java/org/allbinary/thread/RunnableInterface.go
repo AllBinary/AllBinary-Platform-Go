@@ -49,3 +49,4 @@ type RunnableInterface interface {
     SetThread(thread IThread)
 }
 
+

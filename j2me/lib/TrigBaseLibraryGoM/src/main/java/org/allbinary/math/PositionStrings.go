@@ -76,3 +76,4 @@ func NewPositionStrings() *PositionStrings {
 func PositionStrings_GetInstance() *PositionStrings {
         return PositionStrings_Instance
 }
+

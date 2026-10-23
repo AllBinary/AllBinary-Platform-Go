@@ -63,3 +63,4 @@ func Memory_GetInfo() string {
         stringBuffer.Appendlong(Runtime_GetRuntime().TotalMemory())
         return fmt.Sprint(stringBuffer)
 }
+

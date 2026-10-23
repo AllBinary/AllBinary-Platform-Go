@@ -107,7 +107,7 @@ func (this *OrderedObjectArrayPermutationUtil) Factorial(dataLength int) int64 {
 }
 
 
-func (this *OrderedObjectArrayPermutationUtil) Generate(data []any, visitor *Visitor) {
+func (this *OrderedObjectArrayPermutationUtil) Generate(data []any, visitor IVisitor) {
         var iterations int64 = this.Factorial(len(data)); _ = iterations
         fmt.Print(this.TOTAL_ITERATIONS_TABLE)
         fmt.Println(iterations)

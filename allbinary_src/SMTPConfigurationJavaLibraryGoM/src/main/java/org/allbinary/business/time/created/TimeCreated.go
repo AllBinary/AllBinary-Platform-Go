@@ -48,15 +48,28 @@ type TimeCreated struct {
 
 
 
-func NewTimeCreated(time string) *TimeCreated {
+
+
+// Java overloads of new TimeCreated
+func NewTimeCreated(args ...any) *TimeCreated {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewTimeCreated_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[int64](args[0], pass) {
+            return NewTimeCreated_2(Java_Arg[int64](args[0]))
+        }
+    }
+    panic("No Java overload of new TimeCreated for the arguments")
+}
+func NewTimeCreated_1(time string) *TimeCreated {
     this := &TimeCreated{}
         this.Time = *NewTime(time)
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewTimeCreated(time int64) *TimeCreated {
+func NewTimeCreated_2(time int64) *TimeCreated {
     this := &TimeCreated{}
         this.Time = *NewTime(time)
     return this

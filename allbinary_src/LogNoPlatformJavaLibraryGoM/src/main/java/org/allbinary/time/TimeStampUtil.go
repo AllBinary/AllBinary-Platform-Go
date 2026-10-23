@@ -63,3 +63,4 @@ func NewTimeStampUtil() *TimeStampUtil {
 func (this *TimeStampUtil) GetAsString() string {
         panic(errors.New(fmt.Sprint()))
 }
+

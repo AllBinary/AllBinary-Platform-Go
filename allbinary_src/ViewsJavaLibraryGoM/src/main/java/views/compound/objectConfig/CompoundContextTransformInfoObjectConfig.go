@@ -53,7 +53,24 @@ func (this *CompoundContextTransformInfoObjectConfig) initFields() {
 }
 
 
-func NewCompoundContextTransformInfoObjectConfig(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface) *CompoundContextTransformInfoObjectConfig {
+
+
+// Java overloads of new CompoundContextTransformInfoObjectConfig
+func NewCompoundContextTransformInfoObjectConfig(args ...any) *CompoundContextTransformInfoObjectConfig {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) {
+            return NewCompoundContextTransformInfoObjectConfig_1(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) && Java_IsArg[*Document](args[2], pass) {
+            return NewCompoundContextTransformInfoObjectConfig_2(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]), Java_Arg[*Document](args[2]))
+        }
+        if len(args) == 4 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[string](args[3], pass) {
+            return NewCompoundContextTransformInfoObjectConfig_3(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]), Java_Arg[string](args[2]), Java_Arg[string](args[3]))
+        }
+    }
+    panic("No Java overload of new CompoundContextTransformInfoObjectConfig for the arguments")
+}
+func NewCompoundContextTransformInfoObjectConfig_1(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface) *CompoundContextTransformInfoObjectConfig {
     this := &CompoundContextTransformInfoObjectConfig{}
         this.GenericStoreTransformInfoObjectConfig = *NewGenericStoreTransformInfoObjectConfig(abeClientInformation, transformInfoInterface)
         this.initFields()
@@ -61,8 +78,7 @@ func NewCompoundContextTransformInfoObjectConfig(abeClientInformation AbeClientI
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewCompoundContextTransformInfoObjectConfig(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, document *Document) *CompoundContextTransformInfoObjectConfig {
+func NewCompoundContextTransformInfoObjectConfig_2(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, document *Document) *CompoundContextTransformInfoObjectConfig {
     this := &CompoundContextTransformInfoObjectConfig{}
         this.GenericStoreTransformInfoObjectConfig = *NewGenericStoreTransformInfoObjectConfig(abeClientInformation, transformInfoInterface, document)
         this.initFields()
@@ -71,8 +87,7 @@ func NewCompoundContextTransformInfoObjectConfig(abeClientInformation AbeClientI
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewCompoundContextTransformInfoObjectConfig(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, name string, type_ string) *CompoundContextTransformInfoObjectConfig {
+func NewCompoundContextTransformInfoObjectConfig_3(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, name string, type_ string) *CompoundContextTransformInfoObjectConfig {
     this := &CompoundContextTransformInfoObjectConfig{}
         this.GenericStoreTransformInfoObjectConfig = *NewGenericStoreTransformInfoObjectConfig(abeClientInformation, transformInfoInterface, name, type_)
         this.initFields()
@@ -92,7 +107,7 @@ func (this *CompoundContextTransformInfoObjectConfig) Get() string {
         stringBuffer.Append(CommonSeps_GetInstance().SPACE)
         stringBuffer.Append(RootTransformInfoData_NAME)
         var rootComponentInterface TransformInterface = TransformFactory_GetInstance().GetInstance(this.AbeClientInformation, fmt.Sprint(stringBuffer), this.GetTransformInfoInterface()); _ = rootComponentInterface
-        var viewVector *BasicArrayList = this.GetTransformDomNodes(); _ = viewVector
+        var viewVector IBasicArrayList = this.GetTransformDomNodes(); _ = viewVector
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
             this.LogUtil.PutF("Root View Called with: " + fmt.Sprint(viewVector.Size()), this, "get(transformInfoInterface)")
         }
@@ -101,7 +116,7 @@ func (this *CompoundContextTransformInfoObjectConfig) Get() string {
         var endXMLHeader string = "]]></xsl:text>"; _ = endXMLHeader
         var size int = viewVector.Size(); _ = size
         for index := int(0); index < size; index++ {
-            var objectConfigTransformInfoDomNode *TransformInfoDomNode = any(viewVector.Get(index)).(*TransformInfoDomNode); _ = objectConfigTransformInfoDomNode
+            var objectConfigTransformInfoDomNode ITransformInfoDomNode = any(viewVector.Get(index)).(ITransformInfoDomNode); _ = objectConfigTransformInfoDomNode
             var templateKey string = objectConfigTransformInfoDomNode.GetReplaceKey(); _ = templateKey
             var componentInterface TransformInterface = TransformFactory_GetInstance().GetInstance(this.AbeClientInformation, objectConfigTransformInfoDomNode.GetTransformInfoInterface().GetName(), this.GetTransformInfoInterface()); _ = componentInterface
             var replacementViewString string = componentInterface.View(); _ = replacementViewString
@@ -130,11 +145,11 @@ func (this *CompoundContextTransformInfoObjectConfig) Get() string {
 
 
 // throws Exception
-func (this *CompoundContextTransformInfoObjectConfig) CreateInputStream() *InputStream {
-        var completeTemplateViewBytes []int8 = this.Get().GetBytes(); _ = completeTemplateViewBytes
+func (this *CompoundContextTransformInfoObjectConfig) CreateInputStream() IInputStream {
+        var completeTemplateViewBytes []int8 = Java_GetBytes(this.Get()); _ = completeTemplateViewBytes
         var bais *ByteArrayInputStream = NewByteArrayInputStream(completeTemplateViewBytes); _ = bais
         if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
-            this.LogUtil.PutF("Template: " + fmt.Sprint(string(completeTemplateViewBytes)), this, "createInputStream()")
+            this.LogUtil.PutF("Template: " + string(completeTemplateViewBytes), this, "createInputStream()")
         }
         return bais
 }

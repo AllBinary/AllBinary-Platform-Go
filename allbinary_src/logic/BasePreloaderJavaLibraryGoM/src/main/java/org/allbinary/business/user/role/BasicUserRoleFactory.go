@@ -102,3 +102,4 @@ func NewBasicUserRoleFactory() *BasicUserRoleFactory {
 func BasicUserRoleFactory_GetInstance() *BasicUserRoleFactory {
         return BasicUserRoleFactory_Instance
 }
+

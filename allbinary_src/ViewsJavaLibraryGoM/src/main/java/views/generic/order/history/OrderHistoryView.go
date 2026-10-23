@@ -55,6 +55,19 @@ type OrderHistoryView struct {
 
 // Implements DomNodeInterface
 
+// The Java class OrderHistoryView has subclasses so its variables are this interface
+type IOrderHistoryView interface {
+    IHttpStoreComponentView
+    OrderHistoryView_() *OrderHistoryView
+    ToXmlNode(document *Document) *Node
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *OrderHistoryView) OrderHistoryView_() *OrderHistoryView {
+    return this
+}
+
 
 func (this *OrderHistoryView) initFields() {
     this.LogUtil = LogUtil_GetInstance()
@@ -96,7 +109,7 @@ func (this *OrderHistoryView) ToXmlNode(document *Document) *Node {
             }()
             var node *Node = document.CreateElement(OrderData_ORDERS); _ = node
             var orderHistoryEntity *OrderHistoryEntity = NewOrderHistoryEntity(); _ = orderHistoryEntity
-            var orderReviewVector *BasicArrayList = orderHistoryEntity.GetOrders(this.GetWeblisketSession().GetUserName()); _ = orderReviewVector
+            var orderReviewVector IBasicArrayList = orderHistoryEntity.GetOrders(this.GetWeblisketSession().GetUserName()); _ = orderReviewVector
             var size int = orderReviewVector.Size(); _ = size
             for index := int(0); index < size; index++ {
                 var orderHistory *OrderHistory = any(orderReviewVector.Get(index)).(*OrderHistory); _ = orderHistory

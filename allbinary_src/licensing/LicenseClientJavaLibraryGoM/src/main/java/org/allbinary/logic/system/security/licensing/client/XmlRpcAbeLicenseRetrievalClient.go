@@ -81,12 +81,12 @@ func (this *XmlRpcAbeLicenseRetrievalClient) Get(anyType any, cryptInterface Cry
             var server string = this.GetClientInfo().GetLicenseServer(this.GetServer()); _ = server
             var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
             stringBuffer.Append(XmlRpcAbeClient_TRYING)
-            stringBuffer.Appendint(int(this.GetServer()))
+            stringBuffer.Appendint(this.GetServer())
             stringBuffer.Append(SEP)
             stringBuffer.Append(server)
             this.LogUtil.PutF(fmt.Sprint(CommonLabels_GetInstance().START_LABEL) + fmt.Sprint(stringBuffer), this, this.CommonStrings.GET)
-            var param *BasicArrayList = NewBasicArrayListD(); _ = param
-            var xmlRpcClient *XmlRpcClient = NewXmlRpcClient(server); _ = xmlRpcClient
+            var param IBasicArrayList = NewBasicArrayListD(); _ = param
+            var xmlRpcClient IXmlRpcClient = NewXmlRpcClient(server); _ = xmlRpcClient
             this.SetClient(xmlRpcClient)
             xmlRpcClient.SetBasicAuthentication(nil, nil)
             var hashtable *ABHashtable[any, any] = this.GetClientInfo().ToHashtable(); _ = hashtable

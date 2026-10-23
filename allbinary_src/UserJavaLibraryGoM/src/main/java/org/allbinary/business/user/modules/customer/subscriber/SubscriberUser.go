@@ -53,7 +53,21 @@ func (this *SubscriberUser) initFields() {
 }
 
 
-func NewSubscriberUser() *SubscriberUser {
+
+
+// Java overloads of new SubscriberUser
+func NewSubscriberUser(args ...any) *SubscriberUser {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewSubscriberUser_1()
+        }
+        if len(args) == 1 && Java_IsArg[*HashMap](args[0], pass) {
+            return NewSubscriberUser_2(Java_Arg[*HashMap](args[0]))
+        }
+    }
+    panic("No Java overload of new SubscriberUser for the arguments")
+}
+func NewSubscriberUser_1() *SubscriberUser {
     this := &SubscriberUser{}
         this.User = *NewUser()
         this.initFields()
@@ -62,8 +76,7 @@ func NewSubscriberUser() *SubscriberUser {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewSubscriberUser(userHashMap *HashMap) *SubscriberUser {
+func NewSubscriberUser_2(userHashMap *HashMap) *SubscriberUser {
     this := &SubscriberUser{}
         this.User = *NewUser(userHashMap)
         this.initFields()

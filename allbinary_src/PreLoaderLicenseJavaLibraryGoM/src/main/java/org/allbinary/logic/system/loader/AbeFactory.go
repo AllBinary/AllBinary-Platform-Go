@@ -68,9 +68,8 @@ func NewAbeFactory() *AbeFactory {
 
 
 // throws LicensingException
-// Java overloaded method: Go needs a different name
 // synchronized
-func (this *AbeFactory) GetInstance(abeClientInformation AbeClientInformationInterface, className string) any {
+func (this *AbeFactory) GetInstance_1(abeClientInformation AbeClientInformationInterface, className string) any {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 any) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -90,11 +89,23 @@ func (this *AbeFactory) GetInstance(abeClientInformation AbeClientInformationInt
         panic("unreachable")
 }
 
+// Java overloads of AbeFactory.getInstance
+func (this *AbeFactory) GetInstance(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 2 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[string](args[1], pass) {
+            return this.GetInstance_1(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[string](args[1]))
+        }
+        if len(args) == 4 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[[]reflect.Type](args[2], pass) && Java_IsArg[[]any](args[3], pass) {
+            return this.GetInstance_2(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[string](args[1]), Java_Arg[[]reflect.Type](args[2]), Java_Arg[[]any](args[3]))
+        }
+    }
+    panic("No Java overload of AbeFactory.getInstance for the arguments")
+}
+
 
 // throws LicensingException
-// Java overloaded method: Go needs a different name
 // synchronized
-func (this *AbeFactory) GetInstance(abeClientInformation AbeClientInformationInterface, className string, classes []reflect.Type, params []any) any {
+func (this *AbeFactory) GetInstance_2(abeClientInformation AbeClientInformationInterface, className string, classes []reflect.Type, params []any) any {
         var constructor *Constructor = nil; _ = constructor
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 any) {
             defer func() {

@@ -188,7 +188,7 @@ func (this *DateRangeOrderHistoryView) ToXmlNode(document *Document) *Node {
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     this.LogUtil.PutF("Adding Preprocessing Orders", this, "toXmlNode")
                 }
-                var orderHistoryVector *BasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_PREPROCESSING, this.FromDate, this.ToDate); _ = orderHistoryVector
+                var orderHistoryVector IBasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_PREPROCESSING, this.FromDate, this.ToDate); _ = orderHistoryVector
                 var size int = orderHistoryVector.Size(); _ = size
                 for index := int(0); index < size; index++ {
                     var orderHistory *OrderHistory = any(orderHistoryVector.Get(index)).(*OrderHistory); _ = orderHistory
@@ -199,7 +199,7 @@ func (this *DateRangeOrderHistoryView) ToXmlNode(document *Document) *Node {
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     this.LogUtil.PutF("Adding Shipped Orders", this, "toXmlNode")
                 }
-                var orderHistoryVector *BasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_SHIPPED, this.FromDate, this.ToDate); _ = orderHistoryVector
+                var orderHistoryVector IBasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_SHIPPED, this.FromDate, this.ToDate); _ = orderHistoryVector
                 var size int = orderHistoryVector.Size(); _ = size
                 for index := int(0); index < size; index++ {
                     var orderHistory *OrderHistory = any(orderHistoryVector.Get(index)).(*OrderHistory); _ = orderHistory
@@ -210,7 +210,7 @@ func (this *DateRangeOrderHistoryView) ToXmlNode(document *Document) *Node {
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     this.LogUtil.PutF("Adding Partially Shipped Orders", this, "toDomNode")
                 }
-                var orderHistoryVector *BasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_PARTIALLYSHIPPED, this.FromDate, this.ToDate); _ = orderHistoryVector
+                var orderHistoryVector IBasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_PARTIALLYSHIPPED, this.FromDate, this.ToDate); _ = orderHistoryVector
                 var size int = orderHistoryVector.Size(); _ = size
                 for index := int(0); index < size; index++ {
                     var orderHistory *OrderHistory = any(orderHistoryVector.Get(index)).(*OrderHistory); _ = orderHistory
@@ -221,7 +221,7 @@ func (this *DateRangeOrderHistoryView) ToXmlNode(document *Document) *Node {
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     this.LogUtil.PutF("Adding Processing Orders", this, "toXmlNode")
                 }
-                var orderHistoryVector *BasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_PROCESSING, this.FromDate, this.ToDate); _ = orderHistoryVector
+                var orderHistoryVector IBasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_PROCESSING, this.FromDate, this.ToDate); _ = orderHistoryVector
                 var size int = orderHistoryVector.Size(); _ = size
                 for index := int(0); index < size; index++ {
                     var orderHistory *OrderHistory = any(orderHistoryVector.Get(index)).(*OrderHistory); _ = orderHistory
@@ -232,7 +232,7 @@ func (this *DateRangeOrderHistoryView) ToXmlNode(document *Document) *Node {
                 if org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypes.LOGGING.Contains(org_Allbinary.Logic.Communication.Log.Config.Type.LogConfigTypeFactory.GetInstance().VIEW) {
                     this.LogUtil.PutF("Adding Cancelled Orders", this, "view")
                 }
-                var orderHistoryVector *BasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_CANCELLED, this.FromDate, this.ToDate); _ = orderHistoryVector
+                var orderHistoryVector IBasicArrayList = OrderHistoryEntityFactory_GetInstance().GetOrders(OrderHistoryData_CANCELLED, this.FromDate, this.ToDate); _ = orderHistoryVector
                 var size int = orderHistoryVector.Size(); _ = size
                 for index := int(0); index < size; index++ {
                     var orderHistory *OrderHistory = any(orderHistoryVector.Get(index)).(*OrderHistory); _ = orderHistory

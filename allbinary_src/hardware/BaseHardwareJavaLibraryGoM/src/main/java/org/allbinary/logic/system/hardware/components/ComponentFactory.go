@@ -86,3 +86,4 @@ func NewComponentFactory() *ComponentFactory {
 func ComponentFactory_GetInstance() *ComponentFactory {
         return ComponentFactory_Instance
 }
+

@@ -49,15 +49,28 @@ type LicensingException struct {
 var LicensingException_SerialVersionUID int64 = 1
 
 
-func NewLicensingException() *LicensingException {
+
+
+// Java overloads of new LicensingException
+func NewLicensingException(args ...any) *LicensingException {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return NewLicensingException_1()
+        }
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewLicensingException_2(Java_Arg[string](args[0]))
+        }
+    }
+    panic("No Java overload of new LicensingException for the arguments")
+}
+func NewLicensingException_1() *LicensingException {
     this := &LicensingException{}
     this.Exception = *NewException()
     return this
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewLicensingException(msg string) *LicensingException {
+func NewLicensingException_2(msg string) *LicensingException {
     this := &LicensingException{}
         this.Exception = *NewException(msg)
     return this

@@ -52,8 +52,8 @@ func NewDomNodeListHelper() *DomNodeListHelper {
 }
 
 
-func DomNodeListHelper_GetVector(nodeList *NodeList) *BasicArrayList {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+func DomNodeListHelper_GetVector(nodeList *NodeList) IBasicArrayList {
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         var size int = nodeList.GetLength(); _ = size
         for index := int(0); index < size; index++ {
             vector.Add(DomNodeHelper_GetTextNodeValue(nodeList.Item(index)))

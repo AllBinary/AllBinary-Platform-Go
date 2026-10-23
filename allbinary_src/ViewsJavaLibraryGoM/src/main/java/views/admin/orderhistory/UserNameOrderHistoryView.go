@@ -128,7 +128,7 @@ func (this *UserNameOrderHistoryView) ToXmlNode(document *Document) *Node {
             }()
             var node *Node = document.CreateElement(OrderData_ORDERS); _ = node
             var orderHistoryEntity *OrderHistoryEntity = NewOrderHistoryEntity(); _ = orderHistoryEntity
-            var orderReviewVector *BasicArrayList = orderHistoryEntity.GetOrders(this.UserName); _ = orderReviewVector
+            var orderReviewVector IBasicArrayList = orderHistoryEntity.GetOrders(this.UserName); _ = orderReviewVector
             var size int = orderReviewVector.Size(); _ = size
             for index := int(0); index < size; index++ {
                 var orderHistory *OrderHistory = any(orderReviewVector.Get(index)).(*OrderHistory); _ = orderHistory

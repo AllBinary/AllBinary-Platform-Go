@@ -43,7 +43,7 @@ var _ = time.Now
 var _ = unicode.IsDigit
 
 type SetLicenseInitInfo struct {
-    Vector *BasicArrayList
+    Vector IBasicArrayList
 }
 
 var SetLicenseInitInfo_Stdinput *BufferedReader = NewBufferedReader(NewInputStreamReader(System_In))
@@ -75,7 +75,7 @@ func (this *SetLicenseInitInfo) GetLicenseInitInfo() *LicenseInitInfo {
 }
 
 
-func (this *SetLicenseInitInfo) CreateNewLicenseInitInfo(licenceServerVector *BasicArrayList) {
+func (this *SetLicenseInitInfo) CreateNewLicenseInitInfo(licenceServerVector IBasicArrayList) {
         if tryControl1 := func() (tryControl1 int) {
             defer func() {
                 if recovered := recover(); recovered != nil {

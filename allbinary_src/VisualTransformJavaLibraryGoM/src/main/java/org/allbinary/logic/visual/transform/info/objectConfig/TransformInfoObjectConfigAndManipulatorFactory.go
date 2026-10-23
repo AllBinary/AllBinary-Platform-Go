@@ -68,8 +68,7 @@ func NewTransformInfoObjectConfigAndManipulatorFactory() *TransformInfoObjectCon
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *TransformInfoObjectConfigAndManipulatorFactory) GetInstance(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, objectConfigFileAbPath *AbPath) TransformInfoObjectConfigInterface {
+func (this *TransformInfoObjectConfigAndManipulatorFactory) GetInstance_1(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, objectConfigFileAbPath IAbPath) TransformInfoObjectConfigInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 TransformInfoObjectConfigInterface) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -90,10 +89,25 @@ func (this *TransformInfoObjectConfigAndManipulatorFactory) GetInstance(abeClien
         panic("unreachable")
 }
 
+// Java overloads of TransformInfoObjectConfigAndManipulatorFactory.getInstance
+func (this *TransformInfoObjectConfigAndManipulatorFactory) GetInstance(args ...any) TransformInfoObjectConfigInterface {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 3 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) && Java_IsArg[IAbPath](args[2], pass) {
+            return this.GetInstance_1(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]), Java_Arg[IAbPath](args[2]))
+        }
+        if len(args) == 2 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) {
+            return this.GetInstance_2(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]))
+        }
+        if len(args) == 3 && Java_IsArg[AbeClientInformationInterface](args[0], pass) && Java_IsArg[TransformInfoInterface](args[1], pass) && Java_IsArg[*Document](args[2], pass) {
+            return this.GetInstance_3(Java_Arg[AbeClientInformationInterface](args[0]), Java_Arg[TransformInfoInterface](args[1]), Java_Arg[*Document](args[2]))
+        }
+    }
+    panic("No Java overload of TransformInfoObjectConfigAndManipulatorFactory.getInstance for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *TransformInfoObjectConfigAndManipulatorFactory) GetInstance(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface) TransformInfoObjectConfigInterface {
+func (this *TransformInfoObjectConfigAndManipulatorFactory) GetInstance_2(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface) TransformInfoObjectConfigInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 TransformInfoObjectConfigInterface) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -124,8 +138,7 @@ func (this *TransformInfoObjectConfigAndManipulatorFactory) GetInstance(abeClien
 
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *TransformInfoObjectConfigAndManipulatorFactory) GetInstance(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, document *Document) TransformInfoObjectConfigInterface {
+func (this *TransformInfoObjectConfigAndManipulatorFactory) GetInstance_3(abeClientInformation AbeClientInformationInterface, transformInfoInterface TransformInfoInterface, document *Document) TransformInfoObjectConfigInterface {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 TransformInfoObjectConfigInterface) {
             defer func() {
                 if recovered := recover(); recovered != nil {

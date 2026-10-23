@@ -49,6 +49,17 @@ type CssPropertyView struct {
 
 // Implements DomNodeInterface
 
+// The Java class CssPropertyView has subclasses so its variables are this interface
+type ICssPropertyView interface {
+    CssPropertyView_() *CssPropertyView
+    GetProperty() *CssProperty
+    ToXmlNode(document *Document) *Node
+}
+
+func (this *CssPropertyView) CssPropertyView_() *CssPropertyView {
+    return this
+}
+
 
 func (this *CssPropertyView) initFields() {
     this.CommonStrings = CommonStrings_GetInstance()
@@ -56,7 +67,21 @@ func (this *CssPropertyView) initFields() {
 }
 
 
-func NewCssPropertyView(name string) *CssPropertyView {
+
+
+// Java overloads of new CssPropertyView
+func NewCssPropertyView(args ...any) *CssPropertyView {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 1 && Java_IsArg[string](args[0], pass) {
+            return NewCssPropertyView_1(Java_Arg[string](args[0]))
+        }
+        if len(args) == 1 && Java_IsArg[*Node](args[0], pass) {
+            return NewCssPropertyView_2(Java_Arg[*Node](args[0]))
+        }
+    }
+    panic("No Java overload of new CssPropertyView for the arguments")
+}
+func NewCssPropertyView_1(name string) *CssPropertyView {
     this := &CssPropertyView{}
     this.initFields()
         this.CssProperty = NewCssProperty(name)
@@ -64,8 +89,7 @@ func NewCssPropertyView(name string) *CssPropertyView {
 }
 
 
-// Java overloaded constructor: Go needs a different name
-func NewCssPropertyView(node *Node) *CssPropertyView {
+func NewCssPropertyView_2(node *Node) *CssPropertyView {
     this := &CssPropertyView{}
     this.initFields()
         this.CssProperty = NewCssProperty(node)

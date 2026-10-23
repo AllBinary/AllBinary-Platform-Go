@@ -77,8 +77,8 @@ func (this *UserEmailEventConfigurationMapping) GetKey() any {
 
 
 // throws Exception
-func (this *UserEmailEventConfigurationMapping) ToVector() *BasicArrayList {
-        var vector *BasicArrayList = NewBasicArrayListD(); _ = vector
+func (this *UserEmailEventConfigurationMapping) ToVector() IBasicArrayList {
+        var vector IBasicArrayList = NewBasicArrayListD(); _ = vector
         vector.Add(this.UserEmailEventConfigurationInterface.GetName())
         vector.Add(this.UserEmailEventConfigurationInterface.GetEventListenerClassPath())
         return vector

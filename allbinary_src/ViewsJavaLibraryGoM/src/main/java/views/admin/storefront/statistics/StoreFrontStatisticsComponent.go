@@ -49,6 +49,18 @@ type StoreFrontStatisticsComponent struct {
     DomNodeInterface DomNodeInterface
 }
 
+// The Java class StoreFrontStatisticsComponent has subclasses so its variables are this interface
+type IStoreFrontStatisticsComponent interface {
+    IHttpStoreComponentView
+    StoreFrontStatisticsComponent_() *StoreFrontStatisticsComponent
+    AddDomNodeInterfaces()
+    View() string
+}
+
+func (this *StoreFrontStatisticsComponent) StoreFrontStatisticsComponent_() *StoreFrontStatisticsComponent {
+    return this
+}
+
 
 func (this *StoreFrontStatisticsComponent) initFields() {
     this.LogUtil = LogUtil_GetInstance()

@@ -64,7 +64,7 @@ func NewUpdateFileValidationView(transformInfoInterface TransformInfoInterface) 
 }
 
 
-func (this *UpdateFileValidationView) IsValid() bool {
+func (this *UpdateFileValidationView) IsValid_1() bool {
         if tryControl1, tryResult1 := func() (tryControl1 int, tryResult1 bool) {
             defer func() {
                 if recovered := recover(); recovered != nil {
@@ -124,6 +124,19 @@ func (this *UpdateFileValidationView) IsValid() bool {
         panic("unreachable")
 }
 
+// Java overloads of UpdateFileValidationView.isValid
+func (this *UpdateFileValidationView) IsValid(args ...any) bool {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.IsValid_1()
+        }
+        if len(args) == 2 && Java_IsArg[string](args[0], pass) && Java_IsArg[int64](args[1], pass) {
+            return this.IsValid_2(Java_Arg[string](args[0]), Java_Arg[int64](args[1]))
+        }
+    }
+    panic("No Java overload of UpdateFileValidationView.isValid for the arguments")
+}
+
 
 func (this *UpdateFileValidationView) ToValidationInfoDoc() *Document {
         return nil
@@ -136,7 +149,7 @@ func (this *UpdateFileValidationView) ToValidationInfoNode(document *Document) *
 
 
 // throws Exception
-func (this *UpdateFileValidationView) ValidationInfo() string {
+func (this *UpdateFileValidationView) ValidationInfo_1() string {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         var command string = any(this.GetRequestHashMap().Get(InventoryItemView_GLOBALS2.ADMINCOMMAND)).(string); _ = command
         if command == "" || strings.Compare(command, UpdateFileValidationView_UPDATEPRODUCT) != 0 {
@@ -176,13 +189,25 @@ func (this *UpdateFileValidationView) ValidationInfo() string {
         return fmt.Sprint(stringBuffer)
 }
 
+// Java overloads of UpdateFileValidationView.validationInfo
+func (this *UpdateFileValidationView) ValidationInfo(args ...any) any {
+    for pass := 0; pass < 2; pass++ {
+        if len(args) == 0 {
+            return this.ValidationInfo_1()
+        }
+        if len(args) == 4 && Java_IsArg[*StringMaker](args[0], pass) && Java_IsArg[string](args[1], pass) && Java_IsArg[string](args[2], pass) && Java_IsArg[int64](args[3], pass) {
+            return this.ValidationInfo_2(Java_Arg[*StringMaker](args[0]), Java_Arg[string](args[1]), Java_Arg[string](args[2]), Java_Arg[int64](args[3]))
+        }
+    }
+    panic("No Java overload of UpdateFileValidationView.validationInfo for the arguments")
+}
+
 
 // throws Exception
-// Java overloaded method: Go needs a different name
-func (this *UpdateFileValidationView) IsValid(fileName string, size int64) bool {
+func (this *UpdateFileValidationView) IsValid_2(fileName string, size int64) bool {
         var fileData *FileData = FileData_GetInstance(); _ = fileData
-        if size > fileData.MINIMAGEFILESIZE {
-            if size < fileData.MAXIMAGEFILESIZE {
+        if size > int64(fileData.MINIMAGEFILESIZE) {
+            if size < int64(fileData.MAXIMAGEFILESIZE) {
                 if !StringValidationUtil_GetInstance().IsValidRequired(fileName, fileData.MINLEN, fileData.MAXLEN) {
                     return false
                 }
@@ -192,7 +217,7 @@ func (this *UpdateFileValidationView) IsValid(fileName string, size int64) bool 
                     stringBuffer.Append("File Size To Large: ")
                     stringBuffer.Appendlong(size)
                     stringBuffer.Append(">")
-                    stringBuffer.Appendint(int(fileData.MAXIMAGEFILESIZE))
+                    stringBuffer.Appendint(fileData.MAXIMAGEFILESIZE)
                     this.LogUtil.PutF(fmt.Sprint(stringBuffer), this, this.CommonStrings.IS_VALID)
                 }
                 return false
@@ -203,24 +228,23 @@ func (this *UpdateFileValidationView) IsValid(fileName string, size int64) bool 
 }
 
 
-// Java overloaded method: Go needs a different name
-func (this *UpdateFileValidationView) ValidationInfo(stringBuffer *StringMaker, fileName string, fileItemFieldName string, size int64) {
+func (this *UpdateFileValidationView) ValidationInfo_2(stringBuffer *StringMaker, fileName string, fileItemFieldName string, size int64) {
         var fileData *FileData = FileData_GetInstance(); _ = fileData
-        if size > fileData.MINIMAGEFILESIZE {
+        if size > int64(fileData.MINIMAGEFILESIZE) {
             if strings.Compare(fileItemFieldName, this.BasicItemData.IMAGE) == 0 {
-                if size < fileData.MAXIMAGEFILESIZE {
+                if size < int64(fileData.MAXIMAGEFILESIZE) {
                     if !StringValidationUtil_GetInstance().IsValidRequired(fileName, fileData.MINLEN, fileData.MAXLEN) {
                         stringBuffer.Append("FileName must be >")
-                        stringBuffer.Appendint(int(fileData.MINLEN))
+                        stringBuffer.Appendint(fileData.MINLEN)
                         stringBuffer.Append("and <")
-                        stringBuffer.Appendint(int(fileData.MAXLEN))
+                        stringBuffer.Appendint(fileData.MAXLEN)
                         stringBuffer.Append("<br />")
                     }
                 } else {
                     stringBuffer.Append("Image File Is Not The Right Size. ")
-                    stringBuffer.Appendint(int(fileData.MINIMAGEFILESIZE))
+                    stringBuffer.Appendint(fileData.MINIMAGEFILESIZE)
                     stringBuffer.Append("< > ")
-                    stringBuffer.Appendint(int(fileData.MAXIMAGEFILESIZE))
+                    stringBuffer.Appendint(fileData.MAXIMAGEFILESIZE)
                     stringBuffer.Append("<br />")
                 }
             }

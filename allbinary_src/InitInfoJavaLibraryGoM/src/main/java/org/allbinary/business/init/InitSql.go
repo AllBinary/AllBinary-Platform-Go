@@ -50,11 +50,11 @@ type InitSql struct {
     StdUtil *StdUtil
     INSERT string
     UPDATE string
-    DatabaseConnectionInfoInterface *DbConnectionInfo
+    DatabaseConnectionInfoInterface IDbConnectionInfo
     Userid string
     Password string
     TableName string
-    Conn *Connection
+    Conn IConnection
     UseridAndPassword bool
     SUCCESS_SQL_STATEMENT string
     FAILED_SQL_STATEMENT string
@@ -66,6 +66,27 @@ type InitSql struct {
     ROW_VALUE_LABEL string
     NO_RESULTS_IN_RESULT_SET string
     INSERT_END string
+}
+
+// The Java class InitSql has subclasses so its variables are this interface
+type IInitSql interface {
+    InitSql_() *InitSql
+    SetTable(tableName string)
+    SetDatabaseConnectionInfoInterface(databaseConnectionInfoInterface IDbConnectionInfo)
+    CreateTable(tableData string) bool
+    DropTable() bool
+    GetRow(keysAndValues *HashMap) *HashMap
+    UpdateWhere(key string, value string, updatedKeyValuePairs *HashMap)
+    Insert(values IBasicArrayList)
+    GetValue(value string) string
+    ExecuteSQLStatement(statement string) *ResultSet
+    CreateConnection()
+    Initialize()
+    GetDatabaseConnectionInfoInterface() DatabaseConnectionInfoInterface
+}
+
+func (this *InitSql) InitSql_() *InitSql {
+    return this
 }
 
 
@@ -96,7 +117,7 @@ func (this *InitSql) initFields() {
 }
 
 
-func NewInitSql(databaseConnectionInfoInterface *DbConnectionInfo) *InitSql {
+func NewInitSql(databaseConnectionInfoInterface IDbConnectionInfo) *InitSql {
     this := &InitSql{}
     this.initFields()
         this.SetDatabaseConnectionInfoInterface(databaseConnectionInfoInterface)
@@ -109,7 +130,7 @@ func (this *InitSql) SetTable(tableName string) {
 }
 
 
-func (this *InitSql) SetDatabaseConnectionInfoInterface(databaseConnectionInfoInterface *DbConnectionInfo) {
+func (this *InitSql) SetDatabaseConnectionInfoInterface(databaseConnectionInfoInterface IDbConnectionInfo) {
         this.DatabaseConnectionInfoInterface = databaseConnectionInfoInterface
 }
 
@@ -276,7 +297,7 @@ func (this *InitSql) UpdateWhere(key string, value string, updatedKeyValuePairs 
 }
 
 
-func (this *InitSql) Insert(values *BasicArrayList) {
+func (this *InitSql) Insert(values IBasicArrayList) {
         var stringBuffer *StringMaker = NewStringMaker(); _ = stringBuffer
         stringBuffer.Append(this.SqlStrings.INSERT_INTO)
         stringBuffer.Append(this.TableName)

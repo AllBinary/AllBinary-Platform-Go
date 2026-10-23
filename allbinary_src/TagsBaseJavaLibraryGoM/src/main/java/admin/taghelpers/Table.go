@@ -48,6 +48,22 @@ type Table struct {
 
 // Implements TableInterface
 
+// The Java class Table has subclasses so its variables are this interface
+type ITable interface {
+    Table_() *Table
+    Drop() string
+    Create() string
+    Restore() string
+    Backup() string
+    Insert() string
+    Delete() string
+    Update() string
+}
+
+func (this *Table) Table_() *Table {
+    return this
+}
+
 
 func (this *Table) initFields() {
     this.CommonStrings = CommonStrings_GetInstance()

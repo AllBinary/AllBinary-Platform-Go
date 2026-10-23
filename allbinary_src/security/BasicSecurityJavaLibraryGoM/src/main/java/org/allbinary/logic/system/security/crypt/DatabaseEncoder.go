@@ -93,19 +93,19 @@ func DatabaseEncoder_Decode(value string) []int8 {
                 }
             }()
             var tokenizer *Tokenizer = NewTokenizer(CommonSeps_GetInstance().SPACE); _ = tokenizer
-            var vector *BasicArrayList = tokenizer.GetTokensFromString(value, NewBasicArrayListD()); _ = vector
-            var byteVector *BasicArrayList = NewBasicArrayListD(); _ = byteVector
+            var vector IBasicArrayList = tokenizer.GetTokensFromString(value, NewBasicArrayListD()); _ = vector
+            var byteVector IBasicArrayList = NewBasicArrayListD(); _ = byteVector
             var size int = vector.Size(); _ = size
             var byteOfData string; _ = byteOfData
             for index := int(0); index < size; index++ {
-                byteOfData = any(vector.ObjectArray[index]).(string)
+                byteOfData = any(vector.BasicArrayList_().ObjectArray[index]).(string)
                 byteVector.Add(int8(byteOfData))
             }
             var decode []int8 = make([]int8, byteVector.Size()); _ = decode
             var decodeIndex int = 0; _ = decodeIndex
             var aByte int8; _ = aByte
             for index := int(0); index < size; index++ {
-                aByte = any(byteVector.ObjectArray[index]).(int8)
+                aByte = any(byteVector.BasicArrayList_().ObjectArray[index]).(int8)
                 decode[decodeIndex] = int8(aByte)
                 decodeIndex++
             }

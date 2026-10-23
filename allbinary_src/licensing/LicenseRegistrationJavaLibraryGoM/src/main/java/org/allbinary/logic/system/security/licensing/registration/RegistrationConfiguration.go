@@ -92,8 +92,8 @@ func RegistrationConfiguration_GetInstance() *RegistrationConfiguration {
 // throws Exception
 func (this *RegistrationConfiguration) Read() {
         var fileInputStreamFactory *FileStreamFactory = FileStreamFactory_GetInstance(); _ = fileInputStreamFactory
-        var fileInputStream *InputStream = fileInputStreamFactory.GetFileInputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, this.FILE); _ = fileInputStream
-        var dataInputStream *DataInputStream = NewDataInputStream(fileInputStream); _ = dataInputStream
+        var fileInputStream IInputStream = fileInputStreamFactory.GetFileInputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, this.FILE); _ = fileInputStream
+        var dataInputStream IDataInputStream = NewDataInputStream(fileInputStream); _ = dataInputStream
         this.SetRegistrationCode(dataInputStream.ReadUTF())
         PreLogUtil_Put(fmt.Sprint(NewStringMaker().Append("Read Configuration: ").Append(this.ToString())), this, "read")
 }
@@ -108,7 +108,7 @@ func (this *RegistrationConfiguration) Write() {
             }()
             this.LogUtil.PutF(fmt.Sprint(NewStringMaker().Append("Write Configuration: ").Append(this.ToString())), this, "write")
             var fileInputStreamFactory *FileStreamFactory = FileStreamFactory_GetInstance(); _ = fileInputStreamFactory
-            var fileOutputStream *OutputStream = fileInputStreamFactory.GetFileOutputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, this.FILE); _ = fileOutputStream
+            var fileOutputStream IOutputStream = fileInputStreamFactory.GetFileOutputStreamInstance(StringUtil_GetInstance().EMPTY_STRING, this.FILE); _ = fileOutputStream
             dataOutputStream = NewAbDataOutputStream(fileOutputStream)
             dataOutputStream.WriteUTF(this.GetRegistrationCode())
             dataOutputStream.Flush()

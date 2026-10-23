@@ -90,3 +90,4 @@ func (this *StupidTimer) StopWaiting() {
             this.ThreadObjectUtil.NotifyObject(this)
         }
 }
+

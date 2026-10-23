@@ -137,3 +137,4 @@ func (this *LinuxHardware) Difference(hardwareInterface HardwareInterface) *ABHa
 func (this *LinuxHardware) IsNextHardware(nextLine string) bool {
         return false
 }
+
